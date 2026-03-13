@@ -44,6 +44,102 @@ const terminalOutput = document.getElementById('terminal-output');
 const terminalPrompt = document.getElementById('terminal-prompt');
 const promptInput = document.querySelector('.prompt-input');
 
+// In-memory filesystem for the narrative terminal.
+const FILE_SYSTEM = {
+	type: 'dir',
+	children: {
+		logs: {
+			type: 'dir',
+			children: {
+				'log_01.txt': {
+					type: 'file',
+					content: [
+						'ENTRY 01: NIGHT SHIFT BEGAN 23:40.',
+						'AUDIBLE VIBRATIONS DETECTED BELOW SUBLEVEL C.',
+						'NO MAINTENANCE REQUEST WAS FILED.'
+					]
+				},
+				'system_boot.txt': {
+					type: 'file',
+					content: [
+						'FACILITY CORE BOOT LOG ARCHIVE',
+						'SECURITY HANDSHAKE: PARTIAL',
+						'NOTICE: ARCHIVE INDEX REPORTS MISSING SECTORS.'
+					]
+				}
+			}
+		},
+		research: {
+			type: 'dir',
+			children: {
+				'overview.txt': {
+					type: 'file',
+					content: [
+						'PROJECT OVERVIEW: BEHAVIORAL RESPONSE TO SIGNAL-LOCK ENVIRONMENTS.',
+						'LEAD STATUS: UNCONFIRMED',
+						'RECOMMENDATION: RESTRICT ACCESS TO LAB WING FILES.'
+					]
+				},
+				'project_index.txt': {
+					type: 'file',
+					content: [
+						'- SERA-PHASE / STATUS: REDACTED',
+						'- SUBJECT TRACKING / STATUS: OFFLINE',
+						'- LONG-RANGE ARRAY / STATUS: ACTIVE'
+					]
+				}
+			}
+		},
+		staff: {
+			type: 'dir',
+			children: {
+				'directory.txt': {
+					type: 'file',
+					content: [
+						'STAFF DIRECTORY (PARTIAL)',
+						'DR. I. KELLER - RESEARCH LEAD',
+						'R. NOA - SECURITY OVERSIGHT',
+						'VACANT - ARCHIVE CUSTODIAN'
+					]
+				},
+				'notice.txt': {
+					type: 'file',
+					content: [
+						'NOTICE TO ALL STAFF:',
+						'DO NOT RESPOND TO INTERCOM CALLS AFTER 02:00.',
+						'REPORT ALL UNAUTHORIZED VOICES TO SECURITY.'
+					]
+				}
+			}
+		},
+		secure: {
+			type: 'dir',
+			locked: true,
+			children: {
+				'seraph_project.txt': {
+					type: 'file',
+					content: [
+						'PROJECT SERA-PHASE',
+						'ACCESS LEVEL OMEGA REQUIRED.',
+						'DOCUMENT LOCK ACTIVE.'
+					]
+				},
+				'subject_01.txt': {
+					type: 'file',
+					content: [
+						'SUBJECT 01 STATUS: UNKNOWN',
+						'LAST CONFIRMED LOCATION: OBSERVATION CHAMBER 4',
+						'BIOMETRIC CHANNEL LOST AT 01:13.'
+					]
+				}
+			}
+		}
+	}
+};
+
+// The current working path represented as folder names from root.
+const currentPathSegments = [];
+
 // Keep newest output in view.
 function scrollTerminalToBottom() {
 	terminalOutput.scrollTop = terminalOutput.scrollHeight;
@@ -72,6 +168,124 @@ function printLines(lines) {
 	}
 }
 
+// Resolve the directory node for the current path state.
+function getCurrentDirectoryObject() {
+	let node = FILE_SYSTEM;
+
+	for (const segment of currentPathSegments) {
+		if (!node || !node.children || !node.children[segment]) {
+			return null;
+		}
+
+		node = node.children[segment];
+	}
+
+	return node;
+}
+
+// Convert path segments into slash notation shown to the player.
+function formatCurrentPath() {
+	if (currentPathSegments.length === 0) {
+		return '/';
+	}
+
+	return `/${currentPathSegments.join('/')}`;
+}
+
+// Print [DIR] and [FILE] items for the active folder.
+function listDirectory() {
+	const directory = getCurrentDirectoryObject();
+
+	if (!directory || !directory.children) {
+		appendOutputLine('Directory error.');
+		return;
+	}
+
+	const entries = Object.entries(directory.children);
+
+	if (entries.length === 0) {
+		appendOutputLine('No files found.');
+		return;
+	}
+
+	for (const [name, item] of entries) {
+		if (item.type === 'dir') {
+			const lockedSuffix = item.locked ? ' [LOCKED]' : '';
+			appendOutputLine(`[DIR] ${name}${lockedSuffix}`);
+			continue;
+		}
+
+		appendOutputLine(`[FILE] ${name}`);
+	}
+}
+
+// Handle relative navigation (cd folder, cd ..) with secure gate checks.
+function changeDirectory(target) {
+	if (!target) {
+		appendOutputLine('Usage: cd [folder]');
+		return;
+	}
+
+	if (target === '..') {
+		if (currentPathSegments.length === 0) {
+			appendOutputLine('Already at root.');
+			return;
+		}
+
+		currentPathSegments.pop();
+		appendOutputLine(`Moved to ${formatCurrentPath()}`);
+		return;
+	}
+
+	const directory = getCurrentDirectoryObject();
+
+	if (!directory || !directory.children) {
+		appendOutputLine('Directory error.');
+		return;
+	}
+
+	const nextNode = directory.children[target];
+
+	if (!nextNode || nextNode.type !== 'dir') {
+		appendOutputLine(`Folder not found: ${target}`);
+		return;
+	}
+
+	if (nextNode.locked) {
+		appendOutputLine('Access denied.');
+		return;
+	}
+
+	currentPathSegments.push(target);
+	appendOutputLine(`Moved to ${formatCurrentPath()}`);
+}
+
+// Open and print file content from the active directory.
+function openFile(fileName) {
+	if (!fileName) {
+		appendOutputLine('Usage: open [file]');
+		return;
+	}
+
+	const directory = getCurrentDirectoryObject();
+
+	if (!directory || !directory.children) {
+		appendOutputLine('Directory error.');
+		return;
+	}
+
+	const fileNode = directory.children[fileName];
+
+	if (!fileNode || fileNode.type !== 'file') {
+		appendOutputLine(`File not found: ${fileName}`);
+		return;
+	}
+
+	appendOutputLine(`--- ${fileName} ---`);
+	printLines(fileNode.content);
+	appendOutputLine('--- END FILE ---');
+}
+
 // Command registry: add new commands here to make them available and auto-listed in help.
 const COMMANDS = {
 	help: {
@@ -90,6 +304,46 @@ const COMMANDS = {
 			}
 		}
 	},
+	dir: {
+		name: 'dir',
+		usage: 'dir',
+		description: 'Lists folders and files in the current directory.',
+		execute: () => {
+			listDirectory();
+		}
+	},
+	ls: {
+		name: 'ls',
+		usage: 'ls',
+		description: 'Lists folders and files in the current directory.',
+		execute: () => {
+			listDirectory();
+		}
+	},
+	cd: {
+		name: 'cd',
+		usage: 'cd [folder] | cd ..',
+		description: 'Moves into a folder or up one level.',
+		execute: (args) => {
+			changeDirectory(args[0]);
+		}
+	},
+	pwd: {
+		name: 'pwd',
+		usage: 'pwd',
+		description: 'Displays the current path.',
+		execute: () => {
+			appendOutputLine(formatCurrentPath());
+		}
+	},
+	open: {
+		name: 'open',
+		usage: 'open [file]',
+		description: 'Opens and displays a file from the current directory.',
+		execute: (args) => {
+			openFile(args[0]);
+		}
+	},
 	clear: {
 		name: 'clear',
 		usage: 'clear',
@@ -97,50 +351,22 @@ const COMMANDS = {
 		execute: () => {
 			terminalOutput.textContent = '';
 		}
-	},
-	about: {
-		name: 'about',
-		usage: 'about',
-		description: 'Displays information about the Facility system.',
-		execute: () => {
-			printLines([
-				'THE FACILITY TERMINAL INTERFACE v0.1',
-				'ARCHIVAL ACCESS NODE FOR INTERNAL RECORDS.'
-			]);
-		}
-	},
-	dir: {
-		name: 'dir',
-		usage: 'dir',
-		description: 'Lists available directories and files.',
-		execute: () => {
-			printLines([
-				'/logs',
-				'/research',
-				'/staff',
-				'/secure'
-			]);
-		}
-	},
-	login: {
-		name: 'login',
-		usage: 'login',
-		description: 'Attempts to authenticate with the system.',
-		execute: () => {
-			appendOutputLine('Authorization required.');
-		}
 	}
 };
 
 // Parse and execute a user-entered command.
 function runCommand(inputText) {
-	const command = inputText.trim().toLowerCase();
+	const trimmedInput = inputText.trim();
 
-	if (!command) {
+	if (!trimmedInput) {
 		return;
 	}
 
-	appendOutputLine(`> ${command}`);
+	const parts = trimmedInput.split(/\s+/);
+	const command = parts[0].toLowerCase();
+	const args = parts.slice(1);
+
+	appendOutputLine(`> ${trimmedInput}`);
 
 	if (!Object.prototype.hasOwnProperty.call(COMMANDS, command)) {
 		appendOutputLine("Command not recognized. Type 'help' for a list of commands.");
@@ -148,7 +374,7 @@ function runCommand(inputText) {
 		return;
 	}
 
-	COMMANDS[command].execute();
+	COMMANDS[command].execute(args);
 
 	scrollTerminalToBottom();
 }
