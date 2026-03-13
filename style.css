@@ -1,0 +1,144 @@
+/* Global page defaults */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #101010;
+    color: #00ff66;
+    font-family: 'Consolas', 'Courier New', monospace;
+    box-sizing: border-box;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+/* Center the terminal window in the viewport */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Main terminal frame */
+.terminal-container {
+    background: #181818;
+    border-radius: 8px;
+    box-shadow: 0 0 32px #000a;
+    width: 90vw;
+    max-width: 800px;
+    height: 80vh;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Top title bar */
+.terminal-header {
+    background: #222;
+    color: #b2ffb2;
+    padding: 0.75em 1.5em;
+    font-weight: bold;
+    font-size: 1.1em;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #333;
+    text-shadow: 0 0 6px #00ff66;
+}
+
+/* Output panel for logs and command responses */
+.terminal-output {
+    flex: 1;
+    padding: 1.5em;
+    overflow-y: auto;
+    color: #c8ffc8;
+    font-size: 1em;
+    line-height: 1.5;
+    text-shadow: 0 0 4px #00ff6655;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* Individual output row */
+.terminal-line {
+    margin: 0 0 0.35em;
+}
+
+.terminal-line:last-child {
+    margin-bottom: 0;
+}
+
+/* Prompt row with input and fake cursor */
+.terminal-prompt {
+    display: flex;
+    align-items: center;
+    padding: 1em 1.5em;
+    background: #181818;
+    border-top: 1px solid #333;
+    font-size: 1.1em;
+    color: #00ff66;
+    letter-spacing: 0.03em;
+    min-height: 2.5em;
+}
+
+/* Hidden state used during boot sequence */
+.terminal-prompt-hidden {
+    visibility: hidden;
+}
+
+/* Prompt symbol (>) */
+.prompt-symbol {
+    margin-right: 0.5em;
+    font-weight: bold;
+}
+
+/* Content-editable command input */
+.prompt-input {
+    display: inline-block;
+    min-width: 1em;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    caret-color: transparent;
+    /* Hide real caret */
+}
+
+/* Visual blinking cursor */
+.prompt-cursor {
+    display: inline-block;
+    width: 0.7em;
+    height: 1.2em;
+    background: transparent;
+    border-left: 2px solid #00ff66;
+    margin-left: 0.1em;
+    animation: blink 1s steps(1) infinite;
+    vertical-align: middle;
+}
+
+/* Cursor blink animation */
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Scrollbar styling */
+.terminal-output::-webkit-scrollbar {
+    width: 8px;
+    background: #222;
+}
+
+.terminal-output::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}

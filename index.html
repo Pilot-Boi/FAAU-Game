@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FACILITY_TERMINAL v0.1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Main terminal shell -->
+    <div class="terminal-container">
+        <!-- Static title bar -->
+        <div class="terminal-header">
+            FACILITY_TERMINAL v0.1
+        </div>
+
+        <!-- Scrollable output area where boot logs and command output are appended -->
+        <div class="terminal-output" id="terminal-output" aria-live="polite"></div>
+
+        <!-- Prompt row stays hidden until boot sequence finishes -->
+        <div class="terminal-prompt terminal-prompt-hidden" id="terminal-prompt">
+            <span class="prompt-symbol">&gt;</span>
+            <span class="prompt-input" tabindex="0"></span>
+            <span class="prompt-cursor"></span>
+        </div>
+    </div>
+
+    <!-- Terminal behavior (boot animation + command system) -->
+    <script src="terminal.js"></script>
+</body>
+
+</html>
