@@ -278,6 +278,21 @@ function runCommand(inputText) {
 
     appendOutputLine(`FACILITY:${formatCurrentPath()}> ${trimmedInput}`);
 
+    // Hidden test command: reset progression state without listing it in help.
+    if (command === 'reset') {
+        if (typeof resetGameState === 'function') {
+            resetGameState();
+            announcedTerms.clear();
+            appendOutputLine('[TEST] Runtime state reset.');
+        } else {
+            appendOutputLine('Reset unavailable: state manager not loaded.');
+        }
+
+        updatePromptDisplay();
+        scrollTerminalToBottom();
+        return;
+    }
+
     if (!Object.prototype.hasOwnProperty.call(COMMANDS, command)) {
         appendOutputLine("Command not recognized. Type 'help' for a list of commands.");
         scrollTerminalToBottom();

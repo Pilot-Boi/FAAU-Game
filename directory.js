@@ -1063,6 +1063,13 @@ function getDiscoveredTerms() {
     return Array.from(GAME_STATE.discoveredTerms).sort();
 }
 
+// Reset runtime progression state for testing purposes.
+function resetGameState() {
+    GAME_STATE.filesRead.clear();
+    GAME_STATE.discoveredTerms.clear();
+    GAME_STATE.flags = {};
+}
+
 function normalizeTerm(term) {
     return term.trim().toLowerCase();
 }
