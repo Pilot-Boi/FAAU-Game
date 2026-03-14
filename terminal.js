@@ -148,42 +148,35 @@ const COMMANDS = {
             }
         }
     },
-    dir: {
-        name: 'dir',
-        usage: 'dir',
-        description: 'Lists folders and files in the current directory.',
-        execute: () => {
-            printResult(getDirectoryEntries());
+    list: {
+        name: 'list',
+        usage: 'list [folder|path]',
+        description: 'Lists folders and files in the current or target directory.',
+        execute: (args) => {
+            const targetPath = args.join(' ');
+            printResult(getDirectoryEntries(targetPath));
         }
     },
-    ls: {
-        name: 'ls',
-        usage: 'ls',
-        description: 'Lists folders and files in the current directory.',
-        execute: () => {
-            printResult(getDirectoryEntries());
-        }
-    },
-    cd: {
-        name: 'cd',
-        usage: 'cd [folder] | cd ..',
-        description: 'Moves into a folder or up one level.',
+    move: {
+        name: 'move',
+        usage: 'move [folder|path]',
+        description: 'Moves to a folder using relative or absolute paths.',
         execute: (args) => {
             printResult(changeDirectory(args[0]));
         }
     },
-    pwd: {
-        name: 'pwd',
-        usage: 'pwd',
-        description: 'Displays the current path.',
+    dir: {
+        name: 'dir',
+        usage: 'dir',
+        description: 'Displays the current directory.',
         execute: () => {
             appendOutputLine(formatCurrentPath());
         }
     },
     open: {
         name: 'open',
-        usage: 'open [file]',
-        description: 'Opens and displays a file from the current directory.',
+        usage: 'open [file|path]',
+        description: 'Opens and displays a file using a relative or absolute path.',
         execute: (args) => {
             printResult(openFile(args[0]));
         }

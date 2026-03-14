@@ -47,7 +47,7 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/staff/directory.txt' }
     ],
     ironwood: [
-        { type: 'file', path: '/staff/directory.txt'}
+        { type: 'file', path: '/staff/directory.txt' }
     ],
     director: [
         { type: 'file', path: '/staff/directory.txt' },
@@ -62,7 +62,7 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/research/project_index.txt' }
     ],
     bioengineering: [
-        { type: 'file', path: '/staff/directory.txt'},
+        { type: 'file', path: '/staff/directory.txt' },
         { type: 'file', path: '/research/overview.txt' },
         { type: 'file', path: '/research/project_index.txt' },
         { type: 'file', path: '/research/projects/BIO_01.txt' },
@@ -70,15 +70,15 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/research/projects/BIO_03.txt' }
     ],
     genetics: [
-        { type: 'file', path: '/staff/directory.txt'},
+        { type: 'file', path: '/staff/directory.txt' },
         { type: 'file', path: '/research/overview.txt' },
         { type: 'file', path: '/research/project_index.txt' }
     ],
     security: [
         { type: 'file', path: '/logs/security_log.txt' },
-        { type: 'file', path: '/staff/directory.txt'},
+        { type: 'file', path: '/staff/directory.txt' },
         { type: 'file', path: '/staff/notice_01.txt' },
-        { type: 'file', path: '/staff/notice_02.txt'},
+        { type: 'file', path: '/staff/notice_02.txt' },
         { type: 'file', path: '/staff/security_clearance.txt' }
     ]
 };
@@ -777,11 +777,86 @@ function buildCurrentPathForItem(name = '') {
     return name ? `${basePath}/${name}` : formatCurrentPath();
 }
 
+// Path resolution function that handles absolute and relative paths, including '.' and '..' segments.
+function resolvePath(pathString = '') {
+    const rawPath = pathString.trim();
 
+    if (!rawPath) {
+        return { error: 'Invalid path.' };
+    }
+
+    const isAbsolute = rawPath.startsWith('/');
+    const segments = rawPath.split('/').filter(Boolean);
+
+    const workingSegments = isAbsolute ? [] : [...currentPathSegments];
+    let node = FILE_SYSTEM;
+
+    if (!isAbsolute) {
+        for (const segment of workingSegments) {
+            if (!node.children || !node.children[segment]) {
+                return { error: 'Directory error.' };
+            }
+            node = node.children[segment];
+        }
+    }
+
+    for (const segment of segments) {
+        if (segment === '.') {
+            continue;
+        }
+
+        if (segment === '..') {
+            if (workingSegments.length > 0) {
+                workingSegments.pop();
+            }
+
+            node = FILE_SYSTEM;
+            for (const part of workingSegments) {
+                if (!node.children || !node.children[part]) {
+                    return { error: 'Directory error.' };
+                }
+                node = node.children[part];
+            }
+            continue;
+        }
+
+        if (!node.children || !node.children[segment]) {
+            return { error: `Path not found: ${pathString}` };
+        }
+
+        node = node.children[segment];
+        workingSegments.push(segment);
+    }
+
+    return {
+        node,
+        segments: workingSegments,
+        path: workingSegments.length === 0 ? '/' : `/${workingSegments.join('/')}`
+    };
+}
 
 // Return formatted directory entries for the active folder.
-function getDirectoryEntries() {
-    const directory = getCurrentDirectoryObject();
+function getDirectoryEntries(targetPath = '') {
+    let directory;
+    let resolvedPath;
+
+    if (!targetPath || targetPath.trim() === '') {
+        directory = getCurrentDirectoryObject();
+        resolvedPath = formatCurrentPath();
+    } else {
+        const resolved = resolvePath(targetPath);
+
+        if (resolved.error) {
+            return { error: resolved.error };
+        }
+
+        if (!resolved.node || resolved.node.type !== 'dir') {
+            return { error: `Folder not found: ${targetPath}` };
+        }
+
+        directory = resolved.node;
+        resolvedPath = resolved.path;
+    }
 
     if (!directory || !directory.children) {
         return { error: 'Directory error.' };
@@ -791,70 +866,63 @@ function getDirectoryEntries() {
 
     if (entries.length === 0) {
         return {
-            entries: ['No files found.'],
+            entries: [
+                `DIRECTORY: ${resolvedPath}`,
+                '',
+                'No files found.'
+            ],
             meta: {
-                path: formatCurrentPath(),
-                itemCount: 0
+                path: resolvedPath,
+                itemCount: 0,
+                action: 'list'
             }
         };
     }
 
-    const formattedEntries = entries.map(([name, item]) => {
+    const formattedEntries = [
+        `DIRECTORY: ${resolvedPath}`,
+        ''
+    ];
+
+    for (const [name, item] of entries) {
         if (item.type === 'dir') {
             const lockedByFlag = item.requiredFlag && !hasFlag(item.requiredFlag);
             const isLocked = item.locked || lockedByFlag;
             const lockedSuffix = isLocked ? ' [LOCKED]' : '';
-            return `[DIR] ${name}${lockedSuffix}`;
+            formattedEntries.push(`[DIR] ${name}${lockedSuffix}`);
+        } else {
+            formattedEntries.push(`[FILE] ${name}`);
         }
-
-        return `[FILE] ${name}`;
-    });
+    }
 
     return {
         entries: formattedEntries,
         meta: {
-            path: formatCurrentPath(),
-            itemCount: entries.length
+            path: resolvedPath,
+            itemCount: entries.length,
+            action: 'list'
         }
     };
 }
 
-
 // Change directory and return a result object for the terminal to print.
 function changeDirectory(target) {
     if (!target) {
-        return { error: 'Usage: cd [folder]' };
+        return { error: 'Usage: move [folder|path]' };
     }
 
-    if (target === '..') {
-        if (currentPathSegments.length === 0) {
-            return { error: 'Already at root.' };
-        }
+    const resolved = resolvePath(target);
 
-        currentPathSegments.pop();
-        return {
-            entries: [`Moved to ${formatCurrentPath()}`],
-            meta: {
-                path: formatCurrentPath(),
-                action: 'cd'
-            }
-        };
+    if (resolved.error) {
+        return { error: resolved.error };
     }
 
-    const directory = getCurrentDirectoryObject();
-
-    if (!directory || !directory.children) {
-        return { error: 'Directory error.' };
+    if (!resolved.node || resolved.node.type !== 'dir') {
+        return { error: `Folder not found: ${target}. Use "list" to see available folders.` };
     }
 
-    const nextNode = directory.children[target];
-
-    if (!nextNode || nextNode.type !== 'dir') {
-        return { error: `Folder not found: ${target}` };
-    }
-
-    const lockedByFlag = nextNode.requiredFlag && !hasFlag(nextNode.requiredFlag);
-    const isLocked = nextNode.locked || lockedByFlag;
+    const lockedByFlag = resolved.node.requiredFlag && !hasFlag(resolved.node.requiredFlag);
+    const isLocked = resolved.node.locked || lockedByFlag;
 
     if (isLocked) {
         return {
@@ -862,66 +930,66 @@ function changeDirectory(target) {
             meta: {
                 path: formatCurrentPath(),
                 target,
-                action: 'cd_denied'
+                action: 'move_denied'
             }
         };
     }
 
-    currentPathSegments.push(target);
+    currentPathSegments.length = 0;
+    currentPathSegments.push(...resolved.segments);
 
     return {
-        entries: [`Moved to ${formatCurrentPath()}`],
+        entries: [`Moved to ${resolved.path}`],
         meta: {
-            path: formatCurrentPath(),
+            path: resolved.path,
             target,
-            action: 'cd'
+            action: 'move'
         }
     };
 }
 
-
 // Open a file and return printable lines for the terminal.
-function openFile(fileName) {
-    if (!fileName) {
+function openFile(filePath) {
+    if (!filePath) {
         return { error: 'Usage: open [file]' };
     }
 
-    const directory = getCurrentDirectoryObject();
+    const resolved = resolvePath(filePath);
 
-    if (!directory || !directory.children) {
-        return { error: 'Directory error.' };
+    if (resolved.error) {
+        return { error: resolved.error };
     }
 
-    const fileNode = directory.children[fileName];
-
-    if (!fileNode || fileNode.type !== 'file') {
-        return { error: `File not found: ${fileName}` };
+    if (!resolved.node || resolved.node.type !== 'file') {
+        return { error: `File not found: ${filePath}. Use "list" to see available files.` };
     }
 
-    const fullPath = buildCurrentPathForItem(fileName);
+    const fullPath = resolved.path;
 
     markFileRead(fullPath);
 
-    if (fileNode.onOpenFlag) {
-        setFlag(fileNode.onOpenFlag);
+    if (resolved.node.onOpenFlag) {
+        setFlag(resolved.node.onOpenFlag);
     }
 
-    if (fileNode.terms) {
-        addDiscoveredTerms(fileNode.terms);
+    if (resolved.node.terms) {
+        addDiscoveredTerms(resolved.node.terms);
     }
+
+    const fileName = resolved.segments[resolved.segments.length - 1];
 
     return {
         entries: [
             `--- ${fileName} ---`,
-            ...fileNode.content,
+            ...resolved.node.content,
             '--- END FILE ---'
         ],
         meta: {
             action: 'open',
             fileName,
             path: fullPath,
-            terms: fileNode.terms || [],
-            onOpenFlag: fileNode.onOpenFlag || null
+            terms: resolved.node.terms || [],
+            onOpenFlag: resolved.node.onOpenFlag || null
         }
     };
 }
