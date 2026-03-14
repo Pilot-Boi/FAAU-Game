@@ -45,6 +45,28 @@ const terminalOutput = document.getElementById('terminal-output');
 const terminalPrompt = document.getElementById('terminal-prompt');
 const promptInput = document.querySelector('.prompt-input');
 
+// All known file-open flags mapped to their associated archival terms.
+const FLAG_TERM_MAP = {
+    read_system_boot: ['unknown_source'],
+    read_network_status: ['subject_008', 'unknown_source', 'intercom'],
+    read_security_log: ['subject_008', 'sublevel', 'security'],
+    read_anomaly_report: ['unknown_source', 'subject_008'],
+    read_sublevel_monitor: ['sublevel', 'subject_008', 'security', 'unknown_source'],
+    read_research_overview: ['genetics', 'bioengineering', 'director'],
+    read_project_index: ['achilles', 'seraph', 'bioengineering', 'genetics'],
+    read_bio_01: ['achilles', 'bioengineering', 'prosthetics', 'polendina'],
+    read_bio_02: ['bioengineering', 'polendina'],
+    read_bio_03: ['bioengineering', 'polendina'],
+    read_gen_02: ['genetics', 'neural_interface'],
+    read_staff_directory: ['watts', 'polendina', 'ebi', 'ironwood', 'schnee', 'director', 'genetics', 'bioengineering', 'security'],
+    read_notice_01: ['security', 'intercom', 'unknown_source'],
+    read_notice_02: ['security', 'sublevel'],
+    read_security_clearance: ['security']
+};
+
+// Tracks keywords already announced to avoid repeating the same unlock message.
+const announcedTerms = new Set();
+
 // Keep newest output in view.
 function scrollTerminalToBottom() {
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
@@ -73,6 +95,22 @@ function printLines(lines) {
     }
 }
 
+// Convert normalized term keys into readable terminal labels.
+function formatTermForOutput(term) {
+    return String(term || '')
+        .trim()
+        .replace(/\s+/g, '_')
+        .toUpperCase();
+}
+
+    // Normalize terms for stable comparisons regardless of case/spacing style.
+    function normalizeTermKey(term) {
+        return String(term || '')
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, '_');
+    }
+
 // Helper for printing result objects returned from directory.js.
 function printResult(result) {
     if (!result) {
@@ -99,30 +137,25 @@ function handleResultMeta(meta) {
         return;
     }
 
-    if (meta.action === 'open' && meta.onOpenFlag === 'read_network_status') {
-        appendOutputLine('');
-        appendOutputLine('[SYSTEM] New keyword archived: SUBJECT_008');
-        appendOutputLine('[SYSTEM] New keyword archived: UNKNOWN_SOURCE');
-        appendOutputLine('[SYSTEM] New keyword archived: INTERCOM');
-    }
+    if (meta.action === 'open' && meta.onOpenFlag) {
+        const mappedTerms = FLAG_TERM_MAP[meta.onOpenFlag] || [];
+        const fallbackTerms = Array.isArray(meta.terms) ? meta.terms : [];
+        const termsToAnnounce = mappedTerms.length > 0 ? mappedTerms : fallbackTerms;
 
-    if (meta.action === 'open' && meta.onOpenFlag === 'read_security_log') {
-        appendOutputLine('[SYSTEM] New keyword archived: SUBLEVEL_3');
-        appendOutputLine('[SYSTEM] New keyword archived: SECURITY');
-    }
+        const knownTerms = new Set((getDiscoveredTerms() || []).map(normalizeTermKey));
+        const newTerms = termsToAnnounce.filter((term) => {
+            const normalized = normalizeTermKey(term);
+            return knownTerms.has(normalized) && !announcedTerms.has(normalized);
+        });
 
-    if (meta.action === 'open' && meta.onOpenFlag === 'read_staff_directory') {
-        appendOutputLine('[SYSTEM] New keyword archived: WATTS');
-        appendOutputLine('[SYSTEM] New keyword archived: POLENDINA');
-        appendOutputLine('[SYSTEM] New keyword archived: DIRECTOR');
-    }
+        if (newTerms.length > 0) {
+            appendOutputLine('');
 
-    if (meta.action === 'open' && meta.onOpenFlag === 'read_project_index') {
-        appendOutputLine('[SYSTEM] New keyword archived: ACHILLES');
-        appendOutputLine('[SYSTEM] New keyword archived: HYDRA');
-        appendOutputLine('[SYSTEM] New keyword archived: ATLAS');
-        appendOutputLine('[SYSTEM] New keyword archived: SERAPH');
-        appendOutputLine('[SYSTEM] New keyword archived: ORACLE');
+            for (const term of newTerms) {
+                announcedTerms.add(normalizeTermKey(term));
+                appendOutputLine(`[SYSTEM] New keyword archived: ${formatTermForOutput(term)}`);
+            }
+        }
     }
 
     if (meta.action === 'search' && meta.resultCount > 0) {

@@ -519,6 +519,7 @@ const FILE_SYSTEM = {
                         'GEN_02.txt': {
                             type: 'file',
                             terms: ['genetics', 'neural_interface'],
+                            onOpenFlag: 'read_gen_02',
                             content: [
                                 'PROJECT FILE: GEN-02',
                                 'PROJECT NAME: ORACLE',
