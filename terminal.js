@@ -38,6 +38,7 @@ const facilityLogoLines = [
 const lineDelayMs = 450;
 const finalPauseMs = 300;
 const characterDelayMs = 24;
+const logoLineDelayMs = 70;
 
 // Core DOM references.
 const terminalOutput = document.getElementById('terminal-output');
@@ -274,8 +275,10 @@ async function runBootSequence() {
 
     await wait(finalPauseMs);
 
+    // Logo renders line-by-line to signal faster startup once core boot finishes.
     for (const line of facilityLogoLines) {
-        await typeLine(line);
+        appendOutputLine(line);
+        await wait(logoLineDelayMs);
     }
 
     await wait(lineDelayMs);
