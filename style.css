@@ -20,18 +20,28 @@ body {
     height: 100vh;
 }
 
+#interface-shell {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+    width: min(96vw, 1500px);
+    height: 80vh;
+    min-height: 400px;
+}
+
 /* Main terminal frame */
 .terminal-container {
     background: #181818;
     border-radius: 8px;
     box-shadow: 0 0 32px #000a;
-    width: 90vw;
-    max-width: 800px;
-    height: 80vh;
-    min-height: 400px;
+    width: min(92vw, 900px);
+    max-width: none;
+    height: 100%;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    flex: 1 1 auto;
 }
 
 /* Top title bar */
@@ -141,4 +151,237 @@ body {
 .terminal-output::-webkit-scrollbar-thumb {
     background: #333;
     border-radius: 4px;
+}
+
+/* Communications panel shown next to the terminal */
+#message-window {
+    width: min(40vw, 720px);
+    min-width: 340px;
+    height: 100%;
+    display: block;
+    flex: 0 0 auto;
+}
+
+/* Hidden state for the communications window */
+.message-window-hidden {
+    display: none !important;
+}
+
+/* Inner communications client frame */
+.message-window-panel {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background: linear-gradient(180deg, #13191d 0%, #0f1417 100%);
+    border: 1px solid #2e4d4c;
+    border-radius: 10px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.52);
+    overflow: hidden;
+}
+
+/* Title bar for the communications client */
+.message-window-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.9rem 1.2rem;
+    background: #182126;
+    border-bottom: 1px solid #2e4d4c;
+}
+
+.message-window-back {
+    border: 1px solid #456c6a;
+    background: #11181c;
+    color: #c8efe9;
+    font: inherit;
+    line-height: 1;
+    padding: 0.35rem 0.6rem;
+    cursor: pointer;
+}
+
+.message-window-back-hidden {
+    visibility: hidden;
+}
+
+.message-window-title {
+    color: #b6e7e3;
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.message-window-close {
+    border: 1px solid #456c6a;
+    background: #11181c;
+    color: #d8f6f2;
+    font: inherit;
+    line-height: 1;
+    padding: 0.35rem 0.6rem;
+    cursor: pointer;
+}
+
+.message-window-close:focus-visible,
+.message-window-back:focus-visible,
+.message-content:focus-visible,
+.message-status:focus-visible,
+.message-window-panel:focus-visible {
+    outline: 2px solid #7ed7cc;
+    outline-offset: -2px;
+}
+
+/* Scrollable message transcript area */
+.message-content {
+    overflow-y: auto;
+    padding: 1.2rem;
+    color: #d9f4f1;
+    background: rgba(6, 12, 14, 0.72);
+    line-height: 1.55;
+    white-space: pre-wrap;
+}
+
+.message-line {
+    margin: 0 0 0.5rem;
+}
+
+.message-line:last-child {
+    margin-bottom: 0;
+}
+
+.message-contact-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.message-contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 0.95rem;
+    border: 1px solid #294242;
+    background: rgba(18, 28, 31, 0.72);
+}
+
+.message-contact-button {
+    border: 0;
+    background: transparent;
+    color: #d9f4f1;
+    font: inherit;
+    letter-spacing: 0.04em;
+    text-align: left;
+    cursor: pointer;
+    padding: 0;
+}
+
+.message-contact-button:disabled {
+    color: #6b8686;
+    cursor: not-allowed;
+}
+
+.message-contact-button:focus-visible {
+    outline: 2px solid #7ed7cc;
+    outline-offset: 4px;
+}
+
+.message-contact-status {
+    font-size: 0.84rem;
+    letter-spacing: 0.08em;
+}
+
+.message-contact-status.is-available {
+    color: #8df5c4;
+}
+
+.message-contact-status.is-unavailable {
+    color: #e0ae8b;
+}
+
+.message-chat-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+}
+
+.message-chat-row.is-left {
+    align-items: flex-start;
+}
+
+.message-chat-row.is-right {
+    align-items: flex-end;
+}
+
+.message-chat-sender {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: #8cbab6;
+    text-transform: uppercase;
+}
+
+.message-chat-bubble {
+    max-width: min(78%, 620px);
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #2f5250;
+    border-radius: 8px;
+    background: rgba(25, 39, 42, 0.75);
+    color: #d9f4f1;
+    line-height: 1.45;
+}
+
+.message-chat-row.is-right .message-chat-bubble {
+    border-color: #376157;
+    background: rgba(20, 52, 40, 0.75);
+}
+
+/* Footer status strip */
+.message-status {
+    padding: 0.8rem 1.2rem;
+    border-top: 1px solid #2e4d4c;
+    background: #182126;
+    color: #8fc7c1;
+    letter-spacing: 0.05em;
+    font-size: 0.92rem;
+}
+
+.message-content::-webkit-scrollbar {
+    width: 8px;
+    background: #162126;
+}
+
+.message-content::-webkit-scrollbar-thumb {
+    background: #31484a;
+    border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+    #interface-shell {
+        flex-direction: column;
+        width: min(96vw, 900px);
+        height: 92vh;
+        min-height: 0;
+    }
+
+    .message-window-panel {
+        width: 100%;
+        height: 100%;
+    }
+
+    #message-window {
+        width: 100%;
+        min-width: 0;
+        height: 46%;
+    }
+
+    .terminal-container {
+        height: 54%;
+    }
+
+    .message-window-header,
+    .message-content,
+    .message-status {
+        padding-left: 0.95rem;
+        padding-right: 0.95rem;
+    }
 }

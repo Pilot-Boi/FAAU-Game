@@ -9,27 +9,50 @@
 </head>
 
 <body>
-    <!-- Main terminal shell -->
-    <div class="terminal-container">
-        <!-- Static title bar -->
-        <div class="terminal-header">
-            FACILITY_TERMINAL v0.1
+    <div id="interface-shell">
+        <!-- Main terminal shell -->
+        <div class="terminal-container">
+            <!-- Static title bar -->
+            <div class="terminal-header">
+                FACILITY_TERMINAL v0.1
+            </div>
+
+            <!-- Scrollable output area where boot logs and command output are appended -->
+            <div class="terminal-output" id="terminal-output" aria-live="polite"></div>
+
+            <!-- Prompt row stays hidden until boot sequence finishes -->
+            <div class="terminal-prompt terminal-prompt-hidden" id="terminal-prompt">
+                <span class="prompt-symbol" id="prompt-symbol">FACILITY:/> </span>
+                <span class="prompt-input" tabindex="0"></span>
+                <span class="prompt-cursor"></span>
+            </div>
         </div>
 
-        <!-- Scrollable output area where boot logs and command output are appended -->
-        <div class="terminal-output" id="terminal-output" aria-live="polite"></div>
-
-        <!-- Prompt row stays hidden until boot sequence finishes -->
-        <div class="terminal-prompt terminal-prompt-hidden" id="terminal-prompt">
-<span class="prompt-symbol" id="prompt-symbol">FACILITY:/> </span>
-            <span class="prompt-input" tabindex="0"></span>
-            <span class="prompt-cursor"></span>
+        <!-- Hidden communications panel used by the msg command flow -->
+        <div class="message-window-hidden" id="message-window" role="dialog" aria-modal="false" aria-labelledby="message-window-title" aria-hidden="true">
+            <div class="message-window-panel" tabindex="-1">
+                <div class="message-window-header">
+                    <button class="message-window-back message-window-back-hidden" id="message-window-back" type="button" aria-label="Back to contacts">CONTACTS</button>
+                    <div class="message-window-title" id="message-window-title">FACILITY COMMUNICATION INTERFACE</div>
+                    <button class="message-window-close" id="message-window-close" type="button" aria-label="Close communications window">X</button>
+                </div>
+                <div class="message-content" id="message-content" tabindex="0"></div>
+                <div class="message-status" id="message-status" tabindex="0">STANDBY</div>
+            </div>
         </div>
     </div>
 
     <!-- Scripts for terminal functionality -->
+    <script src="gameState.js"></script>
     <script src="directory.js"></script>
+    <script src="story/chapters/chapter_01.js"></script>
+    <script src="story/storyIndex.js"></script>
+    <script src="events.js"></script>
+    <script src="data/termMetadata.js"></script>
+    <script src="data/contactMetadata.js"></script>
+    <script src="messageWindow.js"></script>
     <script src="terminal.js"></script>
+
 </body>
 
 </html>

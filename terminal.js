@@ -48,25 +48,6 @@ const promptInput = document.querySelector('.prompt-input');
 const promptSymbol = document.getElementById('prompt-symbol');
 
 
-// All known file-open flags mapped to their associated archival terms.
-const FLAG_TERM_MAP = {
-    read_system_boot: ['unknown_source'],
-    read_network_status: ['subject_008', 'unknown_source', 'intercom'],
-    read_security_log: ['subject_008', 'sublevel', 'security'],
-    read_anomaly_report: ['unknown_source', 'subject_008'],
-    read_sublevel_monitor: ['sublevel', 'subject_008', 'security', 'unknown_source'],
-    read_research_overview: ['genetics', 'bioengineering', 'director'],
-    read_project_index: ['achilles', 'seraph', 'bioengineering', 'genetics'],
-    read_bio_01: ['achilles', 'bioengineering', 'prosthetics', 'polendina'],
-    read_bio_02: ['bioengineering', 'polendina'],
-    read_bio_03: ['bioengineering', 'polendina'],
-    read_gen_02: ['genetics', 'neural_interface'],
-    read_staff_directory: ['watts', 'polendina', 'ebi', 'ironwood', 'schnee', 'director', 'genetics', 'bioengineering', 'security'],
-    read_notice_01: ['security', 'intercom', 'unknown_source'],
-    read_notice_02: ['security', 'sublevel'],
-    read_security_clearance: ['security']
-};
-
 // Tracks keywords already announced to avoid repeating the same unlock message.
 const announcedTerms = new Set();
 
@@ -114,6 +95,59 @@ function normalizeTermKey(term) {
         .replace(/\s+/g, '_');
 }
 
+// Resolve contact display name, upgrading from subject ID to known name when available.
+function getContactDisplayLabel(definition, discoveredTerms, termMetadata, fallbackLabel) {
+    if (!definition || !Array.isArray(definition.revealedNames)) {
+        return fallbackLabel;
+    }
+
+    for (const reveal of definition.revealedNames) {
+        const revealTerm = normalizeTermKey(reveal.term);
+        if (revealTerm && discoveredTerms.has(revealTerm)) {
+            return reveal.label || fallbackLabel;
+        }
+    }
+
+    return fallbackLabel;
+}
+
+// Build the visible message-contact list from discovered person terms.
+function getDiscoveredMessageContacts() {
+    const discoveredTerms = new Set((getDiscoveredTerms() || []).map(normalizeTermKey));
+    const termMetadata = typeof TERM_METADATA !== 'undefined' ? TERM_METADATA : {};
+    const contactMetadata = typeof CONTACT_METADATA !== 'undefined' ? CONTACT_METADATA : {};
+    const availabilityByChapter =
+        typeof CONTACT_AVAILABILITY_BY_CHAPTER !== 'undefined' ? CONTACT_AVAILABILITY_BY_CHAPTER : {};
+    const availableContacts = new Set(availabilityByChapter[getCurrentChapterIndex()] || []);
+
+    return Object.entries(contactMetadata)
+        .filter(([, definition]) => {
+            const termKey = normalizeTermKey(definition.termKey || '');
+            if (termKey && discoveredTerms.has(termKey)) {
+                return true;
+            }
+
+            const revealTerms = Array.isArray(definition.revealedNames) ? definition.revealedNames : [];
+            return revealTerms.some((reveal) => discoveredTerms.has(normalizeTermKey(reveal.term)));
+        })
+        .map(([contactId, definition]) => {
+            const termKey = normalizeTermKey(definition.termKey || contactId);
+            const meta = termMetadata[termKey] || {};
+            const fallbackLabel = formatTermForOutput(termKey).replace(/_/g, ' ');
+            const defaultLabel = definition.label || meta.label || fallbackLabel;
+            const displayLabel = getContactDisplayLabel(definition, discoveredTerms, termMetadata, defaultLabel);
+            const isAvailable = availableContacts.has(contactId);
+
+            return {
+                id: contactId,
+                termKey,
+                label: displayLabel,
+                isAvailable,
+                availabilityLabel: isAvailable ? 'AVAILABLE' : 'UNAVAILABLE'
+            };
+        });
+}
+
 // Helper for printing result objects returned from directory.js.
 function printResult(result) {
     if (!result) {
@@ -131,8 +165,166 @@ function printResult(result) {
 
     if (result.meta) {
         handleResultMeta(result.meta);
+
+        const eventLines = evaluateEvents(result.meta);
+        if (eventLines.length > 0) {
+            printLines(eventLines);
+        }
     }
 }
+
+// Display story communication output inside the communications overlay.
+function displayMessageWindowResult(result, statusText = 'CHANNEL ACTIVE') {
+    if (!result) {
+        appendOutputLine('Unknown error.');
+        return;
+    }
+
+    if (result.error) {
+        appendOutputLine(result.error);
+        return;
+    }
+
+    if (typeof openMessageWindow === 'function') {
+        openMessageWindow();
+    }
+
+    if (typeof setMessageStatus === 'function') {
+        setMessageStatus(statusText);
+    }
+
+    if (result.meta && Array.isArray(result.meta.conversation) && typeof renderMessageConversation === 'function') {
+        renderMessageConversation(result.meta.conversation);
+    } else if (typeof renderMessageLines === 'function' && result.entries) {
+        renderMessageLines(result.entries);
+    }
+
+    if (result.meta) {
+        handleResultMeta(result.meta);
+
+        const eventLines = evaluateEvents(result.meta);
+        if (eventLines.length > 0) {
+            printLines(eventLines);
+        }
+    }
+}
+
+// Show the discovered contacts directory inside the communications interface.
+function showMessageContactDirectory() {
+    const contacts = getDiscoveredMessageContacts();
+
+    if (typeof openMessageWindow === 'function') {
+        openMessageWindow();
+    }
+
+    if (typeof setMessageBackAction === 'function') {
+        setMessageBackAction(null);
+    }
+
+    if (typeof setMessageStatus === 'function') {
+        setMessageStatus('CONTACT DIRECTORY');
+    }
+
+    if (contacts.length === 0) {
+        if (typeof renderMessageLines === 'function') {
+            renderMessageLines([
+                'No known contacts available.',
+                'Continue investigating the archive to identify message targets.'
+            ]);
+        }
+
+        return;
+    }
+
+    if (typeof renderMessageContacts === 'function') {
+        renderMessageContacts(contacts, openMessageContact);
+        return;
+    }
+
+    const fallbackLines = ['KNOWN CONTACTS', ''];
+
+    for (const contact of contacts) {
+        fallbackLines.push(`${contact.label} [${contact.availabilityLabel}]`);
+    }
+
+    renderMessageLines(fallbackLines);
+}
+
+// Open a selected contact thread if that contact is available in the current chapter.
+function openMessageContact(contactId) {
+    const contact = getDiscoveredMessageContacts().find((entry) => entry.id === contactId);
+
+    if (!contact) {
+        if (typeof setMessageStatus === 'function') {
+            setMessageStatus('UNKNOWN CONTACT');
+        }
+
+        if (typeof renderMessageLines === 'function') {
+            renderMessageLines(['Selected contact could not be resolved.']);
+        }
+
+        return;
+    }
+
+    if (!contact.isAvailable) {
+        if (typeof setMessageStatus === 'function') {
+            setMessageStatus('CONTACT UNAVAILABLE');
+        }
+
+        if (typeof renderMessageLines === 'function') {
+            renderMessageLines([`${contact.label} cannot be reached at this time.`]);
+        }
+
+        return;
+    }
+
+    if (typeof openMessageWindow === 'function') {
+        openMessageWindow();
+    }
+
+    if (typeof setMessageBackAction === 'function') {
+        setMessageBackAction(showMessageContactDirectory, 'CONTACTS');
+    }
+
+    if (typeof setMessageStatus === 'function') {
+        setMessageStatus(`CHANNEL ACTIVE: ${contact.label.toUpperCase()}`);
+    }
+
+    const result = openMessageInterface(contactId);
+
+    if (!result) {
+        if (typeof renderMessageLines === 'function') {
+            renderMessageLines(['Unknown error.']);
+        }
+        return;
+    }
+
+    if (result.meta && result.meta.action === 'story' && Array.isArray(result.meta.conversation)) {
+        appendContactMessageHistory(contactId, result.meta.conversation);
+    }
+
+    const conversationHistory = getContactMessageHistory(contactId);
+    if (typeof renderMessageConversation === 'function' && conversationHistory.length > 0) {
+        renderMessageConversation(conversationHistory);
+    } else if (typeof renderMessageLines === 'function' && result.entries) {
+        renderMessageLines(result.entries);
+    }
+
+    if (result.error) {
+        appendOutputLine(result.error);
+        return;
+    }
+
+    if (result.meta) {
+        handleResultMeta(result.meta);
+
+        const eventLines = evaluateEvents(result.meta);
+        if (eventLines.length > 0) {
+            printLines(eventLines);
+        }
+    }
+}
+
 
 // Handle special metadata returned from directory operations to trigger story events and other side effects.
 function handleResultMeta(meta) {
@@ -141,9 +333,7 @@ function handleResultMeta(meta) {
     }
 
     if (meta.action === 'open' && meta.onOpenFlag) {
-        const mappedTerms = FLAG_TERM_MAP[meta.onOpenFlag] || [];
-        const fallbackTerms = Array.isArray(meta.terms) ? meta.terms : [];
-        const termsToAnnounce = mappedTerms.length > 0 ? mappedTerms : fallbackTerms;
+        const termsToAnnounce = Array.isArray(meta.terms) ? meta.terms : [];
 
         const knownTerms = new Set((getDiscoveredTerms() || []).map(normalizeTermKey));
         const newTerms = termsToAnnounce.filter((term) => {
@@ -165,6 +355,14 @@ function handleResultMeta(meta) {
         appendOutputLine('');
         appendOutputLine('[SYSTEM] Search complete.');
     }
+
+    if (meta.action === 'story' && Array.isArray(meta.unlockedTerms) && meta.unlockedTerms.length > 0) {
+        appendOutputLine('');
+        appendOutputLine('[SYSTEM] Archive updated.');
+        for (const term of meta.unlockedTerms) {
+            appendOutputLine(`[SYSTEM] New keyword archived: ${formatTermForOutput(term)}`);
+        }
+    }
 }
 
 // Command registry: add new commands here to make them available and auto-listed in help.
@@ -178,11 +376,16 @@ const COMMANDS = {
             appendOutputLine('');
 
             for (const command of Object.values(COMMANDS)) {
+                if (!isCommandUnlocked(command.name)) {
+                    continue;
+                }
+
                 appendOutputLine(command.name);
                 appendOutputLine(`  Usage: ${command.usage}`);
                 appendOutputLine(`  Description: ${command.description}`);
                 appendOutputLine('');
             }
+
 
             appendOutputLine('PATH TOKENS');
             appendOutputLine('');
@@ -209,16 +412,20 @@ const COMMANDS = {
         usage: 'move [folder|path]',
         description: 'Moves to a folder using relative or absolute paths.',
         execute: (args) => {
-            printResult(changeDirectory(args[0]));
+            const targetPath = args.join(' ');
+            printResult(changeDirectory(targetPath));
         }
+
     },
     open: {
         name: 'open',
         usage: 'open [file|path]',
         description: 'Opens and displays a file using a relative or absolute path.',
         execute: (args) => {
-            printResult(openFile(args[0]));
+            const filePath = args.join(' ');
+            printResult(openFile(filePath));
         }
+
     },
     search: {
         name: 'search',
@@ -227,6 +434,14 @@ const COMMANDS = {
         execute: (args) => {
             const searchText = args.join(' ');
             printResult(searchTerm(searchText));
+        }
+    },
+    msg: {
+        name: 'msg',
+        usage: 'msg',
+        description: 'Opens the inter-Facility communication interface.',
+        execute: () => {
+            showMessageContactDirectory();
         }
     },
     terms: {
@@ -245,7 +460,7 @@ const COMMANDS = {
             appendOutputLine('');
 
             for (const term of terms) {
-                appendOutputLine(`- ${term}`);
+                appendOutputLine(`- ${formatTermForOutput(term)}`);
             }
         }
     },
@@ -299,7 +514,14 @@ function runCommand(inputText) {
         return;
     }
 
+    if (!isCommandUnlocked(command)) {
+        appendOutputLine(`Command unavailable: ${command}`);
+        scrollTerminalToBottom();
+        return;
+    }
+
     COMMANDS[command].execute(args);
+
 
     updatePromptDisplay();
     scrollTerminalToBottom();

@@ -1,9 +1,6 @@
-// Game state management for the narrative terminal interface.
-const GAME_STATE = {
-    filesRead: new Set(),
-    discoveredTerms: new Set(),
-    flags: {}
-};
+/**
+ * 
+ */
 
 // Search index mapping terms to file paths for the 'search' command.
 const SEARCH_INDEX = {
@@ -57,6 +54,12 @@ const SEARCH_INDEX = {
     achilles: [
         { type: 'file', path: '/research/project_index.txt' },
         { type: 'file', path: '/research/projects/BIO_01.txt' }
+    ],
+    prosthetics: [
+        { type: 'file', path: '/research/projects/BIO_01.txt' }
+    ],
+    neural_interface: [
+        { type: 'file', path: '/research/projects/GEN_02.txt' }
     ],
     seraph: [
         { type: 'file', path: '/research/project_index.txt' }
@@ -704,7 +707,8 @@ const FILE_SYSTEM = {
         },
         secure: {
             type: 'dir',
-            requiredFlag: 'secure_access_granted', children: {
+            requiredFlag: 'secure_access_granted',
+            children: {
                 'avian_project.txt': {
                     type: 'file',
                     content: [
@@ -751,31 +755,6 @@ function formatCurrentPath() {
     }
 
     return `/${currentPathSegments.join('/')}`;
-}
-
-// Game state management functions for tracking discovered terms, read files, and flags.
-function hasFlag(flagName) {
-    return Boolean(GAME_STATE.flags[flagName]);
-}
-
-function setFlag(flagName, value = true) {
-    GAME_STATE.flags[flagName] = value;
-}
-
-function addDiscoveredTerms(terms = []) {
-    for (const term of terms) {
-        GAME_STATE.discoveredTerms.add(normalizeTerm(term));
-    }
-}
-
-function markFileRead(path) {
-    GAME_STATE.filesRead.add(path);
-}
-
-// Utility function to print directory entries or error messages to the terminal.
-function buildCurrentPathForItem(name = '') {
-    const basePath = formatCurrentPath() === '/' ? '' : formatCurrentPath();
-    return name ? `${basePath}/${name}` : formatCurrentPath();
 }
 
 // Path resolution function that handles absolute and relative paths, including '.' and '..' segments.
@@ -1047,30 +1026,5 @@ function searchTerm(rawTerm) {
             resultCount: matches.length
         }
     };
-}
-
-
-// Helper functions
-function getGameState() {
-    return GAME_STATE;
-}
-
-function hasDiscoveredTerm(term) {
-    return GAME_STATE.discoveredTerms.has(normalizeTerm(term));
-}
-
-function getDiscoveredTerms() {
-    return Array.from(GAME_STATE.discoveredTerms).sort();
-}
-
-// Reset runtime progression state for testing purposes.
-function resetGameState() {
-    GAME_STATE.filesRead.clear();
-    GAME_STATE.discoveredTerms.clear();
-    GAME_STATE.flags = {};
-}
-
-function normalizeTerm(term) {
-    return term.trim().toLowerCase();
 }
 

@@ -1,0 +1,41 @@
+// Canonical term metadata used by search, contacts, and UI rendering.
+const TERM_METADATA = Object.freeze({
+    unknown_source: { label: 'Unknown Source', type: 'concept' },
+    subject_008: { label: 'Subject 008', type: 'person' },
+    subject_007: { label: 'Subject 007', type: 'person' },
+    subject_006: { label: 'Subject 006', type: 'person' },
+    subject_005: { label: 'Subject 005', type: 'person' },
+    subject_004: { label: 'Subject 004', type: 'person' },
+    subject_003: { label: 'Subject 003', type: 'person' },
+    intercom: { label: 'Intercom', type: 'system' },
+    sublevel: { label: 'Sublevel', type: 'location' },
+    security: { label: 'Security', type: 'system' },
+    genetics: { label: 'Genetics', type: 'discipline' },
+    bioengineering: { label: 'Bioengineering', type: 'discipline' },
+    director: { label: 'Director', type: 'person' },
+    achilles: { label: 'Achilles', type: 'project' },
+    seraph: { label: 'Seraph', type: 'project' },
+    prosthetics: { label: 'Prosthetics', type: 'technology' },
+    polendina: { label: 'Dr. Polendina', type: 'person' },
+    neural_interface: { label: 'Neural Interface', type: 'technology' },
+    watts: { label: 'Dr. Watts', type: 'person' },
+    ebi: { label: 'Ebi', type: 'person' },
+    ironwood: { label: 'Ironwood', type: 'person' },
+    schnee: { label: 'Schnee', type: 'person' },
+    avian: { label: 'Avian', type: 'species' },
+    subject_002: { label: 'Subject 002', type: 'person' },
+    salem: { label: 'Salem', type: 'person' },
+    hybrid: { label: 'Hybrid', type: 'species' },
+    subject_001: { label: 'Subject 001', type: 'person' },
+    emerald_sustrai: { label: 'Emerald Sustrai', type: 'person' },
+    roman_torchwick: { label: 'Roman Torchwick', type: 'person' },
+    hazel_rainart: { label: 'Hazel Rainart', type: 'person' },
+    neo_politan: { label: 'Neo Politan', type: 'person' },
+    tyrian_callows: { label: 'Tyrian Callows', type: 'person' },
+    mercury_black: { label: 'Mercury Black', type: 'person' },
+    cinder_fall: { label: 'Cinder Fall', type: 'person' },
+    jaune_arc: { label: 'Jaune Arc', type: 'person' }
+});
+
+// Expose metadata for non-module script usage.
+window.TERM_METADATA = TERM_METADATA;
