@@ -81,11 +81,52 @@ function printResult(result) {
 
     if (result.error) {
         appendOutputLine(result.error);
-        return;
     }
 
     if (result.entries) {
         printLines(result.entries);
+    }
+
+    if (result.meta) {
+        handleResultMeta(result.meta);
+    }
+}
+
+// Handle special metadata returned from directory operations to trigger story events and other side effects.
+function handleResultMeta(meta) {
+    if (!meta) {
+        return;
+    }
+
+    if (meta.action === 'open' && meta.onOpenFlag === 'read_network_status') {
+        appendOutputLine('');
+        appendOutputLine('[SYSTEM] New keyword archived: SUBJECT_008');
+        appendOutputLine('[SYSTEM] New keyword archived: UNKNOWN_SOURCE');
+        appendOutputLine('[SYSTEM] New keyword archived: INTERCOM');
+    }
+
+    if (meta.action === 'open' && meta.onOpenFlag === 'read_security_log') {
+        appendOutputLine('[SYSTEM] New keyword archived: SUBLEVEL_3');
+        appendOutputLine('[SYSTEM] New keyword archived: SECURITY');
+    }
+
+    if (meta.action === 'open' && meta.onOpenFlag === 'read_staff_directory') {
+        appendOutputLine('[SYSTEM] New keyword archived: WATTS');
+        appendOutputLine('[SYSTEM] New keyword archived: POLENDINA');
+        appendOutputLine('[SYSTEM] New keyword archived: DIRECTOR');
+    }
+
+    if (meta.action === 'open' && meta.onOpenFlag === 'read_project_index') {
+        appendOutputLine('[SYSTEM] New keyword archived: ACHILLES');
+        appendOutputLine('[SYSTEM] New keyword archived: HYDRA');
+        appendOutputLine('[SYSTEM] New keyword archived: ATLAS');
+        appendOutputLine('[SYSTEM] New keyword archived: SERAPH');
+        appendOutputLine('[SYSTEM] New keyword archived: ORACLE');
+    }
+
+    if (meta.action === 'search' && meta.resultCount > 0) {
+        appendOutputLine('');
+        appendOutputLine('[SYSTEM] Search complete.');
     }
 }
 
@@ -145,6 +186,35 @@ const COMMANDS = {
         description: 'Opens and displays a file from the current directory.',
         execute: (args) => {
             printResult(openFile(args[0]));
+        }
+    },
+    search: {
+        name: 'search',
+        usage: 'search [term]',
+        description: 'Searches the archive for a discovered keyword.',
+        execute: (args) => {
+            const searchText = args.join(' ');
+            printResult(searchTerm(searchText));
+        }
+    },
+    terms: {
+        name: 'terms',
+        usage: 'terms',
+        description: 'Lists all archived keywords discovered so far.',
+        execute: () => {
+            const terms = getDiscoveredTerms();
+
+            if (terms.length === 0) {
+                appendOutputLine('No archived keywords.');
+                return;
+            }
+
+            appendOutputLine('ARCHIVED KEYWORDS');
+            appendOutputLine('');
+
+            for (const term of terms) {
+                appendOutputLine(`- ${term}`);
+            }
         }
     },
     clear: {

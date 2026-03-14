@@ -1,3 +1,89 @@
+// Game state management for the narrative terminal interface.
+const GAME_STATE = {
+    filesRead: new Set(),
+    discoveredTerms: new Set(),
+    flags: {}
+};
+
+// Search index mapping terms to file paths for the 'search' command.
+const SEARCH_INDEX = {
+    subject_008: [
+        { type: 'file', path: '/logs/network_status.txt' },
+        { type: 'file', path: '/logs/security_log.txt' },
+        { type: 'file', path: '/logs/anomaly_report.txt' },
+        { type: 'file', path: '/logs/sublevel_monitor.txt' }
+    ],
+    unknown_source: [
+        { type: 'file', path: '/logs/system_boot.txt' },
+        { type: 'file', path: '/logs/network_status.txt' },
+        { type: 'file', path: '/logs/security_log.txt' },
+        { type: 'file', path: '/logs/anomaly_report.txt' },
+        { type: 'file', path: '/logs/sublevel_monitor.txt' },
+        { type: 'file', path: '/staff/notice_01.txt' }
+    ],
+    intercom: [
+        { type: 'file', path: '/logs/network_status.txt' },
+        { type: 'file', path: '/staff/notice_01.txt' }
+    ],
+    sublevel: [
+        { type: 'file', path: '/logs/security_log.txt' },
+        { type: 'file', path: '/logs/sublevel_monitor.txt' },
+        { type: 'file', path: '/staff/notice_02.txt' }
+    ],
+    watts: [
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/research/projects/GEN_02.txt' }
+    ],
+    polendina: [
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/research/projects/BIO_01.txt' },
+        { type: 'file', path: '/research/projects/BIO_02.txt' },
+        { type: 'file', path: '/research/projects/BIO_03.txt' }
+    ],
+    ebi: [
+        { type: 'file', path: '/staff/directory.txt' }
+    ],
+    schnee: [
+        { type: 'file', path: '/staff/directory.txt' }
+    ],
+    ironwood: [
+        { type: 'file', path: '/staff/directory.txt'}
+    ],
+    director: [
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/staff/notice_02.txt' },
+        { type: 'file', path: '/research/overview.txt' }
+    ],
+    achilles: [
+        { type: 'file', path: '/research/project_index.txt' },
+        { type: 'file', path: '/research/projects/BIO_01.txt' }
+    ],
+    seraph: [
+        { type: 'file', path: '/research/project_index.txt' }
+    ],
+    bioengineering: [
+        { type: 'file', path: '/staff/directory.txt'},
+        { type: 'file', path: '/research/overview.txt' },
+        { type: 'file', path: '/research/project_index.txt' },
+        { type: 'file', path: '/research/projects/BIO_01.txt' },
+        { type: 'file', path: '/research/projects/BIO_02.txt' },
+        { type: 'file', path: '/research/projects/BIO_03.txt' }
+    ],
+    genetics: [
+        { type: 'file', path: '/staff/directory.txt'},
+        { type: 'file', path: '/research/overview.txt' },
+        { type: 'file', path: '/research/project_index.txt' }
+    ],
+    security: [
+        { type: 'file', path: '/logs/security_log.txt' },
+        { type: 'file', path: '/staff/directory.txt'},
+        { type: 'file', path: '/staff/notice_01.txt' },
+        { type: 'file', path: '/staff/notice_02.txt'},
+        { type: 'file', path: '/staff/security_clearance.txt' }
+    ]
+};
+
+
 // In-memory filesystem for the narrative terminal.
 const FILE_SYSTEM = {
     type: 'dir',
@@ -7,6 +93,8 @@ const FILE_SYSTEM = {
             children: {
                 'system_boot.txt': {
                     type: 'file',
+                    terms: ['unknown_source'],
+                    onOpenFlag: 'read_system_boot',
                     content: [
                         'FACILITY INTERNAL NETWORK BOOT SEQUENCE',
                         'SYSTEM NODE: PRIMARY',
@@ -32,6 +120,8 @@ const FILE_SYSTEM = {
                 },
                 'network_status.txt': {
                     type: 'file',
+                    terms: ['subject_008', 'unknown_source', 'intercom'],
+                    onOpenFlag: 'read_network_status',
                     content: [
                         'NETWORK STATUS LOG',
                         'NODE: FACILITY_INTERNAL_MAIN',
@@ -59,6 +149,9 @@ const FILE_SYSTEM = {
                 },
                 'security_log.txt': {
                     type: 'file',
+                    terms: ['subject_008', 'sublevel', 'security'],
+                    onOpenFlag: 'read_security_log',
+
                     content: [
                         'SECURITY INCIDENT LOG',
                         'COMPILED BY: SECURITY OPERATIONS',
@@ -93,6 +186,8 @@ const FILE_SYSTEM = {
                 },
                 'anomaly_report.txt': {
                     type: 'file',
+                    terms: ['unknown_source', 'subject_008'],
+                    onOpenFlag: 'read_anomaly_report',
                     content: [
                         'ANOMALY REPORT',
                         'FILE CLASSIFICATION: INTERNAL',
@@ -118,6 +213,8 @@ const FILE_SYSTEM = {
                 },
                 'sublevel_monitor.txt': {
                     type: 'file',
+                    terms: ['sublevel', 'subject_008', 'security', 'unknown_source'],
+                    onOpenFlag: 'read_sublevel_monitor',
                     content: [
                         'SUBLEVEL MONITORING LOG',
                         'ZONE: SUBLEVEL 3',
@@ -147,6 +244,8 @@ const FILE_SYSTEM = {
             children: {
                 'overview.txt': {
                     type: 'file',
+                    terms: ['genetics', 'bioengineering', 'director'],
+                    onOpenFlag: 'read_research_overview',
                     content: [
                         'FACILITY RESEARCH DIVISION OVERVIEW',
                         '',
@@ -181,6 +280,8 @@ const FILE_SYSTEM = {
                 },
                 'project_index.txt': {
                     type: 'file',
+                    terms: ['achilles', 'seraph', 'bioengineering', 'genetics'],
+                    onOpenFlag: 'read_project_index',
                     content: [
                         'FACILITY PROJECT INDEX',
                         '',
@@ -228,6 +329,8 @@ const FILE_SYSTEM = {
                     children: {
                         'BIO_01.txt': {
                             type: 'file',
+                            terms: ['achilles', 'bioengineering', 'prosthetics', 'polendina'],
+                            onOpenFlag: 'read_bio_01',
                             content: [
                                 'PROJECT FILE: BIO-01',
                                 'PROJECT NAME: ACHILLES',
@@ -282,6 +385,8 @@ const FILE_SYSTEM = {
                         },
                         'BIO_02.txt': {
                             type: 'file',
+                            terms: ['bioengineering', 'polendina'],
+                            onOpenFlag: 'read_bio_02',
                             content: [
                                 'PROJECT FILE: BIO-02',
                                 'PROJECT NAME: HYDRA',
@@ -346,10 +451,12 @@ const FILE_SYSTEM = {
                         },
                         'BIO_03.txt': {
                             type: 'file',
+                            terms: ['bioengineering', 'polendina'],
+                            onOpenFlag: 'read_bio_03',
                             content: [
                                 'PROJECT FILE: BIO-03',
                                 'PROJECT NAME: ATLAS',
-                                'DIVISION: ADAPTIVE PHYSIOLOGY',
+                                'DIVISION: BIOENGINEERING',
                                 '',
                                 'PROJECT STATUS: ACTIVE',
                                 'IMPLEMENTATION STATUS: FIELD TESTING',
@@ -411,6 +518,7 @@ const FILE_SYSTEM = {
                         },
                         'GEN_02.txt': {
                             type: 'file',
+                            terms: ['genetics', 'neural_interface'],
                             content: [
                                 'PROJECT FILE: GEN-02',
                                 'PROJECT NAME: ORACLE',
@@ -478,6 +586,8 @@ const FILE_SYSTEM = {
             children: {
                 'directory.txt': {
                     type: 'file',
+                    terms: ['watts', 'polendina', 'ebi', 'ironwood', 'schnee', 'director', 'genetics', 'bioengineering', 'security'],
+                    onOpenFlag: 'read_staff_directory',
                     content: [
                         'FACILITY STAFF DIRECTORY',
                         '',
@@ -500,15 +610,21 @@ const FILE_SYSTEM = {
                         'Position: Head of Bioengineering Division',
                         '',
                         'SECURITY DIVISION',
-                        'ID: S-002',
+                        'ID: S-001',
                         'CLOVER EBI',
                         'Position: Head of Security Operations',
+                        '',
+                        'ID: S-002',
+                        'SPECIALIST WINTER SCHNEE',
+                        'Position: Security Operations Specialist',
                         '',
                         'Full personnel records require elevated access credentials.'
                     ]
                 },
                 'notice_01.txt': {
                     type: 'file',
+                    terms: ['security', 'intercom', 'unknown_source'],
+                    onOpenFlag: 'read_notice_01',
                     content: [
                         'SECURITY NOTICE',
                         '',
@@ -535,6 +651,8 @@ const FILE_SYSTEM = {
                 },
                 'notice_02.txt': {
                     type: 'file',
+                    terms: ['security', 'sublevel'],
+                    onOpenFlag: 'read_notice_02',
                     content: [
                         'FACILITY STAFF NOTICE',
                         '',
@@ -557,6 +675,8 @@ const FILE_SYSTEM = {
                 },
                 'security_clearance.txt': {
                     type: 'file',
+                    terms: ['security'],
+                    onOpenFlag: 'read_security_clearance',
                     content: [
                         'FACILITY CLEARANCE LEVELS',
                         '',
@@ -583,8 +703,7 @@ const FILE_SYSTEM = {
         },
         secure: {
             type: 'dir',
-            locked: true,
-            children: {
+            requiredFlag: 'secure_access_granted', children: {
                 'avian_project.txt': {
                     type: 'file',
                     content: [
@@ -593,10 +712,10 @@ const FILE_SYSTEM = {
                         'DOCUMENT LOCK ACTIVE.'
                     ]
                 },
-                'subject_01.txt': {
+                'subject_008.txt': {
                     type: 'file',
                     content: [
-                        'SUBJECT 01 STATUS: UNKNOWN',
+                        'SUBJECT 008 STATUS: UNKNOWN',
                         'LAST CONFIRMED LOCATION: OBSERVATION CHAMBER 4',
                         'BIOMETRIC CHANNEL LOST AT 01:13.'
                     ]
@@ -633,6 +752,33 @@ function formatCurrentPath() {
     return `/${currentPathSegments.join('/')}`;
 }
 
+// Game state management functions for tracking discovered terms, read files, and flags.
+function hasFlag(flagName) {
+    return Boolean(GAME_STATE.flags[flagName]);
+}
+
+function setFlag(flagName, value = true) {
+    GAME_STATE.flags[flagName] = value;
+}
+
+function addDiscoveredTerms(terms = []) {
+    for (const term of terms) {
+        GAME_STATE.discoveredTerms.add(normalizeTerm(term));
+    }
+}
+
+function markFileRead(path) {
+    GAME_STATE.filesRead.add(path);
+}
+
+// Utility function to print directory entries or error messages to the terminal.
+function buildCurrentPathForItem(name = '') {
+    const basePath = formatCurrentPath() === '/' ? '' : formatCurrentPath();
+    return name ? `${basePath}/${name}` : formatCurrentPath();
+}
+
+
+
 // Return formatted directory entries for the active folder.
 function getDirectoryEntries() {
     const directory = getCurrentDirectoryObject();
@@ -644,20 +790,35 @@ function getDirectoryEntries() {
     const entries = Object.entries(directory.children);
 
     if (entries.length === 0) {
-        return { entries: ['No files found.'] };
+        return {
+            entries: ['No files found.'],
+            meta: {
+                path: formatCurrentPath(),
+                itemCount: 0
+            }
+        };
     }
 
     const formattedEntries = entries.map(([name, item]) => {
         if (item.type === 'dir') {
-            const lockedSuffix = item.locked ? ' [LOCKED]' : '';
+            const lockedByFlag = item.requiredFlag && !hasFlag(item.requiredFlag);
+            const isLocked = item.locked || lockedByFlag;
+            const lockedSuffix = isLocked ? ' [LOCKED]' : '';
             return `[DIR] ${name}${lockedSuffix}`;
         }
 
         return `[FILE] ${name}`;
     });
 
-    return { entries: formattedEntries };
+    return {
+        entries: formattedEntries,
+        meta: {
+            path: formatCurrentPath(),
+            itemCount: entries.length
+        }
+    };
 }
+
 
 // Change directory and return a result object for the terminal to print.
 function changeDirectory(target) {
@@ -671,7 +832,13 @@ function changeDirectory(target) {
         }
 
         currentPathSegments.pop();
-        return { entries: [`Moved to ${formatCurrentPath()}`] };
+        return {
+            entries: [`Moved to ${formatCurrentPath()}`],
+            meta: {
+                path: formatCurrentPath(),
+                action: 'cd'
+            }
+        };
     }
 
     const directory = getCurrentDirectoryObject();
@@ -686,13 +853,32 @@ function changeDirectory(target) {
         return { error: `Folder not found: ${target}` };
     }
 
-    if (nextNode.locked) {
-        return { error: 'Access denied.' };
+    const lockedByFlag = nextNode.requiredFlag && !hasFlag(nextNode.requiredFlag);
+    const isLocked = nextNode.locked || lockedByFlag;
+
+    if (isLocked) {
+        return {
+            error: 'Access denied.',
+            meta: {
+                path: formatCurrentPath(),
+                target,
+                action: 'cd_denied'
+            }
+        };
     }
 
     currentPathSegments.push(target);
-    return { entries: [`Moved to ${formatCurrentPath()}`] };
+
+    return {
+        entries: [`Moved to ${formatCurrentPath()}`],
+        meta: {
+            path: formatCurrentPath(),
+            target,
+            action: 'cd'
+        }
+    };
 }
+
 
 // Open a file and return printable lines for the terminal.
 function openFile(fileName) {
@@ -712,11 +898,103 @@ function openFile(fileName) {
         return { error: `File not found: ${fileName}` };
     }
 
+    const fullPath = buildCurrentPathForItem(fileName);
+
+    markFileRead(fullPath);
+
+    if (fileNode.onOpenFlag) {
+        setFlag(fileNode.onOpenFlag);
+    }
+
+    if (fileNode.terms) {
+        addDiscoveredTerms(fileNode.terms);
+    }
+
     return {
         entries: [
             `--- ${fileName} ---`,
             ...fileNode.content,
             '--- END FILE ---'
-        ]
+        ],
+        meta: {
+            action: 'open',
+            fileName,
+            path: fullPath,
+            terms: fileNode.terms || [],
+            onOpenFlag: fileNode.onOpenFlag || null
+        }
     };
 }
+
+// Search for a term in the discovered index and return results for the terminal.
+function searchTerm(rawTerm) {
+    if (!rawTerm) {
+        return { error: 'Usage: search [term]' };
+    }
+
+    const term = normalizeTerm(rawTerm);
+
+    if (!hasDiscoveredTerm(term)) {
+        return {
+            error: `No archived reference found for: ${rawTerm}`,
+            meta: {
+                action: 'search_denied',
+                term
+            }
+        };
+    }
+
+    const matches = SEARCH_INDEX[term] || [];
+
+    if (matches.length === 0) {
+        return {
+            entries: [
+                `SEARCH RESULTS FOR: ${term}`,
+                '',
+                'No indexed results found.'
+            ],
+            meta: {
+                action: 'search',
+                term,
+                resultCount: 0
+            }
+        };
+    }
+
+    const lines = [
+        `SEARCH RESULTS FOR: ${term}`,
+        ''
+    ];
+
+    for (const match of matches) {
+        lines.push(`[${match.type.toUpperCase()}] ${match.path}`);
+    }
+
+    return {
+        entries: lines,
+        meta: {
+            action: 'search',
+            term,
+            resultCount: matches.length
+        }
+    };
+}
+
+
+// Helper functions
+function getGameState() {
+    return GAME_STATE;
+}
+
+function hasDiscoveredTerm(term) {
+    return GAME_STATE.discoveredTerms.has(normalizeTerm(term));
+}
+
+function getDiscoveredTerms() {
+    return Array.from(GAME_STATE.discoveredTerms).sort();
+}
+
+function normalizeTerm(term) {
+    return term.trim().toLowerCase();
+}
+
