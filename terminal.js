@@ -180,6 +180,16 @@ const COMMANDS = {
                 appendOutputLine(`  Description: ${command.description}`);
                 appendOutputLine('');
             }
+
+            appendOutputLine('PATH TOKENS');
+            appendOutputLine('');
+            appendOutputLine('.');
+            appendOutputLine('  Means "current directory".');
+            appendOutputLine('  Example: list .');
+            appendOutputLine('');
+            appendOutputLine('..');
+            appendOutputLine('  Means "parent directory" (one level up).');
+            appendOutputLine('  Example: move ..');
         }
     },
     list: {
@@ -199,9 +209,9 @@ const COMMANDS = {
             printResult(changeDirectory(args[0]));
         }
     },
-    dir: {
-        name: 'dir',
-        usage: 'dir',
+    where: {
+        name: 'where',
+        usage: 'where',
         description: 'Displays the current directory.',
         execute: () => {
             appendOutputLine(formatCurrentPath());
