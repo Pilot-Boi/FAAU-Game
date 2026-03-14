@@ -39,6 +39,7 @@ const lineDelayMs = 450;
 const finalPauseMs = 300;
 const characterDelayMs = 24;
 const logoLineDelayMs = 70;
+const postBootLineDelayMs = 90;
 
 // Core DOM references.
 const terminalOutput = document.getElementById('terminal-output');
@@ -326,9 +327,10 @@ async function runBootSequence() {
 
     await wait(lineDelayMs);
 
+    // Post-boot status lines render line-by-line for a faster, responsive handoff.
     for (const line of postBootLines) {
-        await typeLine(line);
-        await wait(lineDelayMs);
+        appendOutputLine(line);
+        await wait(postBootLineDelayMs);
     }
 
     await wait(finalPauseMs);
