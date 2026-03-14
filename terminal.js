@@ -45,6 +45,8 @@ const postBootLineDelayMs = 90;
 const terminalOutput = document.getElementById('terminal-output');
 const terminalPrompt = document.getElementById('terminal-prompt');
 const promptInput = document.querySelector('.prompt-input');
+const promptSymbol = document.getElementById('prompt-symbol');
+
 
 // All known file-open flags mapped to their associated archival terms.
 const FLAG_TERM_MAP = {
@@ -104,13 +106,13 @@ function formatTermForOutput(term) {
         .toUpperCase();
 }
 
-    // Normalize terms for stable comparisons regardless of case/spacing style.
-    function normalizeTermKey(term) {
-        return String(term || '')
+// Normalize terms for stable comparisons regardless of case/spacing style.
+function normalizeTermKey(term) {
+    return String(term || '')
         .trim()
         .toLowerCase()
         .replace(/\s+/g, '_');
-    }
+}
 
 // Helper for printing result objects returned from directory.js.
 function printResult(result) {
@@ -210,14 +212,6 @@ const COMMANDS = {
             printResult(changeDirectory(args[0]));
         }
     },
-    where: {
-        name: 'where',
-        usage: 'where',
-        description: 'Displays the current directory.',
-        execute: () => {
-            appendOutputLine(formatCurrentPath());
-        }
-    },
     open: {
         name: 'open',
         usage: 'open [file|path]',
@@ -265,6 +259,11 @@ const COMMANDS = {
     }
 };
 
+// Update the prompt display to reflect the current directory path.
+function updatePromptDisplay() {
+    promptSymbol.textContent = `FACILITY:${formatCurrentPath()}> `;
+}
+
 // Parse and execute a user-entered command.
 function runCommand(inputText) {
     const trimmedInput = inputText.trim();
@@ -277,7 +276,7 @@ function runCommand(inputText) {
     const command = parts[0].toLowerCase();
     const args = parts.slice(1);
 
-    appendOutputLine(`> ${trimmedInput}`);
+    appendOutputLine(`FACILITY:${formatCurrentPath()}> ${trimmedInput}`);
 
     if (!Object.prototype.hasOwnProperty.call(COMMANDS, command)) {
         appendOutputLine("Command not recognized. Type 'help' for a list of commands.");
@@ -287,6 +286,7 @@ function runCommand(inputText) {
 
     COMMANDS[command].execute(args);
 
+    updatePromptDisplay();
     scrollTerminalToBottom();
 }
 
@@ -337,6 +337,7 @@ async function runBootSequence() {
 
     terminalPrompt.classList.remove('terminal-prompt-hidden');
     promptInput.textContent = '';
+    updatePromptDisplay();
     promptInput.focus();
 }
 
