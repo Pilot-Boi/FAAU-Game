@@ -3,13 +3,16 @@
     const messageWindow = document.getElementById('message-window');
     const messagePanel = messageWindow ? messageWindow.querySelector('.message-window-panel') : null;
     const messageContent = document.getElementById('message-content');
+    const messageCompose = document.getElementById('message-compose');
     const messageStatus = document.getElementById('message-status');
     const backButton = document.getElementById('message-window-back');
+    const nextButton = document.getElementById('message-window-next');
     const closeButton = document.getElementById('message-window-close');
 
     let previousFocusedElement = null;
     let conversationRenderToken = 0;
     let backAction = null;
+    let nextAction = null;
 
     function getFocusableElements() {
         if (!messageWindow) {
@@ -119,16 +122,16 @@
             button.type = 'button';
             button.className = 'message-contact-button';
             button.textContent = contact.label;
-            button.disabled = !contact.isAvailable;
+            button.disabled = !contact.isSelectable;
 
-            if (contact.isAvailable && typeof onSelect === 'function') {
+            if (contact.isSelectable && typeof onSelect === 'function') {
                 button.addEventListener('click', () => {
                     onSelect(contact.id);
                 });
             }
 
             const status = document.createElement('span');
-            status.className = `message-contact-status ${contact.isAvailable ? 'is-available' : 'is-unavailable'}`;
+            status.className = `message-contact-status ${contact.statusClass || 'is-offline'}`;
             status.textContent = contact.availabilityLabel;
 
             row.appendChild(button);
@@ -146,15 +149,22 @@
         });
     }
 
-    async function renderMessageConversation(conversation) {
+    async function renderMessageConversation(conversation, options = {}) {
         if (!messageContent || !Array.isArray(conversation)) {
             return;
         }
 
         const token = ++conversationRenderToken;
+        const rawAnimateFromIndex = Number(options.animateFromIndex);
+        const animateFromIndex = Number.isFinite(rawAnimateFromIndex)
+            ? Math.max(0, Math.min(conversation.length, Math.floor(rawAnimateFromIndex)))
+            : 0;
         messageContent.textContent = '';
 
-        for (const item of conversation) {
+        for (let index = 0; index < conversation.length; index += 1) {
+            const item = conversation[index];
+            const shouldAnimate = index >= animateFromIndex;
+
             if (token !== conversationRenderToken) {
                 return;
             }
@@ -179,11 +189,16 @@
                 bubble.textContent = lineText;
                 row.appendChild(bubble);
                 messageContent.scrollTop = messageContent.scrollHeight;
-                await wait(110);
+
+                if (shouldAnimate) {
+                    await wait(110);
+                }
             }
 
             messageContent.scrollTop = messageContent.scrollHeight;
-            await wait(120);
+            if (shouldAnimate) {
+                await wait(120);
+            }
         }
     }
 
@@ -206,6 +221,33 @@
         backButton.setAttribute('aria-hidden', 'false');
         backButton.disabled = false;
         backButton.textContent = label;
+    }
+
+    function setMessageAdvanceAction(handler, label = 'NEXT') {
+        nextAction = typeof handler === 'function' ? handler : null;
+
+        if (!nextButton) {
+            return;
+        }
+
+        if (!nextAction) {
+            if (messageCompose) {
+                messageCompose.classList.add('message-compose-hidden');
+                messageCompose.setAttribute('aria-hidden', 'true');
+            }
+
+            nextButton.disabled = true;
+            nextButton.textContent = label;
+            return;
+        }
+
+        if (messageCompose) {
+            messageCompose.classList.remove('message-compose-hidden');
+            messageCompose.setAttribute('aria-hidden', 'false');
+        }
+
+        nextButton.disabled = false;
+        nextButton.textContent = label;
     }
 
     function setMessageStatus(text) {
@@ -251,6 +293,7 @@
 
         clearMessageWindow();
         setMessageBackAction(null);
+        setMessageAdvanceAction(null);
         messageWindow.classList.add('message-window-hidden');
         messageWindow.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('message-window-open');
@@ -272,6 +315,14 @@
         });
     }
 
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            if (typeof nextAction === 'function') {
+                nextAction();
+            }
+        });
+    }
+
     document.addEventListener('keydown', handleGlobalKeys);
 
     window.openMessageWindow = openMessageWindow;
@@ -281,4 +332,5 @@
     window.renderMessageConversation = renderMessageConversation;
     window.setMessageStatus = setMessageStatus;
     window.setMessageBackAction = setMessageBackAction;
+    window.setMessageAdvanceAction = setMessageAdvanceAction;
 })();

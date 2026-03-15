@@ -24,7 +24,6 @@ const CHAPTER_01 = {
             sender: 'B',
             lines: [
                 '*lowers a can of soup into the facility*',
-                '',
                 'All I can offer at the moment'
             ]
         },
@@ -35,7 +34,6 @@ const CHAPTER_01 = {
             lines: [
                 'Oh thank you so much!',
                 'I’m not allowed to eat right now, but the thought is very nice.',
-                '',
                 'I’ll give it to SUBJECT_002[NAME REDACTED], maybe he can use it…'
             ]
         },
@@ -50,12 +48,11 @@ const CHAPTER_01 = {
         {
             type: 'reply',
             speaker: 'Test Subject 008',
-            discoverTerms: ['salem', 'avian', 'hybrid'],
+            discoverTerms: ['salem', 'hybrid'],
             lines: [
-                'Miss Salem isn’t an avian, that would be ridiculous.',
+                'Miss Salem isn’t an ███████, that would be ridiculous.',
                 'She did create us to fight for her though, that part is true.',
-                '',
-                'But no, Miss ███████ isn’t an avian, she’s…',
+                'But no, Miss Salem isn’t an ███████, she’s…',
                 'Well she’s not a hybrid exactly…'
             ]
         },
@@ -71,18 +68,12 @@ const CHAPTER_01 = {
         {
             type: 'reply',
             speaker: 'Dr. Watts',
-            discoverTerms: ['watts', 'subject_001'],
+            discoverTerms: ['subject_001'],
             lines: [
-                'The appearances of the gods’ angels from the past have had',
-                'a significant influence on avian design.',
-                '',
+                'The appearances of the gods’ angels from the past have had a significant influence on avian design.',
                 'Multiple wings, ocular clusters, and related traits.',
-                '',
-                'Our research indicates wing coloration corresponds to',
-                'the powers an avian will manifest.',
-                '',
+                'Our research indicates wing coloration corresponds to the powers an avian will manifest.',
                 'For example: Subject 001 and its Wipe ability.',
-                '',
                 'As for the names, Director ███████ named them herself.',
                 'She has not deigned to explain her reasoning.'
             ]

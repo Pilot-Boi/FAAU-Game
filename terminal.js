@@ -111,6 +111,19 @@ function getContactDisplayLabel(definition, discoveredTerms, termMetadata, fallb
     return fallbackLabel;
 }
 
+function contactHasUnreadDialogue(contactId) {
+    if (!contactId || typeof findUnreadReplyEntryForContact !== 'function') {
+        return false;
+    }
+
+    const chapter = getChapterByIndex(getCurrentChapterIndex());
+    if (!chapter) {
+        return false;
+    }
+
+    return Boolean(findUnreadReplyEntryForContact(chapter, contactId));
+}
+
 // Build the visible message-contact list from discovered person terms.
 function getDiscoveredMessageContacts() {
     const discoveredTerms = new Set((getDiscoveredTerms() || []).map(normalizeTermKey));
@@ -118,7 +131,29 @@ function getDiscoveredMessageContacts() {
     const contactMetadata = typeof CONTACT_METADATA !== 'undefined' ? CONTACT_METADATA : {};
     const availabilityByChapter =
         typeof CONTACT_AVAILABILITY_BY_CHAPTER !== 'undefined' ? CONTACT_AVAILABILITY_BY_CHAPTER : {};
-    const availableContacts = new Set(availabilityByChapter[getCurrentChapterIndex()] || []);
+    const currentChapterIndex = getCurrentChapterIndex();
+    const unlockedContacts = new Set();
+
+    for (const [chapterIndex, contactIds] of Object.entries(availabilityByChapter)) {
+        const parsedChapterIndex = Number(chapterIndex);
+        if (Number.isNaN(parsedChapterIndex) || parsedChapterIndex > currentChapterIndex) {
+            continue;
+        }
+
+        for (const contactId of contactIds || []) {
+            unlockedContacts.add(contactId);
+        }
+    }
+
+    const unreadContacts = new Set();
+    const currentChapter = getChapterByIndex(currentChapterIndex);
+    if (currentChapter && typeof findUnreadReplyEntryForContact === 'function') {
+        for (const contactId of unlockedContacts) {
+            if (findUnreadReplyEntryForContact(currentChapter, contactId)) {
+                unreadContacts.add(contactId);
+            }
+        }
+    }
 
     return Object.entries(contactMetadata)
         .filter(([, definition]) => {
@@ -136,14 +171,27 @@ function getDiscoveredMessageContacts() {
             const fallbackLabel = formatTermForOutput(termKey).replace(/_/g, ' ');
             const defaultLabel = definition.label || meta.label || fallbackLabel;
             const displayLabel = getContactDisplayLabel(definition, discoveredTerms, termMetadata, defaultLabel);
-            const isAvailable = availableContacts.has(contactId);
+            const hasUnlockedDialogue = unlockedContacts.has(contactId);
+            const hasUnreadDialogue = unreadContacts.has(contactId);
+
+            let presence = 'OFFLINE';
+            let statusClass = 'is-offline';
+
+            if (hasUnreadDialogue) {
+                presence = 'ONLINE';
+                statusClass = 'is-online';
+            } else if (hasUnlockedDialogue) {
+                presence = 'AWAY';
+                statusClass = 'is-away';
+            }
 
             return {
                 id: contactId,
                 termKey,
                 label: displayLabel,
-                isAvailable,
-                availabilityLabel: isAvailable ? 'AVAILABLE' : 'UNAVAILABLE'
+                isSelectable: hasUnlockedDialogue,
+                availabilityLabel: presence,
+                statusClass
             };
         });
 }
@@ -221,6 +269,10 @@ function showMessageContactDirectory() {
         setMessageBackAction(null);
     }
 
+    if (typeof setMessageAdvanceAction === 'function') {
+        setMessageAdvanceAction(null);
+    }
+
     if (typeof setMessageStatus === 'function') {
         setMessageStatus('CONTACT DIRECTORY');
     }
@@ -250,7 +302,7 @@ function showMessageContactDirectory() {
     renderMessageLines(fallbackLines);
 }
 
-// Open a selected contact thread if that contact is available in the current chapter.
+// Open a selected contact thread if that contact has unlocked dialogue.
 function openMessageContact(contactId) {
     const contact = getDiscoveredMessageContacts().find((entry) => entry.id === contactId);
 
@@ -266,13 +318,13 @@ function openMessageContact(contactId) {
         return;
     }
 
-    if (!contact.isAvailable) {
+    if (!contact.isSelectable) {
         if (typeof setMessageStatus === 'function') {
-            setMessageStatus('CONTACT UNAVAILABLE');
+            setMessageStatus('CONTACT OFFLINE');
         }
 
         if (typeof renderMessageLines === 'function') {
-            renderMessageLines([`${contact.label} cannot be reached at this time.`]);
+            renderMessageLines([`${contact.label} has no unlocked transmissions.`]);
         }
 
         return;
@@ -284,6 +336,10 @@ function openMessageContact(contactId) {
 
     if (typeof setMessageBackAction === 'function') {
         setMessageBackAction(showMessageContactDirectory, 'CONTACTS');
+    }
+
+    if (typeof setMessageAdvanceAction === 'function') {
+        setMessageAdvanceAction(null);
     }
 
     if (typeof setMessageStatus === 'function') {
@@ -299,13 +355,20 @@ function openMessageContact(contactId) {
         return;
     }
 
+    let newlyAppendedCount = 0;
+
     if (result.meta && result.meta.action === 'story' && Array.isArray(result.meta.conversation)) {
         appendContactMessageHistory(contactId, result.meta.conversation);
+        newlyAppendedCount = result.meta.conversation.length;
     }
 
     const conversationHistory = getContactMessageHistory(contactId);
     if (typeof renderMessageConversation === 'function' && conversationHistory.length > 0) {
-        renderMessageConversation(conversationHistory);
+        const animateFromIndex = newlyAppendedCount > 0
+            ? Math.max(0, conversationHistory.length - newlyAppendedCount)
+            : conversationHistory.length;
+
+        renderMessageConversation(conversationHistory, { animateFromIndex });
     } else if (typeof renderMessageLines === 'function' && result.entries) {
         renderMessageLines(result.entries);
     }
@@ -321,6 +384,16 @@ function openMessageContact(contactId) {
         const eventLines = evaluateEvents(result.meta);
         if (eventLines.length > 0) {
             printLines(eventLines);
+        }
+    }
+
+    if (typeof setMessageAdvanceAction === 'function') {
+        if (contactHasUnreadDialogue(contactId)) {
+            setMessageAdvanceAction(() => {
+                openMessageContact(contactId);
+            }, 'NEXT');
+        } else {
+            setMessageAdvanceAction(null);
         }
     }
 }

@@ -34,9 +34,15 @@
                 <div class="message-window-header">
                     <button class="message-window-back message-window-back-hidden" id="message-window-back" type="button" aria-label="Back to contacts">CONTACTS</button>
                     <div class="message-window-title" id="message-window-title">FACILITY COMMUNICATION INTERFACE</div>
-                    <button class="message-window-close" id="message-window-close" type="button" aria-label="Close communications window">X</button>
+                    <div class="message-window-controls">
+                        <button class="message-window-close" id="message-window-close" type="button" aria-label="Close communications window">X</button>
+                    </div>
                 </div>
                 <div class="message-content" id="message-content" tabindex="0"></div>
+                <div class="message-compose message-compose-hidden" id="message-compose" aria-hidden="true">
+                    <input class="message-compose-field" id="message-compose-field" type="text" value="" placeholder="Continue dialogue..." readonly tabindex="-1" aria-label="Dialogue prompt" />
+                    <button class="message-window-next" id="message-window-next" type="button" aria-label="Load next unread dialogue">NEXT</button>
+                </div>
                 <div class="message-status" id="message-status" tabindex="0">STANDBY</div>
             </div>
         </div>

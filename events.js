@@ -1,9 +1,9 @@
 const EVENT_RULES = [
     {
         id: 'first_contact_available',
-        when: () =>
-            hasFlag('read_network_status') &&
-            hasFlag('read_security_log'),
+        when: (context = {}) =>
+            (hasFlag('read_network_status') && hasFlag('read_security_log')) ||
+            (context.action === 'search' && context.term === 'subject_008'),
         do: () => {
             unlockCommand('msg');
             return [
@@ -72,8 +72,9 @@ const EVENT_RULES = [
 
     {
         id: 'secure_access_granted',
-        when: () =>
-            hasDiscoveredTerm('avian'),
+        when: (context = {}) =>
+            hasDiscoveredTerm('avian') ||
+            (context.action === 'search' && context.term === 'avian'),
         do: () => {
             setFlag('secure_access_granted');
             return [

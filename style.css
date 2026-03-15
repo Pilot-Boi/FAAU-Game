@@ -184,7 +184,7 @@ body {
 .message-window-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 0.5rem;
     padding: 0.9rem 1.2rem;
     background: #182126;
@@ -206,10 +206,28 @@ body {
 }
 
 .message-window-title {
+    flex: 1 1 auto;
     color: #b6e7e3;
     font-size: 0.98rem;
     font-weight: 700;
     letter-spacing: 0.08em;
+    text-align: center;
+}
+
+.message-window-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.message-window-next {
+    border: 1px solid #456c6a;
+    background: #11181c;
+    color: #c8efe9;
+    font: inherit;
+    line-height: 1;
+    padding: 0.35rem 0.6rem;
+    cursor: pointer;
 }
 
 .message-window-close {
@@ -223,6 +241,7 @@ body {
 }
 
 .message-window-close:focus-visible,
+.message-window-next:focus-visible,
 .message-window-back:focus-visible,
 .message-content:focus-visible,
 .message-status:focus-visible,
@@ -239,6 +258,39 @@ body {
     background: rgba(6, 12, 14, 0.72);
     line-height: 1.55;
     white-space: pre-wrap;
+}
+
+.message-compose {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.2rem;
+    border-top: 1px solid #2e4d4c;
+    background: #141d21;
+}
+
+.message-compose-hidden {
+    display: none;
+}
+
+.message-compose-field {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: 1px solid #2f5250;
+    border-radius: 999px;
+    background: rgba(9, 17, 19, 0.85);
+    color: #9ec8c2;
+    font: inherit;
+    line-height: 1.2;
+    padding: 0.5rem 0.85rem;
+}
+
+.message-compose-field::placeholder {
+    color: #7fa5a0;
+}
+
+.message-compose-field:focus {
+    outline: none;
 }
 
 .message-line {
@@ -290,12 +342,18 @@ body {
     letter-spacing: 0.08em;
 }
 
-.message-contact-status.is-available {
+.message-contact-status.is-available,
+.message-contact-status.is-online {
     color: #8df5c4;
 }
 
-.message-contact-status.is-unavailable {
+.message-contact-status.is-unavailable,
+.message-contact-status.is-away {
     color: #e0ae8b;
+}
+
+.message-contact-status.is-offline {
+    color: #6f8080;
 }
 
 .message-chat-row {
