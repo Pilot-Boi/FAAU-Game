@@ -1,7 +1,6 @@
 /**
  * 
  */
-
 // Search index mapping terms to file paths for the 'search' command.
 const SEARCH_INDEX = {
     subject_008: [
@@ -1152,21 +1151,108 @@ const FILE_SYSTEM = {
             type: 'dir',
             requiredFlag: 'secure_access_granted',
             children: {
-                'avian_project.txt': {
-                    type: 'file',
-                    content: [
-                        'PROJECT AVIA-PHASE',
-                        'ACCESS LEVEL OMEGA REQUIRED.',
-                        'DOCUMENT LOCK ACTIVE.'
-                    ]
-                },
-                'subject_008.txt': {
-                    type: 'file',
-                    content: [
-                        'SUBJECT 008 STATUS: UNKNOWN',
-                        'LAST CONFIRMED LOCATION: OBSERVATION CHAMBER 4',
-                        'BIOMETRIC CHANNEL LOST AT 01:13.'
-                    ]
+                subjects: {
+                    type: 'dir',
+                    children: {
+                        'subject_001.txt': {
+                            type: 'file',
+                            terms: ['subject_001', 'test_subjects'],
+                            onOpenFlag: 'read_subject_001',
+                            imageAttachment: {
+                                src: 'assets/subjects/subject_001.png',
+                                title: 'SUBJECT 001 IMAGE ARCHIVE',
+                                description: 'Placeholder image. Replace with subject_001 asset when available.'
+                            },
+                            content: ['STUB - Subject file content not yet implemented.']
+                        },
+                        'subject_002.txt': {
+                            type: 'file',
+                            terms: ['subject_002', 'test_subjects'],
+                            onOpenFlag: 'read_subject_002',
+                            imageAttachment: {
+                                src: 'assets/subjects/subject_002.png',
+                                title: 'SUBJECT 002 IMAGE ARCHIVE',
+                                description: 'Placeholder image. Replace with subject_002 asset when available.'
+                            },
+                            content: ['STUB - Subject file content not yet implemented.']
+                        },
+                        'subject_003.txt': {
+                            type: 'file',
+                            terms: ['subject_003', 'test_subjects'],
+                            onOpenFlag: 'read_subject_003',
+                            imageAttachment: {
+                                src: 'assets/subjects/subject_003.png',
+                                title: 'SUBJECT 003 IMAGE ARCHIVE',
+                                description: 'Placeholder image. Replace with subject_003 asset when available.'
+                            },
+                            content: ['STUB - Subject file content not yet implemented.']
+                        },
+                        'subject_004.txt': {
+                            type: 'file',
+                            requiredFlag: 'subject_004_unlocked',
+                            hiddenUntilFlag: 'subject_004_file_unlocked',
+                            terms: ['subject_004', 'test_subjects'],
+                            onOpenFlag: 'read_subject_004',
+                            imageAttachment: {
+                                src: 'assets/subjects/subject_004.png',
+                                title: 'SUBJECT 004 IMAGE ARCHIVE',
+                                description: 'Placeholder image. Replace with subject_004 asset when available.'
+                            },
+                            content: ['STUB - Subject file content not yet implemented.']
+                        },
+                        'subject_005.txt': {
+                            type: 'file',
+                            requiredFlag: 'subject_005_unlocked',
+                            hiddenUntilFlag: 'subject_005_file_unlocked',
+                            terms: ['subject_005', 'test_subjects'],
+                            onOpenFlag: 'read_subject_005',
+                            imageAttachment: {
+                                src: 'assets/subjects/subject_005.png',
+                                title: 'SUBJECT 005 IMAGE ARCHIVE',
+                                description: 'Placeholder image. Replace with subject_005 asset when available.'
+                            },
+                            content: ['STUB - Subject file content not yet implemented.']
+                        },
+                        'subject_006.txt': {
+                            type: 'file',
+                            requiredFlag: 'subject_006_unlocked',
+                            hiddenUntilFlag: 'subject_006_file_unlocked',
+                            terms: ['subject_006', 'test_subjects'],
+                            onOpenFlag: 'read_subject_006',
+                            imageAttachment: {
+                                src: 'assets/subjects/subject_006.png',
+                                title: 'SUBJECT 006 IMAGE ARCHIVE',
+                                description: 'Placeholder image. Replace with subject_006 asset when available.'
+                            },
+                            content: ['STUB - Subject file content not yet implemented.']
+                        },
+                        'subject_007.txt': {
+                            type: 'file',
+                            requiredFlag: 'subject_007_unlocked',
+                            hiddenUntilFlag: 'subject_007_file_unlocked',
+                            terms: ['subject_007', 'test_subjects'],
+                            onOpenFlag: 'read_subject_007',
+                            imageAttachment: {
+                                src: 'assets/subjects/subject_007.png',
+                                title: 'SUBJECT 007 IMAGE ARCHIVE',
+                                description: 'Placeholder image. Replace with subject_007 asset when available.'
+                            },
+                            content: ['STUB - Subject file content not yet implemented.']
+                        },
+                        'subject_008.txt': {
+                            type: 'file',
+                            requiredFlag: 'subject_008_file_unlocked',
+                            hiddenUntilFlag: 'subject_008_file_unlocked',
+                            terms: ['subject_008', 'test_subjects'],
+                            onOpenFlag: 'read_subject_008',
+                            imageAttachment: {
+                                src: 'assets/subjects/subject_008.png',
+                                title: 'SUBJECT 008 IMAGE ARCHIVE',
+                                description: 'Placeholder image. Replace with subject_008 asset when available.'
+                            },
+                            content: ['STUB - Subject file content not yet implemented.']
+                        }
+                    }
                 }
             }
         }
@@ -1442,7 +1528,8 @@ function openFile(filePath) {
             fileName,
             path: fullPath,
             terms: resolved.node.terms || [],
-            onOpenFlag: resolved.node.onOpenFlag || null
+            onOpenFlag: resolved.node.onOpenFlag || null,
+            imageAttachment: resolved.node.imageAttachment || null
         }
     };
 }
@@ -1565,4 +1652,5 @@ function searchTerm(rawTerm) {
         }
     };
 }
+
 

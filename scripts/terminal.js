@@ -51,6 +51,65 @@ const promptSymbol = document.getElementById('prompt-symbol');
 // Tracks keywords already announced to avoid repeating the same unlock message.
 const announcedTerms = new Set();
 
+function normalizeImageAttachment(attachment) {
+    if (!attachment) {
+        return null;
+    }
+
+    if (typeof attachment === 'string') {
+        const src = attachment.trim();
+        if (!src) {
+            return null;
+        }
+
+        return {
+            src,
+            title: 'FILE IMAGE ATTACHMENT',
+            description: ''
+        };
+    }
+
+    if (typeof attachment === 'object') {
+        const src = typeof attachment.src === 'string' ? attachment.src.trim() : '';
+        if (!src) {
+            return null;
+        }
+
+        return {
+            src,
+            title: typeof attachment.title === 'string' ? attachment.title : 'FILE IMAGE ATTACHMENT',
+            description: typeof attachment.description === 'string' ? attachment.description : ''
+        };
+    }
+
+    return null;
+}
+
+function openImageAttachmentWindow(attachment, meta = {}) {
+    const normalized = normalizeImageAttachment(attachment);
+
+    if (!normalized) {
+        return;
+    }
+
+    if (typeof renderImageAttachment !== 'function') {
+        appendOutputLine('[SYSTEM] Image attachment detected, but the image viewer module is unavailable.');
+        return;
+    }
+
+    const fileName = typeof meta.fileName === 'string' ? meta.fileName : 'UNKNOWN FILE';
+    const filePath = typeof meta.path === 'string' ? meta.path : '/';
+
+    renderImageAttachment({
+        src: normalized.src,
+        title: normalized.title || `FILE IMAGE ATTACHMENT // ${fileName.toUpperCase()}`,
+        meta: `SOURCE FILE: ${fileName} (${filePath}) | IMAGE SOURCE: ${normalized.src}`,
+        status: normalized.description || 'IMAGE ATTACHMENT LOADED'
+    });
+
+    appendOutputLine('[SYSTEM] Image attachment detected. Opening image panel...');
+}
+
 // Keep newest output in view.
 function scrollTerminalToBottom() {
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
@@ -521,6 +580,10 @@ function handleResultMeta(meta) {
                 appendOutputLine(`[SYSTEM] New keyword archived: ${formatTermForOutput(term)}`);
             }
         }
+    }
+
+    if (meta.action === 'open' && meta.imageAttachment) {
+        openImageAttachmentWindow(meta.imageAttachment, meta);
     }
 
     if (meta.action === 'search' && meta.resultCount > 0) {

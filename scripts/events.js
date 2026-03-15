@@ -73,8 +73,7 @@ const EVENT_RULES = [
     {
         id: 'secure_access_granted',
         when: (context = {}) =>
-            hasDiscoveredTerm('avian') ||
-            (context.action === 'search' && context.term === 'avian'),
+            context.action === 'search' && context.term === 'avian',
         do: () => {
             setFlag('secure_access_granted');
             return [
