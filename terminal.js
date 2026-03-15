@@ -65,17 +65,116 @@ function appendBootLine() {
     return line;
 }
 
+// Apply lightweight syntax coloring to improve terminal readability.
+function getTerminalLineClass(text) {
+    const normalized = String(text || '').trim();
+    const lowerNormalized = normalized.toLowerCase();
+
+    if (!normalized) {
+        return '';
+    }
+
+    if (normalized.startsWith('[SYSTEM]')) {
+        return 'terminal-line-system';
+    }
+
+    if (/^FACILITY:.*>\s/.test(normalized)) {
+        return 'terminal-line-command';
+    }
+
+    if (/^--- .* ---$/.test(normalized) && normalized !== '--- END FILE ---') {
+        return 'terminal-line-file-header';
+    }
+
+    if (normalized === '--- END FILE ---') {
+        return 'terminal-line-divider';
+    }
+
+    if (/^(INCOMING TRANSMISSION|Establishing anomalous relay\.\.\.|Routing .* transmission channel\.\.\.|Connection established\.|Channel Status:)/.test(normalized)) {
+        return 'terminal-line-transmission';
+    }
+
+    if (
+        /^[A-Za-z0-9 .'-]+:$/.test(normalized) &&
+        !/^(Label|Type|Summary|Classification|Details|Usage|Description|Position|Division|Office|Status|Source|Access Level|Directory|Channel Status):$/i.test(normalized)
+    ) {
+        return 'terminal-line-speaker';
+    }
+
+    if (/^(DIRECTORY:|SEARCH RESULTS FOR:|TERM DOSSIER|ARCHIVED KEYWORDS|AVAILABLE COMMANDS|KNOWN CONTACTS)/.test(normalized)) {
+        return 'terminal-line-heading';
+    }
+
+    if (/^\[(DIR|FILE)\]/.test(normalized)) {
+        return 'terminal-line-entry';
+    }
+
+    if (/^warning:/.test(lowerNormalized)) {
+        return 'terminal-line-system';
+    }
+
+    if (/(access denied|not found|command unavailable|command not recognized|no archived reference found|unknown error|invalid path|directory error|usage:)/i.test(normalized)) {
+        return 'terminal-line-error';
+    }
+
+    return '';
+}
+
 // Append a complete output row immediately.
-function appendOutputLine(text) {
+function appendOutputLine(text, extraClasses = []) {
     const line = appendBootLine();
+    const lineClass = getTerminalLineClass(text);
+    if (lineClass) {
+        line.classList.add(lineClass);
+    }
+
+    const classList = Array.isArray(extraClasses) ? extraClasses : [extraClasses];
+    for (const className of classList) {
+        if (className) {
+            line.classList.add(className);
+        }
+    }
+
     line.textContent = text;
     return line;
 }
 
 // Helper for printing multiple output rows.
 function printLines(lines) {
+    let contextMode = null;
+
     for (const line of lines) {
-        appendOutputLine(line);
+        const normalized = String(line || '').trim();
+        const extraClasses = [];
+
+        if (contextMode === 'file' && normalized && normalized !== '--- END FILE ---') {
+            extraClasses.push('terminal-line-file-content');
+        }
+
+        if (contextMode === 'search' && normalized && !normalized.startsWith('[SYSTEM]')) {
+            extraClasses.push('terminal-line-search-content');
+        }
+
+        appendOutputLine(line, extraClasses);
+
+        if (/^--- .* ---$/.test(normalized) && normalized !== '--- END FILE ---') {
+            contextMode = 'file';
+            continue;
+        }
+
+        if (normalized === '--- END FILE ---') {
+            contextMode = null;
+            continue;
+        }
+
+        if (/^SEARCH RESULTS FOR:/.test(normalized)) {
+            contextMode = 'search';
+            continue;
+        }
+
+        if (contextMode === 'search' && normalized.startsWith('[SYSTEM]')) {
+            contextMode = null;
+        }
     }
 }
 
