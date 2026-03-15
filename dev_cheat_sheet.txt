@@ -30,6 +30,8 @@ Core commands:
   dev unevent [event_name]
 
   dev secure
+  dev msg
+  dev cams
   dev state
   dev flags
   dev terms

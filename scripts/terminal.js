@@ -942,6 +942,18 @@ async function handleDevCommand(args) {
         return;
     }
 
+    if (subcommand === 'msg') {
+        unlockCommand('msg');
+        appendOutputLine('[DEV] msg command unlocked.', 'terminal-system');
+        return;
+    }
+
+    if (subcommand === 'cams') {
+        unlockCommand('cams');
+        appendOutputLine('[DEV] cams command unlocked.', 'terminal-system');
+        return;
+    }
+
     if (subcommand === 'chapter') {
         const value = args[1];
         const chapterIndex = Number(value);
@@ -1075,6 +1087,8 @@ async function handleDevCommand(args) {
         appendOutputLine('dev event [event_name]', 'terminal-muted');
         appendOutputLine('dev unevent [event_name]', 'terminal-muted');
         appendOutputLine('dev secure', 'terminal-muted');
+        appendOutputLine('dev msg', 'terminal-muted');
+        appendOutputLine('dev cams', 'terminal-muted');
         appendOutputLine('dev state', 'terminal-muted');
         appendOutputLine('dev flags', 'terminal-muted');
         appendOutputLine('dev terms', 'terminal-muted');
