@@ -14,6 +14,7 @@
 const GAME_STATE = {
     filesRead: new Set(),
     discoveredTerms: new Set(),
+    searchedTerms: new Set(),
     flags: {},
     unlockedCommands: new Set([
         'help',
@@ -74,6 +75,22 @@ function hasDiscoveredTerm(term) {
 
 function getDiscoveredTerms() {
     return Array.from(GAME_STATE.discoveredTerms).sort();
+}
+
+function markTermSearched(term) {
+    if (!term) {
+        return;
+    }
+
+    GAME_STATE.searchedTerms.add(normalizeTerm(term));
+}
+
+function hasSearchedTerm(term) {
+    return GAME_STATE.searchedTerms.has(normalizeTerm(term));
+}
+
+function getSearchedTerms() {
+    return Array.from(GAME_STATE.searchedTerms).sort();
 }
 
 function unlockCommand(commandName) {
@@ -137,6 +154,7 @@ function getGameState() {
 function resetGameState() {
     GAME_STATE.filesRead.clear();
     GAME_STATE.discoveredTerms.clear();
+    GAME_STATE.searchedTerms.clear();
     GAME_STATE.flags = {};
 
     GAME_STATE.unlockedCommands = new Set([

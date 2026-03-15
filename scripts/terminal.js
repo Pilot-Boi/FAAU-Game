@@ -703,8 +703,15 @@ const COMMANDS = {
             appendOutputLine('');
 
             for (const term of terms) {
-                appendOutputLine(`- ${formatTermForOutput(term)}`);
+                const searched = typeof hasSearchedTerm === 'function' && hasSearchedTerm(term);
+                appendOutputLine(
+                    `- ${formatTermForOutput(term)}`,
+                    searched ? 'terminal-line-term-searched' : 'terminal-line-term-unsearched'
+                );
             }
+
+            appendOutputLine('');
+            appendOutputLine('[SYSTEM] Highlight legend: searched terms are tinted differently.');
         }
     },
     clear: {

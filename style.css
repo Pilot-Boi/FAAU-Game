@@ -138,6 +138,15 @@ body {
     text-shadow: 0 0 4px rgba(255, 107, 107, 0.22);
 }
 
+.terminal-line-term-searched {
+    color: #9aa7b0;
+    text-shadow: 0 0 4px rgba(154, 167, 176, 0.18);
+}
+
+.terminal-line-term-unsearched {
+    color: var(--terminal-entry);
+}
+
 .terminal-line-file-content,
 .terminal-line-search-content {
     margin-left: 1.2rem;

@@ -59,38 +59,53 @@ const TERM_METADATA = Object.freeze({
     peach: { label: 'Dr. Peach', type: 'person' },
 
     ironwood: {
-        label: 'General Ironwood',
+        label: 'General J. Ironwood',
         type: 'person',
         unlocks: [
             { flag: 'profile_ironwood_unlocked', path: '/staff/profiles/ironwood_profile.txt' }
+        ],
+        summary: [
+            'General Ironwood serves as the Facility Commander and oversees all operational divisions, including Research, Security, and Command.',
         ]
     },
     polendina: {
-        label: 'Dr. Polendina',
+        label: 'Dr. P. Polendina',
         type: 'person',
         unlocks: [
             { flag: 'profile_polendina_unlocked', path: '/staff/profiles/polendina_profile.txt' }
+        ],
+        summary: [
+            'Dr. Polendina is a senior researcher and the Head of the Bioengineering Division, specializing in biomechanical augmentation and prosthetic development.',
         ]
     },
     watts: {
-        label: 'Dr. Watts',
+        label: 'Dr. A. Watts',
         type: 'person',
         unlocks: [
             { flag: 'profile_watts_unlocked', path: '/staff/profiles/watts_profile.txt' }
+        ],
+        summary: [
+            'Dr. Watts is a senior researcher and the Head of the Genetics Division, specializing in genomic research and engineered physiological traits.',
         ]
     },
     ebi: {
-        label: 'Clover Ebi',
+        label: 'Specialist C. Ebi',
         type: 'person',
         unlocks: [
             { flag: 'profile_ebi_unlocked', path: '/staff/profiles/ebi_profile.txt' }
+        ],
+        summary: [
+            'Specialist Ebi is a senior security officer and the Head of Security Operations, specializing in facility security protocols and personnel safety.',
         ]
     },
     schnee: {
-        label: 'Winter Schnee',
+        label: 'Specialist W. Schnee',
         type: 'person',
         unlocks: [
             { flag: 'profile_schnee_unlocked', path: '/staff/profiles/schnee_profile.txt' }
+        ],
+        summary: [
+            'Specialist Schnee is a senior security officer and the Head of Containment Operations, specializing in secured research environments and subject monitoring protocols.',
         ]
     },
 

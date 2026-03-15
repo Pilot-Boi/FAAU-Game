@@ -780,7 +780,7 @@ const FILE_SYSTEM = {
                         '',
                         'SECURITY DIVISION',
                         'ID: S-001',
-                        'CLOVER EBI',
+                        'SPECIALIST CLOVER EBI',
                         'Position: Head of Security Operations',
                         '',
                         'ID: S-002',
@@ -1601,6 +1601,10 @@ function searchTerm(rawTerm) {
     }
 
     const term = normalizeTerm(rawTerm);
+
+    if (typeof markTermSearched === 'function') {
+        markTermSearched(term);
+    }
 
     if (!hasDiscoveredTerm(term)) {
         return {
