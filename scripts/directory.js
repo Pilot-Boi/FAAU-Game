@@ -329,7 +329,7 @@ const FILE_SYSTEM = {
                         },
                         'subject_004.txt': {
                             type: 'file',
-                            requiredFlag: 'subject_004_unlocked',
+                            requiredFlag: 'subject_004_file_unlocked',
                             hiddenUntilFlag: 'subject_004_file_unlocked',
                             terms: ['subject_004', 'test_subjects'],
                             onOpenFlag: 'read_subject_004',
@@ -342,7 +342,7 @@ const FILE_SYSTEM = {
                         },
                         'subject_005.txt': {
                             type: 'file',
-                            requiredFlag: 'subject_005_unlocked',
+                            requiredFlag: 'subject_005_file_unlocked',
                             hiddenUntilFlag: 'subject_005_file_unlocked',
                             terms: ['subject_005', 'test_subjects'],
                             onOpenFlag: 'read_subject_005',
@@ -355,7 +355,7 @@ const FILE_SYSTEM = {
                         },
                         'subject_006.txt': {
                             type: 'file',
-                            requiredFlag: 'subject_006_unlocked',
+                            requiredFlag: 'subject_006_file_unlocked',
                             hiddenUntilFlag: 'subject_006_file_unlocked',
                             terms: ['subject_006', 'test_subjects'],
                             onOpenFlag: 'read_subject_006',
@@ -368,7 +368,7 @@ const FILE_SYSTEM = {
                         },
                         'subject_007.txt': {
                             type: 'file',
-                            requiredFlag: 'subject_007_unlocked',
+                            requiredFlag: 'subject_007_file_unlocked',
                             hiddenUntilFlag: 'subject_007_file_unlocked',
                             terms: ['subject_007', 'test_subjects'],
                             onOpenFlag: 'read_subject_007',

@@ -7,9 +7,9 @@ Source: scripts/directory.js
 |   |-- network_status.txt
 |   |-- security_log.txt
 |   |-- anomaly_report.txt
-|   |-- anomaly_correlation.txt [hidden until anomaly correlation unlock]
+|   |-- anomaly_correlation.txt [requires flag: anomaly_correlation_unlocked]
 |   |-- sublevel_monitor.txt
-|   `-- sublevel_security.txt [hidden until sublevel security unlock]
+|   `-- sublevel_security.txt [requires flag: sublevel_security_unlocked]
 |-- research/
 |   |-- overview.txt
 |   |-- project_index.txt
@@ -22,21 +22,27 @@ Source: scripts/directory.js
 |   |-- directory.txt
 |   |-- notice_01.txt
 |   |-- notice_02.txt
-|   |-- archive_notice.txt [hidden until restricted archive unlock]
+|   |-- archive_notice.txt [requires flag: archive_notice_unlocked]
 |   |-- security_clearance.txt
-|   |-- security_protocols.txt [hidden until security protocols unlock]
-|   `-- profiles/ [hidden until personnel profile search]
-|       |-- ironwood_profile.txt [hidden until search: ironwood]
-|       |-- watts_profile.txt [hidden until search: watts]
-|       |-- polendina_profile.txt [hidden until search: polendina]
-|       |-- ebi_profile.txt [hidden until search: ebi]
-|       `-- schnee_profile.txt [hidden until search: schnee]
+|   |-- security_protocols.txt [requires flag: security_protocols_unlocked]
+|   `-- profiles/
+|       |-- ironwood_profile.txt [requires flag: profile_ironwood_unlocked]
+|       |-- watts_profile.txt [requires flag: profile_watts_unlocked]
+|       |-- polendina_profile.txt [requires flag: profile_polendina_unlocked]
+|       |-- ebi_profile.txt [requires flag: profile_ebi_unlocked]
+|       `-- schnee_profile.txt [requires flag: profile_schnee_unlocked]
 `-- secure/ [requires flag: secure_access_granted]
-    |-- avian_project.txt
-    `-- subject_008.txt
+    `-- subjects/
+        |-- subject_001.txt
+        |-- subject_002.txt
+        |-- subject_003.txt
+        |-- subject_004.txt [requires flag: subject_004_file_unlocked]
+        |-- subject_005.txt [requires flag: subject_005_file_unlocked]
+        |-- subject_006.txt [requires flag: subject_006_file_unlocked]
+        |-- subject_007.txt [requires flag: subject_007_file_unlocked]
+        `-- subject_008.txt [requires flag: subject_008_file_unlocked]
 
 Notes:
-- profiles/ is not visible until a valid personnel search reveals profile entries.
-- Each profile file remains hidden until its matching person term is searched.
-- anomaly_correlation.txt, sublevel_security.txt, archive_notice.txt, and security_protocols.txt are present in the file system but hidden until their related investigation/search unlocks occur.
-- secure/ exists in the file system but is locked behind secure_access_granted.
+- This diagram is auto-generated from FILE_SYSTEM in scripts/directory.js.
+- Entries marked [requires flag: ...] are present but locked until the flag is set.
+- Run tools/update_file_system_diagram.ps1 after editing FILE_SYSTEM to refresh this file.
