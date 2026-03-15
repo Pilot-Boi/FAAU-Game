@@ -6,7 +6,6 @@
     const titleNode = document.getElementById('image-window-title');
     const contentNode = document.getElementById('image-window-content');
     const imageNode = document.getElementById('image-window-preview');
-    const metaNode = document.getElementById('image-window-meta');
     const statusNode = document.getElementById('image-window-status');
 
     let previousFocusedElement = null;
@@ -79,14 +78,6 @@
         statusNode.textContent = text || 'STANDBY';
     }
 
-    function setImageWindowMeta(text) {
-        if (!metaNode) {
-            return;
-        }
-
-        metaNode.textContent = text || 'SOURCE: N/A';
-    }
-
     function clearImageWindow() {
         if (titleNode) {
             titleNode.textContent = 'FILE IMAGE ATTACHMENT';
@@ -97,7 +88,6 @@
             imageNode.alt = 'Attachment preview';
         }
 
-        setImageWindowMeta('SOURCE: N/A');
         setImageWindowStatus('STANDBY');
     }
 
@@ -117,7 +107,6 @@
             imageNode.src = payload.src || '';
         }
 
-        setImageWindowMeta(payload.meta || 'SOURCE: N/A');
         setImageWindowStatus(payload.status || 'IMAGE ATTACHMENT LOADED');
 
         imageWindow.classList.remove('image-window-hidden');
@@ -172,7 +161,6 @@
         openImageWindow({
             src: attachment.src,
             title: attachment.title,
-            meta: attachment.meta,
             status: attachment.status
         });
     }

@@ -277,7 +277,7 @@ body {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: auto 1fr auto auto;
+    grid-template-rows: auto 1fr auto;
     background: linear-gradient(180deg, #13191d 0%, #0f1417 100%);
     border: 1px solid #2e4d4c;
     border-radius: 10px;
@@ -383,7 +383,6 @@ body {
 
 .image-window-close:focus-visible,
 .image-window-content:focus-visible,
-.image-window-meta:focus-visible,
 .image-window-status:focus-visible,
 .image-window-panel:focus-visible {
     outline: 2px solid #7ed7cc;
@@ -400,33 +399,25 @@ body {
 }
 
 .image-window-content {
-    overflow: auto;
-    padding: 1rem;
-    color: #d9f4f1;
-    background: rgba(6, 12, 14, 0.72);
-    display: grid;
-    place-items: center;
+    overflow: hidden;
+    padding: 0;
+    background: #0b1114;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .image-window-preview {
-    width: 100%;
+    width: auto;
+    height: 100%;
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    border: 1px solid #2f5250;
-    border-radius: 8px;
-    background: rgba(8, 14, 16, 0.9);
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
-}
-
-.image-window-meta {
-    padding: 0.75rem 1.2rem;
-    border-top: 1px solid #2e4d4c;
-    background: #141d21;
-    color: #ffaf63;
-    letter-spacing: 0.03em;
-    font-size: 0.86rem;
-    word-break: break-all;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    display: block;
 }
 
 .image-window-status {
@@ -648,8 +639,6 @@ body {
     }
 
     .image-window-header,
-    .image-window-content,
-    .image-window-meta,
     .image-window-status {
         padding-left: 0.95rem;
         padding-right: 0.95rem;

@@ -97,13 +97,9 @@ function openImageAttachmentWindow(attachment, meta = {}) {
         return;
     }
 
-    const fileName = typeof meta.fileName === 'string' ? meta.fileName : 'UNKNOWN FILE';
-    const filePath = typeof meta.path === 'string' ? meta.path : '/';
-
     renderImageAttachment({
         src: normalized.src,
-        title: normalized.title || `FILE IMAGE ATTACHMENT // ${fileName.toUpperCase()}`,
-        meta: `SOURCE FILE: ${fileName} (${filePath}) | IMAGE SOURCE: ${normalized.src}`,
+        title: normalized.title || 'FILE IMAGE ATTACHMENT',
         status: normalized.description || 'IMAGE ATTACHMENT LOADED'
     });
 
