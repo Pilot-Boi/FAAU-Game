@@ -86,6 +86,45 @@ const SEARCH_INDEX = {
     ]
 };
 
+// Supplemental search metadata used to show short dossiers and unlock profile files.
+const SEARCH_TERM_INTEL = Object.freeze({
+    ironwood: {
+        summary: 'Facility commander linked to strategic oversight and containment policy.',
+        classification: 'RESTRICTED // COMMAND',
+        unlocks: [
+            { flag: 'profile_ironwood_unlocked', path: '/staff/profiles/ironwood_profile.txt' }
+        ]
+    },
+    polendina: {
+        summary: 'Bioengineering lead tied to augmentation and prosthetic integration programs.',
+        classification: 'RESTRICTED // RESEARCH',
+        unlocks: [
+            { flag: 'profile_polendina_unlocked', path: '/staff/profiles/polendina_profile.txt' }
+        ]
+    },
+    watts: {
+        summary: 'Genetics lead connected to neural interface and systems-level modeling work.',
+        classification: 'RESTRICTED // RESEARCH',
+        unlocks: [
+            { flag: 'profile_watts_unlocked', path: '/staff/profiles/watts_profile.txt' }
+        ]
+    },
+    ebi: {
+        summary: 'Security operations head associated with incident response and facility readiness.',
+        classification: 'RESTRICTED // SECURITY',
+        unlocks: [
+            { flag: 'profile_ebi_unlocked', path: '/staff/profiles/ebi_profile.txt' }
+        ]
+    },
+    schnee: {
+        summary: 'Security specialist assigned to high-risk operational support.',
+        classification: 'RESTRICTED // SECURITY',
+        unlocks: [
+            { flag: 'profile_schnee_unlocked', path: '/staff/profiles/schnee_profile.txt' }
+        ]
+    }
+});
+
 
 // In-memory filesystem for the narrative terminal.
 const FILE_SYSTEM = {
@@ -305,7 +344,7 @@ const FILE_SYSTEM = {
                         '',
                         'BIO-03',
                         'Project: ATLAS',
-                        'Division: Adaptive Physiology',
+                        'Division: Bioengineering',
                         'Status: ACTIVE',
                         'Objective: Analysis of extreme physiological tolerance thresholds.',
                         '',
@@ -702,6 +741,146 @@ const FILE_SYSTEM = {
                         'Certain classified projects may require',
                         'additional authorization protocols.'
                     ]
+                },
+                profiles: {
+                    type: 'dir',
+                    hiddenUntilFlag: 'profile_archive_visible',
+                    children: {
+                        'ironwood_profile.txt': {
+                            type: 'file',
+                            requiredFlag: 'profile_ironwood_unlocked',
+                            hiddenUntilFlag: 'profile_ironwood_unlocked',
+                            content: [
+                                'STAFF PROFILE // GENERAL JAMES IRONWOOD',
+                                '',
+                                'Name: James Ironwood',
+                                'Division: Command',
+                                'Position: Facility Commander',
+                                'Status: Active',
+                                'Office: Executive Command Suite',
+                                '',
+                                'Specialization:',
+                                'Strategic command oversight, facility administration,',
+                                'and operational authorization.',
+                                '',
+                                'Notes:',
+                                'Serves as ranking command authority for the Facility.',
+                                'Responsible for executive coordination between command,',
+                                'security, and research divisions.',
+                                '',
+                                'Employee record available for general internal reference.'
+                            ]
+                        },
+                        'watts_profile.txt': {
+                            type: 'file',
+                            requiredFlag: 'profile_watts_unlocked',
+                            hiddenUntilFlag: 'profile_watts_unlocked',
+                            content: [
+                                'STAFF PROFILE // DR. ARTHUR WATTS',
+                                '',
+                                'Name: Arthur Watts',
+                                'Division: Genetics',
+                                'Position: Head of Genetics Division',
+                                'Status: Active',
+                                'Office: Genetics Research Wing',
+                                '',
+                                'Known Associates:',
+                                '- Dr. Pietro Polendina',
+                                '- General James Ironwood',
+                                '- Genetics Division Research Staff',
+                                '',
+                                'Specialization:',
+                                'Genomic modeling, neural systems research, and',
+                                'advanced physiological interface design.',
+                                '',
+                                'Notes:',
+                                'Leads the Genetics Division and oversees multiple',
+                                'ongoing research initiatives involving biological',
+                                'modeling and systems integration.',
+                                '',
+                                'Employee record available for general internal reference.'
+                            ]
+                        },
+                        'polendina_profile.txt': {
+                            type: 'file',
+                            requiredFlag: 'profile_polendina_unlocked',
+                            hiddenUntilFlag: 'profile_polendina_unlocked',
+                            content: [
+                                'STAFF PROFILE // DR. PIETRO POLENDINA',
+                                '',
+                                'Name: Pietro Polendina',
+                                'Division: Bioengineering',
+                                'Position: Head of Bioengineering Division',
+                                'Status: Active',
+                                'Office: Bioengineering Research Wing',
+                                '',
+                                'Specialization:',
+                                'Biomechanical augmentation, prosthetics development,',
+                                'and regenerative support systems.',
+                                '',
+                                'Notes:',
+                                'Leads development of advanced prosthetic and recovery',
+                                'technologies within the Bioengineering Division.',
+                                'Frequently collaborates with adjacent research teams',
+                                'on medical and augmentation support initiatives.',
+                                '',
+                                'Employee record available for general internal reference.'
+                            ]
+                        },
+                        'ebi_profile.txt': {
+                            type: 'file',
+                            requiredFlag: 'profile_ebi_unlocked',
+                            hiddenUntilFlag: 'profile_ebi_unlocked',
+                            content: [
+                                'STAFF PROFILE // CLOVER EBI',
+                                '',
+                                'Name: Clover Ebi',
+                                'Division: Security Operations',
+                                'Position: Head of Security Operations',
+                                'Status: Active',
+                                'Office: Security Command Wing',
+                                '',
+                                'Specialization:',
+                                'Facility-wide security readiness, incident response,',
+                                'and personnel coordination.',
+                                '',
+                                'Notes:',
+                                'Primary point of contact for internal security matters.',
+                                'Oversees facility access control, emergency response',
+                                'protocols, and operational staffing within Security',
+                                'Operations.',
+                                '',
+                                'Employee record available for general internal reference.'
+                            ]
+                        },
+                        'schnee_profile.txt': {
+                            type: 'file',
+                            requiredFlag: 'profile_schnee_unlocked',
+                            hiddenUntilFlag: 'profile_schnee_unlocked',
+                            content: [
+                                'STAFF PROFILE // SPECIALIST WINTER SCHNEE',
+                                '',
+                                'Name: Winter Schnee',
+                                'Division: Security Operations',
+                                'Position: Security Operations Specialist',
+                                'Status: Active',
+                                'Office: Security Command Wing',
+                                '',
+                                'Specialization:',
+                                'High-risk operational support, tactical response,',
+                                'and security deployment coordination.',
+                                '',
+                                'Notes:',
+                                'Assigned to advanced security support duties under',
+                                'Security Operations command.',
+                                'Regularly participates in high-priority readiness',
+                                'and response assignments.',
+                                '',
+                                'Employee record available for general internal reference.'
+                            ]
+                        },
+
+                    }
                 }
             }
         },
@@ -746,6 +925,19 @@ function getCurrentDirectoryObject() {
     }
 
     return node;
+}
+
+// Determine whether a node should be visible in listings and path resolution.
+function isNodeVisible(node) {
+    if (!node) {
+        return false;
+    }
+
+    if (node.hiddenUntilFlag && !hasFlag(node.hiddenUntilFlag)) {
+        return false;
+    }
+
+    return true;
 }
 
 // Convert path segments into slash notation shown to the player.
@@ -804,6 +996,10 @@ function resolvePath(pathString = '') {
             return { error: `Path not found: ${pathString}` };
         }
 
+        if (!isNodeVisible(node.children[segment])) {
+            return { error: `Path not found: ${pathString}` };
+        }
+
         node = node.children[segment];
         workingSegments.push(segment);
     }
@@ -843,8 +1039,9 @@ function getDirectoryEntries(targetPath = '') {
     }
 
     const entries = Object.entries(directory.children);
+    const visibleEntries = entries.filter(([, item]) => isNodeVisible(item));
 
-    if (entries.length === 0) {
+    if (visibleEntries.length === 0) {
         return {
             entries: [
                 `DIRECTORY: ${resolvedPath}`,
@@ -864,14 +1061,17 @@ function getDirectoryEntries(targetPath = '') {
         ''
     ];
 
-    for (const [name, item] of entries) {
+    for (const [name, item] of visibleEntries) {
         if (item.type === 'dir') {
             const lockedByFlag = item.requiredFlag && !hasFlag(item.requiredFlag);
             const isLocked = item.locked || lockedByFlag;
             const lockedSuffix = isLocked ? ' [LOCKED]' : '';
             formattedEntries.push(`[DIR] ${name}${lockedSuffix}`);
         } else {
-            formattedEntries.push(`[FILE] ${name}`);
+            const lockedByFlag = item.requiredFlag && !hasFlag(item.requiredFlag);
+            const isLocked = item.locked || lockedByFlag;
+            const lockedSuffix = isLocked ? ' [LOCKED]' : '';
+            formattedEntries.push(`[FILE] ${name}${lockedSuffix}`);
         }
     }
 
@@ -879,7 +1079,7 @@ function getDirectoryEntries(targetPath = '') {
         entries: formattedEntries,
         meta: {
             path: resolvedPath,
-            itemCount: entries.length,
+            itemCount: visibleEntries.length,
             action: 'list'
         }
     };
@@ -944,6 +1144,15 @@ function openFile(filePath) {
         return { error: `File not found: ${filePath}. Use "list" to see available files.` };
     }
 
+    const lockedByFlag = resolved.node.requiredFlag && !hasFlag(resolved.node.requiredFlag);
+    const isLocked = resolved.node.locked || lockedByFlag;
+
+    if (isLocked) {
+        return {
+            error: 'Access denied.'
+        };
+    }
+
     const fullPath = resolved.path;
 
     markFileRead(fullPath);
@@ -974,6 +1183,52 @@ function openFile(filePath) {
     };
 }
 
+// Create dossier-style lines for term search output.
+function getSearchTermContextLines(term) {
+    const metadata = (typeof TERM_METADATA !== 'undefined' && TERM_METADATA[term]) ? TERM_METADATA[term] : {};
+    const intel = SEARCH_TERM_INTEL[term] || {};
+    const label = metadata.label || term.toUpperCase();
+    const typeLabel = metadata.type ? metadata.type.toUpperCase() : 'UNKNOWN';
+    const summary = intel.summary || `Fragmentary references indicate ${label} is relevant to active facility records.`;
+    const classification = intel.classification || 'PARTIAL // UNVERIFIED';
+
+    return [
+        'TERM DOSSIER',
+        `Label: ${label}`,
+        `Type: ${typeLabel}`,
+        `Summary: ${summary}`,
+        `Classification: ${classification}`
+    ];
+}
+
+// Unlock any files tied to the searched term and return newly unlocked paths.
+function unlockSearchTermFiles(term) {
+    const intel = SEARCH_TERM_INTEL[term];
+    if (!intel || !Array.isArray(intel.unlocks)) {
+        return [];
+    }
+
+    // Reveal the personnel archive once a valid profile-linked term is searched.
+    setFlag('profile_archive_visible');
+
+    const unlockedPaths = [];
+
+    for (const unlock of intel.unlocks) {
+        if (!unlock || !unlock.flag || !unlock.path) {
+            continue;
+        }
+
+        if (hasFlag(unlock.flag)) {
+            continue;
+        }
+
+        setFlag(unlock.flag);
+        unlockedPaths.push(unlock.path);
+    }
+
+    return unlockedPaths;
+}
+
 // Search for a term in the discovered index and return results for the terminal.
 function searchTerm(rawTerm) {
     if (!rawTerm) {
@@ -994,28 +1249,32 @@ function searchTerm(rawTerm) {
 
     const matches = SEARCH_INDEX[term] || [];
 
-    if (matches.length === 0) {
-        return {
-            entries: [
-                `SEARCH RESULTS FOR: ${term}`,
-                '',
-                'No indexed results found.'
-            ],
-            meta: {
-                action: 'search',
-                term,
-                resultCount: 0
-            }
-        };
-    }
-
     const lines = [
         `SEARCH RESULTS FOR: ${term}`,
         ''
     ];
 
-    for (const match of matches) {
-        lines.push(`[${match.type.toUpperCase()}] ${match.path}`);
+    if (matches.length === 0) {
+        lines.push('No indexed results found.');
+    } else {
+        for (const match of matches) {
+            lines.push(`[${match.type.toUpperCase()}] ${match.path}`);
+        }
+    }
+
+    const termContextLines = getSearchTermContextLines(term);
+    if (termContextLines.length > 0) {
+        lines.push('');
+        lines.push(...termContextLines);
+    }
+
+    const unlockedPaths = unlockSearchTermFiles(term);
+    if (unlockedPaths.length > 0) {
+        lines.push('');
+        lines.push('[SYSTEM] Personnel archive updated.');
+        for (const path of unlockedPaths) {
+            lines.push(`[SYSTEM] Unlocked file: ${path}`);
+        }
     }
 
     return {
@@ -1023,7 +1282,8 @@ function searchTerm(rawTerm) {
         meta: {
             action: 'search',
             term,
-            resultCount: matches.length
+            resultCount: matches.length,
+            unlockedPaths
         }
     };
 }
