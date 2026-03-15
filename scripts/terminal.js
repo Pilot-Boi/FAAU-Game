@@ -696,10 +696,22 @@ const COMMANDS = {
         usage: 'cams',
         description: 'Access facility surveillance feeds.',
         execute: () => {
-            appendOutputLine('SURVEILLANCE INTERFACE', 'terminal-file-header');
-            appendOutputLine('');
-            appendOutputLine('[SYSTEM] Feed routing in progress...', 'terminal-system');
-            appendOutputLine('[SYSTEM] No active feeds available.', 'terminal-system');
+            if (typeof openCameraWindow === 'function') {
+                openCameraWindow();
+            }
+
+            if (typeof setCameraStatus === 'function') {
+                setCameraStatus('AWAITING FEED SELECTION');
+            }
+
+            if (typeof renderCameraLines === 'function') {
+                renderCameraLines([
+                    'SURVEILLANCE INTERFACE ONLINE',
+                    '',
+                    '[SYSTEM] Feed routing in progress...',
+                    '[SYSTEM] No active feeds available.'
+                ]);
+            }
         }
     },
     terms: {
