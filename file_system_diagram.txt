@@ -1,5 +1,5 @@
 FAAU GAME FILE SYSTEM REFERENCE
-Source: directory.js
+Source: scripts/directory.js
 
 /
 |-- logs/
@@ -7,7 +7,9 @@ Source: directory.js
 |   |-- network_status.txt
 |   |-- security_log.txt
 |   |-- anomaly_report.txt
-|   `-- sublevel_monitor.txt
+|   |-- anomaly_correlation.txt [hidden until anomaly correlation unlock]
+|   |-- sublevel_monitor.txt
+|   `-- sublevel_security.txt [hidden until sublevel security unlock]
 |-- research/
 |   |-- overview.txt
 |   |-- project_index.txt
@@ -20,7 +22,9 @@ Source: directory.js
 |   |-- directory.txt
 |   |-- notice_01.txt
 |   |-- notice_02.txt
+|   |-- archive_notice.txt [hidden until restricted archive unlock]
 |   |-- security_clearance.txt
+|   |-- security_protocols.txt [hidden until security protocols unlock]
 |   `-- profiles/ [hidden until personnel profile search]
 |       |-- ironwood_profile.txt [hidden until search: ironwood]
 |       |-- watts_profile.txt [hidden until search: watts]
@@ -34,4 +38,5 @@ Source: directory.js
 Notes:
 - profiles/ is not visible until a valid personnel search reveals profile entries.
 - Each profile file remains hidden until its matching person term is searched.
+- anomaly_correlation.txt, sublevel_security.txt, archive_notice.txt, and security_protocols.txt are present in the file system but hidden until their related investigation/search unlocks occur.
 - secure/ exists in the file system but is locked behind secure_access_granted.
