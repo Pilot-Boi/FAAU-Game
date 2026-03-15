@@ -10,6 +10,14 @@ const TERM_METADATA = Object.freeze({
             'Monitoring protocols remain active while source identification procedures continue.'
         ]
     },
+    restricted_archive: {
+        label: 'Restricted Archive',
+        type: 'concept',
+        summary: [
+            'Classification marker used for records excluded from standard directory indexing.',
+            'Access is limited to authorized personnel or temporary review exemptions granted by Security Operations.'
+        ]
+    },
 
     // Locations
     sublevel: {
@@ -145,6 +153,14 @@ const TERM_METADATA = Object.freeze({
             'The division is also responsible for coordinating containment response procedures should laboratory incidents or facility breaches occur.',
             'Security Operations maintains regular coordination with Command and Research leadership to ensure operational continuity across the Facility.',
             'Several areas of the Facility operate under restricted access policies enforced by Security Operations.'
+        ]
+    },
+    containment: {
+        label: 'Containment Operations',
+        type: 'system',
+        summary: [
+            'Operational framework governing secured research environments and subject monitoring protocols.',
+            'Includes biometric tracking, restricted corridor access, and incident response procedures managed by Security Operations.'
         ]
     },
 

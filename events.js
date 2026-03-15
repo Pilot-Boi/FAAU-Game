@@ -1,33 +1,112 @@
+const EVENT_RULES = [
+    {
+        id: 'first_contact_available',
+        when: () =>
+            hasFlag('read_network_status') &&
+            hasFlag('read_security_log'),
+        do: () => {
+            unlockCommand('msg');
+            return [
+                '',
+                '[SYSTEM] Anomalous communication channel detected.',
+                '[SYSTEM] External relay interface partially restored.',
+                '[SYSTEM] New command unlocked: msg'
+            ];
+        }
+    },
+
+    {
+        id: 'sublevel_review_unlocked',
+        when: () =>
+            hasDiscoveredTerm('sublevel') &&
+            hasDiscoveredTerm('ebi') &&
+            hasDiscoveredTerm('schnee'),
+        do: () => {
+            setFlag('sublevel_security_review_unlocked');
+            return [
+                '[SYSTEM] Security cross-reference updated.',
+                '[SYSTEM] New file unlocked: /logs/sublevel_security_review.txt'
+            ];
+        }
+    },
+
+    {
+        id: 'security_protocols_unlocked',
+        when: () =>
+            hasDiscoveredTerm('containment'),
+        do: () => {
+            setFlag('security_protocols_unlocked');
+            return [
+                '[SYSTEM] Containment protocol reference located.',
+                '[SYSTEM] New file unlocked: /staff/security_protocols.txt'
+            ];
+        }
+    },
+
+    {
+        id: 'anomaly_correlation_unlocked',
+        when: () =>
+            hasDiscoveredTerm('unknown_source') &&
+            hasDiscoveredTerm('security'),
+        do: () => {
+            setFlag('anomaly_correlation_unlocked');
+            return [
+                '[SYSTEM] Anomalous event cross-correlation available.',
+                '[SYSTEM] New file unlocked: /logs/anomaly_correlation.txt'
+            ];
+        }
+    },
+
+    {
+        id: 'archive_access_notice_unlocked',
+        when: () =>
+            hasDiscoveredTerm('restricted_archive'),
+        do: () => {
+            setFlag('archive_access_notice_unlocked');
+            return [
+                '[SYSTEM] Archive access memorandum recovered.',
+                '[SYSTEM] New file unlocked: /staff/archive_access_notice.txt'
+            ];
+        }
+    },
+
+    {
+        id: 'secure_access_granted',
+        when: () =>
+            hasDiscoveredTerm('avian'),
+        do: () => {
+            setFlag('secure_access_granted');
+            return [
+                '[SYSTEM] Security authorization override detected.',
+                '[SYSTEM] Access credentials updated.',
+                '[SYSTEM] Secure archive directory unlocked.'
+            ];
+        }
+    }
+];
+
+
 function evaluateEvents(context = {}) {
     const triggeredLines = [];
 
-    if (
-        context.action === 'search' &&
-        context.term === 'subject_008' &&
-        context.resultCount > 0 &&
-        !hasTriggeredEvent('first_contact_available')
-    ) {
-        triggerEvent('first_contact_available');
-        unlockCommand('msg');
+    for (const rule of EVENT_RULES) {
+        if (hasTriggeredEvent(rule.id)) {
+            continue;
+        }
 
-        triggeredLines.push('');
-        triggeredLines.push('[SYSTEM] Anomalous communication channel detected.');
-        triggeredLines.push('[SYSTEM] External relay interface partially restored.');
-        triggeredLines.push('[SYSTEM] New command unlocked: msg');
+        if (!rule.when(context)) {
+            continue;
+        }
+
+        triggerEvent(rule.id);
+
+        const lines = rule.do(context) || [];
+        triggeredLines.push(...lines);
     }
-
-    if (
-        hasDiscoveredTerm('subject_008') &&
-        !hasTriggeredEvent('subject_008_keyword_notice')
-    ) {
-        triggerEvent('subject_008_keyword_notice');
-
-        triggeredLines.push('[SYSTEM] Observer archive updated: SUBJECT_008');
-    }
-    
 
     return triggeredLines;
 }
+
 
 function applyEntryEffects(entry, unlockedTerms) {
     if (!entry) {
