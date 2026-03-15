@@ -691,12 +691,15 @@ const COMMANDS = {
             showMessageContactDirectory();
         }
     },
-    cam: {
-        name: 'cam',
-        usage: 'cam',
+    cams: {
+        name: 'cams',
+        usage: 'cams',
         description: 'Access facility surveillance feeds.',
         execute: () => {
-            printResult(openCameraInterface());
+            appendOutputLine('SURVEILLANCE INTERFACE', 'terminal-file-header');
+            appendOutputLine('');
+            appendOutputLine('[SYSTEM] Feed routing in progress...', 'terminal-system');
+            appendOutputLine('[SYSTEM] No active feeds available.', 'terminal-system');
         }
     },
     terms: {
