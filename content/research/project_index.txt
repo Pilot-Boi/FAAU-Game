@@ -1,0 +1,39 @@
+FACILITY PROJECT INDEX
+
+All programs listed below are currently active unless
+otherwise noted in status fields.
+
+BIO-01
+Project: ACHILLES
+Division: Bioengineering
+Status: COMPLETED
+Objective: Advanced biomechanical lower-limb prosthetics.
+
+BIO-02
+Project: HYDRA
+Division: Bioengineering
+Status: ACTIVE
+Objective: Accelerated cellular repair for trauma stabilization.
+
+BIO-03
+Project: ATLAS
+Division: Bioengineering
+Status: ACTIVE
+Objective: Analysis of extreme physiological tolerance thresholds.
+
+GEN-01
+Project: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
+Division: Genetics
+Status: CLASSIFIED
+Objective: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ musculoskeletal modeling.
+Access Level: Director Authorization Required
+Notes: Cross-division coordination in progress.
+
+GEN-02
+Project: ORACLE
+Division: Genetics
+Status: DEVELOPMENTAL
+Objective: Neural control interfaces for augmentation systems.
+
+Additional classified projects may not appear in
+standard program listings.

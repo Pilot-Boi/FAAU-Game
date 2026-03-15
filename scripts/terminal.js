@@ -668,9 +668,9 @@ const COMMANDS = {
         name: 'open',
         usage: 'open [file|path]',
         description: 'Opens and displays a file using a relative or absolute path.',
-        execute: (args) => {
+        execute: async (args) => {
             const filePath = args.join(' ');
-            printResult(openFile(filePath));
+            printResult(await openFile(filePath));
         }
 
     },
@@ -754,8 +754,8 @@ const COMMANDS = {
         name: 'dev',
         usage: 'dev [subcommand]',
         description: 'Runs development and debugging shortcuts.',
-        execute: (args) => {
-            handleDevCommand(args);
+        execute: async (args) => {
+            await handleDevCommand(args);
         }
     },
     clear: {
@@ -773,7 +773,7 @@ function updatePromptDisplay() {
     promptSymbol.textContent = `FACILITY:${formatCurrentPath()}> `;
 }
 
-function handleDevCommand(args) {
+async function handleDevCommand(args) {
     if (!args || args.length === 0) {
         appendOutputLine(
             '[DEV] Usage: dev unlock term|flag|command ..., dev set chapter N, dev read file /path, dev search term, dev state, dev reset, dev secure',
@@ -890,7 +890,7 @@ function handleDevCommand(args) {
             return;
         }
 
-        const result = openFile(value);
+        const result = await openFile(value);
 
         if (result.error) {
             appendOutputLine(`[DEV] ${result.error}`, 'terminal-error');
@@ -1088,7 +1088,7 @@ function handleDevCommand(args) {
 
 
 // Parse and execute a user-entered command.
-function runCommand(inputText) {
+async function runCommand(inputText) {
     const trimmedInput = inputText.trim();
 
     if (!trimmedInput) {
@@ -1128,7 +1128,11 @@ function runCommand(inputText) {
         return;
     }
 
-    COMMANDS[command].execute(args);
+    try {
+        await Promise.resolve(COMMANDS[command].execute(args));
+    } catch (_error) {
+        appendOutputLine('Unknown error.');
+    }
 
 
     updatePromptDisplay();
@@ -1197,7 +1201,7 @@ promptInput.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         event.preventDefault();
         const commandText = promptInput.textContent.replace(/\n/g, '');
-        runCommand(commandText);
+        void runCommand(commandText);
         promptInput.textContent = '';
     }
 });

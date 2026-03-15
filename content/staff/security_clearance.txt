@@ -1,0 +1,19 @@
+FACILITY CLEARANCE LEVELS
+
+LEVEL 1
+General facility access.
+
+LEVEL 2
+Research division documentation access.
+
+LEVEL 3
+Restricted laboratory access.
+
+LEVEL 4
+Sensitive research program access.
+
+LEVEL 5
+Director authorization required.
+
+Certain classified projects may require
+additional authorization protocols.

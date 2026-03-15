@@ -1,0 +1,77 @@
+FACILITY SECURITY PROTOCOLS
+DOCUMENT TYPE: CONTAINMENT OPERATIONS REFERENCE
+DIVISION: SECURITY OPERATIONS
+
+This document outlines standard security procedures for
+personnel assigned to containment environments within
+restricted laboratory sectors.
+
+All containment units are designed according to the
+behavioral and physiological characteristics of the
+subjects housed within them.
+
+Security staff should be aware that containment
+configurations may vary between subjects depending on
+operational risk assessments conducted by research
+divisions.
+
+STANDARD PROTOCOLS
+
+- Security patrols must verify biometric authentication
+  before entering containment corridors.
+
+- Observation windows must remain unobstructed to
+  maintain continuous monitoring of containment units.
+
+- Intercom communication with contained subjects
+  requires supervisory authorization.
+
+
+SPECIALIZED CONTAINMENT CONDITIONS
+
+Several containment environments have been modified
+to address specific subject capabilities.
+
+VERBAL RESTRICTION PROTOCOL
+Two containment units currently employ speech
+suppression restraints designed to prevent verbal
+communication from contained subjects.
+
+These restraints must remain secured unless
+authorized research personnel are present.
+
+
+ENHANCED STRENGTH PROTOCOL
+Two containment environments have been reinforced
+with structural restraints and reinforced locking
+systems to accommodate subjects demonstrating
+above-standard physical strength.
+
+Security staff are not authorized to enter these
+containment environments without tactical support.
+
+
+VISUAL BARRIER PROTOCOL
+Two containment units utilize reinforced glass
+observation barriers rather than conventional
+barred enclosures.
+
+This configuration was implemented following
+previous containment breach incidents involving
+subjects capable of manipulating or damaging
+traditional barrier systems.
+
+
+Personnel should avoid direct physical contact with
+contained subjects unless authorized under
+approved research supervision.
+
+Additional containment procedures may be documented
+under restricted project files.
+
+Full containment documentation requires Level 5
+clearance authorization.
+
+â€” SECURITY OPERATIONS
+
+FILE END

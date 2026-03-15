@@ -1,0 +1,19 @@
+STAFF PROFILE // CLOVER EBI
+
+Name: Clover Ebi
+Division: Security Operations
+Position: Head of Security Operations
+Status: Active
+Office: Security Command Wing
+
+Specialization:
+Facility-wide security readiness, incident response,
+and personnel coordination.
+
+Notes:
+Primary point of contact for internal security matters.
+Oversees facility access control, emergency response
+protocols, and operational staffing within Security
+Operations.
+
+Employee record available for general internal reference.
