@@ -233,6 +233,8 @@ const FILE_SYSTEM = {
                 },
                 'anomaly_correlation.txt': {
                     type: 'file',
+                    requiredFlag: 'anomaly_correlation_unlocked',
+                    hiddenUntilFlag: 'anomaly_correlation_unlocked',
                     terms: ['unknown_source', 'subject_008', 'intercom', 'restricted_archive'],
                     onOpenFlag: 'read_anomaly_correlation',
                     content: [
@@ -352,6 +354,8 @@ const FILE_SYSTEM = {
                 },
                 'sublevel_security.txt': {
                     type: 'file',
+                    requiredFlag: 'sublevel_security_unlocked',
+                    hiddenUntilFlag: 'sublevel_security_unlocked',
                     terms: ['sublevel', 'security', 'containment'],
                     onOpenFlag: 'read_sublevel_security',
                     content: [
@@ -841,6 +845,8 @@ const FILE_SYSTEM = {
                 },
                 'archive_notice.txt': {
                     type: 'file',
+                    requiredFlag: 'archive_notice_unlocked',
+                    hiddenUntilFlag: 'archive_notice_unlocked',
                     terms: ['restricted_archive', 'avian', 'security'],
                     onOpenFlag: 'read_archive_notice',
                     content: [
@@ -916,6 +922,8 @@ const FILE_SYSTEM = {
                 },
                 'security_protocols.txt': {
                     type: 'file',
+                    requiredFlag: 'security_protocols_unlocked',
+                    hiddenUntilFlag: 'security_protocols_unlocked',
                     terms: ['security'],
                     onOpenFlag: 'read_security_protocols',
                     content: [

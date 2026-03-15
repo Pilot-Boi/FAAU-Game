@@ -22,10 +22,10 @@ const EVENT_RULES = [
             hasDiscoveredTerm('ebi') &&
             hasDiscoveredTerm('schnee'),
         do: () => {
-            setFlag('sublevel_security_review_unlocked');
+            setFlag('sublevel_security_unlocked');
             return [
                 '[SYSTEM] Security cross-reference updated.',
-                '[SYSTEM] New file unlocked: /logs/sublevel_security_review.txt'
+                '[SYSTEM] New file unlocked: /logs/sublevel_security.txt'
             ];
         }
     },
@@ -58,14 +58,14 @@ const EVENT_RULES = [
     },
 
     {
-        id: 'archive_access_notice_unlocked',
+        id: 'archive_notice_unlocked',
         when: () =>
             hasDiscoveredTerm('restricted_archive'),
         do: () => {
-            setFlag('archive_access_notice_unlocked');
+            setFlag('archive_notice_unlocked');
             return [
                 '[SYSTEM] Archive access memorandum recovered.',
-                '[SYSTEM] New file unlocked: /staff/archive_access_notice.txt'
+                '[SYSTEM] New file unlocked: /staff/archive_notice.txt'
             ];
         }
     },
