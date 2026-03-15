@@ -79,7 +79,24 @@ const EVENT_RULES = [
             return [
                 '[SYSTEM] Security authorization override detected.',
                 '[SYSTEM] Access credentials updated.',
-                '[SYSTEM] Secure archive directory unlocked.'
+                '[SYSTEM] New directory unlocked: secure'
+            ];
+        }
+    },
+
+    {
+        id: 'cams_unlocked',
+        when: () => {
+            const containmentFilesRead = Array.from(GAME_STATE.filesRead)
+                .filter(path => path.startsWith('/secure/containment/'));
+            return containmentFilesRead.length >= 2;
+        },
+        do: () => {
+            unlockCommand('cams');
+            return [
+                '[SYSTEM] Security subsystem detected.',
+                '[SYSTEM] Surveillance interface partially restored.',
+                '[SYSTEM] New command unlocked: cams'
             ];
         }
     }
