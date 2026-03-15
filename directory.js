@@ -64,6 +64,9 @@ const SEARCH_INDEX = {
     seraph: [
         { type: 'file', path: '/research/project_index.txt' }
     ],
+    hybrid: [
+        { type: 'file', path: '/research/projects/BIO_01.txt' }
+    ],
     bioengineering: [
         { type: 'file', path: '/staff/directory.txt' },
         { type: 'file', path: '/research/overview.txt' },
@@ -85,46 +88,6 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/staff/security_clearance.txt' }
     ]
 };
-
-// Supplemental search metadata used to show short dossiers and unlock profile files.
-const SEARCH_TERM_INTEL = Object.freeze({
-    ironwood: {
-        summary: 'Facility commander linked to strategic oversight and containment policy.',
-        classification: 'RESTRICTED // COMMAND',
-        unlocks: [
-            { flag: 'profile_ironwood_unlocked', path: '/staff/profiles/ironwood_profile.txt' }
-        ]
-    },
-    polendina: {
-        summary: 'Bioengineering lead tied to augmentation and prosthetic integration programs.',
-        classification: 'RESTRICTED // RESEARCH',
-        unlocks: [
-            { flag: 'profile_polendina_unlocked', path: '/staff/profiles/polendina_profile.txt' }
-        ]
-    },
-    watts: {
-        summary: 'Genetics lead connected to neural interface and systems-level modeling work.',
-        classification: 'RESTRICTED // RESEARCH',
-        unlocks: [
-            { flag: 'profile_watts_unlocked', path: '/staff/profiles/watts_profile.txt' }
-        ]
-    },
-    ebi: {
-        summary: 'Security operations head associated with incident response and facility readiness.',
-        classification: 'RESTRICTED // SECURITY',
-        unlocks: [
-            { flag: 'profile_ebi_unlocked', path: '/staff/profiles/ebi_profile.txt' }
-        ]
-    },
-    schnee: {
-        summary: 'Security specialist assigned to high-risk operational support.',
-        classification: 'RESTRICTED // SECURITY',
-        unlocks: [
-            { flag: 'profile_schnee_unlocked', path: '/staff/profiles/schnee_profile.txt' }
-        ]
-    }
-});
-
 
 // In-memory filesystem for the narrative terminal.
 const FILE_SYSTEM = {
@@ -371,7 +334,7 @@ const FILE_SYSTEM = {
                     children: {
                         'BIO_01.txt': {
                             type: 'file',
-                            terms: ['achilles', 'bioengineering', 'prosthetics', 'polendina'],
+                            terms: ['achilles', 'bioengineering', 'prosthetics', 'polendina', 'hybrid'],
                             onOpenFlag: 'read_bio_01',
                             content: [
                                 'PROJECT FILE: BIO-01',
@@ -1186,34 +1149,47 @@ function openFile(filePath) {
 // Create dossier-style lines for term search output.
 function getSearchTermContextLines(term) {
     const metadata = (typeof TERM_METADATA !== 'undefined' && TERM_METADATA[term]) ? TERM_METADATA[term] : {};
-    const intel = SEARCH_TERM_INTEL[term] || {};
     const label = metadata.label || term.toUpperCase();
     const typeLabel = metadata.type ? metadata.type.toUpperCase() : 'UNKNOWN';
-    const summary = intel.summary || `Fragmentary references indicate ${label} is relevant to active facility records.`;
-    const classification = intel.classification || 'PARTIAL // UNVERIFIED';
+    const summary = metadata.summary || `Fragmentary references indicate ${label} is relevant to active facility records.`;
+    const classification = metadata.classification || 'PARTIAL // UNVERIFIED';
+    const details = Array.isArray(metadata.details) ? metadata.details : [];
 
-    return [
+    const contextLines = [
         'TERM DOSSIER',
         `Label: ${label}`,
         `Type: ${typeLabel}`,
         `Summary: ${summary}`,
         `Classification: ${classification}`
     ];
+
+    if (details.length > 0) {
+        contextLines.push('');
+        contextLines.push('Details:');
+
+        for (const detail of details) {
+            if (!detail) {
+                continue;
+            }
+
+            contextLines.push(`- ${detail}`);
+        }
+    }
+
+    return contextLines;
 }
 
 // Unlock any files tied to the searched term and return newly unlocked paths.
 function unlockSearchTermFiles(term) {
-    const intel = SEARCH_TERM_INTEL[term];
-    if (!intel || !Array.isArray(intel.unlocks)) {
+    const metadata = (typeof TERM_METADATA !== 'undefined' && TERM_METADATA[term]) ? TERM_METADATA[term] : null;
+
+    if (!metadata || !Array.isArray(metadata.unlocks)) {
         return [];
     }
 
-    // Reveal the personnel archive once a valid profile-linked term is searched.
-    setFlag('profile_archive_visible');
-
     const unlockedPaths = [];
 
-    for (const unlock of intel.unlocks) {
+    for (const unlock of metadata.unlocks) {
         if (!unlock || !unlock.flag || !unlock.path) {
             continue;
         }
@@ -1228,6 +1204,7 @@ function unlockSearchTermFiles(term) {
 
     return unlockedPaths;
 }
+
 
 // Search for a term in the discovered index and return results for the terminal.
 function searchTerm(rawTerm) {

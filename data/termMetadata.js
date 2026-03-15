@@ -1,14 +1,24 @@
 // Canonical term metadata used by search, contacts, and UI rendering.
 const TERM_METADATA = Object.freeze({
     // Concepts
-    unknown_source: { label: 'Unknown Source', type: 'concept' },
-
-    // Disciplines
-    bioengineering: { label: 'Bioengineering', type: 'discipline' },
-    genetics: { label: 'Genetics', type: 'discipline' },
+    unknown_source: {
+        label: 'Unknown Source',
+        type: 'concept',
+        summary: [
+            'SYSTEM CLASSIFICATION: External signal origin cannot be identified.',
+            'Connection attempts associated with this designation do not correspond to any known Facility network, personnel device, or authorized relay.',
+            'Monitoring protocols remain active while source identification procedures continue.'
+        ]
+    },
 
     // Locations
-    sublevel: { label: 'Sublevel', type: 'location' },
+    sublevel: {
+        label: 'Sublevel',
+        type: 'location',
+        summary: [
+            'CLASSIFIED: Access to project summary and documentation is restricted to personnel with Level 5 clearance or higher.',
+        ]
+    },
 
     // People
     director: { label: 'Director', type: 'person' },
@@ -40,11 +50,41 @@ const TERM_METADATA = Object.freeze({
     glynda: { label: 'Glynda Goodwitch', type: 'person' },
     peach: { label: 'Dr. Peach', type: 'person' },
 
-    ironwood: { label: 'General Ironwood', type: 'person' },
-    polendina: { label: 'Dr. Polendina', type: 'person' },
-    watts: { label: 'Dr. Watts', type: 'person' },
-    ebi: { label: 'Clover Ebi', type: 'person' },
-    schnee: { label: 'Winter Schnee', type: 'person' },
+    ironwood: {
+        label: 'General Ironwood',
+        type: 'person',
+        unlocks: [
+            { flag: 'profile_ironwood_unlocked', path: '/staff/profiles/ironwood_profile.txt' }
+        ]
+    },
+    polendina: {
+        label: 'Dr. Polendina',
+        type: 'person',
+        unlocks: [
+            { flag: 'profile_polendina_unlocked', path: '/staff/profiles/polendina_profile.txt' }
+        ]
+    },
+    watts: {
+        label: 'Dr. Watts',
+        type: 'person',
+        unlocks: [
+            { flag: 'profile_watts_unlocked', path: '/staff/profiles/watts_profile.txt' }
+        ]
+    },
+    ebi: {
+        label: 'Clover Ebi',
+        type: 'person',
+        unlocks: [
+            { flag: 'profile_ebi_unlocked', path: '/staff/profiles/ebi_profile.txt' }
+        ]
+    },
+    schnee: {
+        label: 'Winter Schnee',
+        type: 'person',
+        unlocks: [
+            { flag: 'profile_schnee_unlocked', path: '/staff/profiles/schnee_profile.txt' }
+        ]
+    },
 
     subject_001: { label: 'Subject 001', type: 'person' },
     subject_002: { label: 'Subject 002', type: 'person' },
@@ -56,20 +96,109 @@ const TERM_METADATA = Object.freeze({
     subject_008: { label: 'Subject 008', type: 'person' },
 
     // Projects
-    achilles: { label: 'Achilles', type: 'project' },
-    seraph: { label: 'Seraph', type: 'project' },
+    achilles: {
+        label: 'Achilles',
+        type: 'project',
+        summary: [
+            'The ACHILLES system integrates layered actuator bundles with adaptive balance stabilization and real-time neural interface feedback.',
+            'Research efforts are directed toward creating prosthetic platforms capable of maintaining long-term operational stability under high physical stress conditions.',
+            'Prototype systems are designed to maintain compatibility with multiple neural interface technologies currently under investigation by the Genetics Division.',
+            'The project represents a major milestone in the Facility’s efforts to develop biomechanical augmentation systems that function as natural extensions of the host body.'
+        ]
+    },
+    seraph: {
+        label: 'Seraph',
+        type: 'project',
+        summary: [
+            'CLASSIFIED: Access to project summary and documentation is restricted to personnel with Level 5 clearance or higher.',
+        ]
+    },
 
     // Species
-    avian: { label: 'Avian', type: 'species' },
-    hybrid: { label: 'Hybrid', type: 'species' },
+    avian: {
+        label: 'Avian',
+        type: 'species',
+        summary: [
+            'CLASSIFIED: Access to project summary and documentation is restricted to personnel with Level 5 clearance or higher.',
+        ]
+    },
+    hybrid: {
+        label: 'Hybrid',
+        type: 'species',
+        summary: [
+            'Hybrids are the dominant sapient species of Remnant and represent the baseline population served by most modern institutions and research organizations.',
+            'Hybrid physiology combines humanoid anatomical structure with one or more animal-derived physical traits. These traits vary widely between individuals and may include external features such as ears, tails, claws, wings, or digitigrade limb structures, as well as distinct pigmentation patterns and sensory adaptations.',
+            'The specific combination of traits differs from person to person and does not correspond to rigid biological classifications. Genetic variation between hybrid lineages is extensive, and the appearance of traits across generations does not always follow predictable inheritance patterns.',
+            'Despite this variation, hybrid populations share a common humanoid physiology and are fully compatible with modern medical treatment, augmentation systems, and standard technological infrastructure.',
+            'The Facility conducts research and development programs intended to improve quality of life, medical recovery outcomes, and long-term survivability for hybrid populations through advancements in bioengineering, genetics, and adaptive physiology.'
+        ]
+    },
 
     // Systems
-    intercom: { label: 'Intercom', type: 'system' },
-    security: { label: 'Security', type: 'system' },
+    intercom: {
+        label: 'Facility Intercom System',
+        type: 'system',
+        summary: [
+            'The intercom network operates through a series of localized communication nodes installed throughout the Facility.',
+            'Security protocols restrict access to system-wide broadcast functions to authorized personnel within Security Operations and Command divisions.',
+            'The system is also capable of localized communication routing between designated laboratory corridors and operational sectors.',
+            'Recent incident logs indicate irregular audio activity detected within portions of the intercom network during anomalous system events.'
+        ]
+    },
+    security: {
+        label: 'Facility Security System',
+        type: 'system',
+        summary: [
+            'Security personnel maintain monitoring stations responsible for surveillance systems, biometric access points, and internal communications security.',
+            'The division is also responsible for coordinating containment response procedures should laboratory incidents or facility breaches occur.',
+            'Security Operations maintains regular coordination with Command and Research leadership to ensure operational continuity across the Facility.',
+            'Several areas of the Facility operate under restricted access policies enforced by Security Operations.'
+        ]
+    },
+
+    // Disciplines
+    bioengineering: {
+        label: 'Bioengineering',
+        type: 'discipline',
+        summary: [
+            'Primary research efforts include actuator-based prosthetics, adaptive skeletal reinforcement systems, and regenerative support technologies designed to stabilize severe physiological trauma.',
+            'The division maintains close coordination with Genetics and Adaptive Physiology research teams when projects require biological modeling or neurological interface integration.',
+            'Current development priorities emphasize durability, neural responsiveness, and long-term compatibility between synthetic components and organic tissue.',
+            'Bioengineering research programs form a foundational component of the Facility’s augmentation and recovery infrastructure.'
+        ]
+    },
+    genetics: {
+        label: 'Genetics',
+        type: 'discipline',
+        summary: [
+            'Research activities include genome mapping, engineered physiological traits, and biological system modeling designed to predict structural adaptation under extreme conditions.',
+            'The division provides biological modeling support for several cross-disciplinary programs involving augmentation systems and physiological adaptation studies.',
+            'Genetics research is frequently integrated with neural interface experimentation and adaptive physiology modeling to evaluate long-term biological stability.',
+            'Due to the complexity of genomic manipulation research, several projects within the division operate under restricted documentation protocols.'
+        ]
+    },
 
     // Technologies
-    neural_interface: { label: 'Neural Interface', type: 'technology' },
-    prosthetics: { label: 'Prosthetics', type: 'technology' }
+    neural_interface: {
+        label: 'Neural Interface Systems',
+        type: 'technology',
+        summary: [
+            'Neural interface research focuses on decoding motor cortex activity and converting these signals into responsive command structures.',
+            'The technology is frequently used in conjunction with biomechanical prosthetics and augmentation platforms.',
+            'Early prototypes have demonstrated the ability to synchronize mechanical systems with natural neural activity.',
+            'Ongoing research aims to reduce signal latency and improve long-term neurological compatibility between host and interface.'
+        ]
+    },
+    prosthetics: {
+        label: 'Advanced Prosthetics',
+        type: 'technology',
+        summary: [
+            'Modern prosthetic designs incorporate layered actuator systems capable of producing precise mechanical movement.',
+            'Integration with neural interface systems allows prosthetics to respond directly to biological motor commands.',
+            'Research efforts emphasize durability, responsiveness, and long-term physiological compatibility.',
+            'Prosthetic research programs frequently collaborate with regenerative medicine initiatives to improve recovery outcomes following severe injury.'
+        ]
+    }
 });
 
 // Expose metadata for non-module script usage.
