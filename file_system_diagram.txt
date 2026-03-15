@@ -1,0 +1,37 @@
+FAAU GAME FILE SYSTEM REFERENCE
+Source: directory.js
+
+/
+|-- logs/
+|   |-- system_boot.txt
+|   |-- network_status.txt
+|   |-- security_log.txt
+|   |-- anomaly_report.txt
+|   `-- sublevel_monitor.txt
+|-- research/
+|   |-- overview.txt
+|   |-- project_index.txt
+|   `-- projects/
+|       |-- BIO_01.txt
+|       |-- BIO_02.txt
+|       |-- BIO_03.txt
+|       `-- GEN_02.txt
+|-- staff/
+|   |-- directory.txt
+|   |-- notice_01.txt
+|   |-- notice_02.txt
+|   |-- security_clearance.txt
+|   `-- profiles/ [hidden until personnel profile search]
+|       |-- ironwood_profile.txt [hidden until search: ironwood]
+|       |-- watts_profile.txt [hidden until search: watts]
+|       |-- polendina_profile.txt [hidden until search: polendina]
+|       |-- ebi_profile.txt [hidden until search: ebi]
+|       `-- schnee_profile.txt [hidden until search: schnee]
+`-- secure/ [requires flag: secure_access_granted]
+    |-- avian_project.txt
+    `-- subject_008.txt
+
+Notes:
+- profiles/ is not visible until a valid personnel search reveals profile entries.
+- Each profile file remains hidden until its matching person term is searched.
+- secure/ exists in the file system but is locked behind secure_access_granted.
