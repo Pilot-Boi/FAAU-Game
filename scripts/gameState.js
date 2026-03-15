@@ -23,7 +23,9 @@ const GAME_STATE = {
         'open',
         'search',
         'terms',
-        'clear'
+        'flags',
+        'clear',
+        'dev'
     ]),
     triggeredEvents: new Set(),
     storyState: {
@@ -47,12 +49,20 @@ function setFlag(flagName, value = true) {
     GAME_STATE.flags[flagName] = value;
 }
 
+function clearFlag(flagName) {
+    delete GAME_STATE.flags[flagName];
+}
+
 function hasTriggeredEvent(eventName) {
     return GAME_STATE.triggeredEvents.has(eventName);
 }
 
 function triggerEvent(eventName) {
     GAME_STATE.triggeredEvents.add(eventName);
+}
+
+function clearTriggeredEvent(eventName) {
+    GAME_STATE.triggeredEvents.delete(eventName);
 }
 
 function markFileRead(path) {
@@ -67,6 +77,16 @@ function addDiscoveredTerms(terms = []) {
     for (const term of terms) {
         GAME_STATE.discoveredTerms.add(normalizeTerm(term));
     }
+}
+
+function removeDiscoveredTerm(term) {
+    if (!term) {
+        return;
+    }
+
+    const normalized = normalizeTerm(term);
+    GAME_STATE.discoveredTerms.delete(normalized);
+    GAME_STATE.searchedTerms.delete(normalized);
 }
 
 function hasDiscoveredTerm(term) {
@@ -95,6 +115,10 @@ function getSearchedTerms() {
 
 function unlockCommand(commandName) {
     GAME_STATE.unlockedCommands.add(commandName);
+}
+
+function lockCommand(commandName) {
+    GAME_STATE.unlockedCommands.delete(commandName);
 }
 
 function isCommandUnlocked(commandName) {
@@ -164,7 +188,9 @@ function resetGameState() {
         'open',
         'search',
         'terms',
-        'clear'
+        'flags',
+        'clear',
+        'dev'
     ]);
 
     GAME_STATE.triggeredEvents.clear();

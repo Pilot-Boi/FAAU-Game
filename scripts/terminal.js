@@ -188,9 +188,21 @@ function appendOutputLine(text, extraClasses = []) {
     }
 
     const classList = Array.isArray(extraClasses) ? extraClasses : [extraClasses];
+    const legacyClassMap = {
+        'terminal-system': 'terminal-line-system',
+        'terminal-error': 'terminal-line-error',
+        'terminal-header': 'terminal-line-heading',
+        'terminal-muted': 'terminal-line-entry'
+    };
+
     for (const className of classList) {
-        if (className) {
-            line.classList.add(className);
+        if (!className) {
+            continue;
+        }
+
+        const resolvedClassName = legacyClassMap[className] || className;
+        if (resolvedClassName) {
+            line.classList.add(resolvedClassName);
         }
     }
 
@@ -615,6 +627,10 @@ const COMMANDS = {
                     continue;
                 }
 
+                if (command.name === 'dev') {
+                    continue;
+                }
+
                 appendOutputLine(command.name);
                 appendOutputLine(`  Usage: ${command.usage}`);
                 appendOutputLine(`  Description: ${command.description}`);
@@ -714,6 +730,38 @@ const COMMANDS = {
             appendOutputLine('[SYSTEM] Highlight legend: searched terms are tinted differently.');
         }
     },
+    flags: {
+        name: 'flags',
+        usage: 'flags',
+        description: 'Lists currently active progression flags.',
+        execute: () => {
+            const state = getGameState();
+            const activeFlags = Object.entries(state.flags)
+                .filter(([, enabled]) => Boolean(enabled))
+                .map(([flagName]) => flagName)
+                .sort();
+
+            appendOutputLine('ACTIVE FLAGS');
+            appendOutputLine('');
+
+            if (activeFlags.length === 0) {
+                appendOutputLine('(none)');
+                return;
+            }
+
+            for (const flagName of activeFlags) {
+                appendOutputLine(`- ${flagName}`);
+            }
+        }
+    },
+    dev: {
+        name: 'dev',
+        usage: 'dev [subcommand]',
+        description: 'Runs development and debugging shortcuts.',
+        execute: (args) => {
+            handleDevCommand(args);
+        }
+    },
     clear: {
         name: 'clear',
         usage: 'clear',
@@ -728,6 +776,320 @@ const COMMANDS = {
 function updatePromptDisplay() {
     promptSymbol.textContent = `FACILITY:${formatCurrentPath()}> `;
 }
+
+function handleDevCommand(args) {
+    if (!args || args.length === 0) {
+        appendOutputLine(
+            '[DEV] Usage: dev unlock term|flag|command ..., dev set chapter N, dev read file /path, dev search term, dev state, dev reset, dev secure',
+            'terminal-system'
+        );
+        return;
+    }
+
+    const subcommand = (args[0] || '').toLowerCase();
+
+    if (subcommand === 'unlock') {
+        const unlockType = (args[1] || '').toLowerCase();
+        const value = args.slice(2).join(' ').trim();
+
+        if (!unlockType || !value) {
+            appendOutputLine('[DEV] Usage: dev unlock term|flag|command [value]', 'terminal-error');
+            return;
+        }
+
+        if (unlockType === 'term') {
+            addDiscoveredTerms([value]);
+            appendOutputLine(`[DEV] Term unlocked: ${formatTermForOutput(value)}`, 'terminal-system');
+            return;
+        }
+
+        if (unlockType === 'flag') {
+            setFlag(value);
+            appendOutputLine(`[DEV] Flag set: ${value}`, 'terminal-system');
+            return;
+        }
+
+        if (unlockType === 'command') {
+            unlockCommand(value);
+            appendOutputLine(`[DEV] Command unlocked: ${value}`, 'terminal-system');
+            return;
+        }
+
+        appendOutputLine(`[DEV] Unknown unlock type: ${unlockType}`, 'terminal-error');
+        return;
+    }
+
+    if (subcommand === 'lock') {
+        const lockType = (args[1] || '').toLowerCase();
+        const value = args.slice(2).join(' ').trim();
+
+        if (!lockType || !value) {
+            appendOutputLine('[DEV] Usage: dev lock term|flag|command [value]', 'terminal-error');
+            return;
+        }
+
+        if (lockType === 'term') {
+            if (typeof removeDiscoveredTerm === 'function') {
+                removeDiscoveredTerm(value);
+            }
+            appendOutputLine(`[DEV] Term removed: ${formatTermForOutput(value)}`, 'terminal-system');
+            return;
+        }
+
+        if (lockType === 'flag') {
+            if (typeof clearFlag === 'function') {
+                clearFlag(value);
+            }
+            appendOutputLine(`[DEV] Flag cleared: ${value}`, 'terminal-system');
+            return;
+        }
+
+        if (lockType === 'command') {
+            const protectedCommands = new Set(['help', 'dev']);
+            const normalizedCommandName = value.toLowerCase();
+
+            if (protectedCommands.has(normalizedCommandName)) {
+                appendOutputLine(`[DEV] Refusing to lock command: ${normalizedCommandName}`, 'terminal-error');
+                return;
+            }
+
+            if (typeof lockCommand === 'function') {
+                lockCommand(value);
+            }
+            appendOutputLine(`[DEV] Command locked: ${value}`, 'terminal-system');
+            return;
+        }
+
+        appendOutputLine(`[DEV] Unknown lock type: ${lockType}`, 'terminal-error');
+        return;
+    }
+
+    if (subcommand === 'set') {
+        const setType = (args[1] || '').toLowerCase();
+        const value = args[2];
+
+        if (setType === 'chapter') {
+            const chapterIndex = Number(value);
+
+            if (!Number.isInteger(chapterIndex) || chapterIndex < 0) {
+                appendOutputLine('[DEV] Chapter index must be a non-negative integer.', 'terminal-error');
+                return;
+            }
+
+            setCurrentChapterIndex(chapterIndex);
+            appendOutputLine(`[DEV] Current chapter index set to ${chapterIndex}`, 'terminal-system');
+            return;
+        }
+
+        appendOutputLine(`[DEV] Unknown set type: ${setType}`, 'terminal-error');
+        return;
+    }
+
+    if (subcommand === 'read') {
+        const readType = (args[1] || '').toLowerCase();
+        const value = args.slice(2).join(' ').trim();
+
+        if (readType !== 'file' || !value) {
+            appendOutputLine('[DEV] Usage: dev read file /path/to/file.txt', 'terminal-error');
+            return;
+        }
+
+        const result = openFile(value);
+
+        if (result.error) {
+            appendOutputLine(`[DEV] ${result.error}`, 'terminal-error');
+            return;
+        }
+
+        appendOutputLine(`[DEV] Reading file: ${value}`, 'terminal-system');
+        printResult(result);
+        return;
+    }
+
+    if (subcommand === 'search') {
+        const term = args.slice(1).join(' ').trim();
+
+        if (!term) {
+            appendOutputLine('[DEV] Usage: dev search [term]', 'terminal-error');
+            return;
+        }
+
+        addDiscoveredTerms([term]);
+        appendOutputLine(`[DEV] Forced search availability for: ${formatTermForOutput(term)}`, 'terminal-system');
+        printResult(searchTerm(term));
+        return;
+    }
+
+    if (subcommand === 'move') {
+        const path = args.slice(1).join(' ').trim();
+
+        if (!path) {
+            appendOutputLine('[DEV] Usage: dev move /path/to/directory', 'terminal-error');
+            return;
+        }
+
+        const result = changeDirectory(path);
+
+        if (result.error) {
+            appendOutputLine(`[DEV] ${result.error}`, 'terminal-error');
+            return;
+        }
+
+        appendOutputLine(`[DEV] Moved to: ${path}`, 'terminal-system');
+        printResult(result);
+        return;
+    }
+
+    if (subcommand === 'secure') {
+        setFlag('secure_access_granted');
+        appendOutputLine('[DEV] Secure archive unlocked.', 'terminal-system');
+        return;
+    }
+
+    if (subcommand === 'chapter') {
+        const value = args[1];
+        const chapterIndex = Number(value);
+
+        if (!Number.isInteger(chapterIndex) || chapterIndex < 0) {
+            appendOutputLine('[DEV] Usage: dev chapter [index]', 'terminal-error');
+            return;
+        }
+
+        setCurrentChapterIndex(chapterIndex);
+        appendOutputLine(`[DEV] Current chapter index set to ${chapterIndex}`, 'terminal-system');
+        return;
+    }
+
+    if (subcommand === 'event') {
+        const eventName = args.slice(1).join(' ').trim();
+
+        if (!eventName) {
+            appendOutputLine('[DEV] Usage: dev event [event_name]', 'terminal-error');
+            return;
+        }
+
+        triggerEvent(eventName);
+        appendOutputLine(`[DEV] Event marked triggered: ${eventName}`, 'terminal-system');
+        return;
+    }
+
+    if (subcommand === 'unevent') {
+        const eventName = args.slice(1).join(' ').trim();
+
+        if (!eventName) {
+            appendOutputLine('[DEV] Usage: dev unevent [event_name]', 'terminal-error');
+            return;
+        }
+
+        if (typeof clearTriggeredEvent === 'function') {
+            clearTriggeredEvent(eventName);
+        }
+        appendOutputLine(`[DEV] Event cleared: ${eventName}`, 'terminal-system');
+        return;
+    }
+
+    if (subcommand === 'state') {
+        const state = getGameState();
+
+        appendOutputLine('[DEV] CURRENT STATE', 'terminal-header');
+        appendOutputLine(`Path: ${formatCurrentPath()}`, 'terminal-muted');
+        appendOutputLine(`Flags (${Object.keys(state.flags).length}): ${Object.keys(state.flags).join(', ') || '(none)'}`, 'terminal-muted');
+        appendOutputLine(`Terms (${state.discoveredTerms.size}): ${Array.from(state.discoveredTerms).join(', ') || '(none)'}`, 'terminal-muted');
+        appendOutputLine(`Files Read (${state.filesRead.size}): ${Array.from(state.filesRead).join(', ') || '(none)'}`, 'terminal-muted');
+        appendOutputLine(`Commands: ${Array.from(state.unlockedCommands).join(', ') || '(none)'}`, 'terminal-muted');
+        appendOutputLine(`Triggered Events: ${Array.from(state.triggeredEvents).join(', ') || '(none)'}`, 'terminal-muted');
+        appendOutputLine(`Current Chapter Index: ${state.storyState.currentChapter}`, 'terminal-muted');
+        appendOutputLine(`Played Chapters: ${Array.from(state.storyState.chapterPlayed).join(', ') || '(none)'}`, 'terminal-muted');
+        return;
+    }
+
+    if (subcommand === 'flags') {
+        const state = getGameState();
+        const flags = Object.keys(state.flags);
+
+        appendOutputLine('[DEV] FLAGS', 'terminal-header');
+        if (flags.length === 0) {
+            appendOutputLine('(none)', 'terminal-muted');
+            return;
+        }
+
+        for (const flag of flags) {
+            appendOutputLine(`- ${flag}`, 'terminal-muted');
+        }
+        return;
+    }
+
+    if (subcommand === 'terms') {
+        const state = getGameState();
+        const terms = Array.from(state.discoveredTerms).sort();
+
+        appendOutputLine('[DEV] TERMS', 'terminal-header');
+        if (terms.length === 0) {
+            appendOutputLine('(none)', 'terminal-muted');
+            return;
+        }
+
+        for (const term of terms) {
+            appendOutputLine(`- ${term}`, 'terminal-muted');
+        }
+        return;
+    }
+
+    if (subcommand === 'commands') {
+        const state = getGameState();
+        const commands = Array.from(state.unlockedCommands).sort();
+
+        appendOutputLine('[DEV] COMMANDS', 'terminal-header');
+        if (commands.length === 0) {
+            appendOutputLine('(none)', 'terminal-muted');
+            return;
+        }
+
+        for (const commandName of commands) {
+            appendOutputLine(`- ${commandName}`, 'terminal-muted');
+        }
+        return;
+    }
+
+    if (subcommand === 'reset') {
+        if (typeof resetGameState === 'function') {
+            resetGameState();
+            announcedTerms.clear();
+            currentPathSegments.length = 0;
+            appendOutputLine('[DEV] Runtime state reset.', 'terminal-system');
+        } else {
+            appendOutputLine('[DEV] Reset unavailable: state manager not loaded.', 'terminal-error');
+        }
+        return;
+    }
+
+    if (subcommand === 'help') {
+        appendOutputLine('[DEV] AVAILABLE DEV COMMANDS', 'terminal-header');
+        appendOutputLine('dev unlock term [term]', 'terminal-muted');
+        appendOutputLine('dev unlock flag [flag]', 'terminal-muted');
+        appendOutputLine('dev unlock command [command]', 'terminal-muted');
+        appendOutputLine('dev lock term [term]', 'terminal-muted');
+        appendOutputLine('dev lock flag [flag]', 'terminal-muted');
+        appendOutputLine('dev lock command [command]', 'terminal-muted');
+        appendOutputLine('dev read file /path/to/file.txt', 'terminal-muted');
+        appendOutputLine('dev search [term]', 'terminal-muted');
+        appendOutputLine('dev move /path/to/folder', 'terminal-muted');
+        appendOutputLine('dev set chapter [index]', 'terminal-muted');
+        appendOutputLine('dev chapter [index]', 'terminal-muted');
+        appendOutputLine('dev event [event_name]', 'terminal-muted');
+        appendOutputLine('dev unevent [event_name]', 'terminal-muted');
+        appendOutputLine('dev secure', 'terminal-muted');
+        appendOutputLine('dev state', 'terminal-muted');
+        appendOutputLine('dev flags', 'terminal-muted');
+        appendOutputLine('dev terms', 'terminal-muted');
+        appendOutputLine('dev commands', 'terminal-muted');
+        appendOutputLine('dev reset', 'terminal-muted');
+        return;
+    }
+
+    appendOutputLine(`[DEV] Unknown subcommand: ${subcommand}`, 'terminal-error');
+}
+
 
 // Parse and execute a user-entered command.
 function runCommand(inputText) {

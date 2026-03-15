@@ -1,0 +1,61 @@
+FAAU GAME - DEV COMMAND CHEAT SHEET
+
+Note:
+- The dev command is hidden from normal `help` output.
+- You can still run it directly from the terminal.
+
+Base usage:
+  dev [subcommand]
+
+Quick help:
+  dev help
+
+Core commands:
+  dev unlock term [term]
+  dev unlock flag [flag]
+  dev unlock command [command]
+
+  dev lock term [term]
+  dev lock flag [flag]
+  dev lock command [command]
+
+  dev read file /path/to/file.txt
+  dev search [term]
+  dev move /path/to/folder
+
+  dev set chapter [index]
+  dev chapter [index]
+
+  dev event [event_name]
+  dev unevent [event_name]
+
+  dev secure
+  dev state
+  dev flags
+  dev terms
+  dev commands
+  dev reset
+
+Important safeguards:
+- `dev lock command dev` is blocked.
+- `dev lock command help` is blocked.
+
+Examples:
+  dev unlock term avian
+  dev unlock flag secure_access_granted
+  dev unlock command msg
+
+  dev lock flag secure_access_granted
+  dev lock term avian
+
+  dev search avian
+  dev read file /staff/archive_notice.txt
+  dev move /secure
+
+  dev chapter 1
+  dev event secure_access_granted
+  dev state
+
+Tips:
+- Use `reset` (or `dev reset`) to clear runtime state for retesting.
+- If a command/path fails, run `list` in the current folder to verify names.
