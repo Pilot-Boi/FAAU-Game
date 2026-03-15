@@ -393,6 +393,47 @@ const FILE_SYSTEM = {
                             contentFile: 'content/secure/subjects/subject_008.txt'
                         }
                     }
+                },
+                containment: {
+                    type: 'dir',
+                    children: {
+                        'containment_overview.txt': {
+                            type: 'file',
+                            terms: ['containment', 'sublevel', 'security'],
+                            onOpenFlag: 'read_containment_overview',
+                            contentFile: 'content/secure/containment/containment_overview.txt'
+                        },
+                        'protocol_overview.txt': {
+                            type: 'file',
+                            terms: ['containment', 'security'],
+                            onOpenFlag: 'read_protocol_overview',
+                            contentFile: 'content/secure/containment/protocol_overview.txt'
+                        },
+                        'vocal_restraint_protocol.txt': {
+                            type: 'file',
+                            requiredFlag: 'vocal_restraint_unlocked',
+                            hiddenUntilFlag: 'vocal_restraint_unlocked',
+                            terms: ['containment', 'security', 'subject_002', 'subject_007'],
+                            onOpenFlag: 'read_vocal_restraint_protocol',
+                            contentFile: 'content/secure/containment/vocal_restraint_protocol.txt'
+                        },
+                        'reinforced_containment_protocol.txt': {
+                            type: 'file',
+                            requiredFlag: 'reinforced_containment_unlocked',
+                            hiddenUntilFlag: 'reinforced_containment_unlocked',
+                            terms: ['containment', 'security', 'subject_003', 'subject_006'],
+                            onOpenFlag: 'read_reinforced_containment_protocol',
+                            contentFile: 'content/secure/containment/reinforced_containment_protocol.txt'
+                        },
+                        'observation_barrier_protocol.txt': {
+                            type: 'file',
+                            requiredFlag: 'observation_barrier_unlocked',
+                            hiddenUntilFlag: 'observation_barrier_unlocked',
+                            terms: ['containment', 'security', 'subject_004', 'subject_005'],
+                            onOpenFlag: 'read_observation_barrier_protocol',
+                            contentFile: 'content/secure/containment/observation_barrier_protocol.txt'
+                        }
+                    }
                 }
             }
         }
@@ -839,6 +880,7 @@ function searchTerm(rawTerm) {
         }
     };
 }
+
 
 
 

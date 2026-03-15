@@ -32,15 +32,17 @@ Source: scripts/directory.js
 |       |-- ebi_profile.txt [requires flag: profile_ebi_unlocked]
 |       `-- schnee_profile.txt [requires flag: profile_schnee_unlocked]
 `-- secure/ [requires flag: secure_access_granted]
-    `-- subjects/
-        |-- subject_001.txt
-        |-- subject_002.txt
-        |-- subject_003.txt
-        |-- subject_004.txt [requires flag: subject_004_file_unlocked]
-        |-- subject_005.txt [requires flag: subject_005_file_unlocked]
-        |-- subject_006.txt [requires flag: subject_006_file_unlocked]
-        |-- subject_007.txt [requires flag: subject_007_file_unlocked]
-        `-- subject_008.txt [requires flag: subject_008_file_unlocked]
+    |-- subjects/
+    |   |-- subject_001.txt
+    |   |-- subject_002.txt
+    |   |-- subject_003.txt
+    |   |-- subject_004.txt [requires flag: subject_004_file_unlocked]
+    |   |-- subject_005.txt [requires flag: subject_005_file_unlocked]
+    |   |-- subject_006.txt [requires flag: subject_006_file_unlocked]
+    |   |-- subject_007.txt [requires flag: subject_007_file_unlocked]
+    |   `-- subject_008.txt [requires flag: subject_008_file_unlocked]
+    `-- containment/
+        `-- containment_overview.txt
 
 Notes:
 - This diagram is auto-generated from FILE_SYSTEM in scripts/directory.js.
