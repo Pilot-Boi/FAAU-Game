@@ -61,9 +61,6 @@ const SEARCH_INDEX = {
     neural_interface: [
         { type: 'file', path: '/research/projects/GEN_02.txt' }
     ],
-    seraph: [
-        { type: 'file', path: '/research/project_index.txt' }
-    ],
     hybrid: [
         { type: 'file', path: '/research/projects/BIO_01.txt' }
     ],
@@ -285,7 +282,7 @@ const FILE_SYSTEM = {
                 },
                 'project_index.txt': {
                     type: 'file',
-                    terms: ['achilles', 'seraph', 'bioengineering', 'genetics'],
+                    terms: ['achilles', 'bioengineering', 'genetics'],
                     onOpenFlag: 'read_project_index',
                     content: [
                         'FACILITY PROJECT INDEX',
@@ -312,7 +309,7 @@ const FILE_SYSTEM = {
                         'Objective: Analysis of extreme physiological tolerance thresholds.',
                         '',
                         'GEN-01',
-                        'Project: SERAPH',
+                        'Project: ███████████',
                         'Division: Genetics',
                         'Status: CLASSIFIED',
                         'Objective: ███████ musculoskeletal modeling.',

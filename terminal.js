@@ -444,6 +444,14 @@ const COMMANDS = {
             showMessageContactDirectory();
         }
     },
+    cam: {
+        name: 'cam',
+        usage: 'cam',
+        description: 'Access facility surveillance feeds.',
+        execute: () => {
+            printResult(openCameraInterface());
+        }
+    },
     terms: {
         name: 'terms',
         usage: 'terms',

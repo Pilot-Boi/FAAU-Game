@@ -106,14 +106,6 @@ const TERM_METADATA = Object.freeze({
             'The project represents a major milestone in the Facility’s efforts to develop biomechanical augmentation systems that function as natural extensions of the host body.'
         ]
     },
-    seraph: {
-        label: 'Seraph',
-        type: 'project',
-        summary: [
-            'CLASSIFIED: Access to project summary and documentation is restricted to personnel with Level 5 clearance or higher.',
-        ]
-    },
-
     // Species
     avian: {
         label: 'Avian',
