@@ -1163,7 +1163,28 @@ const FILE_SYSTEM = {
                                 title: 'SUBJECT 001 IMAGE ARCHIVE',
                                 description: 'Placeholder image. Replace with subject_001 asset when available.'
                             },
-                            content: ['STUB - Subject file content not yet implemented.']
+                            content: [
+                                'SUBJECT DOSSIER // TEST SUBJECT 001 OF 008',
+                                '',
+                                'PROJECT DESIGNATION: PROJECT OBSCURUS',
+                                'SERAPH NAME: URIEL',
+                                '',
+                                'STATUS: ACTIVE',
+                                'SECURITY CLASSIFICATION: LEVEL 5',
+                                'CURRENT LOCATION: SUBLEVEL 3 - RESTRICTED CONTAINMENT',
+                                'CONTAINMENT STATUS: STABLE',
+                                '',
+                                'SUMMARY',
+                                'Subject 001 is registered to Project Obscurus and',
+                                'maintained under the seraph designation URIEL.',
+                                '',
+                                'Expanded records regarding subject history,',
+                                'physiological assessment, behavioral notes,',
+                                'testing outcomes, and containment adjustments',
+                                'are maintained in linked restricted documents.',
+                                '',
+                                'FILE END'
+                            ]
                         },
                         'subject_002.txt': {
                             type: 'file',
@@ -1174,7 +1195,28 @@ const FILE_SYSTEM = {
                                 title: 'SUBJECT 002 IMAGE ARCHIVE',
                                 description: 'Placeholder image. Replace with subject_002 asset when available.'
                             },
-                            content: ['STUB - Subject file content not yet implemented.']
+                            content: [
+                                'SUBJECT DOSSIER // TEST SUBJECT 002 OF 008',
+                                '',
+                                'PROJECT DESIGNATION: PROJECT PRINCE CHARMING',
+                                'SERAPH NAME: SALAPIEL',
+                                '',
+                                'STATUS: ACTIVE',
+                                'SECURITY CLASSIFICATION: LEVEL 5',
+                                'CURRENT LOCATION: SUBLEVEL 3 - RESTRICTED CONTAINMENT',
+                                'CONTAINMENT STATUS: STABLE',
+                                '',
+                                'SUMMARY',
+                                'Subject 002 is registered to Project Prince Charming and',
+                                'maintained under the seraph designation SALAPIEL.',
+                                '',
+                                'Expanded records regarding subject history,',
+                                'physiological assessment, behavioral notes,',
+                                'testing outcomes, and containment adjustments',
+                                'are maintained in linked restricted documents.',
+                                '',
+                                'FILE END'
+                            ]
                         },
                         'subject_003.txt': {
                             type: 'file',
@@ -1185,7 +1227,28 @@ const FILE_SYSTEM = {
                                 title: 'SUBJECT 003 IMAGE ARCHIVE',
                                 description: 'Placeholder image. Replace with subject_003 asset when available.'
                             },
-                            content: ['STUB - Subject file content not yet implemented.']
+                            content: [
+                                'SUBJECT DOSSIER // TEST SUBJECT 003 OF 008',
+                                '',
+                                'PROJECT DESIGNATION: PROJECT IRON GIANT',
+                                'SERAPH NAME: ARIEL',
+                                '',
+                                'STATUS: ACTIVE',
+                                'SECURITY CLASSIFICATION: LEVEL 5',
+                                'CURRENT LOCATION: SUBLEVEL 3 - RESTRICTED CONTAINMENT',
+                                'CONTAINMENT STATUS: STABLE',
+                                '',
+                                'SUMMARY',
+                                'Subject 003 is registered to Project Iron Giant and',
+                                'maintained under the seraph designation ARIEL.',
+                                '',
+                                'Expanded records regarding subject history,',
+                                'physiological assessment, behavioral notes,',
+                                'testing outcomes, and containment adjustments',
+                                'are maintained in linked restricted documents.',
+                                '',
+                                'FILE END'
+                            ]
                         },
                         'subject_004.txt': {
                             type: 'file',
@@ -1198,7 +1261,28 @@ const FILE_SYSTEM = {
                                 title: 'SUBJECT 004 IMAGE ARCHIVE',
                                 description: 'Placeholder image. Replace with subject_004 asset when available.'
                             },
-                            content: ['STUB - Subject file content not yet implemented.']
+                            content: [
+                                'SUBJECT DOSSIER // TEST SUBJECT 004 OF 008',
+                                '',
+                                'PROJECT DESIGNATION: PROJECT MISTBORN',
+                                'SERAPH NAME: PHANUEL',
+                                '',
+                                'STATUS: ACTIVE',
+                                'SECURITY CLASSIFICATION: LEVEL 5',
+                                'CURRENT LOCATION: SUBLEVEL 3 - RESTRICTED CONTAINMENT',
+                                'CONTAINMENT STATUS: STABLE',
+                                '',
+                                'SUMMARY',
+                                'Subject 004 is registered to Project Mistborn and',
+                                'maintained under the seraph designation Phanuel.',
+                                '',
+                                'Expanded records regarding subject history,',
+                                'physiological assessment, behavioral notes,',
+                                'testing outcomes, and containment adjustments',
+                                'are maintained in linked restricted documents.',
+                                '',
+                                'FILE END'
+                            ]
                         },
                         'subject_005.txt': {
                             type: 'file',
@@ -1211,7 +1295,28 @@ const FILE_SYSTEM = {
                                 title: 'SUBJECT 005 IMAGE ARCHIVE',
                                 description: 'Placeholder image. Replace with subject_005 asset when available.'
                             },
-                            content: ['STUB - Subject file content not yet implemented.']
+                            content: [
+                                'SUBJECT DOSSIER // TEST SUBJECT 005 OF 008',
+                                '',
+                                'PROJECT DESIGNATION: PROJECT VENOM STRIKE',
+                                'SERAPH NAME: AZREAL',
+                                '',
+                                'STATUS: ACTIVE',
+                                'SECURITY CLASSIFICATION: LEVEL 5',
+                                'CURRENT LOCATION: SUBLEVEL 3 - RESTRICTED CONTAINMENT',
+                                'CONTAINMENT STATUS: STABLE',
+                                '',
+                                'SUMMARY',
+                                'Subject 005 is registered to Project Venom Strike and',
+                                'maintained under the seraph designation AZREAL.',
+                                '',
+                                'Expanded records regarding subject history,',
+                                'physiological assessment, behavioral notes,',
+                                'testing outcomes, and containment adjustments',
+                                'are maintained in linked restricted documents.',
+                                '',
+                                'FILE END'
+                            ]
                         },
                         'subject_006.txt': {
                             type: 'file',
@@ -1224,7 +1329,28 @@ const FILE_SYSTEM = {
                                 title: 'SUBJECT 006 IMAGE ARCHIVE',
                                 description: 'Placeholder image. Replace with subject_006 asset when available.'
                             },
-                            content: ['STUB - Subject file content not yet implemented.']
+                            content: [
+                                'SUBJECT DOSSIER // TEST SUBJECT 006 OF 008',
+                                '',
+                                'PROJECT DESIGNATION: PROJECT QUICKSILVER',
+                                'SERAPH NAME: GABRIEL',
+                                '',
+                                'STATUS: ACTIVE',
+                                'SECURITY CLASSIFICATION: LEVEL 5',
+                                'CURRENT LOCATION: SUBLEVEL 3 - RESTRICTED CONTAINMENT',
+                                'CONTAINMENT STATUS: STABLE',
+                                '',
+                                'SUMMARY',
+                                'Subject 006 is registered to Project Quicksilver and',
+                                'maintained under the seraph designation GABRIEL.',
+                                '',
+                                'Expanded records regarding subject history,',
+                                'physiological assessment, behavioral notes,',
+                                'testing outcomes, and containment adjustments',
+                                'are maintained in linked restricted documents.',
+                                '',
+                                'FILE END'
+                            ]
                         },
                         'subject_007.txt': {
                             type: 'file',
@@ -1237,7 +1363,28 @@ const FILE_SYSTEM = {
                                 title: 'SUBJECT 007 IMAGE ARCHIVE',
                                 description: 'Placeholder image. Replace with subject_007 asset when available.'
                             },
-                            content: ['STUB - Subject file content not yet implemented.']
+                            content: [
+                                'SUBJECT DOSSIER // TEST SUBJECT 007 OF 008',
+                                '',
+                                'PROJECT DESIGNATION: PROJECT PHOENIX',
+                                'SERAPH NAME: MICHAEL',
+                                '',
+                                'STATUS: ACTIVE',
+                                'SECURITY CLASSIFICATION: LEVEL 5',
+                                'CURRENT LOCATION: SUBLEVEL 3 - RESTRICTED CONTAINMENT',
+                                'CONTAINMENT STATUS: STABLE',
+                                '',
+                                'SUMMARY',
+                                'Subject 007 is registered to Project Phoenix and',
+                                'maintained under the seraph designation MICHAEL.',
+                                '',
+                                'Expanded records regarding subject history,',
+                                'physiological assessment, behavioral notes,',
+                                'testing outcomes, and containment adjustments',
+                                'are maintained in linked restricted documents.',
+                                '',
+                                'FILE END'
+                            ]
                         },
                         'subject_008.txt': {
                             type: 'file',
@@ -1250,7 +1397,28 @@ const FILE_SYSTEM = {
                                 title: 'SUBJECT 008 IMAGE ARCHIVE',
                                 description: 'Placeholder image. Replace with subject_008 asset when available.'
                             },
-                            content: ['STUB - Subject file content not yet implemented.']
+                            content: [
+                                'SUBJECT DOSSIER // TEST SUBJECT 008 OF 008',
+                                '',
+                                'PROJECT DESIGNATION: PROJECT DOVETAIL',
+                                'SERAPH NAME: RAPHAEL',
+                                '',
+                                'STATUS: ACTIVE',
+                                'SECURITY CLASSIFICATION: LEVEL 5',
+                                'CURRENT LOCATION: SUBLEVEL 3 - RESTRICTED CONTAINMENT',
+                                'CONTAINMENT STATUS: STABLE',
+                                '',
+                                'SUMMARY',
+                                'Subject 008 is registered to Project Dovetail and',
+                                'maintained under the seraph designation RAPHAEL.',
+                                '',
+                                'Expanded records regarding subject history,',
+                                'physiological assessment, behavioral notes,',
+                                'testing outcomes, and containment adjustments',
+                                'are maintained in linked restricted documents.',
+                                '',
+                                'FILE END'
+                            ]
                         }
                     }
                 }
