@@ -20,7 +20,7 @@ Recent incidents include:
 At this time no confirmed breach of containment has been recorded.
 
 However, several monitoring feeds associated with
-CONTAINMENT UNIT â–ˆâ–ˆâ–ˆ have experienced repeated
+CONTAINMENT UNIT ██████ have experienced repeated
 synchronization failures during routine observation cycles.
 
 Engineering staff have been assigned to inspect affected
@@ -34,7 +34,7 @@ Security patrol frequency within the Sublevel wing has
 been increased as a precautionary measure.
 
 Additional diagnostic reports have been forwarded to
-â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ for internal review.
+████████████████████ for internal review.
 
 Further documentation regarding containment systems
 remains restricted to personnel with Level 4 clearance

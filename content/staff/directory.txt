@@ -2,7 +2,7 @@ FACILITY STAFF DIRECTORY
 
 COMMAND STRUCTURE
 ID: D-001
-DIRECTOR â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
+DIRECTOR ████████████
 Position: Facility Director
 
 ID: C-001

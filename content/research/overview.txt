@@ -20,7 +20,7 @@ Focus: Dynamic physiological adaptation and modeling.
 Status: Operational
 Primary Objective: Extreme-environment survivability.
 
-â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ RESEARCH DIVISION
+██████████████ RESEARCH DIVISION
 Classification: Director Authorization Required
 Status: ACTIVE
 Access: RESTRICTED

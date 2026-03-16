@@ -22,10 +22,10 @@ Status: ACTIVE
 Objective: Analysis of extreme physiological tolerance thresholds.
 
 GEN-01
-Project: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
+Project: ██████████████████████
 Division: Genetics
 Status: CLASSIFIED
-Objective: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ musculoskeletal modeling.
+Objective: ██████████████ musculoskeletal modeling.
 Access Level: Director Authorization Required
 Notes: Cross-division coordination in progress.
 
