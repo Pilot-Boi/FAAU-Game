@@ -16,6 +16,21 @@ const EVENT_RULES = [
     },
 
     {
+        id: 'chapter_01_progress_complete',
+        when: () =>
+            hasFlag('chapter_01_entry_01') &&
+            hasFlag('chapter_01_entry_02') &&
+            hasFlag('chapter_01_entry_03') &&
+            hasFlag('chapter_01_entry_04'),
+        do: () => {
+            setFlag('chapter_01_complete');
+            return [
+                '=== CHAPTER 1 COMPLETE: INITIAL CONTACT ==='
+            ];
+        }
+    },
+
+    {
         id: 'sublevel_review_unlocked',
         when: () =>
             hasFlag('chapter_01_complete') &&
@@ -82,6 +97,87 @@ const EVENT_RULES = [
                 '[SYSTEM] Security authorization override detected.',
                 '[SYSTEM] Access credentials updated.',
                 '[SYSTEM] New directory unlocked: secure'
+            ];
+        }
+    },
+
+    {
+        id: 'msg_alert_watts',
+        when: () =>
+            isCommandUnlocked('msg') &&
+            hasDiscoveredTerm('watts'),
+        do: () => {
+            return [
+                '[SYSTEM] Relay status update: unread communication available in msg.'
+            ];
+        }
+    },
+
+    {
+        id: 'msg_alert_secure_unlock',
+        when: () =>
+            isCommandUnlocked('msg') &&
+            hasFlag('secure_access_granted'),
+        do: () => {
+            return [
+                '[SYSTEM] Relay status update: new communication available in msg.'
+            ];
+        }
+    },
+
+    {
+        id: 'msg_alert_subject_002_read',
+        when: () =>
+            isCommandUnlocked('msg') &&
+            hasReadFile('/secure/subjects/subject_002.txt'),
+        do: () => {
+            return [
+                '[SYSTEM] Relay status update: additional communication available in msg.'
+            ];
+        }
+    },
+
+    {
+        id: 'msg_alert_subject_003',
+        when: () =>
+            isCommandUnlocked('msg') &&
+            hasDiscoveredTerm('subject_003'),
+        do: () => {
+            return [
+                '[SYSTEM] Relay status update: unread communication available in msg.'
+            ];
+        }
+    },
+
+    {
+        id: 'msg_alert_chapter_02_end',
+        when: () =>
+            isCommandUnlocked('msg') &&
+            hasFlag('chapter_02_entry_01') &&
+            hasFlag('chapter_02_entry_02') &&
+            hasFlag('chapter_02_entry_03') &&
+            hasFlag('chapter_02_entry_04') &&
+            hasFlag('chapter_02_entry_05'),
+        do: () => {
+            return [
+                '[SYSTEM] Relay status update: critical communication available in msg.'
+            ];
+        }
+    },
+
+    {
+        id: 'chapter_02_progress_complete',
+        when: () =>
+            hasFlag('chapter_02_entry_01') &&
+            hasFlag('chapter_02_entry_02') &&
+            hasFlag('chapter_02_entry_03') &&
+            hasFlag('chapter_02_entry_04') &&
+            hasFlag('chapter_02_entry_05') &&
+            hasFlag('chapter_02_entry_06'),
+        do: () => {
+            setFlag('chapter_02_complete');
+            return [
+                '=== CHAPTER 2 COMPLETE: THROUGH THE GLASS ==='
             ];
         }
     },
@@ -176,6 +272,23 @@ function buildStoryEntryKey(chapterId, entryIndex) {
     return `${chapterId}:${entryIndex}`;
 }
 
+function getEntrySpeaker(entry) {
+    if (!entry) {
+        return '';
+    }
+
+    if (typeof entry.speaker === 'string' && entry.speaker.trim()) {
+        return entry.speaker;
+    }
+
+    if (!Array.isArray(entry.blocks)) {
+        return '';
+    }
+
+    const speakerBlock = entry.blocks.find((block) => block && block.type === 'speaker' && typeof block.speaker === 'string');
+    return speakerBlock ? speakerBlock.speaker : '';
+}
+
 function findUnreadReplyEntryForContact(chapter, contactId) {
     const speakerAliases = new Set(getContactSpeakerAliases(contactId));
 
@@ -185,8 +298,9 @@ function findUnreadReplyEntryForContact(chapter, contactId) {
 
     for (let index = 0; index < chapter.entries.length; index += 1) {
         const entry = chapter.entries[index];
+        const entrySpeaker = getEntrySpeaker(entry);
 
-        if (!entry || entry.type !== 'reply' || !speakerAliases.has(entry.speaker)) {
+        if (!entry || entry.type !== 'reply' || !speakerAliases.has(entrySpeaker)) {
             continue;
         }
 
@@ -225,6 +339,130 @@ function hasUnreadReplyEntries(chapter) {
     return false;
 }
 
+function isCameraSceneEntry(entry) {
+    return Boolean(entry) && entry.interface === 'cams' && entry.type === 'scene';
+}
+
+function hasUnreadCameraSceneEntries(chapter) {
+    if (!chapter || !Array.isArray(chapter.entries)) {
+        return false;
+    }
+
+    for (let index = 0; index < chapter.entries.length; index += 1) {
+        const entry = chapter.entries[index];
+        if (!isCameraSceneEntry(entry)) {
+            continue;
+        }
+
+        const entryKey = buildStoryEntryKey(chapter.id, index);
+        if (!hasStoryEntryRead(entryKey)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function shouldAdvanceChapter(chapter, chapterIndex) {
+    if (!chapter || hasPlayedChapter(chapter.id)) {
+        return false;
+    }
+
+    return !hasUnreadReplyEntries(chapter) && !hasUnreadCameraSceneEntries(chapter);
+}
+
+function advanceChapterIfComplete(chapter, chapterIndex) {
+    if (!shouldAdvanceChapter(chapter, chapterIndex)) {
+        return;
+    }
+
+    markChapterPlayed(chapter.id);
+    applyChapterEffects(chapter);
+    setCurrentChapterIndex(chapterIndex + 1);
+}
+
+function findNextCameraSceneEntryForFeed(chapter, feedId) {
+    if (!chapter || !Array.isArray(chapter.entries) || !feedId) {
+        return null;
+    }
+
+    for (let index = 0; index < chapter.entries.length; index += 1) {
+        const entry = chapter.entries[index];
+
+        if (!isCameraSceneEntry(entry) || entry.feedId !== feedId) {
+            continue;
+        }
+
+        const entryKey = buildStoryEntryKey(chapter.id, index);
+        if (hasStoryEntryRead(entryKey)) {
+            continue;
+        }
+
+        return {
+            entry,
+            entryIndex: index,
+            entryKey
+        };
+    }
+
+    return null;
+}
+
+function findLatestCameraSceneEntryForFeed(chapter, feedId) {
+    if (!chapter || !Array.isArray(chapter.entries) || !feedId) {
+        return null;
+    }
+
+    for (let index = chapter.entries.length - 1; index >= 0; index -= 1) {
+        const entry = chapter.entries[index];
+        if (!isCameraSceneEntry(entry) || entry.feedId !== feedId) {
+            continue;
+        }
+
+        return {
+            entry,
+            entryIndex: index,
+            entryKey: buildStoryEntryKey(chapter.id, index)
+        };
+    }
+
+    return null;
+}
+
+function formatSingleCameraEntry(chapter, entry, feedId, entryIndex, newlyUnlockedTerms) {
+    const sceneBlocks = [];
+
+    for (const block of Array.isArray(entry.blocks) ? entry.blocks : []) {
+        if (!block || !block.type) {
+            continue;
+        }
+
+        sceneBlocks.push({
+            ...block,
+            lines: Array.isArray(block.lines) ? [...block.lines] : block.lines
+        });
+    }
+
+    return {
+        entries: [
+            'Restoring surveillance archive node...',
+            'Routing camera playback stream...',
+            '',
+            'Camera playback ready.',
+            'Feed Status: ACTIVE'
+        ],
+        meta: {
+            action: 'camera_story',
+            chapterId: chapter.id,
+            feedId,
+            entryIndex,
+            unlockedTerms: newlyUnlockedTerms,
+            sceneBlocks,
+            title: entry.title || null
+        }
+    };
+}
+
 function findContextMessageForReply(chapter, replyIndex) {
     if (!chapter || !Array.isArray(chapter.entries)) {
         return null;
@@ -245,23 +483,31 @@ function formatSingleMessageEntry(chapter, entry, contactId, entryIndex, newlyUn
     const sceneBlocks = [];
 
     if (contextMessage) {
-        sceneBlocks.push({
-            type: 'message_header',
-            sender: contextMessage.sender
-        });
+        if (Array.isArray(contextMessage.blocks) && contextMessage.blocks.length > 0) {
+            for (const block of contextMessage.blocks) {
+                if (!block || !block.type) {
+                    continue;
+                }
 
-        sceneBlocks.push({
-            type: 'message_body',
-            lines: contextMessage.lines || []
-        });
+                sceneBlocks.push({
+                    ...block,
+                    lines: Array.isArray(block.lines) ? [...block.lines] : block.lines
+                });
+            }
+        } else {
+            sceneBlocks.push({
+                type: 'message_header',
+                sender: contextMessage.sender
+            });
+
+            sceneBlocks.push({
+                type: 'message_body',
+                lines: contextMessage.lines || []
+            });
+        }
     }
 
     if (entry.type === 'reply') {
-        sceneBlocks.push({
-            type: 'speaker',
-            speaker: entry.speaker
-        });
-
         if (Array.isArray(entry.blocks) && entry.blocks.length > 0) {
             for (const block of entry.blocks) {
                 if (!block || !block.type) {
@@ -269,11 +515,16 @@ function formatSingleMessageEntry(chapter, entry, contactId, entryIndex, newlyUn
                 }
 
                 sceneBlocks.push({
-                    type: block.type,
-                    lines: Array.isArray(block.lines) ? block.lines : []
+                    ...block,
+                    lines: Array.isArray(block.lines) ? [...block.lines] : block.lines
                 });
             }
         } else {
+            sceneBlocks.push({
+                type: 'speaker',
+                speaker: entry.speaker
+            });
+
             sceneBlocks.push({
                 type: 'dialogue',
                 lines: entry.lines || []
@@ -433,11 +684,7 @@ function openMessageInterface(contactId) {
     applyEntryEffects(unreadReply.entry, newlyUnlockedTerms);
     markStoryEntryRead(unreadReply.entryKey);
 
-    if (!hasUnreadReplyEntries(chapter) && !hasPlayedChapter(chapter.id)) {
-        markChapterPlayed(chapter.id);
-        applyChapterEffects(chapter);
-        setCurrentChapterIndex(chapterIndex + 1);
-    }
+    advanceChapterIfComplete(chapter, chapterIndex);
 
     return formatSingleMessageEntry(
         chapter,
@@ -447,4 +694,47 @@ function openMessageInterface(contactId) {
         newlyUnlockedTerms
     );
 
+}
+
+function openCameraSceneInterface(feedId) {
+    if (!feedId) {
+        return null;
+    }
+
+    const chapterIndex = getCurrentChapterIndex();
+    const chapter = getChapterByIndex(chapterIndex);
+
+    if (!chapter) {
+        return null;
+    }
+
+    const nextEntry = findNextCameraSceneEntryForFeed(chapter, feedId);
+
+    if (nextEntry) {
+        const newlyUnlockedTerms = [];
+        applyEntryEffects(nextEntry.entry, newlyUnlockedTerms);
+        markStoryEntryRead(nextEntry.entryKey);
+        advanceChapterIfComplete(chapter, chapterIndex);
+
+        return formatSingleCameraEntry(
+            chapter,
+            nextEntry.entry,
+            feedId,
+            nextEntry.entryIndex,
+            newlyUnlockedTerms
+        );
+    }
+
+    const latestEntry = findLatestCameraSceneEntryForFeed(chapter, feedId);
+    if (!latestEntry) {
+        return null;
+    }
+
+    return formatSingleCameraEntry(
+        chapter,
+        latestEntry.entry,
+        feedId,
+        latestEntry.entryIndex,
+        []
+    );
 }
