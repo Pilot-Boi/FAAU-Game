@@ -18,6 +18,7 @@ const EVENT_RULES = [
     {
         id: 'sublevel_review_unlocked',
         when: () =>
+            hasFlag('chapter_01_complete') &&
             hasDiscoveredTerm('sublevel') &&
             hasDiscoveredTerm('ebi') &&
             hasDiscoveredTerm('schnee'),
@@ -46,6 +47,7 @@ const EVENT_RULES = [
     {
         id: 'anomaly_correlation_unlocked',
         when: () =>
+            hasFlag('read_security_protocols') &&
             hasDiscoveredTerm('unknown_source') &&
             hasDiscoveredTerm('security'),
         do: () => {
