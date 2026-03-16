@@ -258,8 +258,8 @@ function getContactSpeakerAliases(contactId) {
     const map = {
         watts: ['Dr. Watts'],
         subject_008: ['Test Subject 008', 'Subject 008', 'Jaune Arc'],
-        subject_001: ['Subject 001', 'Emerald Sustrai'],
-        subject_002: ['Subject 002', 'Roman Torchwick'],
+        subject_001: ['Subject 001', 'Emerald Sustrai', 'Emerald'],
+        subject_002: ['Subject 002', 'Roman Torchwick', 'Roman'],
         subject_003: ['Subject 003', 'Hazel Rainart'],
         subject_004: ['Subject 004', 'Neo Politan'],
         subject_005: ['Subject 005', 'Tyrian Callows'],

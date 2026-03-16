@@ -336,7 +336,7 @@ const CHAPTER_02 = {
         {
             interface: 'msg',
             type: 'reply',
-            speaker: 'Test Subject 008',
+            speaker: 'Emerald',
             discoverTerms: ['subject_003'],
             setFlags: ['chapter_02_entry_05'],
             requireEvent: 'msg_alert_subject_003',
@@ -409,7 +409,8 @@ const CHAPTER_02 = {
         },
         {
             interface: 'msg',
-            type: 'message',
+            type: 'reply',
+            speaker: 'Director Salem',
             setFlags: ['chapter_02_entry_06'],
             requireEvent: 'msg_alert_chapter_02_end',
             blocks: [

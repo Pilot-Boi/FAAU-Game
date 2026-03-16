@@ -410,13 +410,21 @@ function getDiscoveredMessageContacts() {
     const currentChapterIndex = getCurrentChapterIndex();
     const unlockedContacts = new Set();
 
-    for (const [chapterIndex, contactIds] of Object.entries(availabilityByChapter)) {
+    for (const [chapterIndex, chapterValue] of Object.entries(availabilityByChapter)) {
         const parsedChapterIndex = Number(chapterIndex);
         if (Number.isNaN(parsedChapterIndex) || parsedChapterIndex > currentChapterIndex) {
             continue;
         }
 
-        for (const contactId of contactIds || []) {
+        const chapterEntry = Array.isArray(chapterValue)
+            ? { contacts: chapterValue }
+            : chapterValue;
+
+        if (chapterEntry.requireFlag && !hasFlag(chapterEntry.requireFlag)) {
+            continue;
+        }
+
+        for (const contactId of chapterEntry.contacts || []) {
             unlockedContacts.add(contactId);
         }
     }
