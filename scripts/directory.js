@@ -439,6 +439,24 @@ const FILE_SYSTEM = {
                     type: 'dir',
                     requiredFlag: 'abilities_dir_unlocked',
                     children: {
+                        'wipe.txt': {
+                            type: 'file',
+                            terms: ['wipe', 'abilities'],
+                            onOpenFlag: 'read_ability_wipe',
+                            contentFile: 'content/secure/abilities/wipe.txt'
+                        },
+                        'empathy.txt': {
+                            type: 'file',
+                            terms: ['empathy', 'abilities'],
+                            onOpenFlag: 'read_ability_empathy',
+                            contentFile: 'content/secure/abilities/empathy.txt'
+                        },
+                        'healing.txt': {
+                            type: 'file',
+                            terms: ['healing', 'abilities'],
+                            onOpenFlag: 'read_ability_healing',
+                            contentFile: 'content/secure/abilities/healing.txt'
+                        }
                     }
                 }
             }

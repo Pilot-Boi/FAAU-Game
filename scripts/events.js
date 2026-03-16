@@ -28,7 +28,7 @@ const EVENT_RULES = [
             isDevTermUnlock(context, 'watts'),
         do: () => {
             return [
-                '[SYSTEM] Relay status update: unread communication available in msg.'
+                '[SYSTEM] Relay status update: new communication available in msg.'
             ];
         }
     },
@@ -146,7 +146,7 @@ const EVENT_RULES = [
             hasFlag('read_subject_002'),
         do: () => {
             return [
-                '[SYSTEM] Relay status update: additional communication available in msg.'
+                '[SYSTEM] Relay status update: new communication available in msg.'
             ];
         }
     },
@@ -159,7 +159,7 @@ const EVENT_RULES = [
             hasFlag('read_subject_003'),
         do: () => {
             return [
-                '[SYSTEM] Relay status update: unread communication available in msg.'
+                '[SYSTEM] Relay status update: new communication available in msg.'
             ];
         }
     },
@@ -237,7 +237,7 @@ const EVENT_RULES = [
         when: (context = {}) =>
             (hasFlag('chapter_02_complete')) &&
             (context.action === 'search' &&
-            (context.term === 'wipe' || context.term === 'empathy')),
+            (context.term === 'wipe' || context.term === 'empathy' || context.term === 'healing')),
         do: () => {
             setFlag('abilities_dir_unlocked');
             return [
@@ -246,6 +246,19 @@ const EVENT_RULES = [
             ];
         }
     },
+
+    {
+        id: 'msg_alert_empathy',
+        when: () =>
+            hasFlag('abilities_dir_unlocked') &&
+            isCommandUnlocked('msg') &&
+            hasFlag('read_ability_empathy'),
+        do: () => {
+            return [
+                '[SYSTEM] Relay status update: new communication available in msg.'
+            ];
+        }
+    }
 ];
 
 

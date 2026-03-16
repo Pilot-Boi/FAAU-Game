@@ -18,6 +18,15 @@ const TERM_METADATA = Object.freeze({
             'Access is limited to authorized personnel or temporary review exemptions granted by Security Operations.'
         ]
     },
+    abilities: {
+        label: 'Abilities',
+        type: 'concept',
+        summary: [
+            'Classification category for documented anomalous abilities observed in certain subjects.',
+            'Research into the origin, mechanics, and potential applications of these abilities is ongoing.',
+            'Documentation is currently classified and access is restricted to personnel with Level 4 clearance or higher.',
+        ]
+    },
 
     // Locations
     sublevel: {
@@ -134,7 +143,7 @@ const TERM_METADATA = Object.freeze({
         label: 'Avian',
         type: 'species',
         summary: [
-            'CLASSIFIED: Access to project summary and documentation is restricted to personnel with Level 5 clearance or higher.',
+            'CLASSIFIED: Access to project summary and documentation is restricted to personnel with Level 4 clearance or higher.',
         ]
     },
     hybrid: {
@@ -230,6 +239,10 @@ const TERM_METADATA = Object.freeze({
     },
     empathy: {
         label: 'Empathy',
+        type: 'ability',
+    },
+    healing: {
+        label: 'Healing',
         type: 'ability',
     }
 });
