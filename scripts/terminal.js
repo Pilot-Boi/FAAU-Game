@@ -696,7 +696,22 @@ const COMMANDS = {
         usage: 'cams',
         description: 'Access facility surveillance feeds.',
         execute: () => {
-            printResult(openCameraInterface());
+            if (typeof openCameraWindow === 'function') {
+                openCameraWindow();
+            }
+
+            if (typeof setCameraStatus === 'function') {
+                setCameraStatus('AWAITING FEED SELECTION');
+            }
+
+            if (typeof renderCameraLines === 'function') {
+                renderCameraLines([
+                    'SURVEILLANCE INTERFACE ONLINE',
+                    '',
+                    '[SYSTEM] Feed routing in progress...',
+                    '[SYSTEM] No active feeds available.'
+                ]);
+            }
         }
     },
     terms: {

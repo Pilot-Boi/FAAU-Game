@@ -4,6 +4,7 @@ const CHAPTER_01 = {
     setFlags: ['chapter_01_complete'],
     entries: [
         {
+            interface: 'msg',
             type: 'message',
             sender: 'Issac',
             lines: [
@@ -11,6 +12,7 @@ const CHAPTER_01 = {
             ]
         },
         {
+            interface: 'msg',
             type: 'reply',
             speaker: 'Test Subject 008',
             discoverTerms: ['avian', 'director'],
@@ -20,6 +22,7 @@ const CHAPTER_01 = {
             ]
         },
         {
+            interface: 'msg',
             type: 'message',
             sender: 'B',
             lines: [
@@ -28,6 +31,7 @@ const CHAPTER_01 = {
             ]
         },
         {
+            interface: 'msg',
             type: 'reply',
             speaker: 'Test Subject 008',
             discoverTerms: ['subject_002'],
@@ -38,6 +42,7 @@ const CHAPTER_01 = {
             ]
         },
         {
+            interface: 'msg',
             type: 'message',
             sender: 'Dragosar',
             lines: [
@@ -46,6 +51,7 @@ const CHAPTER_01 = {
             ]
         },
         {
+            interface: 'msg',
             type: 'reply',
             speaker: 'Test Subject 008',
             discoverTerms: ['salem', 'hybrid'],
@@ -57,6 +63,7 @@ const CHAPTER_01 = {
             ]
         },
         {
+            interface: 'msg',
             type: 'message',
             sender: 'Millie',
             lines: [
@@ -66,6 +73,7 @@ const CHAPTER_01 = {
             ]
         },
         {
+            interface: 'msg',
             type: 'reply',
             speaker: 'Dr. Watts',
             discoverTerms: ['subject_001'],
