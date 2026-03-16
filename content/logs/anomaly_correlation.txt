@@ -81,6 +81,4 @@ Additional documentation may exist within the
 restricted archive relating to project classifications
 associated with the affected containment systems.
 
-â€” SECURITY OPERATIONS
-
-FILE END
+-- SECURITY OPERATIONS

@@ -51,5 +51,3 @@ technology for several classified augmentation
 projects currently under restricted development.
 
 Director clearance required for full documentation.
-
-FILE END

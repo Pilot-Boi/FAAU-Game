@@ -124,7 +124,7 @@ const FILE_SYSTEM = {
                 },
                 'security_log.txt': {
                     type: 'file',
-                    terms: ['subject_008', 'sublevel', 'security'],
+                    terms: ['subject_008', 'sublevel', 'security', 'unknown_source'],
                     onOpenFlag: 'read_security_log',
 
                     contentFile: 'content/logs/security_log.txt'

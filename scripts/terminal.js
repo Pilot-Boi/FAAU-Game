@@ -202,7 +202,14 @@ function appendOutputLine(text, extraClasses = []) {
         }
     }
 
-    line.textContent = text;
+    const resolvedText = text == null ? '' : String(text);
+    if (resolvedText === '') {
+        line.textContent = '\u00A0';
+        line.classList.add('is-blank');
+        return line;
+    }
+
+    line.textContent = resolvedText;
     return line;
 }
 
@@ -262,9 +269,19 @@ function normalizeTermKey(term) {
 }
 
 // Resolve contact display name, upgrading from subject ID to known name when available.
-function getContactDisplayLabel(definition, discoveredTerms, termMetadata, fallbackLabel) {
+function getContactDisplayLabel(contactId, definition, discoveredTerms, termMetadata, fallbackLabel) {
     if (!definition || !Array.isArray(definition.revealedNames)) {
         return fallbackLabel;
+    }
+
+    if (hasFlag('secure_access_granted')) {
+        const secureRevealContacts = new Set(['subject_001', 'subject_002', 'subject_003']);
+        if (secureRevealContacts.has(contactId)) {
+            const firstReveal = definition.revealedNames[0];
+            if (firstReveal && firstReveal.label) {
+                return firstReveal.label;
+            }
+        }
     }
 
     for (const reveal of definition.revealedNames) {
@@ -288,6 +305,91 @@ function contactHasUnreadDialogue(contactId) {
     }
 
     return Boolean(findUnreadReplyEntryForContact(chapter, contactId));
+}
+
+function getMessageUnredactionRules() {
+    if (typeof MESSAGE_UNREDACTION_RULES === 'undefined' || !Array.isArray(MESSAGE_UNREDACTION_RULES)) {
+        return [];
+    }
+
+    return MESSAGE_UNREDACTION_RULES;
+}
+
+function applyMessageUnredactionText(value) {
+    const source = typeof value === 'string' ? value : String(value || '');
+
+    if (!hasFlag('secure_access_granted')) {
+        return source;
+    }
+
+    let next = source;
+    const rules = getMessageUnredactionRules();
+
+    for (const rule of rules) {
+        if (!rule || typeof rule.redacted !== 'string' || typeof rule.revealed !== 'string') {
+            continue;
+        }
+
+        if (!rule.redacted) {
+            continue;
+        }
+
+        next = next.split(rule.redacted).join(rule.revealed);
+    }
+
+    return next;
+}
+
+function applyMessageUnredactionSceneBlocks(sceneBlocks = []) {
+    if (!Array.isArray(sceneBlocks) || sceneBlocks.length === 0) {
+        return [];
+    }
+
+    return sceneBlocks.map((block) => {
+        if (!block || typeof block !== 'object') {
+            return block;
+        }
+
+        const nextBlock = { ...block };
+
+        if (typeof nextBlock.sender === 'string') {
+            nextBlock.sender = applyMessageUnredactionText(nextBlock.sender);
+        }
+
+        if (typeof nextBlock.speaker === 'string') {
+            nextBlock.speaker = applyMessageUnredactionText(nextBlock.speaker);
+        }
+
+        if (typeof nextBlock.text === 'string') {
+            nextBlock.text = applyMessageUnredactionText(nextBlock.text);
+        }
+
+        if (Array.isArray(nextBlock.lines)) {
+            nextBlock.lines = nextBlock.lines.map((line) => applyMessageUnredactionText(line));
+        }
+
+        return nextBlock;
+    });
+}
+
+function applyMessageUnredactionConversationItems(conversationItems = []) {
+    if (!Array.isArray(conversationItems) || conversationItems.length === 0) {
+        return [];
+    }
+
+    return conversationItems.map((item) => {
+        if (!item || typeof item !== 'object') {
+            return item;
+        }
+
+        return {
+            ...item,
+            sender: applyMessageUnredactionText(item.sender),
+            lines: Array.isArray(item.lines)
+                ? item.lines.map((line) => applyMessageUnredactionText(line))
+                : []
+        };
+    });
 }
 
 // Build the visible message-contact list from discovered person terms.
@@ -336,7 +438,7 @@ function getDiscoveredMessageContacts() {
             const meta = termMetadata[termKey] || {};
             const fallbackLabel = formatTermForOutput(termKey).replace(/_/g, ' ');
             const defaultLabel = definition.label || meta.label || fallbackLabel;
-            const displayLabel = getContactDisplayLabel(definition, discoveredTerms, termMetadata, defaultLabel);
+            const displayLabel = getContactDisplayLabel(contactId, definition, discoveredTerms, termMetadata, defaultLabel);
             const hasUnlockedDialogue = unlockedContacts.has(contactId);
             const hasUnreadDialogue = unreadContacts.has(contactId);
 
@@ -524,12 +626,13 @@ function openMessageContact(contactId) {
 
     if (!contactHasUnreadDialogue(contactId)) {
         if (typeof renderMessageScene === 'function' && sceneHistory.length > 0) {
-            renderMessageScene(sceneHistory);
+            renderMessageScene(applyMessageUnredactionSceneBlocks(sceneHistory));
             return;
         }
 
         if (typeof renderMessageConversation === 'function' && conversationHistory.length > 0) {
-            renderMessageConversation(conversationHistory, { animateFromIndex: conversationHistory.length });
+            const unredactedConversation = applyMessageUnredactionConversationItems(conversationHistory);
+            renderMessageConversation(unredactedConversation, { animateFromIndex: unredactedConversation.length });
             return;
         }
 
@@ -562,18 +665,19 @@ function openMessageContact(contactId) {
             ? getContactMessageSceneHistory(contactId)
             : result.meta.sceneBlocks;
 
-        renderMessageScene(updatedSceneHistory);
+        renderMessageScene(applyMessageUnredactionSceneBlocks(updatedSceneHistory));
     } else if (result.meta && result.meta.action === 'story' && Array.isArray(result.meta.conversation)) {
         appendContactMessageHistory(contactId, result.meta.conversation);
         newlyAppendedCount = result.meta.conversation.length;
 
         const updatedConversationHistory = getContactMessageHistory(contactId);
         if (typeof renderMessageConversation === 'function' && updatedConversationHistory.length > 0) {
+            const unredactedConversation = applyMessageUnredactionConversationItems(updatedConversationHistory);
             const animateFromIndex = newlyAppendedCount > 0
-                ? Math.max(0, updatedConversationHistory.length - newlyAppendedCount)
-                : updatedConversationHistory.length;
+                ? Math.max(0, unredactedConversation.length - newlyAppendedCount)
+                : unredactedConversation.length;
 
-            renderMessageConversation(updatedConversationHistory, { animateFromIndex });
+            renderMessageConversation(unredactedConversation, { animateFromIndex });
         }
     } else if (typeof renderMessageLines === 'function' && result.entries) {
         renderMessageLines(result.entries);

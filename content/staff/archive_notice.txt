@@ -37,6 +37,4 @@ only be able to view limited reference material.
 Requests for additional archive access must be
 submitted through Security Operations command.
 
-â€” FACILITY ADMINISTRATION
-
-FILE END
+-- FACILITY ADMINISTRATION

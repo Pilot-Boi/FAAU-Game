@@ -56,5 +56,3 @@ for improving survivability in extreme
 operational environments.
 
 Continued development authorized.
-
-FILE END

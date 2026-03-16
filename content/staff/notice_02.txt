@@ -14,4 +14,4 @@ procedures have been completed.
 Staff are reminded that Director-level authorization
 is required for all research beyond BIO-03 classification.
 
-â€” FACILITY ADMINISTRATION
+-- FACILITY ADMINISTRATION

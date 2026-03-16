@@ -16,5 +16,3 @@ identified.
 Recommendation:
 Continue passive observation and maintain enhanced
 security posture until source identification is complete.
-
-FILE END

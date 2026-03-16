@@ -8,23 +8,23 @@ Position: Facility Director
 ID: C-001
 GENERAL JAMES IRONWOOD
 Position: Facility Commander
-
+ 
 RESEARCH DIVISIONS
 ID: R-014
 DR. ARTHUR WATTS
 Position: Head of Genetics Division
-
+ 
 ID: R-021
 DR. PIETRO POLENDINA
 Position: Head of Bioengineering Division
-
+ 
 SECURITY DIVISION
 ID: S-001
 SPECIALIST CLOVER EBI
 Position: Head of Security Operations
-
+ 
 ID: S-002
 SPECIALIST WINTER SCHNEE
 Position: Security Operations Specialist
-
+ 
 Full personnel records require elevated access credentials.

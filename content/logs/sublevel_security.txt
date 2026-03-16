@@ -40,6 +40,4 @@ Further documentation regarding containment systems
 remains restricted to personnel with Level 4 clearance
 or higher.
 
-â€” SECURITY OPERATIONS
-
-FILE END
+-- SECURITY OPERATIONS

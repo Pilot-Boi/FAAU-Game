@@ -72,6 +72,4 @@ under restricted project files.
 Full containment documentation requires Level 5
 clearance authorization.
 
-â€” SECURITY OPERATIONS
-
-FILE END
+-- SECURITY OPERATIONS

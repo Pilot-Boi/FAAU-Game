@@ -18,4 +18,4 @@ these incidents.
 All staff should verify workstation authentication
 before accessing internal systems.
 
-â€” SECURITY OPERATIONS
+-- SECURITY OPERATIONS
