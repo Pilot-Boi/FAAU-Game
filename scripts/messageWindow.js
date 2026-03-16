@@ -96,7 +96,10 @@
         for (const lineText of lines) {
             const line = document.createElement('div');
             line.className = 'message-line';
-            line.textContent = lineText;
+            line.textContent = lineText || '\u00A0';
+            if (!lineText) {
+                line.classList.add('is-blank');
+            }
             messageContent.appendChild(line);
         }
 
@@ -200,6 +203,94 @@
                 await wait(120);
             }
         }
+    }
+
+    function renderMessageScene(sceneBlocks) {
+        if (!messageContent || !Array.isArray(sceneBlocks)) {
+            return;
+        }
+
+        conversationRenderToken += 1;
+        messageContent.textContent = '';
+
+        for (const block of sceneBlocks) {
+            if (!block || !block.type) {
+                continue;
+            }
+
+            if (block.type === 'message_header') {
+                const header = document.createElement('div');
+                header.className = 'message-scene-message-header';
+                header.textContent = block.sender || 'UNKNOWN SOURCE';
+                messageContent.appendChild(header);
+                continue;
+            }
+
+            if (block.type === 'message_body') {
+                const body = document.createElement('div');
+                body.className = 'message-scene-message-body';
+
+                const lines = Array.isArray(block.lines) ? block.lines : [];
+                for (const lineText of lines) {
+                    const line = document.createElement('div');
+                    line.className = 'message-scene-line';
+                    line.textContent = lineText;
+                    body.appendChild(line);
+                }
+
+                messageContent.appendChild(body);
+                continue;
+            }
+
+            if (block.type === 'speaker') {
+                const speaker = document.createElement('div');
+                speaker.className = 'message-scene-speaker';
+                speaker.textContent = block.speaker || 'UNKNOWN';
+                messageContent.appendChild(speaker);
+                continue;
+            }
+
+            if (block.type === 'dialogue') {
+                const dialogue = document.createElement('div');
+                dialogue.className = 'message-scene-dialogue';
+
+                const lines = Array.isArray(block.lines) ? block.lines : [];
+                for (const lineText of lines) {
+                    const line = document.createElement('div');
+                    line.className = 'message-scene-line';
+                    line.textContent = lineText;
+                    dialogue.appendChild(line);
+                }
+
+                messageContent.appendChild(dialogue);
+                continue;
+            }
+
+            if (block.type === 'narration') {
+                const narration = document.createElement('div');
+                narration.className = 'message-scene-narration';
+
+                const lines = Array.isArray(block.lines) ? block.lines : [];
+                for (const lineText of lines) {
+                    const line = document.createElement('div');
+                    line.className = 'message-scene-line';
+                    line.textContent = lineText;
+                    narration.appendChild(line);
+                }
+
+                messageContent.appendChild(narration);
+                continue;
+            }
+
+            if (block.type === 'divider') {
+                const divider = document.createElement('div');
+                divider.className = 'message-scene-divider';
+                divider.textContent = block.text || '────────────';
+                messageContent.appendChild(divider);
+            }
+        }
+
+        messageContent.scrollTop = messageContent.scrollHeight;
     }
 
     function setMessageBackAction(handler, label = 'CONTACTS') {
@@ -330,6 +421,7 @@
     window.renderMessageLines = renderMessageLines;
     window.renderMessageContacts = renderMessageContacts;
     window.renderMessageConversation = renderMessageConversation;
+    window.renderMessageScene = renderMessageScene;
     window.setMessageStatus = setMessageStatus;
     window.setMessageBackAction = setMessageBackAction;
     window.setMessageAdvanceAction = setMessageAdvanceAction;

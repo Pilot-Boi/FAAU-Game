@@ -407,11 +407,14 @@ function displayMessageWindowResult(result, statusText = 'CHANNEL ACTIVE') {
         setMessageStatus(statusText);
     }
 
-    if (result.meta && Array.isArray(result.meta.conversation) && typeof renderMessageConversation === 'function') {
+    if (result.meta && Array.isArray(result.meta.sceneBlocks) && typeof renderMessageScene === 'function') {
+        renderMessageScene(result.meta.sceneBlocks);
+    } else if (result.meta && Array.isArray(result.meta.conversation) && typeof renderMessageConversation === 'function') {
         renderMessageConversation(result.meta.conversation);
     } else if (typeof renderMessageLines === 'function' && result.entries) {
         renderMessageLines(result.entries);
     }
+
 
     if (result.meta) {
         handleResultMeta(result.meta);
@@ -512,6 +515,33 @@ function openMessageContact(contactId) {
         setMessageStatus(`CHANNEL ACTIVE: ${contact.label.toUpperCase()}`);
     }
 
+    const sceneHistory = typeof getContactMessageSceneHistory === 'function'
+        ? getContactMessageSceneHistory(contactId)
+        : [];
+    const conversationHistory = typeof getContactMessageHistory === 'function'
+        ? getContactMessageHistory(contactId)
+        : [];
+
+    if (!contactHasUnreadDialogue(contactId)) {
+        if (typeof renderMessageScene === 'function' && sceneHistory.length > 0) {
+            renderMessageScene(sceneHistory);
+            return;
+        }
+
+        if (typeof renderMessageConversation === 'function' && conversationHistory.length > 0) {
+            renderMessageConversation(conversationHistory, { animateFromIndex: conversationHistory.length });
+            return;
+        }
+
+        if (typeof renderMessageLines === 'function') {
+            renderMessageLines([
+                'No unread transmissions for this contact.',
+                'Relay remains unstable.'
+            ]);
+        }
+        return;
+    }
+
     const result = openMessageInterface(contactId);
 
     if (!result) {
@@ -523,21 +553,32 @@ function openMessageContact(contactId) {
 
     let newlyAppendedCount = 0;
 
-    if (result.meta && result.meta.action === 'story' && Array.isArray(result.meta.conversation)) {
+    if (result.meta && Array.isArray(result.meta.sceneBlocks) && typeof renderMessageScene === 'function') {
+        if (typeof appendContactMessageSceneHistory === 'function') {
+            appendContactMessageSceneHistory(contactId, result.meta.sceneBlocks);
+        }
+
+        const updatedSceneHistory = typeof getContactMessageSceneHistory === 'function'
+            ? getContactMessageSceneHistory(contactId)
+            : result.meta.sceneBlocks;
+
+        renderMessageScene(updatedSceneHistory);
+    } else if (result.meta && result.meta.action === 'story' && Array.isArray(result.meta.conversation)) {
         appendContactMessageHistory(contactId, result.meta.conversation);
         newlyAppendedCount = result.meta.conversation.length;
-    }
 
-    const conversationHistory = getContactMessageHistory(contactId);
-    if (typeof renderMessageConversation === 'function' && conversationHistory.length > 0) {
-        const animateFromIndex = newlyAppendedCount > 0
-            ? Math.max(0, conversationHistory.length - newlyAppendedCount)
-            : conversationHistory.length;
+        const updatedConversationHistory = getContactMessageHistory(contactId);
+        if (typeof renderMessageConversation === 'function' && updatedConversationHistory.length > 0) {
+            const animateFromIndex = newlyAppendedCount > 0
+                ? Math.max(0, updatedConversationHistory.length - newlyAppendedCount)
+                : updatedConversationHistory.length;
 
-        renderMessageConversation(conversationHistory, { animateFromIndex });
+            renderMessageConversation(updatedConversationHistory, { animateFromIndex });
+        }
     } else if (typeof renderMessageLines === 'function' && result.entries) {
         renderMessageLines(result.entries);
     }
+
 
     if (result.error) {
         appendOutputLine(result.error);
@@ -1114,21 +1155,6 @@ async function runCommand(inputText) {
     const args = parts.slice(1);
 
     appendOutputLine(`FACILITY:${formatCurrentPath()}> ${trimmedInput}`);
-
-    // Hidden test command: reset progression state without listing it in help.
-    if (command === 'reset') {
-        if (typeof resetGameState === 'function') {
-            resetGameState();
-            announcedTerms.clear();
-            appendOutputLine('[TEST] Runtime state reset.');
-        } else {
-            appendOutputLine('Reset unavailable: state manager not loaded.');
-        }
-
-        updatePromptDisplay();
-        scrollTerminalToBottom();
-        return;
-    }
 
     if (!Object.prototype.hasOwnProperty.call(COMMANDS, command)) {
         appendOutputLine("Command not recognized. Type 'help' for a list of commands.");

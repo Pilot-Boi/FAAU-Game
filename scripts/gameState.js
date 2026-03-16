@@ -32,7 +32,8 @@ const GAME_STATE = {
         currentChapter: 0,
         chapterPlayed: new Set(),
         readEntryKeys: new Set(),
-        contactMessageHistory: {}
+        contactMessageHistory: {},
+        contactMessageSceneHistory: {}
     }
 };
 
@@ -169,6 +170,26 @@ function getContactMessageHistory(contactId) {
     return [...GAME_STATE.storyState.contactMessageHistory[contactId]];
 }
 
+function appendContactMessageSceneHistory(contactId, sceneBlocks = []) {
+    if (!contactId || !Array.isArray(sceneBlocks) || sceneBlocks.length === 0) {
+        return;
+    }
+
+    if (!GAME_STATE.storyState.contactMessageSceneHistory[contactId]) {
+        GAME_STATE.storyState.contactMessageSceneHistory[contactId] = [];
+    }
+
+    GAME_STATE.storyState.contactMessageSceneHistory[contactId].push(...sceneBlocks);
+}
+
+function getContactMessageSceneHistory(contactId) {
+    if (!contactId || !Array.isArray(GAME_STATE.storyState.contactMessageSceneHistory[contactId])) {
+        return [];
+    }
+
+    return [...GAME_STATE.storyState.contactMessageSceneHistory[contactId]];
+}
+
 
 function getGameState() {
     return GAME_STATE;
@@ -199,4 +220,5 @@ function resetGameState() {
     GAME_STATE.storyState.chapterPlayed.clear();
     GAME_STATE.storyState.readEntryKeys.clear();
     GAME_STATE.storyState.contactMessageHistory = {};
+    GAME_STATE.storyState.contactMessageSceneHistory = {};
 }

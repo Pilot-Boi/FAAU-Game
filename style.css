@@ -442,12 +442,13 @@ body {
 /* Scrollable message transcript area */
 .message-content {
     overflow-y: auto;
-    padding: 1.2rem;
+    padding: 1.3rem 1.4rem;
     color: #d9f4f1;
     background: rgba(6, 12, 14, 0.72);
-    line-height: 1.55;
-    white-space: pre-wrap;
+    line-height: 1.65;
+    white-space: normal;
 }
+
 
 .message-compose {
     display: flex;
@@ -581,6 +582,71 @@ body {
     border-color: #376157;
     background: rgba(20, 52, 40, 0.75);
 }
+
+/* Message scene styles for conversations, transmissions, and logs with rich formatting */
+.message-scene-message-header {
+    margin-bottom: 0.45rem;
+    color: #8fc7c1;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.message-scene-message-body {
+    margin-bottom: 1.5rem;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid #2f5250;
+    background: rgba(20, 35, 39, 0.62);
+    color: #d9f4f1;
+    line-height: 1.6;
+}
+
+.message-scene-speaker {
+    margin-top: 0.8rem;
+    margin-bottom: 0.45rem;
+    color: var(--terminal-speaker);
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.message-scene-dialogue {
+    margin-bottom: 1rem;
+    color: #f2fbfa;
+    line-height: 1.7;
+}
+
+.message-scene-narration {
+    margin-bottom: 1rem;
+    color: #b8d2cf;
+    line-height: 1.7;
+}
+
+.message-scene-dialogue,
+.message-scene-narration {
+    max-width: 42rem;
+}
+
+.message-scene-line {
+    margin: 0 0 0.45rem;
+    white-space: pre-wrap;
+}
+
+.message-scene-line:last-child {
+    margin-bottom: 0;
+}
+
+.message-scene-line.is-blank {
+    min-height: 0.85rem;
+}
+
+.message-scene-divider {
+    margin: 1rem 0;
+    color: #5f7876;
+    letter-spacing: 0.08em;
+}
+
 
 /* Footer status strip */
 .message-status {

@@ -15,9 +15,9 @@ const CHAPTER_01 = {
             interface: 'msg',
             type: 'reply',
             speaker: 'Test Subject 008',
-            discoverTerms: ['avian', 'director'],
+            discoverTerms: ['director'],
             lines: [
-                'Well it’s where all us avians live and train for the upcoming war!',
+                'Well it’s where all us ███████ live and train for the upcoming war!',
                 'That’s what the Director says.'
             ]
         },

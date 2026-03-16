@@ -240,60 +240,65 @@ function findContextMessageForReply(chapter, replyIndex) {
 
 function formatSingleMessageEntry(chapter, entry, contactId, entryIndex, newlyUnlockedTerms) {
     const contextMessage = findContextMessageForReply(chapter, entryIndex);
-    const conversation = [];
+    const sceneBlocks = [];
 
     if (contextMessage) {
-        conversation.push({
-            side: 'right',
-            sender: contextMessage.sender,
+        sceneBlocks.push({
+            type: 'message_header',
+            sender: contextMessage.sender
+        });
+
+        sceneBlocks.push({
+            type: 'message_body',
             lines: contextMessage.lines || []
         });
     }
 
     if (entry.type === 'reply') {
-        conversation.push({
-            side: 'left',
-            sender: entry.speaker,
-            lines: entry.lines || []
+        sceneBlocks.push({
+            type: 'speaker',
+            speaker: entry.speaker
         });
-    }
 
-    const lines = [
-        'Establishing anomalous relay...',
-        'Routing targeted transmission channel...',
-        '',
-        'Connection established.',
-        'Channel Status: UNSTABLE',
-        ''
-    ];
+        if (Array.isArray(entry.blocks) && entry.blocks.length > 0) {
+            for (const block of entry.blocks) {
+                if (!block || !block.type) {
+                    continue;
+                }
 
-    if (entry.type === 'reply') {
-        lines.push(`${entry.speaker}:`);
-        for (const line of entry.lines) {
-            lines.push(line);
-        }
-        lines.push('');
-    }
-
-    if (newlyUnlockedTerms.length > 0) {
-        lines.push('[SYSTEM] Archive updated.');
-        for (const term of newlyUnlockedTerms) {
-            lines.push(`[SYSTEM] New keyword archived: ${formatTermForOutput(term)}`);
+                sceneBlocks.push({
+                    type: block.type,
+                    lines: Array.isArray(block.lines) ? block.lines : []
+                });
+            }
+        } else {
+            sceneBlocks.push({
+                type: 'dialogue',
+                lines: entry.lines || []
+            });
         }
     }
+
 
     return {
-        entries: lines,
+        entries: [
+            'Establishing anomalous relay...',
+            'Routing targeted transmission channel...',
+            '',
+            'Connection established.',
+            'Channel Status: UNSTABLE'
+        ],
         meta: {
             action: 'story',
             chapterId: chapter.id,
             contactId,
             entryIndex,
             unlockedTerms: newlyUnlockedTerms,
-            conversation
+            sceneBlocks
         }
     };
 }
+
 
 function formatChapterScene(chapter) {
     const lines = [
