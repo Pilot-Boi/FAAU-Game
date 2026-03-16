@@ -59,7 +59,10 @@ const CONTACT_METADATA = Object.freeze({
     },
     salem: {
         termKey: 'salem',
-        label: 'Director Salem'
+        label: 'Director',
+        revealedNames: [
+            { term: 'salem', label: 'Director Salem' }
+        ]
     },
     polendina: {
         termKey: 'polendina',
