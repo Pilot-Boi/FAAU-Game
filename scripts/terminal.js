@@ -696,22 +696,7 @@ const COMMANDS = {
         usage: 'cams',
         description: 'Access facility surveillance feeds.',
         execute: () => {
-            if (typeof openCameraWindow === 'function') {
-                openCameraWindow();
-            }
-
-            if (typeof setCameraStatus === 'function') {
-                setCameraStatus('AWAITING FEED SELECTION');
-            }
-
-            if (typeof renderCameraLines === 'function') {
-                renderCameraLines([
-                    'SURVEILLANCE INTERFACE ONLINE',
-                    '',
-                    '[SYSTEM] Feed routing in progress...',
-                    '[SYSTEM] No active feeds available.'
-                ]);
-            }
+            printResult(openCameraInterface());
         }
     },
     terms: {
@@ -791,13 +776,25 @@ function updatePromptDisplay() {
 async function handleDevCommand(args) {
     if (!args || args.length === 0) {
         appendOutputLine(
-            '[DEV] Usage: dev unlock term|flag|command ..., dev set chapter N, dev read file /path, dev search term, dev state, dev reset, dev secure',
+            '[DEV] Usage: dev unlock term|flag|command ..., dev msg, dev cams, dev set chapter N, dev read file /path, dev search term, dev state, dev reset, dev secure',
             'terminal-system'
         );
         return;
     }
 
     const subcommand = (args[0] || '').toLowerCase();
+
+    if (subcommand === 'msg') {
+        appendOutputLine('[DEV] Opening messaging interface.', 'terminal-system');
+        showMessageContactDirectory();
+        return;
+    }
+
+    if (subcommand === 'cams') {
+        appendOutputLine('[DEV] Opening surveillance interface.', 'terminal-system');
+        printResult(openCameraInterface());
+        return;
+    }
 
     if (subcommand === 'unlock') {
         const unlockType = (args[1] || '').toLowerCase();
@@ -957,18 +954,6 @@ async function handleDevCommand(args) {
         return;
     }
 
-    if (subcommand === 'msg') {
-        unlockCommand('msg');
-        appendOutputLine('[DEV] msg command unlocked.', 'terminal-system');
-        return;
-    }
-
-    if (subcommand === 'cams') {
-        unlockCommand('cams');
-        appendOutputLine('[DEV] cams command unlocked.', 'terminal-system');
-        return;
-    }
-
     if (subcommand === 'chapter') {
         const value = args[1];
         const chapterIndex = Number(value);
@@ -1091,6 +1076,8 @@ async function handleDevCommand(args) {
         appendOutputLine('dev unlock term [term]', 'terminal-muted');
         appendOutputLine('dev unlock flag [flag]', 'terminal-muted');
         appendOutputLine('dev unlock command [command]', 'terminal-muted');
+        appendOutputLine('dev msg', 'terminal-muted');
+        appendOutputLine('dev cams', 'terminal-muted');
         appendOutputLine('dev lock term [term]', 'terminal-muted');
         appendOutputLine('dev lock flag [flag]', 'terminal-muted');
         appendOutputLine('dev lock command [command]', 'terminal-muted');
@@ -1102,8 +1089,6 @@ async function handleDevCommand(args) {
         appendOutputLine('dev event [event_name]', 'terminal-muted');
         appendOutputLine('dev unevent [event_name]', 'terminal-muted');
         appendOutputLine('dev secure', 'terminal-muted');
-        appendOutputLine('dev msg', 'terminal-muted');
-        appendOutputLine('dev cams', 'terminal-muted');
         appendOutputLine('dev state', 'terminal-muted');
         appendOutputLine('dev flags', 'terminal-muted');
         appendOutputLine('dev terms', 'terminal-muted');

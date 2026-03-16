@@ -602,110 +602,6 @@ body {
     border-radius: 4px;
 }
 
-/* Camera surveillance feed panel */
-#camera-window {
-    width: min(40vw, 720px);
-    min-width: 340px;
-    height: 100%;
-    display: block;
-    flex: 0 0 auto;
-}
-
-.camera-window-hidden {
-    display: none !important;
-}
-
-.camera-window-panel {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    background: linear-gradient(180deg, #111a14 0%, #0d1410 100%);
-    border: 1px solid #2a4d35;
-    border-radius: 10px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.52);
-    overflow: hidden;
-}
-
-.camera-window-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.5rem;
-    padding: 0.9rem 1.2rem;
-    background: #152018;
-    border-bottom: 1px solid #2a4d35;
-}
-
-.camera-window-title {
-    flex: 1 1 auto;
-    color: #a8e6b8;
-    font-size: 0.98rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-align: center;
-}
-
-.camera-window-controls {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-}
-
-.camera-window-close {
-    border: 1px solid #3a6645;
-    background: #0e1a11;
-    color: #c8efd0;
-    font: inherit;
-    line-height: 1;
-    padding: 0.35rem 0.6rem;
-    cursor: pointer;
-}
-
-.camera-window-close:focus-visible,
-.camera-content:focus-visible,
-.camera-status:focus-visible,
-.camera-window-panel:focus-visible {
-    outline: 2px solid #6ed98a;
-    outline-offset: -2px;
-}
-
-.camera-content {
-    overflow-y: auto;
-    padding: 1.2rem;
-    color: #c8efd0;
-    background: rgba(4, 14, 6, 0.80);
-    line-height: 1.65;
-    white-space: pre-wrap;
-}
-
-.camera-content::-webkit-scrollbar {
-    width: 8px;
-    background: #111a14;
-}
-
-.camera-content::-webkit-scrollbar-thumb {
-    background: #2a4d35;
-    border-radius: 4px;
-}
-
-.camera-line {
-    margin: 0 0 0.65rem;
-}
-
-.camera-line:last-child {
-    margin-bottom: 0;
-}
-
-.camera-status {
-    padding: 0.8rem 1.2rem;
-    border-top: 1px solid #2a4d35;
-    background: #152018;
-    color: #7ac48e;
-    letter-spacing: 0.05em;
-    font-size: 0.92rem;
-}
-
 @media (max-width: 700px) {
     #interface-shell {
         flex-direction: column;
@@ -726,12 +622,6 @@ body {
     }
 
     #image-window {
-        width: 100%;
-        min-width: 0;
-        height: 46%;
-    }
-
-    #camera-window {
         width: 100%;
         min-width: 0;
         height: 46%;
