@@ -61,7 +61,7 @@
             return;
         }
 
-        if (event.key === 'Escape') {
+        if (event.key === 'Escape' || event.key === 'Enter') {
             event.preventDefault();
             closeImageWindow();
             return;
@@ -70,12 +70,17 @@
         trapFocus(event);
     }
 
+    function formatImageStatusText(text) {
+        const baseText = text || 'STANDBY';
+        return `${baseText} | PRESS ENTER TO CLOSE`;
+    }
+
     function setImageWindowStatus(text) {
         if (!statusNode) {
             return;
         }
 
-        statusNode.textContent = text || 'STANDBY';
+        statusNode.textContent = formatImageStatusText(text);
     }
 
     function clearImageWindow() {
