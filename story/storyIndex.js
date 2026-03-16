@@ -1,5 +1,6 @@
 const STORY_CHAPTERS = Object.freeze([
-    CHAPTER_01
+    CHAPTER_01,
+    CHAPTER_02
 ]);
 
 

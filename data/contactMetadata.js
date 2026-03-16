@@ -57,6 +57,10 @@ const CONTACT_METADATA = Object.freeze({
             { term: 'jaune', label: 'Jaune Arc' }
         ]
     },
+    salem: {
+        termKey: 'salem',
+        label: 'Director Salem'
+    },
     polendina: {
         termKey: 'polendina',
         label: 'Dr. Polendina'
@@ -77,7 +81,8 @@ const CONTACT_METADATA = Object.freeze({
 
 // Availability by chapter index. Chapter 1 allows only Watts and Subject 008.
 const CONTACT_AVAILABILITY_BY_CHAPTER = Object.freeze({
-    0: ['watts', 'subject_008']
+    0: ['watts', 'subject_008'],
+    1: ['watts', 'subject_001', 'subject_002', 'salem']
 });
 
 // Expose metadata for non-module script usage.
