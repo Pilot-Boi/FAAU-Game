@@ -1,5 +1,5 @@
 /*
-Dummy entry templates for Chapter 02
+Dummy entry templates
 
 MSG pair entry example (header, body, speaker, dialogue, narration, divider):
 {
@@ -214,7 +214,7 @@ const CHAPTER_01 = {
         {
             interface: 'msg',
             type: 'reply',
-            discoverTerms: ['subject_001'],
+            discoverTerms: ['subject_001', 'wipe'],
             setFlags: ['chapter_01_entry_04'],
             blocks: [
                 {
