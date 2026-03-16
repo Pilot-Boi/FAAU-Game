@@ -606,12 +606,28 @@ function openMessageContact(contactId) {
 }
 
 function getAvailableCameraFeeds() {
-    const feedMetadata = typeof CAMERA_FEED_METADATA !== 'undefined' ? CAMERA_FEED_METADATA : {};
+    const feedMetadata = typeof CAMERA_METADATA !== 'undefined' ? CAMERA_METADATA : {};
+    const availabilityByChapter =
+        typeof CAMERA_AVAILABILITY_BY_CHAPTER !== 'undefined' ? CAMERA_AVAILABILITY_BY_CHAPTER : {};
+    const currentChapterIndex = getCurrentChapterIndex();
+    const unlockedFeedIds = new Set();
 
-    return Object.entries(feedMetadata).map(([feedId, definition]) => {
-        const requiredFlags = Array.isArray(definition.requiredFlags) ? definition.requiredFlags : [];
-        const isSelectable = requiredFlags.every((flagName) => hasFlag(flagName));
+    for (const [chapterIndex, feedIds] of Object.entries(availabilityByChapter)) {
+        const parsedChapterIndex = Number(chapterIndex);
+        if (Number.isNaN(parsedChapterIndex) || parsedChapterIndex > currentChapterIndex) {
+            continue;
+        }
+
+        for (const feedId of feedIds || []) {
+            unlockedFeedIds.add(feedId);
+        }
+    }
+
+    const feedEntries = Object.entries(feedMetadata).map(([feedId, definition]) => {
+        const hasChapterAvailability = Object.keys(availabilityByChapter).length > 0;
+        const isSelectable = hasChapterAvailability ? unlockedFeedIds.has(feedId) : true;
         const status = definition.status || 'LIVE';
+        const fallbackLabel = String(feedId).replace(/_/g, ' ').toUpperCase();
 
         let statusClass = 'is-live';
         if (!isSelectable) {
@@ -620,19 +636,54 @@ function getAvailableCameraFeeds() {
             statusClass = 'is-archived';
         }
 
+        const description = typeof definition.description === 'string'
+            ? definition.description
+            : 'No archived camera description available.';
+
+        const sceneBlocks = Array.isArray(definition.sceneBlocks) && definition.sceneBlocks.length > 0
+            ? definition.sceneBlocks
+            : [
+                {
+                    type: 'camera_header',
+                    camera: definition.label || fallbackLabel,
+                    timestamp: 'LIVE'
+                },
+                {
+                    type: 'camera_narration',
+                    lines: [description]
+                }
+            ];
+
         return {
-            id: feedId,
-            label: definition.label || feedId.toUpperCase(),
+            id: definition.feedKey || feedId,
+            label: definition.label || fallbackLabel,
             title: definition.title || 'SURVEILLANCE FEED',
-            camera: definition.camera || definition.label || feedId.toUpperCase(),
+            camera: definition.label || fallbackLabel,
             status,
             recording: definition.recording || 'ENABLED',
-            sceneBlocks: Array.isArray(definition.sceneBlocks) ? definition.sceneBlocks : [],
+            sceneBlocks,
             isSelectable,
             availabilityLabel: isSelectable ? status : 'RESTRICTED',
             statusClass
         };
     });
+
+    if (feedEntries.length === 0) {
+        return [];
+    }
+
+    const hasSelectableFeed = feedEntries.some((feed) => feed.isSelectable);
+    if (hasSelectableFeed) {
+        return feedEntries;
+    }
+
+    // Fallback so first camera unlock always shows indexed options even if chapter progression lags.
+    return feedEntries.map((feed) => ({
+        ...feed,
+        isSelectable: true,
+        availabilityLabel: feed.status || 'LIVE',
+        statusClass: String(feed.status || '').toUpperCase() === 'ARCHIVED' ? 'is-archived' : 'is-live'
+    }));
 }
 
 function formatCameraStatusText(feed) {
@@ -739,6 +790,11 @@ function openCameraFeed(feedId) {
 }
 
 function openCameraInterface() {
+    if (!hasFlag('camera_directory_initialized')) {
+        setFlag('camera_directory_initialized');
+        appendOutputLine('[SYSTEM] Surveillance feed index loaded.');
+    }
+
     showCameraFeedDirectory();
 }
 
