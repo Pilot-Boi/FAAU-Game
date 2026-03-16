@@ -158,6 +158,10 @@
             closeMessageWindow();
         }
 
+        if (typeof closeCameraWindow === 'function') {
+            closeCameraWindow();
+        }
+
         openImageWindow({
             src: attachment.src,
             title: attachment.title,

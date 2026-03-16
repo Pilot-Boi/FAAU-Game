@@ -1,9 +1,6 @@
 // Contact metadata for the communications interface.
 const CONTACT_METADATA = Object.freeze({
-    watts: {
-        termKey: 'watts',
-        label: 'Dr. Watts'
-    },
+    
     subject_001: {
         termKey: 'subject_001',
         label: 'Subject 001',
@@ -71,6 +68,10 @@ const CONTACT_METADATA = Object.freeze({
     schnee: {
         termKey: 'schnee',
         label: 'Winter Schnee'
+    },
+    watts: {
+        termKey: 'watts',
+        label: 'Dr. Watts'
     }
 });
 

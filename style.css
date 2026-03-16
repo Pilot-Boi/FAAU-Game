@@ -243,6 +243,14 @@ body {
     flex: 0 0 auto;
 }
 
+#camera-window {
+    width: min(40vw, 720px);
+    min-width: 340px;
+    height: 100%;
+    display: block;
+    flex: 0 0 auto;
+}
+
 #image-window {
     width: min(40vw, 720px);
     min-width: 340px;
@@ -253,6 +261,10 @@ body {
 
 /* Hidden state for the communications window */
 .message-window-hidden {
+    display: none !important;
+}
+
+.camera-window-hidden {
     display: none !important;
 }
 
@@ -270,6 +282,21 @@ body {
     border: 1px solid #2e4d4c;
     border-radius: 10px;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.52);
+    overflow: hidden;
+}
+
+.camera-window-panel {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background:
+        linear-gradient(180deg, #0b1013 0%, #070b0d 100%),
+        linear-gradient(90deg, rgba(112, 145, 147, 0.05) 0, rgba(112, 145, 147, 0.05) 1px, transparent 1px, transparent 28px),
+        linear-gradient(rgba(112, 145, 147, 0.04) 0, rgba(112, 145, 147, 0.04) 1px, transparent 1px, transparent 28px);
+    border: 1px solid #324247;
+    border-radius: 10px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.58);
     overflow: hidden;
 }
 
@@ -296,6 +323,16 @@ body {
     border-bottom: 1px solid #2e4d4c;
 }
 
+.camera-window-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 0.9rem 1.2rem;
+    background: #11181b;
+    border-bottom: 1px solid #324247;
+}
+
 .image-window-header {
     display: flex;
     align-items: center;
@@ -316,7 +353,21 @@ body {
     cursor: pointer;
 }
 
+.camera-window-back {
+    border: 1px solid #45575b;
+    background: #0b1012;
+    color: #c7d2d0;
+    font: inherit;
+    line-height: 1;
+    padding: 0.35rem 0.6rem;
+    cursor: pointer;
+}
+
 .message-window-back-hidden {
+    visibility: hidden;
+}
+
+.camera-window-back-hidden {
     visibility: hidden;
 }
 
@@ -329,7 +380,22 @@ body {
     text-align: center;
 }
 
+.camera-window-title {
+    flex: 1 1 auto;
+    color: #b8c7c5;
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-align: center;
+}
+
 .message-window-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.camera-window-controls {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
@@ -361,6 +427,16 @@ body {
     cursor: pointer;
 }
 
+.camera-window-close {
+    border: 1px solid #45575b;
+    background: #0b1012;
+    color: #d1dad8;
+    font: inherit;
+    line-height: 1;
+    padding: 0.35rem 0.6rem;
+    cursor: pointer;
+}
+
 .image-window-close {
     border: 1px solid #456c6a;
     background: #11181c;
@@ -378,6 +454,15 @@ body {
 .message-status:focus-visible,
 .message-window-panel:focus-visible {
     outline: 2px solid #7ed7cc;
+    outline-offset: -2px;
+}
+
+.camera-window-close:focus-visible,
+.camera-window-back:focus-visible,
+.camera-content:focus-visible,
+.camera-status:focus-visible,
+.camera-window-panel:focus-visible {
+    outline: 2px solid #93a9a4;
     outline-offset: -2px;
 }
 
@@ -449,6 +534,17 @@ body {
     white-space: normal;
 }
 
+.camera-content {
+    overflow-y: auto;
+    padding: 1.3rem 1.4rem;
+    color: #c5d0cd;
+    background:
+        linear-gradient(180deg, rgba(8, 13, 15, 0.96) 0%, rgba(6, 10, 12, 0.98) 100%),
+        repeating-linear-gradient(180deg, rgba(164, 186, 182, 0.035) 0, rgba(164, 186, 182, 0.035) 1px, transparent 1px, transparent 5px);
+    line-height: 1.65;
+    white-space: normal;
+}
+
 
 .message-compose {
     display: flex;
@@ -496,6 +592,11 @@ body {
     gap: 0.75rem;
 }
 
+.camera-feed-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
 .message-contact-item {
     display: flex;
     align-items: center;
@@ -504,6 +605,16 @@ body {
     padding: 0.85rem 0.95rem;
     border: 1px solid #294242;
     background: rgba(18, 28, 31, 0.72);
+}
+
+.camera-feed-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 0.95rem;
+    border: 1px solid #2d393d;
+    background: rgba(12, 18, 21, 0.82);
 }
 
 .message-contact-button {
@@ -517,8 +628,24 @@ body {
     padding: 0;
 }
 
+.camera-feed-button {
+    border: 0;
+    background: transparent;
+    color: #d4dddd;
+    font: inherit;
+    letter-spacing: 0.08em;
+    text-align: left;
+    cursor: pointer;
+    padding: 0;
+}
+
 .message-contact-button:disabled {
     color: #6b8686;
+    cursor: not-allowed;
+}
+
+.camera-feed-button:disabled {
+    color: #74817f;
     cursor: not-allowed;
 }
 
@@ -527,9 +654,19 @@ body {
     outline-offset: 4px;
 }
 
+.camera-feed-button:focus-visible {
+    outline: 2px solid #93a9a4;
+    outline-offset: 4px;
+}
+
 .message-contact-status {
     font-size: 0.84rem;
     letter-spacing: 0.08em;
+}
+
+.camera-feed-status {
+    font-size: 0.84rem;
+    letter-spacing: 0.1em;
 }
 
 .message-contact-status.is-available,
@@ -544,6 +681,18 @@ body {
 
 .message-contact-status.is-offline {
     color: #6f8080;
+}
+
+.camera-feed-status.is-live {
+    color: #8eb5ad;
+}
+
+.camera-feed-status.is-archived {
+    color: #c2b68b;
+}
+
+.camera-feed-status.is-restricted {
+    color: #7c8584;
 }
 
 .message-chat-row {
@@ -647,6 +796,54 @@ body {
     letter-spacing: 0.08em;
 }
 
+.camera-line {
+    margin: 0 0 0.5rem;
+}
+
+.camera-line:last-child {
+    margin-bottom: 0;
+}
+
+.camera-scene-header {
+    margin-bottom: 0.8rem;
+    color: #93a9a4;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.camera-scene-narration {
+    max-width: 44rem;
+    margin-bottom: 1rem;
+    color: #b5c1be;
+    line-height: 1.7;
+}
+
+.camera-scene-action {
+    max-width: 42rem;
+    margin: 0 0 1rem 1.2rem;
+    padding-left: 0.95rem;
+    border-left: 1px solid rgba(128, 150, 149, 0.35);
+    color: #d6e0dd;
+    line-height: 1.7;
+}
+
+.camera-scene-line {
+    margin: 0 0 0.45rem;
+    white-space: pre-wrap;
+}
+
+.camera-scene-line:last-child {
+    margin-bottom: 0;
+}
+
+.camera-scene-divider {
+    margin: 1rem 0;
+    color: #6d7a79;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
 
 /* Footer status strip */
 .message-status {
@@ -658,6 +855,15 @@ body {
     font-size: 0.92rem;
 }
 
+.camera-status {
+    padding: 0.8rem 1.2rem;
+    border-top: 1px solid #324247;
+    background: #11181b;
+    color: #96a6a3;
+    letter-spacing: 0.08em;
+    font-size: 0.92rem;
+}
+
 .message-content::-webkit-scrollbar {
     width: 8px;
     background: #162126;
@@ -665,6 +871,16 @@ body {
 
 .message-content::-webkit-scrollbar-thumb {
     background: #31484a;
+    border-radius: 4px;
+}
+
+.camera-content::-webkit-scrollbar {
+    width: 8px;
+    background: #101619;
+}
+
+.camera-content::-webkit-scrollbar-thumb {
+    background: #394748;
     border-radius: 4px;
 }
 
@@ -687,6 +903,12 @@ body {
         height: 46%;
     }
 
+    #camera-window {
+        width: 100%;
+        min-width: 0;
+        height: 46%;
+    }
+
     #image-window {
         width: 100%;
         min-width: 0;
@@ -700,6 +922,13 @@ body {
     .message-window-header,
     .message-content,
     .message-status {
+        padding-left: 0.95rem;
+        padding-right: 0.95rem;
+    }
+
+    .camera-window-header,
+    .camera-content,
+    .camera-status {
         padding-left: 0.95rem;
         padding-right: 0.95rem;
     }

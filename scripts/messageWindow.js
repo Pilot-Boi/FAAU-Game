@@ -356,6 +356,11 @@
 
         previousFocusedElement = document.activeElement;
         clearMessageWindow();
+
+        if (typeof closeCameraWindow === 'function') {
+            closeCameraWindow();
+        }
+
         messageWindow.classList.remove('message-window-hidden');
         messageWindow.setAttribute('aria-hidden', 'false');
         document.body.classList.add('message-window-open');

@@ -47,6 +47,21 @@
             </div>
         </div>
 
+        <!-- Hidden surveillance panel used by the cams command flow -->
+        <div class="camera-window-hidden" id="camera-window" role="dialog" aria-modal="false" aria-labelledby="camera-window-title" aria-hidden="true">
+            <div class="camera-window-panel" tabindex="-1">
+                <div class="camera-window-header">
+                    <button class="camera-window-back camera-window-back-hidden" id="camera-window-back" type="button" aria-label="Back to camera directory">DIRECTORY</button>
+                    <div class="camera-window-title" id="camera-window-title">SURVEILLANCE FEED</div>
+                    <div class="camera-window-controls">
+                        <button class="camera-window-close" id="camera-window-close" type="button" aria-label="Close surveillance window">X</button>
+                    </div>
+                </div>
+                <div class="camera-content" id="camera-content" tabindex="0"></div>
+                <div class="camera-status" id="camera-status" tabindex="0">STANDBY</div>
+            </div>
+        </div>
+
         <!-- Hidden image viewer panel used by file attachments -->
         <div class="image-window-hidden" id="image-window" role="dialog" aria-modal="false" aria-labelledby="image-window-title" aria-hidden="true">
             <div class="image-window-panel" tabindex="-1">
@@ -72,7 +87,9 @@
     <script src="scripts/events.js"></script>
     <script src="data/termMetadata.js"></script>
     <script src="data/contactMetadata.js"></script>
+    <script src="data/cameraMetadata.js"></script>
     <script src="scripts/messageWindow.js"></script>
+    <script src="scripts/cameraWindow.js"></script>
     <script src="scripts/imageWindow.js"></script>
     <script src="scripts/terminal.js"></script>
 

@@ -605,6 +605,143 @@ function openMessageContact(contactId) {
     }
 }
 
+function getAvailableCameraFeeds() {
+    const feedMetadata = typeof CAMERA_FEED_METADATA !== 'undefined' ? CAMERA_FEED_METADATA : {};
+
+    return Object.entries(feedMetadata).map(([feedId, definition]) => {
+        const requiredFlags = Array.isArray(definition.requiredFlags) ? definition.requiredFlags : [];
+        const isSelectable = requiredFlags.every((flagName) => hasFlag(flagName));
+        const status = definition.status || 'LIVE';
+
+        let statusClass = 'is-live';
+        if (!isSelectable) {
+            statusClass = 'is-restricted';
+        } else if (String(status).toUpperCase() === 'ARCHIVED') {
+            statusClass = 'is-archived';
+        }
+
+        return {
+            id: feedId,
+            label: definition.label || feedId.toUpperCase(),
+            title: definition.title || 'SURVEILLANCE FEED',
+            camera: definition.camera || definition.label || feedId.toUpperCase(),
+            status,
+            recording: definition.recording || 'ENABLED',
+            sceneBlocks: Array.isArray(definition.sceneBlocks) ? definition.sceneBlocks : [],
+            isSelectable,
+            availabilityLabel: isSelectable ? status : 'RESTRICTED',
+            statusClass
+        };
+    });
+}
+
+function formatCameraStatusText(feed) {
+    if (!feed) {
+        return 'STANDBY';
+    }
+
+    return `CAMERA: ${feed.camera} | STATUS: ${feed.status} | RECORDING: ${feed.recording}`;
+}
+
+function showCameraFeedDirectory() {
+    const feeds = getAvailableCameraFeeds();
+
+    if (typeof openCameraWindow !== 'function') {
+        appendOutputLine('[SYSTEM] Surveillance interface unavailable.');
+        return;
+    }
+
+    openCameraWindow({
+        title: 'CAMERA DIRECTORY',
+        status: 'CAMERA DIRECTORY'
+    });
+
+    if (typeof setCameraBackAction === 'function') {
+        setCameraBackAction(null);
+    }
+
+    if (feeds.length === 0) {
+        if (typeof renderCameraLines === 'function') {
+            renderCameraLines([
+                'No surveillance feeds indexed.',
+                'Archive relay remains unavailable.'
+            ]);
+        }
+        return;
+    }
+
+    if (typeof renderCameraDirectory === 'function') {
+        renderCameraDirectory(feeds, openCameraFeed);
+        return;
+    }
+
+    if (typeof renderCameraLines === 'function') {
+        const fallbackLines = ['CAMERA DIRECTORY', ''];
+
+        for (const feed of feeds) {
+            fallbackLines.push(`${feed.label} [${feed.availabilityLabel}]`);
+        }
+
+        renderCameraLines(fallbackLines);
+    }
+}
+
+function openCameraFeed(feedId) {
+    const feed = getAvailableCameraFeeds().find((entry) => entry.id === feedId);
+
+    if (!feed) {
+        if (typeof setCameraStatus === 'function') {
+            setCameraStatus('CAMERA DIRECTORY');
+        }
+
+        if (typeof renderCameraLines === 'function') {
+            renderCameraLines(['Selected camera feed could not be resolved.']);
+        }
+        return;
+    }
+
+    if (typeof openCameraWindow === 'function') {
+        openCameraWindow({
+            title: feed.title,
+            status: formatCameraStatusText(feed)
+        });
+    }
+
+    if (typeof setCameraBackAction === 'function') {
+        setCameraBackAction(showCameraFeedDirectory, 'DIRECTORY');
+    }
+
+    if (!feed.isSelectable) {
+        if (typeof setCameraStatus === 'function') {
+            setCameraStatus(`CAMERA: ${feed.camera} | STATUS: RESTRICTED | RECORDING: LOCKED`);
+        }
+
+        if (typeof renderCameraLines === 'function') {
+            renderCameraLines([
+                'Feed access restricted.',
+                'Additional containment records are required to restore this archive node.'
+            ]);
+        }
+        return;
+    }
+
+    if (typeof renderCameraScene === 'function') {
+        renderCameraScene(feed.sceneBlocks);
+        return;
+    }
+
+    if (typeof renderCameraLines === 'function') {
+        renderCameraLines([
+            'Camera scene renderer unavailable.',
+            'Unable to display archived feed.'
+        ]);
+    }
+}
+
+function openCameraInterface() {
+    showCameraFeedDirectory();
+}
+
 
 // Handle special metadata returned from directory operations to trigger story events and other side effects.
 function handleResultMeta(meta) {
@@ -737,7 +874,7 @@ const COMMANDS = {
         usage: 'cams',
         description: 'Access facility surveillance feeds.',
         execute: () => {
-            printResult(openCameraInterface());
+            openCameraInterface();
         }
     },
     terms: {
@@ -833,7 +970,7 @@ async function handleDevCommand(args) {
 
     if (subcommand === 'cams') {
         appendOutputLine('[DEV] Opening surveillance interface.', 'terminal-system');
-        printResult(openCameraInterface());
+        openCameraInterface();
         return;
     }
 
