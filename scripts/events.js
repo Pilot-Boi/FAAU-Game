@@ -306,10 +306,14 @@ function findUnreadReplyEntryForContact(chapter, contactId) {
 
         const entryKey = buildStoryEntryKey(chapter.id, index);
         if (hasStoryEntryRead(entryKey)) {
-            continue;
-        }
+                continue;
+            }
 
-        return {
+            if (entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
+                continue;
+            }
+
+            return {
             entry,
             entryIndex: index,
             entryKey
@@ -395,10 +399,14 @@ function findNextCameraSceneEntryForFeed(chapter, feedId) {
 
         const entryKey = buildStoryEntryKey(chapter.id, index);
         if (hasStoryEntryRead(entryKey)) {
-            continue;
-        }
+                continue;
+            }
 
-        return {
+            if (entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
+                continue;
+            }
+
+            return {
             entry,
             entryIndex: index,
             entryKey
