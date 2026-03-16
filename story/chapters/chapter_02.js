@@ -246,10 +246,6 @@ const CHAPTER_02 = {
                     ]
                 },
                 {
-                    type: 'divider',
-                    text: '---'
-                },
-                {
                     type: 'speaker',
                     speaker: 'Dr. Watts'
                 },
@@ -354,10 +350,6 @@ const CHAPTER_02 = {
                     lines: [
                         'Hazel in your Fallen Angel au,, are they like scared of him?? if so I kindly ask for like one hug from him /hj',
                     ]
-                },
-                {
-                    type: 'divider',
-                    text: '---'
                 },
                 {
                     type: 'narration',

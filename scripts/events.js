@@ -134,7 +134,7 @@ const EVENT_RULES = [
         id: 'msg_alert_subject_002_read',
         when: () =>
             isCommandUnlocked('msg') &&
-            hasReadFile('/secure/subjects/subject_002.txt'),
+            hasFlag('read_subject_002'),
         do: () => {
             return [
                 '[SYSTEM] Relay status update: additional communication available in msg.'
@@ -146,43 +146,10 @@ const EVENT_RULES = [
         id: 'msg_alert_subject_003',
         when: (context = {}) =>
             (isCommandUnlocked('msg') && hasDiscoveredTerm('subject_003')) ||
-            isDevTermUnlock(context, 'subject_003'),
+            hasFlag('read_subject_003'),
         do: () => {
             return [
                 '[SYSTEM] Relay status update: unread communication available in msg.'
-            ];
-        }
-    },
-
-    {
-        id: 'msg_alert_chapter_02_end',
-        when: () =>
-            isCommandUnlocked('msg') &&
-            hasFlag('chapter_02_entry_01') &&
-            hasFlag('chapter_02_entry_02') &&
-            hasFlag('chapter_02_entry_03') &&
-            hasFlag('chapter_02_entry_04') &&
-            hasFlag('chapter_02_entry_05'),
-        do: () => {
-            return [
-                '[SYSTEM] Relay status update: critical communication available in msg.'
-            ];
-        }
-    },
-
-    {
-        id: 'chapter_02_progress_complete',
-        when: () =>
-            hasFlag('chapter_02_entry_01') &&
-            hasFlag('chapter_02_entry_02') &&
-            hasFlag('chapter_02_entry_03') &&
-            hasFlag('chapter_02_entry_04') &&
-            hasFlag('chapter_02_entry_05') &&
-            hasFlag('chapter_02_entry_06'),
-        do: () => {
-            setFlag('chapter_02_complete');
-            return [
-                '=== CHAPTER 2 COMPLETE: THROUGH THE GLASS ==='
             ];
         }
     },
@@ -202,7 +169,40 @@ const EVENT_RULES = [
                 '[SYSTEM] New command unlocked: cams'
             ];
         }
-    }
+    },
+
+    {
+        id: 'msg_alert_chapter_02_end',
+        when: () =>
+            isCommandUnlocked('msg') &&
+            hasFlag('chapter_02_entry_01') &&
+            hasFlag('chapter_02_entry_02') &&
+            hasFlag('chapter_02_entry_03') &&
+            hasFlag('chapter_02_entry_04') &&
+            hasFlag('chapter_02_entry_05'),
+        do: () => {
+            return [
+                '[SYSTEM] Relay status update: critical communication available in msg.'
+            ];
+        }
+    },
+    
+    {
+        id: 'chapter_02_progress_complete',
+        when: () =>
+            hasFlag('chapter_02_entry_01') &&
+            hasFlag('chapter_02_entry_02') &&
+            hasFlag('chapter_02_entry_03') &&
+            hasFlag('chapter_02_entry_04') &&
+            hasFlag('chapter_02_entry_05') &&
+            hasFlag('chapter_02_entry_06'),
+        do: () => {
+            setFlag('chapter_02_complete');
+            return [
+                '=== CHAPTER 2 COMPLETE: THROUGH THE GLASS ==='
+            ];
+        }
+    },
 ];
 
 
