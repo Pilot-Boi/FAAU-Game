@@ -738,7 +738,8 @@ body {
 
 .message-scene-narration {
     margin-bottom: 1rem;
-    color: #b8d2cf;
+    color: #a1bab7;
+    font-style: italic;
     line-height: 1.7;
 }
 

@@ -163,7 +163,9 @@ const CHAPTER_02 = {
         },
         {
             interface: 'msg',
-            type: 'message',
+            type: 'reply',
+            requireEvent: 'msg_alert_subject_002_read',
+            setFlags: ['chapter_02_entry_03'],
             blocks: [
                 {
                     type: 'message_header',
@@ -174,15 +176,7 @@ const CHAPTER_02 = {
                     lines: [
                         'Oh my god I feel really bad for them… I find it interesting that Roman so far looks the most monstrous in this au (bird feet and he has to wear a mouth mask). It’s like, what are they exactly doing to these guys???'
                     ]
-                }
-            ]
-        },
-        {
-            interface: 'msg',
-            type: 'reply',
-            requireEvent: 'msg_alert_subject_002_read',
-            setFlags: ['chapter_02_entry_03'],
-            blocks: [
+                },
                 {
                     type: 'speaker',
                     speaker: 'Roman'
@@ -197,6 +191,7 @@ const CHAPTER_02 = {
                 {
                     type: 'narration',
                     lines: [
+                        'Roman grumbles.',
                         'Neo signs at him, huffing and glaring. He waves her away and reluctantly glances back at you.'
                     ]
                 },
@@ -261,14 +256,20 @@ const CHAPTER_02 = {
                 {
                     type: 'dialogue',
                     lines: [
-                        '“The subjects do get to speak to each other under controlled circumstances,” Dr. Watts says without looking up from his clipboard.',
-                        '“It is vital that the troops work together to form a cohesive unit for Director Salem’s army.”'
+                        'The subjects do get to speak to each other under controlled circumstances.',
+                        'It is vital that the troops work together to form a cohesive unit for Director Salem’s army.'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Dr. Watts speaks without looking up from his clipboard.'
                     ]
                 },
                 {
                     type: 'dialogue',
                     lines: [
-                        '“Pushing each avian to its limits and studying its powers is also a major part of our research,” he agrees.'
+                        'Pushing each avian to its limits and studying its powers is also a major part of our research.'
                     ]
                 },
                 {
@@ -280,7 +281,7 @@ const CHAPTER_02 = {
                 {
                     type: 'dialogue',
                     lines: [
-                        '“Normal hybrids don’t have powers, the genetic makeup left from the gods’ departures can’t sustain magic.”'
+                        'Normal hybrids don’t have powers, the genetic makeup left from the gods’ departures can’t sustain magic.'
                     ]
                 },
                 {
@@ -292,7 +293,7 @@ const CHAPTER_02 = {
                 {
                     type: 'dialogue',
                     lines: [
-                        '“But the avians can.”'
+                        'But the avians can.'
                     ]
                 },
                 {
@@ -304,14 +305,14 @@ const CHAPTER_02 = {
                 {
                     type: 'dialogue',
                     lines: [
-                        '“Each one has a unique combination of traits.',
-                        'As you can see here, the creature displays survival instincts just as a person would.”'
+                        'Each one has a unique combination of traits.',
+                        'As you can see here, the creature displays survival instincts just as a person would.'
                     ]
                 },
                 {
                     type: 'dialogue',
                     lines: [
-                        '“As for bonding and habits.”'
+                        'As for bonding and habits.'
                     ]
                 },
                 {
@@ -323,15 +324,15 @@ const CHAPTER_02 = {
                 {
                     type: 'dialogue',
                     lines: [
-                        '“Why bother to study those?”',
-                        '“We created them, they’re just animals. To train, and punish, and point at a target, and die for our cause.',
-                        'Any personality each one had was squashed out the moment their avian traits overcame their hybrid ones.”'
+                        'Why bother to study those?',
+                        'We created them, they’re just animals. To train, and punish, and point at a target, and die for our cause.',
+                        'Any personality each one had was squashed out the moment their avian traits overcame their hybrid ones.'
                     ]
                 },
                 {
                     type: 'dialogue',
                     lines: [
-                        '“The test subjects aren’t people after all.”'
+                        'The test subjects aren’t people after all.'
                     ]
                 }
             ]
@@ -372,7 +373,19 @@ const CHAPTER_02 = {
                 {
                     type: 'dialogue',
                     lines: [
-                        '“It’s not so much that we’re scared of him,” Emerald whispers to you, the rings over her head rotating slowly. “He’s been kind to me in the past, Roman and Neo just have problems with authorities.”'
+                        'It’s not so much that we’re scared of him'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Emerald whispers to you, the rings over her head rotating slowly.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'He’s been kind to me in the past, Roman and Neo just have problems with authorities.'
                     ]
                 },
                 {
@@ -384,7 +397,8 @@ const CHAPTER_02 = {
                 {
                     type: 'dialogue',
                     lines: [
-                        '“He’s been here the longest,” she murmurs. “From the first wave of avians, only two survived the procedure, and Hazel is the strength to his partner’s subtlety.”'
+                        'He’s been here the longest.',
+                        'From the first wave of avians, only two survived the procedure, and Hazel is the strength to his partner’s subtlety.'
                     ]
                 },
                 {
@@ -396,7 +410,7 @@ const CHAPTER_02 = {
                 {
                     type: 'dialogue',
                     lines: [
-                        '“Anyone who can go toe to toe with that monster is terrifying in my book.”'
+                        'Anyone who can go toe to toe with that monster is terrifying in my book.'
                     ]
                 }
             ]
@@ -427,10 +441,16 @@ const CHAPTER_02 = {
                     speaker: 'Salem'
                 },
                 {
+                    type: 'narration',
+                    lines: [
+                        'A voice purrs from the darkness.'
+                    ]
+                },
+                {
                     type: 'dialogue',
                     lines: [
-                        '“My dear,” a voice purrs from the darkness. “You’ve got it all wrong.”',
-                        '“As much as I wish, I am no fallen angel.”'
+                        'My dear, you’ve got it all wrong.',
+                        'As much as I wish, I am no fallen angel.'
                     ]
                 },
                 {
@@ -442,7 +462,7 @@ const CHAPTER_02 = {
                 {
                     type: 'dialogue',
                     lines: [
-                        '“The gods are gone, my dear.”'
+                        'The gods are gone, my dear.'
                     ]
                 },
                 {
@@ -454,8 +474,8 @@ const CHAPTER_02 = {
                 {
                     type: 'dialogue',
                     lines: [
-                        '“And with what’s left of their power under my control…”',
-                        '“I’m going to replace them.”'
+                        'And with what’s left of their power under my control…',
+                        'I’m going to replace them.'
                     ]
                 }
             ],
