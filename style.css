@@ -695,11 +695,11 @@ body {
 }
 
 .camera-feed-status.is-standby {
-    color: #e0ae8b;
+    color: #ff6b6b;
 }
 
 .camera-feed-status.is-offline {
-    color: #ff6b6b;
+    color: #7c8584;
 }
 
 .camera-feed-status.is-restricted {
