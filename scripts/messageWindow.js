@@ -146,65 +146,6 @@
         messageContent.scrollTop = 0;
     }
 
-    function wait(ms) {
-        return new Promise((resolve) => {
-            window.setTimeout(resolve, ms);
-        });
-    }
-
-    async function renderMessageConversation(conversation, options = {}) {
-        if (!messageContent || !Array.isArray(conversation)) {
-            return;
-        }
-
-        const token = ++conversationRenderToken;
-        const rawAnimateFromIndex = Number(options.animateFromIndex);
-        const animateFromIndex = Number.isFinite(rawAnimateFromIndex)
-            ? Math.max(0, Math.min(conversation.length, Math.floor(rawAnimateFromIndex)))
-            : 0;
-        messageContent.textContent = '';
-
-        for (let index = 0; index < conversation.length; index += 1) {
-            const item = conversation[index];
-            const shouldAnimate = index >= animateFromIndex;
-
-            if (token !== conversationRenderToken) {
-                return;
-            }
-
-            const row = document.createElement('div');
-            row.className = `message-chat-row ${item.side === 'right' ? 'is-right' : 'is-left'}`;
-            messageContent.appendChild(row);
-
-            const sender = document.createElement('div');
-            sender.className = 'message-chat-sender';
-            sender.textContent = item.sender || 'UNKNOWN';
-            row.appendChild(sender);
-
-            const lines = Array.isArray(item.lines) ? item.lines : [];
-            for (const lineText of lines) {
-                if (token !== conversationRenderToken) {
-                    return;
-                }
-
-                const bubble = document.createElement('div');
-                bubble.className = 'message-chat-bubble';
-                bubble.textContent = lineText;
-                row.appendChild(bubble);
-                messageContent.scrollTop = messageContent.scrollHeight;
-
-                if (shouldAnimate) {
-                    await wait(110);
-                }
-            }
-
-            messageContent.scrollTop = messageContent.scrollHeight;
-            if (shouldAnimate) {
-                await wait(120);
-            }
-        }
-    }
-
     function renderMessageScene(sceneBlocks) {
         if (!messageContent || !Array.isArray(sceneBlocks)) {
             return;
@@ -425,7 +366,6 @@
     window.closeMessageWindow = closeMessageWindow;
     window.renderMessageLines = renderMessageLines;
     window.renderMessageContacts = renderMessageContacts;
-    window.renderMessageConversation = renderMessageConversation;
     window.renderMessageScene = renderMessageScene;
     window.setMessageStatus = setMessageStatus;
     window.setMessageBackAction = setMessageBackAction;

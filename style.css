@@ -2,6 +2,7 @@
      --terminal-text: #78f089;
      --terminal-command: #57d8ff;
      --terminal-system: #efd76b;
+     --terminal-alert: #ff8fd1;
      --terminal-error: #ff6b6b;
      --terminal-file-header: #bf8cff;
      --terminal-transmission: #8ed9ff;
@@ -95,6 +96,12 @@ body {
 .terminal-line-system {
     color: var(--terminal-system);
     text-shadow: 0 0 4px rgba(239, 215, 107, 0.28);
+}
+
+.terminal-line-alert {
+    color: var(--terminal-alert);
+    font-weight: 700;
+    text-shadow: 0 0 4px rgba(255, 143, 209, 0.3);
 }
 
 .terminal-line-command {
@@ -695,43 +702,6 @@ body {
     color: #7c8584;
 }
 
-.message-chat-row {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    margin-bottom: 1rem;
-}
-
-.message-chat-row.is-left {
-    align-items: flex-start;
-}
-
-.message-chat-row.is-right {
-    align-items: flex-end;
-}
-
-.message-chat-sender {
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    color: var(--terminal-speaker);
-    text-transform: uppercase;
-}
-
-.message-chat-bubble {
-    max-width: min(78%, 620px);
-    padding: 0.6rem 0.75rem;
-    border: 1px solid #2f5250;
-    border-radius: 8px;
-    background: rgba(25, 39, 42, 0.75);
-    color: #d9f4f1;
-    line-height: 1.45;
-}
-
-.message-chat-row.is-right .message-chat-bubble {
-    border-color: #376157;
-    background: rgba(20, 52, 40, 0.75);
-}
-
 /* Message scene styles for conversations, transmissions, and logs with rich formatting */
 .message-scene-message-header {
     margin-bottom: 0.45rem;
@@ -817,6 +787,14 @@ body {
     margin-bottom: 1rem;
     color: #b5c1be;
     line-height: 1.7;
+}
+
+.camera-scene-narration-sender {
+    margin-bottom: 0.4rem;
+    color: #9cb6b1;
+    font-size: 0.76rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
 }
 
 .camera-scene-action {

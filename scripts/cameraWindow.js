@@ -188,6 +188,13 @@
                 const narration = document.createElement('div');
                 narration.className = 'camera-scene-narration';
 
+                if (typeof block.sender === 'string' && block.sender.trim()) {
+                    const sender = document.createElement('div');
+                    sender.className = 'camera-scene-narration-sender';
+                    sender.textContent = block.sender;
+                    narration.appendChild(sender);
+                }
+
                 for (const lineText of Array.isArray(block.lines) ? block.lines : []) {
                     const line = document.createElement('div');
                     line.className = 'camera-scene-line';
