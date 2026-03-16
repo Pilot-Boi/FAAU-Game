@@ -852,28 +852,7 @@ function getAvailableCameraFeeds() {
         return [];
     }
 
-    const hasSelectableFeed = feedEntries.some((feed) => feed.isSelectable);
-    if (hasSelectableFeed) {
-        return feedEntries;
-    }
-
-    // Fallback so first camera unlock always shows indexed options even if chapter progression lags.
-    return feedEntries.map((feed) => {
-        const normalizedStatus = String(feed.status || '').replace(/^\u25CF\s*/, '').toUpperCase();
-        let fallbackStatusClass = 'is-live';
-        if (normalizedStatus === 'OFFLINE') {
-            fallbackStatusClass = 'is-offline';
-        } else if (normalizedStatus === 'STANDBY') {
-            fallbackStatusClass = 'is-standby';
-        }
-
-        return {
-            ...feed,
-            isSelectable: true,
-            availabilityLabel: feed.status || '● LIVE',
-            statusClass: fallbackStatusClass
-        };
-    });
+    return feedEntries;
 }
 
 function formatCameraStatusText(feed) {
