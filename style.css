@@ -691,11 +691,11 @@ body {
 }
 
 .camera-feed-status.is-live {
-    color: #8eb5ad;
+    color: #8df5c4;
 }
 
-.camera-feed-status.is-archived {
-    color: #c2b68b;
+.camera-feed-status.is-offline {
+    color: #ff6b6b;
 }
 
 .camera-feed-status.is-restricted {

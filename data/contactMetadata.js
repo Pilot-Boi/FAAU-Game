@@ -4,6 +4,7 @@ const CONTACT_METADATA = Object.freeze({
     subject_001: {
         termKey: 'subject_001',
         label: 'Subject 001',
+        dialogueUnlockEvent: 'msg_alert_subject_003',
         revealedNames: [
             { term: 'emerald', label: 'Emerald Sustrai' }
         ]
@@ -11,6 +12,7 @@ const CONTACT_METADATA = Object.freeze({
     subject_002: {
         termKey: 'subject_002',
         label: 'Subject 002',
+        dialogueUnlockEvent: 'msg_alert_subject_002_read',
         revealedNames: [
             { term: 'roman', label: 'Roman Torchwick' }
         ]
@@ -60,6 +62,7 @@ const CONTACT_METADATA = Object.freeze({
     salem: {
         termKey: 'salem',
         label: 'Director',
+        dialogueUnlockEvent: 'msg_alert_chapter_02_end',
         revealedNames: [
             { term: 'salem', label: 'Director Salem' }
         ]

@@ -224,6 +224,7 @@ function appendOutputLine(text, extraClasses = []) {
 // Helper for printing multiple output rows.
 function printLines(lines) {
     let contextMode = null;
+    let fileHeaderSectionActive = false;
 
     for (const line of lines) {
         const normalized = String(line || '').trim();
@@ -231,22 +232,43 @@ function printLines(lines) {
 
         if (contextMode === 'file' && normalized && normalized !== '--- END FILE ---') {
             extraClasses.push('terminal-line-file-content');
+
+            // Make the file header section visually obvious: color all lines from
+            // file start until the first blank line using the speaker highlight.
+            if (fileHeaderSectionActive) {
+                extraClasses.push('terminal-line-speaker');
+            }
         }
 
         if (contextMode === 'search' && normalized && !normalized.startsWith('[SYSTEM]')) {
             extraClasses.push('terminal-line-search-content');
         }
 
-        appendOutputLine(line, extraClasses);
+        const renderedLine = appendOutputLine(line, extraClasses);
+
+        if (
+            contextMode === 'file' &&
+            renderedLine &&
+            renderedLine.classList &&
+            !(fileHeaderSectionActive && normalized && normalized !== '--- END FILE ---')
+        ) {
+            renderedLine.classList.remove('terminal-line-speaker');
+        }
 
         if (/^--- .* ---$/.test(normalized) && normalized !== '--- END FILE ---') {
             contextMode = 'file';
+            fileHeaderSectionActive = true;
             continue;
         }
 
         if (normalized === '--- END FILE ---') {
             contextMode = null;
+            fileHeaderSectionActive = false;
             continue;
+        }
+
+        if (contextMode === 'file' && normalized === '') {
+            fileHeaderSectionActive = false;
         }
 
         if (/^SEARCH RESULTS FOR:/.test(normalized)) {
@@ -408,7 +430,7 @@ function getDiscoveredMessageContacts() {
     const availabilityByChapter =
         typeof CONTACT_AVAILABILITY_BY_CHAPTER !== 'undefined' ? CONTACT_AVAILABILITY_BY_CHAPTER : {};
     const currentChapterIndex = getCurrentChapterIndex();
-    const unlockedContacts = new Set();
+    const availableContacts = new Set();
 
     for (const [chapterIndex, chapterValue] of Object.entries(availabilityByChapter)) {
         const parsedChapterIndex = Number(chapterIndex);
@@ -425,8 +447,21 @@ function getDiscoveredMessageContacts() {
         }
 
         for (const contactId of chapterEntry.contacts || []) {
-            unlockedContacts.add(contactId);
+            availableContacts.add(contactId);
         }
+    }
+
+    const unlockedContacts = new Set();
+    for (const [contactId, definition] of Object.entries(contactMetadata)) {
+        if (!availableContacts.has(contactId)) {
+            continue;
+        }
+
+        if (definition.dialogueUnlockEvent && !hasTriggeredEvent(definition.dialogueUnlockEvent)) {
+            continue;
+        }
+
+        unlockedContacts.add(contactId);
     }
 
     const unreadContacts = new Set();
@@ -703,6 +738,9 @@ function getAvailableCameraFeeds() {
     const availabilityByChapter =
         typeof CAMERA_AVAILABILITY_BY_CHAPTER !== 'undefined' ? CAMERA_AVAILABILITY_BY_CHAPTER : {};
     const currentChapterIndex = getCurrentChapterIndex();
+    const currentChapter = typeof getChapterByIndex === 'function'
+        ? getChapterByIndex(currentChapterIndex)
+        : null;
     const unlockedFeedIds = new Set();
 
     for (const [chapterIndex, feedIds] of Object.entries(availabilityByChapter)) {
@@ -719,14 +757,26 @@ function getAvailableCameraFeeds() {
     const feedEntries = Object.entries(feedMetadata).map(([feedId, definition]) => {
         const hasChapterAvailability = Object.keys(availabilityByChapter).length > 0;
         const isSelectable = hasChapterAvailability ? unlockedFeedIds.has(feedId) : true;
-        const status = definition.status || 'LIVE';
+        const hasChapterSceneHistory = Boolean(
+            currentChapter &&
+            typeof findLatestCameraSceneEntryForFeed === 'function' &&
+            findLatestCameraSceneEntryForFeed(currentChapter, feedId)
+        );
+
+        const hasUnreadChapterScene = Boolean(
+            currentChapter &&
+            typeof findNextCameraSceneEntryForFeed === 'function' &&
+            findNextCameraSceneEntryForFeed(currentChapter, feedId)
+        );
+
+        const status = hasChapterSceneHistory
+            ? (hasUnreadChapterScene ? 'LIVE' : 'OFFLINE')
+            : (definition.status || 'LIVE');
         const fallbackLabel = String(feedId).replace(/_/g, ' ').toUpperCase();
 
-        let statusClass = 'is-live';
+        let statusClass = String(status).toUpperCase() === 'OFFLINE' ? 'is-offline' : 'is-live';
         if (!isSelectable) {
             statusClass = 'is-restricted';
-        } else if (String(status).toUpperCase() === 'ARCHIVED') {
-            statusClass = 'is-archived';
         }
 
         const description = typeof definition.description === 'string'
@@ -775,7 +825,7 @@ function getAvailableCameraFeeds() {
         ...feed,
         isSelectable: true,
         availabilityLabel: feed.status || 'LIVE',
-        statusClass: String(feed.status || '').toUpperCase() === 'ARCHIVED' ? 'is-archived' : 'is-live'
+        statusClass: String(feed.status || '').toUpperCase() === 'OFFLINE' ? 'is-offline' : 'is-live'
     }));
 }
 
