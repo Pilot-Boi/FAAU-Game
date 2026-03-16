@@ -787,32 +787,19 @@ function getAvailableCameraFeeds() {
             status = '● LIVE';
         } else if (hasAssociatedEntries) {
             status = 'STANDBY';
-        } else if (!currentChapter) {
-            status = String(definition.status || '● LIVE').toUpperCase() === 'LIVE'
-                ? '● LIVE'
-                : (definition.status || '● LIVE');
         }
 
         const fallbackLabel = String(feedId).replace(/_/g, ' ').toUpperCase();
 
-        let statusClass = 'is-live';
+        let statusClass = 'is-offline';
         if (hasUnreadChapterScene) {
             statusClass = 'is-live';
         } else if (hasAssociatedEntries) {
             statusClass = 'is-standby';
-        } else if (currentChapter) {
-            // No unlocked or historical scene for this feed: render as gray offline.
-            statusClass = 'is-offline';
-        } else {
-            const normalizedStatus = String(status).replace(/^\u25CF\s*/, '').toUpperCase();
-            if (normalizedStatus === 'OFFLINE') {
-                statusClass = 'is-offline';
-            } else if (normalizedStatus === 'STANDBY') {
-                statusClass = 'is-standby';
-            }
         }
 
         if (!isSelectable) {
+            status = 'OFFLINE';
             statusClass = 'is-offline';
         }
 

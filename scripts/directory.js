@@ -299,7 +299,7 @@ const FILE_SYSTEM = {
                             terms: ['subject_001', 'test_subjects'],
                             onOpenFlag: 'read_subject_001',
                             imageAttachment: {
-                                src: 'assets/subjects/subject_002.png',
+                                src: 'assets/subjects/subject_001.png',
                                 title: 'SUBJECT 001 IMAGE ARCHIVE',
                                 description: 'Placeholder image. Replace with subject_001 asset when available.'
                             },

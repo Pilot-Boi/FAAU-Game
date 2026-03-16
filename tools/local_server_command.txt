@@ -1,7 +1,9 @@
 INSTRUCTIONS:
 
-1. Put below command into terminal
-Set-Location "c:\Users\dugan\OneDrive\Desktop\FAAU Game"; py -m http.server 8000 --bind 127.0.0.1
+1. Put this command into PowerShell:
+Set-Location "c:\Users\dugan\OneDrive\Desktop\FAAU Game"; py .\tools\no_cache_server.py
 
-2. Click link
+2. Open:
 http://127.0.0.1:8000
+
+This runs a no-cache local server, so normal browser refresh will pick up file changes without restarting the server.
