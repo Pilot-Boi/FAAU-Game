@@ -75,7 +75,10 @@
             return;
         }
 
-        statusNode.textContent = String(text || 'STANDBY').trim();
+        const baseText = String(text || 'STANDBY').trim();
+        const closeHint = 'PRESS ESC OR ENTER TO CLOSE';
+        const hasHint = baseText.toUpperCase().includes(closeHint);
+        statusNode.textContent = hasHint ? baseText : `${baseText} | ${closeHint}`;
     }
 
     function clearImageWindow() {

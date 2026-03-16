@@ -519,18 +519,6 @@ body {
     color: #8fc7c1;
     letter-spacing: 0.05em;
     font-size: 0.92rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-}
-
-.image-window-status::after {
-    content: 'PRESS ESC OR ENTER TO CLOSE';
-    color: #79aaa5;
-    font-size: 0.82rem;
-    letter-spacing: 0.08em;
-    white-space: nowrap;
 }
 
 .image-window-content::-webkit-scrollbar {
