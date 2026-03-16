@@ -1,3 +1,8 @@
+function isDevTermUnlock(context = {}, term = '') {
+    return context.action === 'dev_unlock_term' &&
+        String(context.term || '').trim().toLowerCase() === String(term || '').trim().toLowerCase();
+}
+
 const EVENT_RULES = [
     {
         id: 'first_contact_available',
@@ -11,6 +16,18 @@ const EVENT_RULES = [
                 '[SYSTEM] Anomalous communication channel detected.',
                 '[SYSTEM] External relay interface partially restored.',
                 '[SYSTEM] New command unlocked: msg'
+            ];
+        }
+    },
+
+    {
+        id: 'msg_alert_watts',
+        when: (context = {}) =>
+            (isCommandUnlocked('msg') && hasDiscoveredTerm('watts')) ||
+            isDevTermUnlock(context, 'watts'),
+        do: () => {
+            return [
+                '[SYSTEM] Relay status update: unread communication available in msg.'
             ];
         }
     },
@@ -102,18 +119,6 @@ const EVENT_RULES = [
     },
 
     {
-        id: 'msg_alert_watts',
-        when: () =>
-            isCommandUnlocked('msg') &&
-            hasDiscoveredTerm('watts'),
-        do: () => {
-            return [
-                '[SYSTEM] Relay status update: unread communication available in msg.'
-            ];
-        }
-    },
-
-    {
         id: 'msg_alert_secure_unlock',
         when: () =>
             isCommandUnlocked('msg') &&
@@ -139,9 +144,9 @@ const EVENT_RULES = [
 
     {
         id: 'msg_alert_subject_003',
-        when: () =>
-            isCommandUnlocked('msg') &&
-            hasDiscoveredTerm('subject_003'),
+        when: (context = {}) =>
+            (isCommandUnlocked('msg') && hasDiscoveredTerm('subject_003')) ||
+            isDevTermUnlock(context, 'subject_003'),
         do: () => {
             return [
                 '[SYSTEM] Relay status update: unread communication available in msg.'
@@ -306,14 +311,14 @@ function findUnreadReplyEntryForContact(chapter, contactId) {
 
         const entryKey = buildStoryEntryKey(chapter.id, index);
         if (hasStoryEntryRead(entryKey)) {
-                continue;
-            }
+            continue;
+        }
 
-            if (entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
-                continue;
-            }
+        if (entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
+            continue;
+        }
 
-            return {
+        return {
             entry,
             entryIndex: index,
             entryKey
@@ -399,14 +404,14 @@ function findNextCameraSceneEntryForFeed(chapter, feedId) {
 
         const entryKey = buildStoryEntryKey(chapter.id, index);
         if (hasStoryEntryRead(entryKey)) {
-                continue;
-            }
+            continue;
+        }
 
-            if (entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
-                continue;
-            }
+        if (entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
+            continue;
+        }
 
-            return {
+        return {
             entry,
             entryIndex: index,
             entryKey
