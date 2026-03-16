@@ -691,9 +691,9 @@ const COMMANDS = {
             showMessageContactDirectory();
         }
     },
-    cam: {
-        name: 'cam',
-        usage: 'cam',
+    cams: {
+        name: 'cams',
+        usage: 'cams',
         description: 'Access facility surveillance feeds.',
         execute: () => {
             printResult(openCameraInterface());
