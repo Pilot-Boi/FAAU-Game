@@ -164,7 +164,6 @@ const CHAPTER_02 = {
         {
             interface: 'msg',
             type: 'message',
-            setFlags: ['chapter_02_entry_03'],
             blocks: [
                 {
                     type: 'message_header',
@@ -182,6 +181,7 @@ const CHAPTER_02 = {
             interface: 'msg',
             type: 'reply',
             requireEvent: 'msg_alert_subject_002_read',
+            setFlags: ['chapter_02_entry_03'],
             blocks: [
                 {
                     type: 'speaker',

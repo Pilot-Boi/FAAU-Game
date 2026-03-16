@@ -86,7 +86,6 @@ const CHAPTER_01 = {
         {
             interface: 'msg',
             type: 'message',
-            setFlags: ['chapter_01_entry_01'],
             blocks: [
                 {
                     type: 'message_header',
@@ -104,6 +103,7 @@ const CHAPTER_01 = {
             interface: 'msg',
             type: 'reply',
             discoverTerms: ['director'],
+            setFlags: ['chapter_01_entry_01'],
             blocks: [
                 {
                     type: 'speaker',
@@ -121,7 +121,6 @@ const CHAPTER_01 = {
         {
             interface: 'msg',
             type: 'message',
-            setFlags: ['chapter_01_entry_02'],
             blocks: [
                 {
                     type: 'message_header',
@@ -140,6 +139,7 @@ const CHAPTER_01 = {
             interface: 'msg',
             type: 'reply',
             discoverTerms: ['subject_002'],
+            setFlags: ['chapter_01_entry_02'],
             blocks: [
                 {
                     type: 'speaker',
@@ -158,7 +158,6 @@ const CHAPTER_01 = {
         {
             interface: 'msg',
             type: 'message',
-            setFlags: ['chapter_01_entry_03'],
             blocks: [
                 {
                     type: 'message_header',
@@ -177,6 +176,7 @@ const CHAPTER_01 = {
             interface: 'msg',
             type: 'reply',
             discoverTerms: ['salem', 'hybrid'],
+            setFlags: ['chapter_01_entry_03'],
             blocks: [
                 {
                     type: 'speaker',
@@ -196,7 +196,6 @@ const CHAPTER_01 = {
         {
             interface: 'msg',
             type: 'message',
-            setFlags: ['chapter_01_entry_04'],
             blocks: [
                 {
                     type: 'message_header',
@@ -216,6 +215,7 @@ const CHAPTER_01 = {
             interface: 'msg',
             type: 'reply',
             discoverTerms: ['subject_001'],
+            setFlags: ['chapter_01_entry_04'],
             blocks: [
                 {
                     type: 'speaker',
