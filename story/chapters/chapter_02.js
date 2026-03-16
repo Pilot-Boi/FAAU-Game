@@ -182,7 +182,7 @@ const CHAPTER_02 = {
                 },
                 {
                     type: 'speaker',
-                    speaker: 'Roman'
+                    speaker: 'Roman Torchwick'
                 },
                 {
                     type: 'dialogue',
@@ -249,7 +249,7 @@ const CHAPTER_02 = {
                 },
                 {
                     type: 'speaker',
-                    speaker: 'Watts'
+                    speaker: 'Dr. Watts'
                 },
                 {
                     type: 'dialogue',
@@ -361,7 +361,7 @@ const CHAPTER_02 = {
                 },
                 {
                     type: 'speaker',
-                    speaker: 'Emerald'
+                    speaker: 'Emerald Sustrai'
                 },
                 {
                     type: 'dialogue',
@@ -427,7 +427,7 @@ const CHAPTER_02 = {
                 },
                 {
                     type: 'speaker',
-                    speaker: 'Salem'
+                    speaker: 'Director Salem'
                 },
                 {
                     type: 'narration',

@@ -107,7 +107,7 @@ const CHAPTER_01 = {
             blocks: [
                 {
                     type: 'speaker',
-                    speaker: 'Jaune'
+                    speaker: 'Test Subject 008'
                 },
                 {
                     type: 'dialogue',
@@ -143,7 +143,7 @@ const CHAPTER_01 = {
             blocks: [
                 {
                     type: 'speaker',
-                    speaker: 'Jaune'
+                    speaker: 'Test Subject 008'
                 },
                 {
                     type: 'dialogue',
@@ -180,7 +180,7 @@ const CHAPTER_01 = {
             blocks: [
                 {
                     type: 'speaker',
-                    speaker: 'Jaune'
+                    speaker: 'Test Subject 008'
                 },
                 {
                     type: 'dialogue',
@@ -219,7 +219,7 @@ const CHAPTER_01 = {
             blocks: [
                 {
                     type: 'speaker',
-                    speaker: 'Watts'
+                    speaker: 'Dr. Watts'
                 },
                 {
                     type: 'dialogue',

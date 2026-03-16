@@ -188,7 +188,7 @@ const CHAPTER_03 = {
                 },
                 {
                     type: 'speaker',
-                    speaker: 'Emerald'
+                    speaker: 'Emerald Sustrai'
                 },
                 {
                     type: 'dialogue',
@@ -282,7 +282,7 @@ const CHAPTER_03 = {
                 },
                 {
                     type: 'speaker',
-                    speaker: 'Tyrian'
+                    speaker: 'Tyrian Callows'
                 },
                 {
                     type: 'dialogue',
@@ -357,7 +357,7 @@ const CHAPTER_03 = {
                 },
                 {
                     type: 'speaker',
-                    speaker: 'Salem'
+                    speaker: 'Director Salem'
                 },
                 {
                     type: 'narration',
