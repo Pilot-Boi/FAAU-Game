@@ -93,7 +93,7 @@ const CHAPTER_03 = {
             interface: 'msg',
             type: 'reply',
             requireEvent: 'msg_alert_empathy',
-            discoverTerms: ['research_labs'],
+            discoverTerms: ['research_labs', 'subject_004'],
             setFlags: ['chapter_03_entry_01'],
             blocks: [
                 {

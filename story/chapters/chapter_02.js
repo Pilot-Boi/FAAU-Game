@@ -233,7 +233,6 @@ const CHAPTER_02 = {
         {
             interface: 'msg',
             type: 'reply',
-            speaker: 'Dr. Watts',
             setFlags: ['chapter_02_entry_04'],
             requireEvent: 'msg_alert_secure_unlock',
             blocks: [
@@ -250,7 +249,7 @@ const CHAPTER_02 = {
                 },
                 {
                     type: 'speaker',
-                    speaker: 'Dr. Watts'
+                    speaker: 'Watts'
                 },
                 {
                     type: 'dialogue',
@@ -339,7 +338,6 @@ const CHAPTER_02 = {
         {
             interface: 'msg',
             type: 'reply',
-            speaker: 'Emerald',
             discoverTerms: ['subject_003'],
             setFlags: ['chapter_02_entry_05'],
             requireEvent: 'msg_alert_subject_003',
@@ -413,7 +411,6 @@ const CHAPTER_02 = {
         {
             interface: 'msg',
             type: 'reply',
-            speaker: 'Director Salem',
             setFlags: ['chapter_02_entry_06'],
             requireEvent: 'msg_alert_chapter_02_end',
             blocks: [

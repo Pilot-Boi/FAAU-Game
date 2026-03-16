@@ -5,7 +5,7 @@ MSG pair entry example (header, body, speaker, dialogue, narration, divider):
 {
     interface: 'msg',
     type: 'reply',
-    speaker: 'Test Subject 008',
+    speaker: 'Example Speaker',
     discoverTerms: ['example_term'],
     setFlags: ['example_msg_flag'],
     blocks: [
@@ -107,7 +107,7 @@ const CHAPTER_01 = {
             blocks: [
                 {
                     type: 'speaker',
-                    speaker: 'Test Subject 008'
+                    speaker: 'Jaune'
                 },
                 {
                     type: 'dialogue',
@@ -143,7 +143,7 @@ const CHAPTER_01 = {
             blocks: [
                 {
                     type: 'speaker',
-                    speaker: 'Test Subject 008'
+                    speaker: 'Jaune'
                 },
                 {
                     type: 'dialogue',
@@ -180,7 +180,7 @@ const CHAPTER_01 = {
             blocks: [
                 {
                     type: 'speaker',
-                    speaker: 'Test Subject 008'
+                    speaker: 'Jaune'
                 },
                 {
                     type: 'dialogue',
@@ -219,7 +219,7 @@ const CHAPTER_01 = {
             blocks: [
                 {
                     type: 'speaker',
-                    speaker: 'Dr. Watts'
+                    speaker: 'Watts'
                 },
                 {
                     type: 'dialogue',
