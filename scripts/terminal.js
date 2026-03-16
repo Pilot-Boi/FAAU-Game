@@ -1149,12 +1149,30 @@ async function handleDevCommand(args) {
         if (unlockType === 'term') {
             addDiscoveredTerms([value]);
             appendOutputLine(`[DEV] Term unlocked: ${formatTermForOutput(value)}`, 'terminal-system');
+
+            const eventLines = evaluateEvents({
+                action: 'dev_unlock_term',
+                term: value
+            });
+
+            if (eventLines.length > 0) {
+                printLines(eventLines);
+            }
             return;
         }
 
         if (unlockType === 'flag') {
             setFlag(value);
             appendOutputLine(`[DEV] Flag set: ${value}`, 'terminal-system');
+
+            const eventLines = evaluateEvents({
+                action: 'dev_unlock_flag',
+                flag: value
+            });
+
+            if (eventLines.length > 0) {
+                printLines(eventLines);
+            }
             return;
         }
 
