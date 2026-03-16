@@ -70,17 +70,12 @@
         trapFocus(event);
     }
 
-    function formatImageStatusText(text) {
-        const baseText = text || 'STANDBY';
-        return `${baseText} | PRESS ENTER TO CLOSE`;
-    }
-
     function setImageWindowStatus(text) {
         if (!statusNode) {
             return;
         }
 
-        statusNode.textContent = formatImageStatusText(text);
+        statusNode.textContent = String(text || 'STANDBY').trim();
     }
 
     function clearImageWindow() {

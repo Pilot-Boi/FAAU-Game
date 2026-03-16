@@ -978,6 +978,15 @@ function openCameraFeed(feedId) {
         return;
     }
 
+    const cameraSceneHistory = typeof getCameraFeedSceneHistory === 'function'
+        ? getCameraFeedSceneHistory(feed.id)
+        : [];
+
+    if (cameraSceneHistory.length > 0 && typeof renderCameraScene === 'function') {
+        renderCameraScene(cameraSceneHistory);
+        return;
+    }
+
     if (typeof renderCameraScene === 'function') {
         renderCameraScene(feed.sceneBlocks);
         return;
