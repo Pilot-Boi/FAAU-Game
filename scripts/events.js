@@ -265,6 +265,7 @@ function getContactSpeakerAliases(contactId) {
         subject_005: ['Subject 005', 'Tyrian Callows'],
         subject_006: ['Subject 006', 'Mercury Black'],
         subject_007: ['Subject 007', 'Cinder Fall'],
+        salem: ['Director Salem', 'Salem', 'Director'],
         polendina: ['Dr. Pietro Polendina', 'Dr. Polendina'],
         ebi: ['Ebi', 'Clover Ebi'],
         schnee: ['Schnee', 'Winter Schnee']

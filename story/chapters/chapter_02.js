@@ -426,10 +426,6 @@ const CHAPTER_02 = {
                     ]
                 },
                 {
-                    type: 'divider',
-                    text: '---'
-                },
-                {
                     type: 'speaker',
                     speaker: 'Salem'
                 },
