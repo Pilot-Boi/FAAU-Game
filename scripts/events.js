@@ -4,6 +4,7 @@ function isDevTermUnlock(context = {}, term = '') {
 }
 
 const EVENT_RULES = [
+    /* CHAPTER 01 EVENTS */
     {
         id: 'first_contact_available',
         when: (context = {}) =>
@@ -47,6 +48,7 @@ const EVENT_RULES = [
         }
     },
 
+    /* CHAPTER 02 EVENTS */
     {
         id: 'sublevel_review_unlocked',
         when: () =>
@@ -66,6 +68,7 @@ const EVENT_RULES = [
     {
         id: 'security_protocols_unlocked',
         when: () =>
+            hasFlag('chapter_01_complete') &&
             hasDiscoveredTerm('containment'),
         do: () => {
             setFlag('security_protocols_unlocked');
@@ -79,6 +82,7 @@ const EVENT_RULES = [
     {
         id: 'anomaly_correlation_unlocked',
         when: () =>
+            hasFlag('chapter_01_complete') &&
             hasFlag('read_security_protocols') &&
             hasDiscoveredTerm('unknown_source') &&
             hasDiscoveredTerm('security'),
@@ -94,6 +98,7 @@ const EVENT_RULES = [
     {
         id: 'archive_notice_unlocked',
         when: () =>
+            hasFlag('chapter_01_complete') &&
             hasDiscoveredTerm('restricted_archive'),
         do: () => {
             setFlag('archive_notice_unlocked');
@@ -107,7 +112,8 @@ const EVENT_RULES = [
     {
         id: 'secure_access_granted',
         when: (context = {}) =>
-            context.action === 'search' && context.term === 'avian',
+                hasFlag('chapter_01_complete') &&
+            (context.action === 'search' && context.term === 'avian'),
         do: () => {
             setFlag('secure_access_granted');
             return [
@@ -121,6 +127,7 @@ const EVENT_RULES = [
     {
         id: 'msg_alert_secure_unlock',
         when: () =>
+            hasFlag('chapter_01_complete') &&
             isCommandUnlocked('msg') &&
             hasFlag('secure_access_granted'),
         do: () => {
@@ -133,6 +140,8 @@ const EVENT_RULES = [
     {
         id: 'msg_alert_subject_002_read',
         when: () =>
+            hasFlag('chapter_01_complete') &&
+
             isCommandUnlocked('msg') &&
             hasFlag('read_subject_002'),
         do: () => {
@@ -145,6 +154,7 @@ const EVENT_RULES = [
     {
         id: 'msg_alert_subject_003',
         when: (context = {}) =>
+                hasFlag('chapter_01_complete') &&
             (isCommandUnlocked('msg') && hasDiscoveredTerm('subject_003')) ||
             hasFlag('read_subject_003'),
         do: () => {
@@ -159,7 +169,7 @@ const EVENT_RULES = [
         when: () => {
             const containmentFilesRead = Array.from(GAME_STATE.filesRead)
                 .filter(path => path.startsWith('/secure/containment/'));
-            return containmentFilesRead.length >= 2;
+            return hasFlag('chapter_01_complete') && containmentFilesRead.length >= 2;
         },
         do: () => {
             unlockCommand('cams');
@@ -174,6 +184,7 @@ const EVENT_RULES = [
     {
         id: 'msg_alert_chapter_02_end',
         when: () =>
+            hasFlag('chapter_01_complete') &&
             isCommandUnlocked('msg') &&
             hasFlag('chapter_02_entry_01') &&
             hasFlag('chapter_02_entry_02') &&
@@ -186,10 +197,11 @@ const EVENT_RULES = [
             ];
         }
     },
-    
+
     {
         id: 'chapter_02_progress_complete',
         when: () =>
+            hasFlag('chapter_01_complete') &&
             hasFlag('chapter_02_entry_01') &&
             hasFlag('chapter_02_entry_02') &&
             hasFlag('chapter_02_entry_03') &&
@@ -200,6 +212,37 @@ const EVENT_RULES = [
             setFlag('chapter_02_complete');
             return [
                 '=== CHAPTER 2 COMPLETE: THROUGH THE GLASS ==='
+            ];
+        }
+    },
+
+    /* CHAPTER 03 EVENTS */
+    {
+        id: 'chapter_03_subject_files_unlocked',
+        when: () =>
+            hasFlag('chapter_02_complete'),
+        do: () => {
+            setFlag('subject_004_file_unlocked');
+            setFlag('subject_005_file_unlocked');
+            return [
+                '[SYSTEM] Containment archive permissions updated.',
+                '[SYSTEM] New file unlocked: /secure/subjects/subject_004.txt',
+                '[SYSTEM] New file unlocked: /secure/subjects/subject_005.txt'
+            ];
+        }
+    },
+
+    {
+        id: 'abilities_dir_unlocked',
+        when: (context = {}) =>
+            (hasFlag('chapter_02_complete')) &&
+            (context.action === 'search' &&
+            (context.term === 'wipe' || context.term === 'empathy')),
+        do: () => {
+            setFlag('abilities_dir_unlocked');
+            return [
+                '[SYSTEM] Behavioral profile archive link detected.',
+                '[SYSTEM] New directory unlocked: /secure/abilities'
             ];
         }
     },

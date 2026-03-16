@@ -434,6 +434,12 @@ const FILE_SYSTEM = {
                             contentFile: 'content/secure/containment/observation_barrier_protocol.txt'
                         }
                     }
+                },
+                abilities: {
+                    type: 'dir',
+                    requiredFlag: 'abilities_dir_unlocked',
+                    children: {
+                    }
                 }
             }
         }

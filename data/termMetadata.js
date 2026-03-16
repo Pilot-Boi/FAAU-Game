@@ -221,6 +221,16 @@ const TERM_METADATA = Object.freeze({
             'Research efforts emphasize durability, responsiveness, and long-term physiological compatibility.',
             'Prosthetic research programs frequently collaborate with regenerative medicine initiatives to improve recovery outcomes following severe injury.'
         ]
+    },
+
+    // Abilities
+    wipe: {
+        label: 'Wipe',
+        type: 'ability',
+    },
+    empathy: {
+        label: 'Empathy',
+        type: 'ability',
     }
 });
 
