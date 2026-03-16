@@ -36,6 +36,38 @@ const TERM_METADATA = Object.freeze({
             'CLASSIFIED: Access to project summary and documentation is restricted to personnel with Level 5 clearance or higher.',
         ]
     },
+    avian_cellblock: {
+        label: 'Avian Cellblock',
+        type: 'location',
+        summary: [
+            'The Avian Cellblock is a secured containment area within the Facility designated for the housing and study of avian-classified subjects.',
+            'The cellblock is equipped with specialized containment units designed to accommodate the unique physiological and behavioral characteristics of avian subjects,',
+            'including reinforced enclosures, environmental controls, and integrated monitoring systems.',
+        ]
+    },
+    containment_hallways: {
+        label: 'Containment Hallways',
+        type: 'location',
+        summary: [
+            'The containment hallways are a network of secured corridors that provide access to the Facility’s primary research and containment areas.',]
+    },
+    testing_chamber: {
+        label: 'Testing Chamber',
+        type: 'location',
+        summary: [
+            'The testing chamber is a specialized facility within the research division designed for controlled combat drills of subjects under various conditions.',
+            'The chamber is equipped with modular environmental controls, including adjustable terrain features, variable lighting, and integrated monitoring systems',
+            'to facilitate comprehensive data collection during testing scenarios.',
+        ]
+    },
+    research_labs: {
+        label: 'Research Labs',
+        type: 'location',
+        summary: [
+            'The research labs are a series of specialized facilities within the Facility dedicated to various scientific disciplines, including bioengineering, genetics, and adaptive physiology.',
+            'Each lab is equipped with advanced instrumentation, secure data terminals, and containment protocols (including restraints and speech hindering equipment) appropriate to the research being conducted.',
+        ]
+    },
 
     // People
     director: { label: 'Director', type: 'person' },
