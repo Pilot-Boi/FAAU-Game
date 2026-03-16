@@ -33,7 +33,8 @@ const CAMERA_METADATA = Object.freeze({
 const CAMERA_AVAILABILITY_BY_CHAPTER = Object.freeze({
 
     // Chapter 2 unlocks the first surveillance feeds
-    1: ['avian_cellblock', 'containment_hallway_a']
+    1: ['avian_cellblock', 'containment_hallway_a'],
+    2: { feeds: ['avian_cellblock', 'containment_hallway_a', 'cafeteria'], requireFlag: 'chapter_02_complete' }
 
 });
 

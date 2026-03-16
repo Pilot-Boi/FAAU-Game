@@ -227,7 +227,8 @@ const EVENT_RULES = [
             return [
                 '[SYSTEM] Containment archive permissions updated.',
                 '[SYSTEM] New file unlocked: /secure/subjects/subject_004.txt',
-                '[SYSTEM] New file unlocked: /secure/subjects/subject_005.txt'
+                '[SYSTEM] New file unlocked: /secure/subjects/subject_005.txt',
+                '[SYSTEM] Relay status update: new communications available in msg.'
             ];
         }
     },
@@ -286,6 +287,23 @@ const EVENT_RULES = [
         do: () => {
             return [
                 '[SYSTEM] Relay status update: critical live feed available in cams.'
+            ];
+        }
+    },
+
+    {
+        id: 'chapter_03_progress_complete',
+        when: () =>
+            hasFlag('chapter_02_complete') &&
+            hasFlag('chapter_03_entry_01') &&
+            hasFlag('chapter_03_entry_02') &&
+            hasFlag('chapter_03_entry_03') &&
+            hasFlag('chapter_03_entry_04') &&
+            hasFlag('chapter_03_entry_05'),
+        do: () => {
+            setFlag('chapter_03_complete');
+            return [
+                '=== CHAPTER 3 COMPLETE: EMPATHY AND THREATS ==='
             ];
         }
     },

@@ -694,6 +694,10 @@ body {
     color: #8df5c4;
 }
 
+.camera-feed-status.is-standby {
+    color: #e0ae8b;
+}
+
 .camera-feed-status.is-offline {
     color: #ff6b6b;
 }

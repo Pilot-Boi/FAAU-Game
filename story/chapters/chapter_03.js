@@ -171,6 +171,7 @@ const CHAPTER_03 = {
         {
             interface: 'msg',
             type: 'reply',
+            requireEvent: 'chapter_03_subject_files_unlocked',
             discoverTerms: ['subject_005', 'subject_007'],
             setFlags: ['chapter_03_entry_02'],
             blocks: [
@@ -340,6 +341,7 @@ const CHAPTER_03 = {
         {
             interface: 'msg',
             type: 'reply',
+            requireEvent: 'chapter_03_subject_files_unlocked',
             discoverTerms: ['testing_chamber'],
             setFlags: ['chapter_03_entry_04'],
             blocks: [

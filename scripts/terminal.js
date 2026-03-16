@@ -422,6 +422,36 @@ function applyMessageUnredactionConversationItems(conversationItems = []) {
     });
 }
 
+function getReplyEntriesForContact(chapter, contactId) {
+    if (!chapter || !Array.isArray(chapter.entries)) {
+        return [];
+    }
+
+    if (typeof getContactSpeakerAliases !== 'function' || typeof getEntrySpeaker !== 'function') {
+        return [];
+    }
+
+    const speakerAliases = new Set(getContactSpeakerAliases(contactId));
+    if (speakerAliases.size === 0) {
+        return [];
+    }
+
+    return chapter.entries.filter((entry) => {
+        if (!entry || entry.type !== 'reply') {
+            return false;
+        }
+
+        const entrySpeaker = getEntrySpeaker(entry);
+        return speakerAliases.has(entrySpeaker);
+    });
+}
+
+function contactHasUnlockedDialogueInChapter(chapter, contactId) {
+    const entries = getReplyEntriesForContact(chapter, contactId);
+
+    return entries.some((entry) => !entry.requireEvent || hasTriggeredEvent(entry.requireEvent));
+}
+
 // Build the visible message-contact list from discovered person terms.
 function getDiscoveredMessageContacts() {
     const discoveredTerms = new Set((getDiscoveredTerms() || []).map(normalizeTermKey));
@@ -490,7 +520,12 @@ function getDiscoveredMessageContacts() {
             const fallbackLabel = formatTermForOutput(termKey).replace(/_/g, ' ');
             const defaultLabel = definition.label || meta.label || fallbackLabel;
             const displayLabel = getContactDisplayLabel(contactId, definition, discoveredTerms, termMetadata, defaultLabel);
-            const hasUnlockedDialogue = unlockedContacts.has(contactId);
+            const contactIsUnlockedByDirectoryRules = unlockedContacts.has(contactId);
+            const hasUnlockedDialogue = Boolean(
+                contactIsUnlockedByDirectoryRules &&
+                currentChapter &&
+                contactHasUnlockedDialogueInChapter(currentChapter, contactId)
+            );
             const hasUnreadDialogue = unreadContacts.has(contactId);
 
             let presence = 'OFFLINE';
@@ -749,7 +784,15 @@ function getAvailableCameraFeeds() {
             continue;
         }
 
-        for (const feedId of feedIds || []) {
+        const chapterEntry = Array.isArray(feedIds)
+            ? { feeds: feedIds }
+            : feedIds;
+
+        if (chapterEntry.requireFlag && !hasFlag(chapterEntry.requireFlag)) {
+            continue;
+        }
+
+        for (const feedId of chapterEntry.feeds || []) {
             unlockedFeedIds.add(feedId);
         }
     }
@@ -757,24 +800,46 @@ function getAvailableCameraFeeds() {
     const feedEntries = Object.entries(feedMetadata).map(([feedId, definition]) => {
         const hasChapterAvailability = Object.keys(availabilityByChapter).length > 0;
         const isSelectable = hasChapterAvailability ? unlockedFeedIds.has(feedId) : true;
-        const hasChapterSceneHistory = Boolean(
-            currentChapter &&
-            typeof findLatestCameraSceneEntryForFeed === 'function' &&
-            findLatestCameraSceneEntryForFeed(currentChapter, feedId)
-        );
-
         const hasUnreadChapterScene = Boolean(
             currentChapter &&
             typeof findNextCameraSceneEntryForFeed === 'function' &&
             findNextCameraSceneEntryForFeed(currentChapter, feedId)
         );
 
-        const status = hasChapterSceneHistory
-            ? (hasUnreadChapterScene ? 'LIVE' : 'OFFLINE')
-            : (definition.status || 'LIVE');
+        const hasUnlockedChapterScene = Boolean(
+            currentChapter &&
+            Array.isArray(currentChapter.entries) &&
+            currentChapter.entries.some((entry) =>
+                entry &&
+                entry.interface === 'cams' &&
+                entry.type === 'scene' &&
+                entry.feedId === feedId &&
+                (!entry.requireEvent || hasTriggeredEvent(entry.requireEvent))
+            )
+        );
+
+        let status = 'OFFLINE';
+        if (hasUnreadChapterScene) {
+            status = '● LIVE';
+        } else if (hasUnlockedChapterScene) {
+            status = 'STANDBY';
+        } else if (!currentChapter) {
+            status = String(definition.status || '● LIVE').toUpperCase() === 'LIVE'
+                ? '● LIVE'
+                : (definition.status || '● LIVE');
+        }
+
         const fallbackLabel = String(feedId).replace(/_/g, ' ').toUpperCase();
 
-        let statusClass = String(status).toUpperCase() === 'OFFLINE' ? 'is-offline' : 'is-live';
+        const normalizedStatus = String(status).replace(/^\u25CF\s*/, '').toUpperCase();
+
+        let statusClass = 'is-live';
+        if (normalizedStatus === 'OFFLINE') {
+            statusClass = 'is-offline';
+        } else if (normalizedStatus === 'STANDBY') {
+            statusClass = 'is-standby';
+        }
+
         if (!isSelectable) {
             statusClass = 'is-restricted';
         }
@@ -789,7 +854,7 @@ function getAvailableCameraFeeds() {
                 {
                     type: 'camera_header',
                     camera: definition.label || fallbackLabel,
-                    timestamp: 'LIVE'
+                    timestamp: '● LIVE'
                 },
                 {
                     type: 'camera_narration',
@@ -821,12 +886,22 @@ function getAvailableCameraFeeds() {
     }
 
     // Fallback so first camera unlock always shows indexed options even if chapter progression lags.
-    return feedEntries.map((feed) => ({
-        ...feed,
-        isSelectable: true,
-        availabilityLabel: feed.status || 'LIVE',
-        statusClass: String(feed.status || '').toUpperCase() === 'OFFLINE' ? 'is-offline' : 'is-live'
-    }));
+    return feedEntries.map((feed) => {
+        const normalizedStatus = String(feed.status || '').replace(/^\u25CF\s*/, '').toUpperCase();
+        let fallbackStatusClass = 'is-live';
+        if (normalizedStatus === 'OFFLINE') {
+            fallbackStatusClass = 'is-offline';
+        } else if (normalizedStatus === 'STANDBY') {
+            fallbackStatusClass = 'is-standby';
+        }
+
+        return {
+            ...feed,
+            isSelectable: true,
+            availabilityLabel: feed.status || '● LIVE',
+            statusClass: fallbackStatusClass
+        };
+    });
 }
 
 function formatCameraStatusText(feed) {
