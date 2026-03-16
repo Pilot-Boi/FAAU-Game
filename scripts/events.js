@@ -112,7 +112,7 @@ const EVENT_RULES = [
     {
         id: 'secure_access_granted',
         when: (context = {}) =>
-                hasFlag('chapter_01_complete') &&
+            hasFlag('chapter_01_complete') &&
             (context.action === 'search' && context.term === 'avian'),
         do: () => {
             setFlag('secure_access_granted');
@@ -154,7 +154,7 @@ const EVENT_RULES = [
     {
         id: 'msg_alert_subject_003',
         when: (context = {}) =>
-                hasFlag('chapter_01_complete') &&
+            hasFlag('chapter_01_complete') &&
             (isCommandUnlocked('msg') && hasDiscoveredTerm('subject_003')) ||
             hasFlag('read_subject_003'),
         do: () => {
@@ -238,7 +238,7 @@ const EVENT_RULES = [
         when: (context = {}) =>
             (hasFlag('chapter_02_complete')) &&
             (context.action === 'search' &&
-            (context.term === 'wipe' || context.term === 'empathy' || context.term === 'healing')),
+                (context.term === 'wipe' || context.term === 'empathy' || context.term === 'healing')),
         do: () => {
             setFlag('abilities_dir_unlocked');
             return [
@@ -360,19 +360,20 @@ function applyEntryEffects(entry, unlockedTerms) {
 
 function getContactSpeakerAliases(contactId) {
     const map = {
-        watts: ['Dr. Watts'],
-        subject_008: ['Test Subject 008', 'Subject 008', 'Jaune Arc'],
         subject_001: ['Subject 001', 'Emerald Sustrai', 'Emerald'],
         subject_002: ['Subject 002', 'Roman Torchwick', 'Roman'],
-        subject_003: ['Subject 003', 'Hazel Rainart'],
-        subject_004: ['Subject 004', 'Neo Politan'],
-        subject_005: ['Subject 005', 'Tyrian Callows'],
-        subject_006: ['Subject 006', 'Mercury Black'],
-        subject_007: ['Subject 007', 'Cinder Fall'],
+        subject_003: ['Subject 003', 'Hazel Rainart', 'Hazel'],
+        subject_004: ['Subject 004', 'Neo Politan', 'Neo'],
+        subject_005: ['Subject 005', 'Tyrian Callows', 'Tyrian'],
+        subject_006: ['Subject 006', 'Mercury Black', 'Mercury'],
+        subject_007: ['Subject 007', 'Cinder Fall', 'Cinder'],
+        subject_008: ['Subject 008', 'Jaune Arc', 'Jaune'],
         salem: ['Director Salem', 'Salem', 'Director'],
-        polendina: ['Dr. Pietro Polendina', 'Dr. Polendina'],
-        ebi: ['Ebi', 'Clover Ebi'],
-        schnee: ['Schnee', 'Winter Schnee']
+        polendina: ['Dr. Polendina', 'Pietro'],
+        ebi: ['Clover Ebi', 'Clover'],
+        schnee: ['Winter Schnee', 'Winter'],
+        watts: ['Dr. Watts', 'Watts'],
+
     };
 
     return map[contactId] || [];
@@ -574,8 +575,10 @@ function formatSingleCameraEntry(chapter, entry, feedId, entryIndex, newlyUnlock
             chapterId: chapter.id,
             feedId,
             entryIndex,
+            entryKey: buildStoryEntryKey(chapter.id, entryIndex),
             unlockedTerms: newlyUnlockedTerms,
             sceneBlocks,
+            isReplay: false,
             title: entry.title || null
         }
     };
@@ -834,13 +837,16 @@ function openCameraSceneInterface(feedId) {
         markStoryEntryRead(nextEntry.entryKey);
         advanceChapterIfComplete(chapter, chapterIndex);
 
-        return formatSingleCameraEntry(
+        const result = formatSingleCameraEntry(
             chapter,
             nextEntry.entry,
             feedId,
             nextEntry.entryIndex,
             newlyUnlockedTerms
         );
+
+        result.meta.isReplay = false;
+        return result;
     }
 
     const latestEntry = findLatestCameraSceneEntryForFeed(chapter, feedId);
@@ -848,11 +854,14 @@ function openCameraSceneInterface(feedId) {
         return null;
     }
 
-    return formatSingleCameraEntry(
+    const result = formatSingleCameraEntry(
         chapter,
         latestEntry.entry,
         feedId,
         latestEntry.entryIndex,
         []
     );
+
+    result.meta.isReplay = true;
+    return result;
 }

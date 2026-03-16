@@ -94,15 +94,5 @@ const CONTACT_METADATA = Object.freeze({
     }
 });
 
-// Availability by chapter index.
-// Each entry can be a plain array of contact IDs, or an object with
-// { contacts: [...], requireFlag: 'flag_name' } to gate the group behind a flag.
-const CONTACT_AVAILABILITY_BY_CHAPTER = Object.freeze({
-    0: ['watts', 'subject_008'],
-    1: { contacts: ['watts', 'subject_001', 'subject_002', 'salem'], requireFlag: 'secure_access_granted' },
-    2: { contacts: ['watts', 'subject_001', 'subject_005', 'salem'], requireFlag: 'chapter_02_complete' }
-});
-
 // Expose metadata for non-module script usage.
 window.CONTACT_METADATA = CONTACT_METADATA;
-window.CONTACT_AVAILABILITY_BY_CHAPTER = CONTACT_AVAILABILITY_BY_CHAPTER;

@@ -28,17 +28,5 @@ const CAMERA_METADATA = Object.freeze({
 
 });
 
-
-// Camera availability by chapter index.
-const CAMERA_AVAILABILITY_BY_CHAPTER = Object.freeze({
-
-    // Chapter 2 unlocks the first surveillance feeds
-    1: ['avian_cellblock', 'containment_hallway_a'],
-    2: { feeds: ['avian_cellblock', 'containment_hallway_a', 'cafeteria'], requireFlag: 'chapter_02_complete' }
-
-});
-
-
 // Expose metadata for non-module script usage.
 window.CAMERA_METADATA = CAMERA_METADATA;
-window.CAMERA_AVAILABILITY_BY_CHAPTER = CAMERA_AVAILABILITY_BY_CHAPTER;

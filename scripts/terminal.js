@@ -461,36 +461,10 @@ function getDiscoveredMessageContacts() {
     const discoveredTerms = new Set((getDiscoveredTerms() || []).map(normalizeTermKey));
     const termMetadata = typeof TERM_METADATA !== 'undefined' ? TERM_METADATA : {};
     const contactMetadata = typeof CONTACT_METADATA !== 'undefined' ? CONTACT_METADATA : {};
-    const availabilityByChapter =
-        typeof CONTACT_AVAILABILITY_BY_CHAPTER !== 'undefined' ? CONTACT_AVAILABILITY_BY_CHAPTER : {};
     const currentChapterIndex = getCurrentChapterIndex();
-    const availableContacts = new Set();
-
-    for (const [chapterIndex, chapterValue] of Object.entries(availabilityByChapter)) {
-        const parsedChapterIndex = Number(chapterIndex);
-        if (Number.isNaN(parsedChapterIndex) || parsedChapterIndex > currentChapterIndex) {
-            continue;
-        }
-
-        const chapterEntry = Array.isArray(chapterValue)
-            ? { contacts: chapterValue }
-            : chapterValue;
-
-        if (chapterEntry.requireFlag && !hasFlag(chapterEntry.requireFlag)) {
-            continue;
-        }
-
-        for (const contactId of chapterEntry.contacts || []) {
-            availableContacts.add(contactId);
-        }
-    }
 
     const unlockedContacts = new Set();
     for (const [contactId, definition] of Object.entries(contactMetadata)) {
-        if (!availableContacts.has(contactId)) {
-            continue;
-        }
-
         if (definition.dialogueUnlockEvent && !hasTriggeredEvent(definition.dialogueUnlockEvent)) {
             continue;
         }
@@ -778,36 +752,12 @@ function openMessageContact(contactId) {
 
 function getAvailableCameraFeeds() {
     const feedMetadata = typeof CAMERA_METADATA !== 'undefined' ? CAMERA_METADATA : {};
-    const availabilityByChapter =
-        typeof CAMERA_AVAILABILITY_BY_CHAPTER !== 'undefined' ? CAMERA_AVAILABILITY_BY_CHAPTER : {};
     const currentChapterIndex = getCurrentChapterIndex();
     const currentChapter = typeof getChapterByIndex === 'function'
         ? getChapterByIndex(currentChapterIndex)
         : null;
-    const unlockedFeedIds = new Set();
-
-    for (const [chapterIndex, feedIds] of Object.entries(availabilityByChapter)) {
-        const parsedChapterIndex = Number(chapterIndex);
-        if (Number.isNaN(parsedChapterIndex) || parsedChapterIndex > currentChapterIndex) {
-            continue;
-        }
-
-        const chapterEntry = Array.isArray(feedIds)
-            ? { feeds: feedIds }
-            : feedIds;
-
-        if (chapterEntry.requireFlag && !hasFlag(chapterEntry.requireFlag)) {
-            continue;
-        }
-
-        for (const feedId of chapterEntry.feeds || []) {
-            unlockedFeedIds.add(feedId);
-        }
-    }
 
     const feedEntries = Object.entries(feedMetadata).map(([feedId, definition]) => {
-        const hasChapterAvailability = Object.keys(availabilityByChapter).length > 0;
-        const isSelectable = hasChapterAvailability ? unlockedFeedIds.has(feedId) : true;
         const hasUnreadChapterScene = Boolean(
             currentChapter &&
             typeof findNextCameraSceneEntryForFeed === 'function' &&
@@ -826,10 +776,16 @@ function getAvailableCameraFeeds() {
             )
         );
 
+        const hasFeedSceneHistory = typeof getCameraFeedSceneHistory === 'function'
+            && getCameraFeedSceneHistory(feedId).length > 0;
+
+        const hasAssociatedEntries = hasUnlockedChapterScene || hasFeedSceneHistory;
+        const isSelectable = hasAssociatedEntries;
+
         let status = 'OFFLINE';
         if (hasUnreadChapterScene) {
             status = '● LIVE';
-        } else if (hasUnlockedChapterScene) {
+        } else if (hasAssociatedEntries) {
             status = 'STANDBY';
         } else if (!currentChapter) {
             status = String(definition.status || '● LIVE').toUpperCase() === 'LIVE'
@@ -839,17 +795,25 @@ function getAvailableCameraFeeds() {
 
         const fallbackLabel = String(feedId).replace(/_/g, ' ').toUpperCase();
 
-        const normalizedStatus = String(status).replace(/^\u25CF\s*/, '').toUpperCase();
-
         let statusClass = 'is-live';
-        if (normalizedStatus === 'OFFLINE') {
-            statusClass = 'is-offline';
-        } else if (normalizedStatus === 'STANDBY') {
+        if (hasUnreadChapterScene) {
+            statusClass = 'is-live';
+        } else if (hasAssociatedEntries) {
             statusClass = 'is-standby';
+        } else if (currentChapter) {
+            // No unlocked or historical scene for this feed: render as gray offline.
+            statusClass = 'is-offline';
+        } else {
+            const normalizedStatus = String(status).replace(/^\u25CF\s*/, '').toUpperCase();
+            if (normalizedStatus === 'OFFLINE') {
+                statusClass = 'is-offline';
+            } else if (normalizedStatus === 'STANDBY') {
+                statusClass = 'is-standby';
+            }
         }
 
         if (!isSelectable) {
-            statusClass = 'is-restricted';
+            statusClass = 'is-offline';
         }
 
         const description = typeof definition.description === 'string'
@@ -879,7 +843,7 @@ function getAvailableCameraFeeds() {
             recording: definition.recording || 'ENABLED',
             sceneBlocks,
             isSelectable,
-            availabilityLabel: isSelectable ? status : 'OFFLINE',
+            availabilityLabel: status,
             statusClass
         };
     });
@@ -988,20 +952,6 @@ function openCameraFeed(feedId) {
         setCameraBackAction(showCameraFeedDirectory, 'DIRECTORY');
     }
 
-    if (!feed.isSelectable) {
-        if (typeof setCameraStatus === 'function') {
-            setCameraStatus(`CAMERA: ${feed.camera} | STATUS: OFFLINE | RECORDING: LOCKED`);
-        }
-
-        if (typeof renderCameraLines === 'function') {
-            renderCameraLines([
-                'Feed access restricted.',
-                'Additional containment records are required to restore this archive node.'
-            ]);
-        }
-        return;
-    }
-
     const chapterSceneResult = typeof openCameraSceneInterface === 'function'
         ? openCameraSceneInterface(feed.id)
         : null;
@@ -1011,8 +961,19 @@ function openCameraFeed(feedId) {
             setCameraWindowTitle(chapterSceneResult.meta.title);
         }
 
+        if (typeof appendCameraFeedSceneHistory === 'function' && !chapterSceneResult.meta.isReplay) {
+            appendCameraFeedSceneHistory(feed.id, chapterSceneResult.meta.sceneBlocks);
+        }
+
+        const cameraSceneHistory = typeof getCameraFeedSceneHistory === 'function'
+            ? getCameraFeedSceneHistory(feed.id)
+            : [];
+        const sceneBlocksToRender = cameraSceneHistory.length > 0
+            ? cameraSceneHistory
+            : chapterSceneResult.meta.sceneBlocks;
+
         if (typeof renderCameraScene === 'function') {
-            renderCameraScene(chapterSceneResult.meta.sceneBlocks);
+            renderCameraScene(sceneBlocksToRender);
         }
 
         handleResultMeta(chapterSceneResult.meta);
@@ -1021,6 +982,20 @@ function openCameraFeed(feedId) {
             printLines(eventLines);
         }
 
+        return;
+    }
+
+    if (!feed.isSelectable) {
+        if (typeof setCameraStatus === 'function') {
+            setCameraStatus(`CAMERA: ${feed.camera} | STATUS: OFFLINE | RECORDING: LOCKED`);
+        }
+
+        if (typeof renderCameraLines === 'function') {
+            renderCameraLines([
+                'No archived feed entries are associated with this camera yet.',
+                'Status remains OFFLINE.'
+            ]);
+        }
         return;
     }
 
