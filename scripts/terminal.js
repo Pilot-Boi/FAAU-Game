@@ -304,14 +304,18 @@ function getContactDisplayLabel(contactId, definition, discoveredTerms, termMeta
         return fallbackLabel;
     }
 
-    if (hasFlag('secure_access_granted')) {
-        const secureRevealContacts = new Set(['subject_001', 'subject_002', 'subject_003']);
-        if (secureRevealContacts.has(contactId)) {
-            const firstReveal = definition.revealedNames[0];
-            if (firstReveal && firstReveal.label) {
-                return firstReveal.label;
-            }
-        }
+    const firstReveal = definition.revealedNames[0];
+
+    if (definition.revealOnFileRead) {
+        return hasReadFile(definition.revealOnFileRead)
+            ? ((firstReveal && firstReveal.label) || fallbackLabel)
+            : fallbackLabel;
+    }
+
+    if (definition.revealOnFlag) {
+        return hasFlag(definition.revealOnFlag)
+            ? ((firstReveal && firstReveal.label) || fallbackLabel)
+            : fallbackLabel;
     }
 
     for (const reveal of definition.revealedNames) {
@@ -521,10 +525,14 @@ function getDiscoveredMessageContacts() {
             const defaultLabel = definition.label || meta.label || fallbackLabel;
             const displayLabel = getContactDisplayLabel(contactId, definition, discoveredTerms, termMetadata, defaultLabel);
             const contactIsUnlockedByDirectoryRules = unlockedContacts.has(contactId);
+            const hasPastSceneHistory = typeof getContactMessageSceneHistory === 'function'
+                && getContactMessageSceneHistory(contactId).length > 0;
             const hasUnlockedDialogue = Boolean(
                 contactIsUnlockedByDirectoryRules &&
-                currentChapter &&
-                contactHasUnlockedDialogueInChapter(currentChapter, contactId)
+                (
+                    hasPastSceneHistory ||
+                    (currentChapter && contactHasUnlockedDialogueInChapter(currentChapter, contactId))
+                )
             );
             const hasUnreadDialogue = unreadContacts.has(contactId);
 
@@ -871,7 +879,7 @@ function getAvailableCameraFeeds() {
             recording: definition.recording || 'ENABLED',
             sceneBlocks,
             isSelectable,
-            availabilityLabel: isSelectable ? status : 'RESTRICTED',
+            availabilityLabel: isSelectable ? status : 'OFFLINE',
             statusClass
         };
     });
@@ -982,7 +990,7 @@ function openCameraFeed(feedId) {
 
     if (!feed.isSelectable) {
         if (typeof setCameraStatus === 'function') {
-            setCameraStatus(`CAMERA: ${feed.camera} | STATUS: RESTRICTED | RECORDING: LOCKED`);
+            setCameraStatus(`CAMERA: ${feed.camera} | STATUS: OFFLINE | RECORDING: LOCKED`);
         }
 
         if (typeof renderCameraLines === 'function') {

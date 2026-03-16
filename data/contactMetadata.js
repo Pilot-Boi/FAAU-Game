@@ -5,6 +5,7 @@ const CONTACT_METADATA = Object.freeze({
         termKey: 'subject_001',
         label: 'Subject 001',
         dialogueUnlockEvent: 'msg_alert_subject_003',
+        revealOnFileRead: '/secure/subjects/subject_001.txt',
         revealedNames: [
             { term: 'emerald', label: 'Emerald Sustrai' }
         ]
@@ -13,6 +14,7 @@ const CONTACT_METADATA = Object.freeze({
         termKey: 'subject_002',
         label: 'Subject 002',
         dialogueUnlockEvent: 'msg_alert_subject_002_read',
+        revealOnFileRead: '/secure/subjects/subject_002.txt',
         revealedNames: [
             { term: 'roman', label: 'Roman Torchwick' }
         ]
@@ -20,6 +22,7 @@ const CONTACT_METADATA = Object.freeze({
     subject_003: {
         termKey: 'subject_003',
         label: 'Subject 003',
+        revealOnFileRead: '/secure/subjects/subject_003.txt',
         revealedNames: [
             { term: 'hazel', label: 'Hazel Rainart' }
         ]
@@ -27,6 +30,7 @@ const CONTACT_METADATA = Object.freeze({
     subject_004: {
         termKey: 'subject_004',
         label: 'Subject 004',
+        revealOnFileRead: '/secure/subjects/subject_004.txt',
         revealedNames: [
             { term: 'neo', label: 'Neo Politan' }
         ]
@@ -34,6 +38,7 @@ const CONTACT_METADATA = Object.freeze({
     subject_005: {
         termKey: 'subject_005',
         label: 'Subject 005',
+        revealOnFileRead: '/secure/subjects/subject_005.txt',
         revealedNames: [
             { term: 'tyrian', label: 'Tyrian Callows' }
         ]
@@ -41,6 +46,7 @@ const CONTACT_METADATA = Object.freeze({
     subject_006: {
         termKey: 'subject_006',
         label: 'Subject 006',
+        revealOnFileRead: '/secure/subjects/subject_006.txt',
         revealedNames: [
             { term: 'mercury', label: 'Mercury Black' }
         ]
@@ -48,6 +54,7 @@ const CONTACT_METADATA = Object.freeze({
     subject_007: {
         termKey: 'subject_007',
         label: 'Subject 007',
+        revealOnFileRead: '/secure/subjects/subject_007.txt',
         revealedNames: [
             { term: 'cinder', label: 'Cinder Fall' }
         ]
@@ -55,6 +62,7 @@ const CONTACT_METADATA = Object.freeze({
     subject_008: {
         termKey: 'subject_008',
         label: 'Subject 008',
+        revealOnFileRead: '/secure/subjects/subject_008.txt',
         revealedNames: [
             { term: 'jaune', label: 'Jaune Arc' }
         ]
@@ -63,6 +71,7 @@ const CONTACT_METADATA = Object.freeze({
         termKey: 'salem',
         label: 'Director',
         dialogueUnlockEvent: 'msg_alert_chapter_02_end',
+        revealOnFlag: 'chapter_01_complete',
         revealedNames: [
             { term: 'salem', label: 'Director Salem' }
         ]
