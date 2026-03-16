@@ -250,6 +250,7 @@ const EVENT_RULES = [
     {
         id: 'msg_alert_empathy',
         when: () =>
+            hasFlag('chapter_02_complete') &&
             hasFlag('abilities_dir_unlocked') &&
             isCommandUnlocked('msg') &&
             hasFlag('read_ability_empathy'),
@@ -258,7 +259,36 @@ const EVENT_RULES = [
                 '[SYSTEM] Relay status update: new communication available in msg.'
             ];
         }
-    }
+    },
+
+    {
+        id: 'msg_alert_tyrian',
+        when: () =>
+            hasFlag('chapter_02_complete') &&
+            hasFlag('read_subject_005') &&
+            isCommandUnlocked('msg'),
+        do: () => {
+            return [
+                '[SYSTEM] Relay status update: new communication available in msg.'
+            ];
+        }
+    },
+
+    {
+        id: 'cams_alert_chapter_03_end',
+        when: () =>
+            hasFlag('chapter_02_complete') &&
+            isCommandUnlocked('cams') &&
+            hasFlag('chapter_03_entry_01') &&
+            hasFlag('chapter_03_entry_02') &&
+            hasFlag('chapter_03_entry_03') &&
+            hasFlag('chapter_03_entry_04'),
+        do: () => {
+            return [
+                '[SYSTEM] Relay status update: critical live feed available in cams.'
+            ];
+        }
+    },
 ];
 
 

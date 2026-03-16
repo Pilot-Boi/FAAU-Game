@@ -94,6 +94,7 @@ const CHAPTER_02 = {
             type: 'scene',
             feedId: 'avian_cellblock',
             title: 'Avian Cellblock',
+            discoverTerms: ['avian_cellblock'],
             setFlags: ['chapter_02_entry_01'],
             blocks: [
                 {
@@ -127,6 +128,7 @@ const CHAPTER_02 = {
             type: 'scene',
             feedId: 'containment_hallway_a',
             title: 'Containment Hallway A',
+            discoverTerms: ['healing', 'containment_hallways'],
             setFlags: ['chapter_02_entry_02'],
             blocks: [
                 {

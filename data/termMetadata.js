@@ -68,6 +68,17 @@ const TERM_METADATA = Object.freeze({
             'Each lab is equipped with advanced instrumentation, secure data terminals, and containment protocols (including restraints and speech hindering equipment) appropriate to the research being conducted.',
         ]
     },
+    cafeteria: {
+        label: 'Cafeteria',
+        type: 'location',
+        summary: [
+            'The cafeteria serves as a communal dining area for Facility personnel and is located within the central operations sector.',
+            'The facility provides a range of meal options designed to accommodate the diverse dietary needs of staff members, including specialized nutrition plans for personnel with unique physiological requirements.',
+            '',
+            'Note: Due to the unique disposition of Subject_008, they are permitted to consume meals within the cafeteria under supervised conditions.',
+            'This accommodation is granted in recognition of Subject_008’s inability to disobey Facility protocols.',
+        ]
+    },
 
     // People
     director: { label: 'Director', type: 'person' },

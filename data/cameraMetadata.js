@@ -19,6 +19,11 @@ const CAMERA_METADATA = Object.freeze({
     testing_chamber: {
         feedKey: 'testing_chamber',
         label: 'Testing Chamber',
+    },
+
+    cafeteria: {
+        feedKey: 'cafeteria',
+        label: 'Cafeteria',
     }
 
 });
