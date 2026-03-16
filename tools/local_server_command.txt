@@ -1,0 +1,7 @@
+INSTRUCTIONS:
+
+1. Put below command into terminal
+Set-Location "c:\Users\dugan\OneDrive\Desktop\FAAU Game"; py -m http.server 8000 --bind 127.0.0.1
+
+2. Click link
+http://127.0.0.1:8000
