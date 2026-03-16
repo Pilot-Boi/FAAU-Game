@@ -42,7 +42,11 @@ Source: scripts/directory.js
     |   |-- subject_007.txt [requires flag: subject_007_file_unlocked]
     |   `-- subject_008.txt [requires flag: subject_008_file_unlocked]
     `-- containment/
-        `-- containment_overview.txt
+        |-- containment_overview.txt
+        |-- protocol_overview.txt
+        |-- vocal_restraint_protocol.txt [requires flag: vocal_restraint_unlocked]
+        |-- reinforced_containment_protocol.txt [requires flag: reinforced_containment_unlocked]
+        `-- observation_barrier_protocol.txt [requires flag: observation_barrier_unlocked]
 
 Notes:
 - This diagram is auto-generated from FILE_SYSTEM in scripts/directory.js.
