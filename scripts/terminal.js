@@ -129,6 +129,14 @@ function getTerminalLineClass(text) {
         return '';
     }
 
+    if (/^===\s*CHAPTER\s+\d+\s+COMPLETE:/i.test(normalized)) {
+        return 'terminal-line-alert';
+    }
+
+    if (normalized.startsWith('[SYSTEM] Relay status update:')) {
+        return 'terminal-line-alert';
+    }
+
     if (normalized.startsWith('[SYSTEM]')) {
         return 'terminal-line-system';
     }
@@ -511,8 +519,6 @@ function displayMessageWindowResult(result, statusText = 'CHANNEL ACTIVE') {
 
     if (result.meta && Array.isArray(result.meta.sceneBlocks) && typeof renderMessageScene === 'function') {
         renderMessageScene(result.meta.sceneBlocks);
-    } else if (result.meta && Array.isArray(result.meta.conversation) && typeof renderMessageConversation === 'function') {
-        renderMessageConversation(result.meta.conversation);
     } else if (typeof renderMessageLines === 'function' && result.entries) {
         renderMessageLines(result.entries);
     }
@@ -620,19 +626,9 @@ function openMessageContact(contactId) {
     const sceneHistory = typeof getContactMessageSceneHistory === 'function'
         ? getContactMessageSceneHistory(contactId)
         : [];
-    const conversationHistory = typeof getContactMessageHistory === 'function'
-        ? getContactMessageHistory(contactId)
-        : [];
-
     if (!contactHasUnreadDialogue(contactId)) {
         if (typeof renderMessageScene === 'function' && sceneHistory.length > 0) {
             renderMessageScene(applyMessageUnredactionSceneBlocks(sceneHistory));
-            return;
-        }
-
-        if (typeof renderMessageConversation === 'function' && conversationHistory.length > 0) {
-            const unredactedConversation = applyMessageUnredactionConversationItems(conversationHistory);
-            renderMessageConversation(unredactedConversation, { animateFromIndex: unredactedConversation.length });
             return;
         }
 
@@ -654,8 +650,6 @@ function openMessageContact(contactId) {
         return;
     }
 
-    let newlyAppendedCount = 0;
-
     if (result.meta && Array.isArray(result.meta.sceneBlocks) && typeof renderMessageScene === 'function') {
         if (typeof appendContactMessageSceneHistory === 'function') {
             appendContactMessageSceneHistory(contactId, result.meta.sceneBlocks);
@@ -666,19 +660,6 @@ function openMessageContact(contactId) {
             : result.meta.sceneBlocks;
 
         renderMessageScene(applyMessageUnredactionSceneBlocks(updatedSceneHistory));
-    } else if (result.meta && result.meta.action === 'story' && Array.isArray(result.meta.conversation)) {
-        appendContactMessageHistory(contactId, result.meta.conversation);
-        newlyAppendedCount = result.meta.conversation.length;
-
-        const updatedConversationHistory = getContactMessageHistory(contactId);
-        if (typeof renderMessageConversation === 'function' && updatedConversationHistory.length > 0) {
-            const unredactedConversation = applyMessageUnredactionConversationItems(updatedConversationHistory);
-            const animateFromIndex = newlyAppendedCount > 0
-                ? Math.max(0, unredactedConversation.length - newlyAppendedCount)
-                : unredactedConversation.length;
-
-            renderMessageConversation(unredactedConversation, { animateFromIndex });
-        }
     } else if (typeof renderMessageLines === 'function' && result.entries) {
         renderMessageLines(result.entries);
     }
@@ -877,6 +858,28 @@ function openCameraFeed(feedId) {
                 'Additional containment records are required to restore this archive node.'
             ]);
         }
+        return;
+    }
+
+    const chapterSceneResult = typeof openCameraSceneInterface === 'function'
+        ? openCameraSceneInterface(feed.id)
+        : null;
+
+    if (chapterSceneResult && chapterSceneResult.meta && Array.isArray(chapterSceneResult.meta.sceneBlocks)) {
+        if (typeof setCameraWindowTitle === 'function' && chapterSceneResult.meta.title) {
+            setCameraWindowTitle(chapterSceneResult.meta.title);
+        }
+
+        if (typeof renderCameraScene === 'function') {
+            renderCameraScene(chapterSceneResult.meta.sceneBlocks);
+        }
+
+        handleResultMeta(chapterSceneResult.meta);
+        const eventLines = evaluateEvents(chapterSceneResult.meta);
+        if (eventLines.length > 0) {
+            printLines(eventLines);
+        }
+
         return;
     }
 
