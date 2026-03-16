@@ -33,7 +33,8 @@ const GAME_STATE = {
         chapterPlayed: new Set(),
         readEntryKeys: new Set(),
         contactMessageHistory: {},
-        contactMessageSceneHistory: {}
+        contactMessageSceneHistory: {},
+        cameraFeedSceneHistory: {}
     }
 };
 
@@ -190,6 +191,26 @@ function getContactMessageSceneHistory(contactId) {
     return [...GAME_STATE.storyState.contactMessageSceneHistory[contactId]];
 }
 
+function appendCameraFeedSceneHistory(feedId, sceneBlocks = []) {
+    if (!feedId || !Array.isArray(sceneBlocks) || sceneBlocks.length === 0) {
+        return;
+    }
+
+    if (!GAME_STATE.storyState.cameraFeedSceneHistory[feedId]) {
+        GAME_STATE.storyState.cameraFeedSceneHistory[feedId] = [];
+    }
+
+    GAME_STATE.storyState.cameraFeedSceneHistory[feedId].push(...sceneBlocks);
+}
+
+function getCameraFeedSceneHistory(feedId) {
+    if (!feedId || !Array.isArray(GAME_STATE.storyState.cameraFeedSceneHistory[feedId])) {
+        return [];
+    }
+
+    return [...GAME_STATE.storyState.cameraFeedSceneHistory[feedId]];
+}
+
 
 function getGameState() {
     return GAME_STATE;
@@ -221,4 +242,5 @@ function resetGameState() {
     GAME_STATE.storyState.readEntryKeys.clear();
     GAME_STATE.storyState.contactMessageHistory = {};
     GAME_STATE.storyState.contactMessageSceneHistory = {};
+    GAME_STATE.storyState.cameraFeedSceneHistory = {};
 }
