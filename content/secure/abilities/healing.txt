@@ -1,3 +1,44 @@
 ABILITY OVERVIEW // HEALING
 
-Fill in information later
+Classification:
+Biological Amplification / Regenerative Enhancement
+
+Primary: Subject 008
+
+Summary:
+The ability designated "Healing" allows the Primary subject to accelerate the natural recovery processes of a target individual through direct contact.
+
+Upon activation, the subject appears capable of enhancing cellular repair, stabilizing injuries, and restoring physical condition at a rate far exceeding normal biological limits.
+
+The effect does not generate new biological material, but instead amplifies the body's existing capacity for recovery.
+
+Mechanism:
+Activation requires direct physical contact between Subject 008 and the target individual. During activation, a localized increase in regenerative activity is observed within the affected tissue.
+
+The subject appears to stimulate cellular repair, increase metabolic activity, and stabilize damaged structures simultaneously.
+
+The underlying mechanism responsible for this amplification remains unknown.
+
+Observed Effects:
+- Rapid closure of wounds and stabilization ofdamaged tissue
+- Significant reduction in recovery time for injuries
+- Temporary increase in overall physical stability of the target
+- Reduction in pain response following activation
+
+Healing effects scale with duration of contact and the subject’s level of exertion.
+
+Limitations:
+- Requires sustained physical contact with the target individual
+- Effectiveness decreases when applied to severe or widespread trauma
+- Repeated use places measurable strain on Subject 008
+- The ability cannot restore fully destroyed or missing tissue
+
+Security Notes:
+The ability presents a unique support capability among test subjects and may be used to extend the operational lifespan of other avians.
+
+Subject 008 should be deployed alongside other subjects to maintain operational viability.
+
+Use of the ability should be monitored, as repeated activation may result in fatigue or diminished effectiveness in Subject 008.
+
+Note:
+Subject 008 demonstrates a consistent tendency to use this ability on other subjects without instruction.

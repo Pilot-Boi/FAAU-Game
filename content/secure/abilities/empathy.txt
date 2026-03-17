@@ -3,8 +3,16 @@ ABILITY OVERVIEW // EMPATHY LINK
 Classification:
 Cognitive Resonance / Emotional Perception
 
+Observed Bonds:
+
+Primary: Subject 004  
+Secondary: Subject 002
+
+Primary: Subject 008  
+Secondary: P. Nikos (civilian)
+
 Summary:
-Empathy is an avian cognitive ability allowing the Primary subject to perceive and internally replicate the emotional and physical states of a bonded Secondary individual. The ability manifests through the formation of a persistent empathic link between two individuals.
+The ability designated "Empathy" is an avian cognitive ability allowing the Primary subject to perceive and internally replicate the emotional and physical states of a bonded Secondary individual. The ability manifests through the formation of a persistent empathic link between two individuals.
 
 While primarily emotional in nature, the bond may also transmit limited physical sensation when the Secondary individual experiences injury.
 
@@ -14,14 +22,6 @@ Facility Terminology:
 Primary – The avian possessing the Empathy ability and generating the empathic link.
 
 Secondary – The individual bonded to the Primary subject and whose emotional and physical states may be perceived through the link.
-
-Observed Bonds:
-
-Primary: Subject 004  
-Secondary: Subject 002
-
-Primary: Subject 008  
-Secondary: P. Nikos (civilian)
 
 Mechanism:
 Testing indicates the ability functions through a persistent cognitive resonance formed between the Primary and Secondary individuals. Once established, the Primary subject  becomes capable of perceiving the emotional state of the Secondary with high fidelity.
