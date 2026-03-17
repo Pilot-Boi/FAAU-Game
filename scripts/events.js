@@ -27,6 +27,10 @@ const EVENT_RULES = [
             (isCommandUnlocked('msg') && hasDiscoveredTerm('watts')) ||
             isDevTermUnlock(context, 'watts'),
         do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
             return [
                 '[SYSTEM] Relay status update: new communication available in msg.'
             ];
@@ -42,6 +46,10 @@ const EVENT_RULES = [
             hasFlag('chapter_01_entry_04'),
         do: () => {
             setFlag('chapter_01_complete');
+            // Play chapter complete sound
+            if (typeof playSound === 'function') {
+                playSound('chapter_complete');
+            }
             return [
                 '=== CHAPTER 1 COMPLETE: INITIAL CONTACT ==='
             ];
@@ -131,6 +139,10 @@ const EVENT_RULES = [
             isCommandUnlocked('msg') &&
             hasFlag('secure_access_granted'),
         do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
             return [
                 '[SYSTEM] Relay status update: new communication available in msg.'
             ];
@@ -145,6 +157,10 @@ const EVENT_RULES = [
             isCommandUnlocked('msg') &&
             hasFlag('read_subject_002'),
         do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
             return [
                 '[SYSTEM] Relay status update: new communication available in msg.'
             ];
@@ -158,6 +174,10 @@ const EVENT_RULES = [
             (isCommandUnlocked('msg') && hasDiscoveredTerm('subject_003')) ||
             hasFlag('read_subject_003'),
         do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
             return [
                 '[SYSTEM] Relay status update: new communication available in msg.'
             ];
@@ -192,6 +212,10 @@ const EVENT_RULES = [
             hasFlag('chapter_02_entry_04') &&
             hasFlag('chapter_02_entry_05'),
         do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
             return [
                 '[SYSTEM] Relay status update: critical communication available in msg.'
             ];
@@ -210,6 +234,10 @@ const EVENT_RULES = [
             hasFlag('chapter_02_entry_06'),
         do: () => {
             setFlag('chapter_02_complete');
+            // Play chapter complete sound
+            if (typeof playSound === 'function') {
+                playSound('chapter_complete');
+            }
             return [
                 '=== CHAPTER 2 COMPLETE: THROUGH THE GLASS ==='
             ];
@@ -256,6 +284,10 @@ const EVENT_RULES = [
             isCommandUnlocked('msg') &&
             hasFlag('read_ability_empathy'),
         do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
             return [
                 '[SYSTEM] Relay status update: new communication available in msg.'
             ];
@@ -269,6 +301,10 @@ const EVENT_RULES = [
             hasFlag('read_subject_005') &&
             isCommandUnlocked('msg'),
         do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
             return [
                 '[SYSTEM] Relay status update: new communication available in msg.'
             ];
@@ -302,6 +338,10 @@ const EVENT_RULES = [
             hasFlag('chapter_03_entry_05'),
         do: () => {
             setFlag('chapter_03_complete');
+            // Play chapter complete sound
+            if (typeof playSound === 'function') {
+                playSound('chapter_complete');
+            }
             return [
                 '=== CHAPTER 3 COMPLETE: EMPATHY AND THREATS ==='
             ];

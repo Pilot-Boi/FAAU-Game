@@ -1,4 +1,4 @@
-// scripts/soundManager.js
+// Sound Manager for FAAU Game
 
 const SOUND_FILES = {
     boot: 'assets/sounds/boot.mp3',
@@ -32,4 +32,27 @@ function playSound(key, options = {}) {
     sound.play().catch(() => {});
 }
 
+// Typing sound management - prevent overlapping typing sounds
+let typingTimeout = null;
+let isTypingPlaying = false;
+
+function startTypingSound() {
+    // Stop any pending typing stop
+    if (typingTimeout) {
+        clearTimeout(typingTimeout);
+    }
+    
+    // Only start a new typing sound if one isn't already playing
+    if (!isTypingPlaying) {
+        playSound('typing', { volume: 0.3 });
+        isTypingPlaying = true;
+    }
+    
+    // Schedule typing sound to stop after a period of no input
+    typingTimeout = setTimeout(() => {
+        isTypingPlaying = false;
+    }, 150);
+}
+
 window.playSound = playSound;
+window.startTypingSound = startTypingSound;

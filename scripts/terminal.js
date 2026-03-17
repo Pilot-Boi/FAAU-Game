@@ -218,6 +218,18 @@ function appendOutputLine(text, extraClasses = []) {
     }
 
     line.textContent = resolvedText;
+    
+    // Play sound effects based on line type
+    if (lineClass === 'terminal-line-error') {
+        if (typeof playSound === 'function') {
+            playSound('error');
+        }
+    } else if (lineClass === 'terminal-line-alert') {
+        if (typeof playSound === 'function') {
+            playSound('notification');
+        }
+    }
+    
     return line;
 }
 
@@ -1608,6 +1620,11 @@ function wait(ms) {
 
 // Run startup sequence, then reveal interactive prompt.
 async function runBootSequence() {
+    // Play boot sound
+    if (typeof playSound === 'function') {
+        playSound('boot');
+    }
+    
     terminalOutput.textContent = '';
 
     for (const line of bootLines) {
@@ -1647,6 +1664,11 @@ terminalPrompt.addEventListener('click', () => {
 // Keep input as plain one-line command entry.
 promptInput.setAttribute('contenteditable', 'true');
 promptInput.addEventListener('keydown', (event) => {
+    // Play typing sound for regular key presses
+    if (event.key !== 'Enter' && event.key !== 'Backspace' && typeof startTypingSound === 'function') {
+        startTypingSound();
+    }
+    
     if (event.key === 'Enter') {
         event.preventDefault();
         const commandText = promptInput.textContent.replace(/\n/g, '');

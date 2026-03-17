@@ -129,6 +129,10 @@
 
             if (contact.isSelectable && typeof onSelect === 'function') {
                 button.addEventListener('click', () => {
+                    // Play click sound
+                    if (typeof playSound === 'function') {
+                        playSound('click');
+                    }
                     onSelect(contact.id);
                 });
             }
@@ -295,6 +299,11 @@
             return;
         }
 
+        // Play open_view sound
+        if (typeof playSound === 'function') {
+            playSound('open_view');
+        }
+
         previousFocusedElement = document.activeElement;
         clearMessageWindow();
 
@@ -346,6 +355,9 @@
 
     if (backButton) {
         backButton.addEventListener('click', () => {
+            if (typeof playSound === 'function') {
+                playSound('click');
+            }
             if (typeof backAction === 'function') {
                 backAction();
             }
@@ -354,6 +366,9 @@
 
     if (nextButton) {
         nextButton.addEventListener('click', () => {
+            if (typeof playSound === 'function') {
+                playSound('click');
+            }
             if (typeof nextAction === 'function') {
                 nextAction();
             }

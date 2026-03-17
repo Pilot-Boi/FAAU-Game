@@ -143,6 +143,10 @@
 
             if (feed.isSelectable && typeof onSelect === 'function') {
                 button.addEventListener('click', () => {
+                    // Play click sound
+                    if (typeof playSound === 'function') {
+                        playSound('click');
+                    }
                     onSelect(feed.id);
                 });
             }
@@ -258,6 +262,11 @@
             return;
         }
 
+        // Play open_view sound
+        if (typeof playSound === 'function') {
+            playSound('open_view');
+        }
+
         previousFocusedElement = document.activeElement;
         clearCameraWindow();
 
@@ -315,6 +324,9 @@
 
     if (backButton) {
         backButton.addEventListener('click', () => {
+            if (typeof playSound === 'function') {
+                playSound('click');
+            }
             if (typeof backAction === 'function') {
                 backAction();
             }
