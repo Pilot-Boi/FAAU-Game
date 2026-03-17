@@ -528,6 +528,23 @@ const FILE_SYSTEM = {
 const currentPathSegments = [];
 const contentFileCache = new Map();
 const MAX_LINE_LENGTH = 64;
+const PROFILE_UNLOCK_FLAGS = Object.freeze([
+    'profile_ironwood_unlocked',
+    'profile_watts_unlocked',
+    'profile_polendina_unlocked',
+    'profile_ebi_unlocked',
+    'profile_schnee_unlocked'
+]);
+
+function syncProfileArchiveVisibility() {
+    if (hasFlag('profile_archive_visible')) {
+        return;
+    }
+
+    if (PROFILE_UNLOCK_FLAGS.some((flagName) => hasFlag(flagName))) {
+        setFlag('profile_archive_visible');
+    }
+}
 
 function wrapLineToMaxLength(line, maxLength = MAX_LINE_LENGTH) {
     const source = String(line || '');
@@ -672,6 +689,8 @@ function formatCurrentPath() {
 
 // Path resolution function that handles absolute and relative paths, including '.' and '..' segments.
 function resolvePath(pathString = '') {
+    syncProfileArchiveVisibility();
+
     const rawPath = pathString.trim();
 
     if (!rawPath) {
@@ -734,6 +753,8 @@ function resolvePath(pathString = '') {
 
 // Return formatted directory entries for the active folder.
 function getDirectoryEntries(targetPath = '') {
+    syncProfileArchiveVisibility();
+
     let directory;
     let resolvedPath;
 
@@ -851,6 +872,8 @@ function changeDirectory(target) {
 
 // Open a file and return printable lines for the terminal.
 async function openFile(filePath) {
+    syncProfileArchiveVisibility();
+
     if (!filePath) {
         return { error: 'Usage: open [file]' };
     }
@@ -976,6 +999,8 @@ function unlockSearchTermFiles(term) {
 
 // Search for a term in the discovered index and return results for the terminal.
 function searchTerm(rawTerm) {
+    syncProfileArchiveVisibility();
+
     if (!rawTerm) {
         return { error: 'Usage: search [term]' };
     }
@@ -1018,6 +1043,8 @@ function searchTerm(rawTerm) {
     }
 
     const unlockedPaths = unlockSearchTermFiles(term);
+    syncProfileArchiveVisibility();
+
     if (unlockedPaths.length > 0) {
         lines.push('');
         lines.push('[SYSTEM] Personnel archive updated.');
