@@ -302,7 +302,7 @@ const FILE_SYSTEM = {
                                     terms: ['subject_001', 'test_subjects'],
                                     onOpenFlag: 'read_subject_001',
                                     imageAttachment: {
-                                        src: 'assets/subjects/subject_001.png',
+                                        src: 'assets/images/subject_001.png',
                                         title: 'SUBJECT 001 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_001 asset when available.'
                                     },
@@ -313,7 +313,7 @@ const FILE_SYSTEM = {
                                     terms: ['subject_002', 'test_subjects'],
                                     onOpenFlag: 'read_subject_002',
                                     imageAttachment: {
-                                        src: 'assets/subjects/subject_002.png',
+                                        src: 'assets/images/subject_002.png',
                                         title: 'SUBJECT 002 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_002 asset when available.'
                                     },
@@ -324,7 +324,7 @@ const FILE_SYSTEM = {
                                     terms: ['subject_003', 'test_subjects'],
                                     onOpenFlag: 'read_subject_003',
                                     imageAttachment: {
-                                        src: 'assets/subjects/subject_003.png',
+                                        src: 'assets/images/subject_003.png',
                                         title: 'SUBJECT 003 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_003 asset when available.'
                                     },
@@ -337,7 +337,7 @@ const FILE_SYSTEM = {
                                     terms: ['subject_004', 'test_subjects'],
                                     onOpenFlag: 'read_subject_004',
                                     imageAttachment: {
-                                        src: 'assets/subjects/subject_004.png',
+                                        src: 'assets/images/subject_004.png',
                                         title: 'SUBJECT 004 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_004 asset when available.'
                                     },
@@ -350,7 +350,7 @@ const FILE_SYSTEM = {
                                     terms: ['subject_005', 'test_subjects'],
                                     onOpenFlag: 'read_subject_005',
                                     imageAttachment: {
-                                        src: 'assets/subjects/subject_005.png',
+                                        src: 'assets/images/subject_005.png',
                                         title: 'SUBJECT 005 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_005 asset when available.'
                                     },
@@ -363,7 +363,7 @@ const FILE_SYSTEM = {
                                     terms: ['subject_006', 'test_subjects'],
                                     onOpenFlag: 'read_subject_006',
                                     imageAttachment: {
-                                        src: 'assets/subjects/subject_006.png',
+                                        src: 'assets/images/subject_006.png',
                                         title: 'SUBJECT 006 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_006 asset when available.'
                                     },
@@ -376,7 +376,7 @@ const FILE_SYSTEM = {
                                     terms: ['subject_007', 'test_subjects'],
                                     onOpenFlag: 'read_subject_007',
                                     imageAttachment: {
-                                        src: 'assets/subjects/subject_007.png',
+                                        src: 'assets/images/subject_007.png',
                                         title: 'SUBJECT 007 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_007 asset when available.'
                                     },
@@ -389,7 +389,7 @@ const FILE_SYSTEM = {
                                     terms: ['subject_008', 'test_subjects'],
                                     onOpenFlag: 'read_subject_008',
                                     imageAttachment: {
-                                        src: 'assets/subjects/subject_008.png',
+                                        src: 'assets/images/subject_008.png',
                                         title: 'SUBJECT 008 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_008 asset when available.'
                                     },
