@@ -291,214 +291,231 @@ const FILE_SYSTEM = {
             type: 'dir',
             requiredFlag: 'secure_access_granted',
             children: {
-                subjects: {
+                avians: {
                     type: 'dir',
                     children: {
-                        'subject_001.txt': {
-                            type: 'file',
-                            terms: ['subject_001', 'test_subjects'],
-                            onOpenFlag: 'read_subject_001',
-                            imageAttachment: {
-                                src: 'assets/subjects/subject_001.png',
-                                title: 'SUBJECT 001 IMAGE ARCHIVE',
-                                description: 'Placeholder image. Replace with subject_001 asset when available.'
-                            },
-                            contentFile: 'content/secure/subjects/subject_001.txt'
+                        subjects: {
+                            type: 'dir',
+                            children: {
+                                'subject_001.txt': {
+                                    type: 'file',
+                                    terms: ['subject_001', 'test_subjects'],
+                                    onOpenFlag: 'read_subject_001',
+                                    imageAttachment: {
+                                        src: 'assets/subjects/subject_001.png',
+                                        title: 'SUBJECT 001 IMAGE ARCHIVE',
+                                        description: 'Placeholder image. Replace with subject_001 asset when available.'
+                                    },
+                                    contentFile: 'content/secure/subjects/subject_001.txt'
+                                },
+                                'subject_002.txt': {
+                                    type: 'file',
+                                    terms: ['subject_002', 'test_subjects'],
+                                    onOpenFlag: 'read_subject_002',
+                                    imageAttachment: {
+                                        src: 'assets/subjects/subject_002.png',
+                                        title: 'SUBJECT 002 IMAGE ARCHIVE',
+                                        description: 'Placeholder image. Replace with subject_002 asset when available.'
+                                    },
+                                    contentFile: 'content/secure/subjects/subject_002.txt'
+                                },
+                                'subject_003.txt': {
+                                    type: 'file',
+                                    terms: ['subject_003', 'test_subjects'],
+                                    onOpenFlag: 'read_subject_003',
+                                    imageAttachment: {
+                                        src: 'assets/subjects/subject_003.png',
+                                        title: 'SUBJECT 003 IMAGE ARCHIVE',
+                                        description: 'Placeholder image. Replace with subject_003 asset when available.'
+                                    },
+                                    contentFile: 'content/secure/subjects/subject_003.txt'
+                                },
+                                'subject_004.txt': {
+                                    type: 'file',
+                                    requiredFlag: 'subject_004_file_unlocked',
+                                    hiddenUntilFlag: 'subject_004_file_unlocked',
+                                    terms: ['subject_004', 'test_subjects'],
+                                    onOpenFlag: 'read_subject_004',
+                                    imageAttachment: {
+                                        src: 'assets/subjects/subject_004.png',
+                                        title: 'SUBJECT 004 IMAGE ARCHIVE',
+                                        description: 'Placeholder image. Replace with subject_004 asset when available.'
+                                    },
+                                    contentFile: 'content/secure/subjects/subject_004.txt'
+                                },
+                                'subject_005.txt': {
+                                    type: 'file',
+                                    requiredFlag: 'subject_005_file_unlocked',
+                                    hiddenUntilFlag: 'subject_005_file_unlocked',
+                                    terms: ['subject_005', 'test_subjects'],
+                                    onOpenFlag: 'read_subject_005',
+                                    imageAttachment: {
+                                        src: 'assets/subjects/subject_005.png',
+                                        title: 'SUBJECT 005 IMAGE ARCHIVE',
+                                        description: 'Placeholder image. Replace with subject_005 asset when available.'
+                                    },
+                                    contentFile: 'content/secure/subjects/subject_005.txt'
+                                },
+                                'subject_006.txt': {
+                                    type: 'file',
+                                    requiredFlag: 'subject_006_file_unlocked',
+                                    hiddenUntilFlag: 'subject_006_file_unlocked',
+                                    terms: ['subject_006', 'test_subjects'],
+                                    onOpenFlag: 'read_subject_006',
+                                    imageAttachment: {
+                                        src: 'assets/subjects/subject_006.png',
+                                        title: 'SUBJECT 006 IMAGE ARCHIVE',
+                                        description: 'Placeholder image. Replace with subject_006 asset when available.'
+                                    },
+                                    contentFile: 'content/secure/subjects/subject_006.txt'
+                                },
+                                'subject_007.txt': {
+                                    type: 'file',
+                                    requiredFlag: 'subject_007_file_unlocked',
+                                    hiddenUntilFlag: 'subject_007_file_unlocked',
+                                    terms: ['subject_007', 'test_subjects'],
+                                    onOpenFlag: 'read_subject_007',
+                                    imageAttachment: {
+                                        src: 'assets/subjects/subject_007.png',
+                                        title: 'SUBJECT 007 IMAGE ARCHIVE',
+                                        description: 'Placeholder image. Replace with subject_007 asset when available.'
+                                    },
+                                    contentFile: 'content/secure/subjects/subject_007.txt'
+                                },
+                                'subject_008.txt': {
+                                    type: 'file',
+                                    requiredFlag: 'subject_008_file_unlocked',
+                                    hiddenUntilFlag: 'subject_008_file_unlocked',
+                                    terms: ['subject_008', 'test_subjects'],
+                                    onOpenFlag: 'read_subject_008',
+                                    imageAttachment: {
+                                        src: 'assets/subjects/subject_008.png',
+                                        title: 'SUBJECT 008 IMAGE ARCHIVE',
+                                        description: 'Placeholder image. Replace with subject_008 asset when available.'
+                                    },
+                                    contentFile: 'content/secure/subjects/subject_008.txt'
+                                }
+                            }
                         },
-                        'subject_002.txt': {
-                            type: 'file',
-                            terms: ['subject_002', 'test_subjects'],
-                            onOpenFlag: 'read_subject_002',
-                            imageAttachment: {
-                                src: 'assets/subjects/subject_002.png',
-                                title: 'SUBJECT 002 IMAGE ARCHIVE',
-                                description: 'Placeholder image. Replace with subject_002 asset when available.'
-                            },
-                            contentFile: 'content/secure/subjects/subject_002.txt'
+                        containment: {
+                            type: 'dir',
+                            children: {
+                                'containment_overview.txt': {
+                                    type: 'file',
+                                    terms: ['containment', 'sublevel', 'security'],
+                                    onOpenFlag: 'read_containment_overview',
+                                    contentFile: 'content/secure/containment/containment_overview.txt'
+                                },
+                                'protocol_overview.txt': {
+                                    type: 'file',
+                                    terms: ['containment', 'security'],
+                                    onOpenFlag: 'read_protocol_overview',
+                                    contentFile: 'content/secure/containment/protocol_overview.txt'
+                                },
+                                'vocal_restraint_protocol.txt': {
+                                    type: 'file',
+                                    requiredFlag: 'vocal_restraint_unlocked',
+                                    hiddenUntilFlag: 'vocal_restraint_unlocked',
+                                    terms: ['containment', 'security', 'subject_002', 'subject_007'],
+                                    onOpenFlag: 'read_vocal_restraint_protocol',
+                                    contentFile: 'content/secure/containment/vocal_restraint_protocol.txt'
+                                },
+                                'reinforced_containment_protocol.txt': {
+                                    type: 'file',
+                                    requiredFlag: 'reinforced_containment_unlocked',
+                                    hiddenUntilFlag: 'reinforced_containment_unlocked',
+                                    terms: ['containment', 'security', 'subject_003', 'subject_006'],
+                                    onOpenFlag: 'read_reinforced_containment_protocol',
+                                    contentFile: 'content/secure/containment/reinforced_containment_protocol.txt'
+                                },
+                                'observation_barrier_protocol.txt': {
+                                    type: 'file',
+                                    requiredFlag: 'observation_barrier_unlocked',
+                                    hiddenUntilFlag: 'observation_barrier_unlocked',
+                                    terms: ['containment', 'security', 'subject_004', 'subject_005'],
+                                    onOpenFlag: 'read_observation_barrier_protocol',
+                                    contentFile: 'content/secure/containment/observation_barrier_protocol.txt'
+                                }
+                            }
                         },
-                        'subject_003.txt': {
-                            type: 'file',
-                            terms: ['subject_003', 'test_subjects'],
-                            onOpenFlag: 'read_subject_003',
-                            imageAttachment: {
-                                src: 'assets/subjects/subject_003.png',
-                                title: 'SUBJECT 003 IMAGE ARCHIVE',
-                                description: 'Placeholder image. Replace with subject_003 asset when available.'
-                            },
-                            contentFile: 'content/secure/subjects/subject_003.txt'
-                        },
-                        'subject_004.txt': {
-                            type: 'file',
-                            requiredFlag: 'subject_004_file_unlocked',
-                            hiddenUntilFlag: 'subject_004_file_unlocked',
-                            terms: ['subject_004', 'test_subjects'],
-                            onOpenFlag: 'read_subject_004',
-                            imageAttachment: {
-                                src: 'assets/subjects/subject_004.png',
-                                title: 'SUBJECT 004 IMAGE ARCHIVE',
-                                description: 'Placeholder image. Replace with subject_004 asset when available.'
-                            },
-                            contentFile: 'content/secure/subjects/subject_004.txt'
-                        },
-                        'subject_005.txt': {
-                            type: 'file',
-                            requiredFlag: 'subject_005_file_unlocked',
-                            hiddenUntilFlag: 'subject_005_file_unlocked',
-                            terms: ['subject_005', 'test_subjects'],
-                            onOpenFlag: 'read_subject_005',
-                            imageAttachment: {
-                                src: 'assets/subjects/subject_005.png',
-                                title: 'SUBJECT 005 IMAGE ARCHIVE',
-                                description: 'Placeholder image. Replace with subject_005 asset when available.'
-                            },
-                            contentFile: 'content/secure/subjects/subject_005.txt'
-                        },
-                        'subject_006.txt': {
-                            type: 'file',
-                            requiredFlag: 'subject_006_file_unlocked',
-                            hiddenUntilFlag: 'subject_006_file_unlocked',
-                            terms: ['subject_006', 'test_subjects'],
-                            onOpenFlag: 'read_subject_006',
-                            imageAttachment: {
-                                src: 'assets/subjects/subject_006.png',
-                                title: 'SUBJECT 006 IMAGE ARCHIVE',
-                                description: 'Placeholder image. Replace with subject_006 asset when available.'
-                            },
-                            contentFile: 'content/secure/subjects/subject_006.txt'
-                        },
-                        'subject_007.txt': {
-                            type: 'file',
-                            requiredFlag: 'subject_007_file_unlocked',
-                            hiddenUntilFlag: 'subject_007_file_unlocked',
-                            terms: ['subject_007', 'test_subjects'],
-                            onOpenFlag: 'read_subject_007',
-                            imageAttachment: {
-                                src: 'assets/subjects/subject_007.png',
-                                title: 'SUBJECT 007 IMAGE ARCHIVE',
-                                description: 'Placeholder image. Replace with subject_007 asset when available.'
-                            },
-                            contentFile: 'content/secure/subjects/subject_007.txt'
-                        },
-                        'subject_008.txt': {
-                            type: 'file',
-                            requiredFlag: 'subject_008_file_unlocked',
-                            hiddenUntilFlag: 'subject_008_file_unlocked',
-                            terms: ['subject_008', 'test_subjects'],
-                            onOpenFlag: 'read_subject_008',
-                            imageAttachment: {
-                                src: 'assets/subjects/subject_008.png',
-                                title: 'SUBJECT 008 IMAGE ARCHIVE',
-                                description: 'Placeholder image. Replace with subject_008 asset when available.'
-                            },
-                            contentFile: 'content/secure/subjects/subject_008.txt'
-                        }
-                    }
-                },
-                containment: {
-                    type: 'dir',
-                    children: {
-                        'containment_overview.txt': {
-                            type: 'file',
-                            terms: ['containment', 'sublevel', 'security'],
-                            onOpenFlag: 'read_containment_overview',
-                            contentFile: 'content/secure/containment/containment_overview.txt'
-                        },
-                        'protocol_overview.txt': {
-                            type: 'file',
-                            terms: ['containment', 'security'],
-                            onOpenFlag: 'read_protocol_overview',
-                            contentFile: 'content/secure/containment/protocol_overview.txt'
-                        },
-                        'vocal_restraint_protocol.txt': {
-                            type: 'file',
-                            requiredFlag: 'vocal_restraint_unlocked',
-                            hiddenUntilFlag: 'vocal_restraint_unlocked',
-                            terms: ['containment', 'security', 'subject_002', 'subject_007'],
-                            onOpenFlag: 'read_vocal_restraint_protocol',
-                            contentFile: 'content/secure/containment/vocal_restraint_protocol.txt'
-                        },
-                        'reinforced_containment_protocol.txt': {
-                            type: 'file',
-                            requiredFlag: 'reinforced_containment_unlocked',
-                            hiddenUntilFlag: 'reinforced_containment_unlocked',
-                            terms: ['containment', 'security', 'subject_003', 'subject_006'],
-                            onOpenFlag: 'read_reinforced_containment_protocol',
-                            contentFile: 'content/secure/containment/reinforced_containment_protocol.txt'
-                        },
-                        'observation_barrier_protocol.txt': {
-                            type: 'file',
-                            requiredFlag: 'observation_barrier_unlocked',
-                            hiddenUntilFlag: 'observation_barrier_unlocked',
-                            terms: ['containment', 'security', 'subject_004', 'subject_005'],
-                            onOpenFlag: 'read_observation_barrier_protocol',
-                            contentFile: 'content/secure/containment/observation_barrier_protocol.txt'
-                        }
-                    }
-                },
-                abilities: {
-                    type: 'dir',
-                    requiredFlag: 'abilities_dir_unlocked',
-                    hiddenUntilFlag: 'abilities_dir_unlocked',
-                    children: {
-                        'wipe.txt': {
-                            type: 'file',
-                            terms: ['wipe', 'abilities'],
-                            onOpenFlag: 'read_ability_wipe',
-                            contentFile: 'content/secure/abilities/wipe.txt'
-                        },
-                        'empathy.txt': {
-                            type: 'file',
-                            terms: ['empathy', 'abilities'],
-                            onOpenFlag: 'read_ability_empathy',
-                            contentFile: 'content/secure/abilities/empathy.txt'
-                        },
-                        'healing.txt': {
-                            type: 'file',
-                            terms: ['healing', 'abilities'],
-                            onOpenFlag: 'read_ability_healing',
-                            contentFile: 'content/secure/abilities/healing.txt'
-                        },
-                        'strength.txt': {
-                            type: 'file',
-                            terms: ['strength', 'abilities'],
-                            onOpenFlag: 'read_ability_strength',
-                            contentFile: 'content/secure/abilities/strength.txt'
-                        },
-                        'speed.txt': {
-                            type: 'file',
-                            terms: ['speed', 'abilities'],
-                            onOpenFlag: 'read_ability_speed',
-                            contentFile: 'content/secure/abilities/speed.txt'
-                        },
-                        'telepathy.txt': {
-                            type: 'file',
-                            terms: ['telepathy', 'abilities'],
-                            onOpenFlag: 'read_ability_telepathy',
-                            contentFile: 'content/secure/abilities/telepathy.txt'
-                        },
-                        'silver_tongue.txt': {
-                            type: 'file',
-                            terms: ['silver_tongue', 'abilities'],
-                            onOpenFlag: 'read_ability_silver_tongue',
-                            contentFile: 'content/secure/abilities/silver_tongue.txt'
-                        },
-                        'absorption.txt': {
-                            type: 'file',
-                            terms: ['absorption', 'abilities'],
-                            onOpenFlag: 'read_ability_absorption',
-                            contentFile: 'content/secure/abilities/absorption.txt'
-                        },
-                        'shifting.txt': {
-                            type: 'file',
-                            terms: ['shifting', 'abilities'],
-                            onOpenFlag: 'read_ability_shifting',
-                            contentFile: 'content/secure/abilities/shifting.txt'
-                        },
-                        'wither.txt': {
-                            type: 'file',
-                            terms: ['wither', 'abilities'],
-                            onOpenFlag: 'read_ability_wither',
-                            contentFile: 'content/secure/abilities/wither.txt'
+                        abilities: {
+                            type: 'dir',
+                            requiredFlag: 'abilities_dir_unlocked',
+                            hiddenUntilFlag: 'abilities_dir_unlocked',
+                            children: {
+                                'ability_overview.txt': {
+                                    type: 'file',
+                                    terms: ['abilities'],
+                                    onOpenFlag: 'read_ability_overview',
+                                    contentFile: 'content/secure/abilities/ability_overview.txt'
+                                },
+                                'ability_manifestation.txt': {
+                                    type: 'file',
+                                    terms: ['abilities', 'manifestation'],
+                                    onOpenFlag: 'read_ability_manifestation',
+                                    contentFile: 'content/secure/abilities/ability_manifestation.txt'
+                                },
+                                'wipe.txt': {
+                                    type: 'file',
+                                    terms: ['wipe', 'abilities'],
+                                    onOpenFlag: 'read_ability_wipe',
+                                    contentFile: 'content/secure/abilities/wipe.txt'
+                                },
+                                'empathy.txt': {
+                                    type: 'file',
+                                    terms: ['empathy', 'abilities'],
+                                    onOpenFlag: 'read_ability_empathy',
+                                    contentFile: 'content/secure/abilities/empathy.txt'
+                                },
+                                'healing.txt': {
+                                    type: 'file',
+                                    terms: ['healing', 'abilities'],
+                                    onOpenFlag: 'read_ability_healing',
+                                    contentFile: 'content/secure/abilities/healing.txt'
+                                },
+                                'strength.txt': {
+                                    type: 'file',
+                                    terms: ['strength', 'abilities'],
+                                    onOpenFlag: 'read_ability_strength',
+                                    contentFile: 'content/secure/abilities/strength.txt'
+                                },
+                                'speed.txt': {
+                                    type: 'file',
+                                    terms: ['speed', 'abilities'],
+                                    onOpenFlag: 'read_ability_speed',
+                                    contentFile: 'content/secure/abilities/speed.txt'
+                                },
+                                'telepathy.txt': {
+                                    type: 'file',
+                                    terms: ['telepathy', 'abilities'],
+                                    onOpenFlag: 'read_ability_telepathy',
+                                    contentFile: 'content/secure/abilities/telepathy.txt'
+                                },
+                                'silver_tongue.txt': {
+                                    type: 'file',
+                                    terms: ['silver_tongue', 'abilities'],
+                                    onOpenFlag: 'read_ability_silver_tongue',
+                                    contentFile: 'content/secure/abilities/silver_tongue.txt'
+                                },
+                                'absorption.txt': {
+                                    type: 'file',
+                                    terms: ['absorption', 'abilities'],
+                                    onOpenFlag: 'read_ability_absorption',
+                                    contentFile: 'content/secure/abilities/absorption.txt'
+                                },
+                                'shifting.txt': {
+                                    type: 'file',
+                                    terms: ['shifting', 'abilities'],
+                                    onOpenFlag: 'read_ability_shifting',
+                                    contentFile: 'content/secure/abilities/shifting.txt'
+                                },
+                                'wither.txt': {
+                                    type: 'file',
+                                    terms: ['wither', 'abilities'],
+                                    onOpenFlag: 'read_ability_wither',
+                                    contentFile: 'content/secure/abilities/wither.txt'
+                                }
+                            }
                         }
                     }
                 }
