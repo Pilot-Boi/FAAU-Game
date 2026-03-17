@@ -5,7 +5,7 @@ How to run:
 
 1. Open a terminal.
 2. Move to the project root:
-    Set-Location "c:\Users\dugan\OneDrive\Desktop\FAAU Game"
+    Set-Location "c:/Users/dugan/OneDrive/Desktop/FAAU Game"
 3. Start the server:
     & "c:/Users/dugan/OneDrive/Desktop/FAAU Game/.venv/Scripts/python.exe" "tools/no_cache_server.py"
 4. Open in browser:

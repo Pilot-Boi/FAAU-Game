@@ -3,7 +3,7 @@ How to run this updater:
 
 1. Open a terminal.
 2. Move to the project root:
-    Set-Location "c:\Users\dugan\OneDrive\Desktop\FAAU Game"
+    Set-Location "c:/Users/dugan/OneDrive/Desktop/FAAU Game"
 3. Run the script:
     & "c:/Users/dugan/OneDrive/Desktop/FAAU Game/.venv/Scripts/python.exe" "tools/update_file_system_diagram.py"
 4. Check file_system_diagram.txt for the refreshed output.
