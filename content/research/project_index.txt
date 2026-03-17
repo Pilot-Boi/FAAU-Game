@@ -1,7 +1,6 @@
 FACILITY PROJECT INDEX
 
-All programs listed below are currently active unless
-otherwise noted in status fields.
+All programs listed below are currently active unless otherwise noted in status fields.
 
 BIO-01
 Project: ACHILLES
@@ -35,5 +34,4 @@ Division: Genetics
 Status: DEVELOPMENTAL
 Objective: Neural control interfaces for augmentation systems.
 
-Additional classified projects may not appear in
-standard program listings.
+Additional classified projects may not appear in standard program listings.

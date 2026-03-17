@@ -1,7 +1,6 @@
 FACILITY RESEARCH DIVISION OVERVIEW
 
-All research programs operate under Director-level oversight
-and are subject to internal compliance monitoring.
+All research programs operate under Director-level oversight and are subject to internal compliance monitoring.
 
 DIVISION DIRECTORY
 
@@ -25,5 +24,4 @@ Classification: Director Authorization Required
 Status: ACTIVE
 Access: RESTRICTED
 
-Unauthorized personnel are prohibited from accessing
-classified program documentation.
+Unauthorized personnel are prohibited from accessing classified program documentation.

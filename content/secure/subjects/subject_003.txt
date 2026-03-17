@@ -11,7 +11,4 @@ CURRENT LOCATION: SUBLEVEL 3 - RESTRICTED CONTAINMENT
 CONTAINMENT STATUS: REINFORCED CONTAINMENT ACTIVE
 
 NOTES:
-Expanded records regarding subject history,
-physiological assessment, behavioral notes,
-testing outcomes, and containment adjustments
-are maintained in linked restricted documents.
+Expanded records regarding subject history, physiological assessment, behavioral notes, testing outcomes, and containment adjustments are maintained in linked restricted documents.

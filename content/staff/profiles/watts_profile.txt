@@ -6,18 +6,10 @@ Position: Head of Genetics Division
 Status: Active
 Office: Genetics Research Wing
 
-Known Associates:
-- Dr. Pietro Polendina
-- General James Ironwood
-- Genetics Division Research Staff
-
 Specialization:
-Genomic modeling, neural systems research, and
-advanced physiological interface design.
+Genomic modeling, neural systems research, and advanced physiological interface design.
 
 Notes:
-Leads the Genetics Division and oversees multiple
-ongoing research initiatives involving biological
-modeling and systems integration.
+Leads the Genetics Division and oversees multiple ongoing research initiatives involving biological modeling and systems integration.
 
 Employee record available for general internal reference.

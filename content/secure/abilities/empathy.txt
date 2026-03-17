@@ -1,3 +1,66 @@
 ABILITY OVERVIEW // EMPATHY LINK
 
-Fill in information later
+Classification:
+Cognitive Resonance / Emotional Perception
+
+Summary:
+Empathy is an avian cognitive ability allowing the Primary subject to perceive and internally replicate the emotional and physical states of a bonded Secondary individual. The ability manifests through the formation of a persistent empathic link between two individuals.
+
+While primarily emotional in nature, the bond may also transmit limited physical sensation when the Secondary individual experiences injury.
+
+Empathic links appear to form through repeated exposure and emotional proximity between individuals.
+
+Facility Terminology:
+Primary – The avian possessing the Empathy ability and generating the empathic link.
+
+Secondary – The individual bonded to the Primary subject and whose emotional and physical states may be perceived through the link.
+
+Observed Bonds:
+
+Primary: Subject 004  
+Secondary: Subject 002
+
+Primary: Subject 008  
+Secondary: P. Nikos (civilian)
+
+Mechanism:
+Testing indicates the ability functions through a persistent cognitive resonance formed between the Primary and Secondary individuals. Once established, the Primary subject  becomes capable of perceiving the emotional state of the Secondary with high fidelity.
+
+Physical sensation experienced by the Secondary individual is transmitted directly 
+through the empathic link. When the Secondary subject experiences injury, the Primary 
+subject perceives the corresponding pain with comparable intensity despite the absence 
+of physical trauma.
+
+The biological mechanism responsible for establishing and sustaining this resonance remains unknown.
+
+
+Observed Effects:
+- Emotional states of the Secondary individual are perceivable by the Primary.
+- Distress experienced by the Secondary induces sympathetic distress in the Primary.
+- Physical injuries inflicted upon the Secondary are perceived by the Primary with comparable pain intensity.
+- Bonded individuals frequently attempt to intervene when the Secondary individual is harmed.
+
+During controlled testing, an incision inflicted upon Subject 002 produced an immediate 
+sympathetic pain response in Subject 004 despite the subjects being physically separated 
+within the containment wing.
+
+Limitations:
+- Empathic links appear limited to a small number of individuals.
+- Distance does not prevent the link from transmitting emotional or physical sensation, 
+  though signal clarity may degrade with extreme separation.
+- The Primary subject does not appear capable of voluntarily terminating an established bond.
+
+Security Notes:
+Empathic linkage between subjects presents both operational advantages and containment risks. 
+While the ability allows personnel to manipulate behavior through bonded individuals, it also 
+encourages cooperation and attachment between subjects.
+
+Personnel are advised to exploit existing bonds when necessary to maintain behavioral compliance. 
+Injury or threat applied to a Secondary individual frequently suppresses resistance from the Primary.
+
+Note:
+The empathic bond observed between Subject 008 and civilian athlete P. Nikos was formed prior to 
+the subject’s containment. The mechanism of this external bond remains under investigation.
+
+Linked Documentation:
+External Civilian File – P. Nikos (See: /external/civilian/p_nikos.txt)

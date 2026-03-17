@@ -7,12 +7,9 @@ Status: Active
 Office: Executive Command Suite
 
 Specialization:
-Strategic command oversight, facility administration,
-and operational authorization.
+Strategic command oversight, facility administration, and operational authorization.
 
 Notes:
-Serves as ranking command authority for the Facility.
-Responsible for executive coordination between command,
-security, and research divisions.
+Serves as ranking command authority for the Facility. Responsible for executive coordination between command, security, and research divisions.
 
 Employee record available for general internal reference.

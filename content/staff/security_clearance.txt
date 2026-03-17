@@ -15,5 +15,4 @@ Sensitive research program access.
 LEVEL 5
 Director authorization required.
 
-Certain classified projects may require
-additional authorization protocols.
+Certain classified projects may require additional authorization protocols.

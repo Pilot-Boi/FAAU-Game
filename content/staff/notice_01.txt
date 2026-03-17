@@ -1,10 +1,8 @@
 SECURITY NOTICE
 
-All personnel are reminded to maintain vigilance regarding
-facility security procedures.
+All personnel are reminded to maintain vigilance regarding facility security procedures.
 
-Report any suspicious activity or unauthorized system
-access attempts to Security Operations immediately.
+Report any suspicious activity or unauthorized system access attempts to Security Operations immediately.
 
 Recent incidents have included:
 
@@ -12,10 +10,8 @@ Recent incidents have included:
 - External connection attempts targeting internal servers
 - Temporary disruption of biometric authentication channels
 
-Security protocols have been enhanced in response to
-these incidents.
+Security protocols have been enhanced in response to these incidents.
 
-All staff should verify workstation authentication
-before accessing internal systems.
+All staff should verify workstation authentication before accessing internal systems.
 
 -- SECURITY OPERATIONS

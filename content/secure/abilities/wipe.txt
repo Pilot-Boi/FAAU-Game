@@ -1,3 +1,48 @@
 ABILITY OVERVIEW // MIND WIPE
 
-Fill in information later
+Classification:
+Cognitive Interference / Memory Suppression
+
+Primary: Subject 001
+
+Summary:
+The ability designated "Wipe" allows the Primary subject to selectively remove or suppress memories from a target individual. The ability functions by disrupting the neurological structures responsible for memory recall and consolidation, effectively erasing the target 
+memory from accessible cognition.
+
+When the ability is activated, the ring structures positioned above Subject 001's head begin to rotate at high speed. During activation these rings exhibit synchronized rotation and increased ocular movement. This phenomenon consistently coincides with the onset of cognitive interference in the target. 
+
+Testing confirms that Subject 001 can remove both recent and long-term memories when properly focused.
+
+Mechanism:
+Activation of the ability appears to induce localized disruption in the target’s memory pathways. Once the disruption occurs, the affected memory becomes inaccessible to conscious recall.
+
+Subject 001 demonstrates the ability to target specific memories when given clear instructions and adequate concentration. However, early testing revealed that imprecise targeting may cause collateral memory loss extending beyond the intended recollection.
+
+The biological or neurological mechanism enabling this disruption remains under investigation.
+
+Observed Effects:
+- Removal of targeted memories from the subject’s conscious recall.
+- Temporary confusion or disorientation immediately following the procedure.
+- Loss of contextual knowledge associated with the erased memory.
+- Gradual behavioral adaptation to the absence of the removed information.
+
+In controlled conditions, Subject 001 has demonstrated the ability to erase isolated events with reasonable accuracy. However, incomplete targeting frequently results in the removal of surrounding memories.
+
+Limitations:
+- Precision of the ability depends heavily on the focus and experience of Subject 001.
+- In early testing phases, imprecise activation resulted in large-scale memory removal unrelated to the intended target.
+- When erased memories are foundational to an individual's identity or behavioral framework, the subject may gradually reconstruct the lost information through inference or environmental cues.
+- In such cases, repeated wipes are required to maintain the intended level of cognitive suppression.
+
+Security Notes:
+Due to its ability to alter recollection and remove sensitive knowledge, Wipe is considered a highly valuable containment and information-control tool.
+
+Personnel are advised to maintain detailed written records when interacting with affected individuals, as discrepancies in memory may otherwise go unnoticed.
+
+Repeated wipes may be required for subjects whose erased memories significantly shaped their prior worldview or behavior patterns.
+
+Incident Reference:
+Early testing produced a documented case of extensive memory loss caused by imprecise targeting by Subject 001 during ability activation.
+
+Linked Documentation:
+Secure Incident File - Memory Suppression Event (See: /secure/logs/subject_001_application_01.txt)

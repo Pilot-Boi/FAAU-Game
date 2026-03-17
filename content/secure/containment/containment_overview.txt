@@ -1,29 +1,19 @@
 CONTAINMENT PROCEDURES // TEST SUBJECT PROGRAM
 
-All active test subjects are currently housed within
-Sublevel 3 restricted containment.
+All active test subjects are currently housed within Sublevel 3 restricted containment.
 
-Due to extreme variation in subject behavior and
-capability sets, containment environments are
-customized on a per-subject basis.
+Due to extreme variation in subject behavior and capability sets, containment environments are customized on a per-subject basis.
 
-Standard containment cells are modified according to
-observed subject abilities and behavioral risks.
+Standard containment cells are modified according to observed subject abilities and behavioral risks.
 
-The following specialized containment adaptations
-are currently in use:
-
+The following specialized containment adaptations are currently in use:
 - Reinforced containment structures
 - Vocal restriction apparatus
 - Observation barrier cells
 
-Refer to individual containment protocol documents
-for further details.
+Refer to individual containment protocol documents for further details.
 
 NOTE:
-Continuous monitoring of all subject containment
-areas is maintained through internal surveillance
-systems.
+Continuous monitoring of all subject containment areas is maintained through internal surveillance systems.
 
-Unauthorized access to surveillance systems is
-prohibited under Facility Security Directives.
+Unauthorized access to surveillance systems is prohibited under Facility Security Directives.

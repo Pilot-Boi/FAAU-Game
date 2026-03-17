@@ -1,14 +1,14 @@
 CONTAINMENT PROTOCOL OVERVIEW
 
-Security tier escalates according to observed avian instability and wing-signature variance.
-Primary restraint doctrine requires synchronized observation, audio suppression fallback, and 
-controlled barrier cycling.
+Security tier escalates according to observed avian instability and wing-signature variance. Primary restraint doctrine requires synchronized observation, audio suppression fallback, and  controlled barrier cycling.
 
 Directive Summary:
 - Maintain dual-operator verification during all chamber transitions.
 - Record all non-routine movement within ten seconds of onset.
 - Escalate to reinforced procedures only after command authorization.
 
-Archive Note:
-Cross-reference with reinforced_containment_protocol.txt, vocal_restraint_protocol.txt, and
-observation_barrier_protocol.txt for subject-specific conditions.
+
+Linked Documentation:
+Secure Containment File – Reinforced Containment (See: /secure/containment/reinforced_containment_protocol.txt)
+Secure Containment File - Vocal Restraint (See: /secure/containment/vocal_restraint_protocol.txt)
+Secure Containment File - Observation Barrier (See: /secure/containment/observation_barrier_protocol.txt)

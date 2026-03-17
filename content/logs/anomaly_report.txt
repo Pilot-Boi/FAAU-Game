@@ -1,8 +1,7 @@
 ANOMALY REPORT
 FILE CLASSIFICATION: INTERNAL
 
-Multiple low-level system irregularities were detected
-during the last monitoring cycle.
+Multiple low-level system irregularities were detected during the last monitoring cycle.
 
 Observed events include:
 - Nonstandard external network handshake
@@ -10,9 +9,7 @@ Observed events include:
 - Loss of biometric continuity from monitored subject
 - Repeated failed authentication without credential input
 
-At this time no confirmed breach pathway has been
-identified.
+At this time no confirmed breach pathway has been identified.
 
 Recommendation:
-Continue passive observation and maintain enhanced
-security posture until source identification is complete.
+Continue passive observation and maintain enhanced security posture until source identification is complete.

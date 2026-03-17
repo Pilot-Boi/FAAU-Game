@@ -27,4 +27,4 @@ ID: S-002
 SPECIALIST WINTER SCHNEE
 Position: Security Operations Specialist
  
-Full personnel records require elevated access credentials.
+Full personnel records require Level 4 clearance or to obtain temporary authorization through Security Operations

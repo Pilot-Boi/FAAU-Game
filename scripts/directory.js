@@ -438,6 +438,7 @@ const FILE_SYSTEM = {
                 abilities: {
                     type: 'dir',
                     requiredFlag: 'abilities_dir_unlocked',
+                    hiddenUntilFlag: 'abilities_dir_unlocked',
                     children: {
                         'wipe.txt': {
                             type: 'file',
@@ -456,6 +457,48 @@ const FILE_SYSTEM = {
                             terms: ['healing', 'abilities'],
                             onOpenFlag: 'read_ability_healing',
                             contentFile: 'content/secure/abilities/healing.txt'
+                        },
+                        'strength.txt': {
+                            type: 'file',
+                            terms: ['strength', 'abilities'],
+                            onOpenFlag: 'read_ability_strength',
+                            contentFile: 'content/secure/abilities/strength.txt'
+                        },
+                        'speed.txt': {
+                            type: 'file',
+                            terms: ['speed', 'abilities'],
+                            onOpenFlag: 'read_ability_speed',
+                            contentFile: 'content/secure/abilities/speed.txt'
+                        },
+                        'telepathy.txt': {
+                            type: 'file',
+                            terms: ['telepathy', 'abilities'],
+                            onOpenFlag: 'read_ability_telepathy',
+                            contentFile: 'content/secure/abilities/telepathy.txt'
+                        },
+                        'silver_tongue.txt': {
+                            type: 'file',
+                            terms: ['silver_tongue', 'abilities'],
+                            onOpenFlag: 'read_ability_silver_tongue',
+                            contentFile: 'content/secure/abilities/silver_tongue.txt'
+                        },
+                        'absorption.txt': {
+                            type: 'file',
+                            terms: ['absorption', 'abilities'],
+                            onOpenFlag: 'read_ability_absorption',
+                            contentFile: 'content/secure/abilities/absorption.txt'
+                        },
+                        'shifting.txt': {
+                            type: 'file',
+                            terms: ['shifting', 'abilities'],
+                            onOpenFlag: 'read_ability_shifting',
+                            contentFile: 'content/secure/abilities/shifting.txt'
+                        },
+                        'wither.txt': {
+                            type: 'file',
+                            terms: ['wither', 'abilities'],
+                            onOpenFlag: 'read_ability_wither',
+                            contentFile: 'content/secure/abilities/wither.txt'
                         }
                     }
                 }
@@ -467,6 +510,75 @@ const FILE_SYSTEM = {
 // The current working path represented as folder names from root.
 const currentPathSegments = [];
 const contentFileCache = new Map();
+const MAX_LINE_LENGTH = 64;
+
+function wrapLineToMaxLength(line, maxLength = MAX_LINE_LENGTH) {
+    const source = String(line || '');
+    if (source.length <= maxLength) {
+        return [source];
+    }
+
+    const wrapped = [];
+    const words = source.split(/\s+/).filter(Boolean);
+
+    if (words.length === 0) {
+        return [''];
+    }
+
+    let currentLine = '';
+
+    for (const word of words) {
+        if (word.length > maxLength) {
+            if (currentLine) {
+                wrapped.push(currentLine);
+                currentLine = '';
+            }
+
+            for (let index = 0; index < word.length; index += maxLength) {
+                wrapped.push(word.slice(index, index + maxLength));
+            }
+            continue;
+        }
+
+        if (!currentLine) {
+            currentLine = word;
+            continue;
+        }
+
+        if ((currentLine.length + 1 + word.length) <= maxLength) {
+            currentLine += ` ${word}`;
+        } else {
+            wrapped.push(currentLine);
+            currentLine = word;
+        }
+    }
+
+    if (currentLine) {
+        wrapped.push(currentLine);
+    }
+
+    return wrapped;
+}
+
+function wrapContentLines(lines = [], maxLength = MAX_LINE_LENGTH) {
+    if (!Array.isArray(lines) || lines.length === 0) {
+        return [];
+    }
+
+    const wrapped = [];
+
+    for (const line of lines) {
+        const source = String(line || '');
+        if (!source.trim()) {
+            wrapped.push('');
+            continue;
+        }
+
+        wrapped.push(...wrapLineToMaxLength(source, maxLength));
+    }
+
+    return wrapped;
+}
 
 async function loadNodeContent(node) {
     if (!node) {
@@ -497,8 +609,11 @@ async function loadNodeContent(node) {
 
     const text = await response.text();
     const lines = text.replace(/\r\n/g, '\n').split('\n');
-    contentFileCache.set(contentPath, lines);
-    return [...lines];
+    const processedLines = contentPath.toLowerCase().endsWith('.txt')
+        ? wrapContentLines(lines, MAX_LINE_LENGTH)
+        : lines;
+    contentFileCache.set(contentPath, processedLines);
+    return [...processedLines];
 }
 
 // Resolve the directory node for the current path state.

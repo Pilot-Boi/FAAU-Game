@@ -1,21 +1,14 @@
 CONTAINMENT ADDENDUM
 REINFORCED STRUCTURAL CELLS
 
-Certain test subjects demonstrate physical strength
-or structural disruption capabilities that exceed
-standard containment tolerances.
+Certain test subjects demonstrate physical strength or structural disruption capabilities that exceed standard containment tolerances.
 
-These subjects are housed in reinforced containment
-cells constructed with high-density alloy supports
-and structural reinforcement layers.
+These subjects are housed in reinforced containment cells constructed with high-density alloy supports and structural reinforcement layers.
 
 This protocol is currently active for:
-
 SUBJECT 003
 SUBJECT 006
 
-Routine inspection of containment integrity is
-required every 12 hours.
+Routine inspection of containment integrity is required every 12 hours.
 
-Personnel are advised not to approach reinforced cells
-without being accompanied by a member of security staff.
+Personnel are advised not to approach reinforced cells without being accompanied by a member of security staff.
