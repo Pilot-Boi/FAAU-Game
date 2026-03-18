@@ -1664,32 +1664,7 @@ terminalPrompt.addEventListener('click', () => {
 // Keep input as plain one-line command entry.
 promptInput.setAttribute('contenteditable', 'true');
 promptInput.addEventListener('keydown', (event) => {
-    const isRepeated = event.repeat;
     const key = event.key;
-
-    const isSpecialKey =
-        key === ' ' ||
-        key === 'Enter' ||
-        key === 'Backspace';
-
-    // Space / Enter / Backspace:
-    // play once on initial press only, not while held.
-    if (isSpecialKey) {
-        if (!isRepeated && typeof handleSpecialKey === 'function') {
-            handleSpecialKey();
-        }
-    } else {
-        // Ignore modifier/navigation keys.
-        const isPrintableKey =
-            key.length === 1 &&
-            !event.ctrlKey &&
-            !event.metaKey &&
-            !event.altKey;
-
-        if (isPrintableKey && typeof handleTypingKey === 'function') {
-            handleTypingKey();
-        }
-    }
 
     if (key === 'Enter') {
         event.preventDefault();
