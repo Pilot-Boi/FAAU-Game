@@ -1,58 +1,83 @@
-// Sound Manager for FAAU Game
+// scripts/soundManager.js
 
-const SOUND_FILES = {
-    boot: 'assets/sounds/boot.mp3',
-    typing: 'assets/sounds/typing.mp3',
-    open_view: 'assets/sounds/open_view.mp3',
-    notification: 'assets/sounds/notification.mp3',
-    click: 'assets/sounds/click.mp3',
-    error: 'assets/sounds/error.mp3',
-    chapter_complete: 'assets/sounds/chapter_complete.mp3'
+const SOUND_PATHS = {
+    typingLoop: 'assets/sounds/typing.mp3',        // looping typing ambience
+    specialKey: 'assets/sounds/special_key.mp3'    // space / enter / backspace
 };
 
-const SOUND_CACHE = {};
+const typingLoopAudio = new Audio(SOUND_PATHS.typingLoop);
+typingLoopAudio.preload = 'auto';
+typingLoopAudio.loop = true;
+typingLoopAudio.volume = 0.55;
 
-function loadSound(key) {
-    if (!SOUND_CACHE[key]) {
-        const audio = new Audio(SOUND_FILES[key]);
-        audio.preload = 'auto';
-        SOUND_CACHE[key] = audio;
+const specialKeyAudio = new Audio(SOUND_PATHS.specialKey);
+specialKeyAudio.preload = 'auto';
+specialKeyAudio.volume = 0.25;
+
+let typingStopTimer = null;
+let typingActive = false;
+
+// Starts the looping typing sound if it is not already playing.
+function startTypingLoop() {
+    if (typingStopTimer) {
+        clearTimeout(typingStopTimer);
+        typingStopTimer = null;
     }
-    return SOUND_CACHE[key];
+
+    if (typingActive) {
+        return;
+    }
+
+    typingActive = true;
+    typingLoopAudio.currentTime = 0;
+    typingLoopAudio.play().catch(() => {});
 }
 
-function playSound(key, options = {}) {
-    const base = loadSound(key);
-    const sound = base.cloneNode(); // allows overlap
-
-    if (options.volume !== undefined) {
-        sound.volume = options.volume;
+// Schedules the typing loop to stop after a short idle gap.
+function scheduleTypingLoopStop(idleMs = 180) {
+    if (typingStopTimer) {
+        clearTimeout(typingStopTimer);
     }
 
+    typingStopTimer = setTimeout(() => {
+        stopTypingLoop();
+    }, idleMs);
+}
+
+// Stops the looping typing sound immediately.
+function stopTypingLoop() {
+    if (typingStopTimer) {
+        clearTimeout(typingStopTimer);
+        typingStopTimer = null;
+    }
+
+    typingActive = false;
+    typingLoopAudio.pause();
+    typingLoopAudio.currentTime = 0;
+}
+
+// Plays the special key sound once.
+function playSpecialKeySound() {
+    const sound = specialKeyAudio.cloneNode();
+    sound.volume = specialKeyAudio.volume;
     sound.play().catch(() => {});
 }
 
-// Typing sound management - prevent overlapping typing sounds
-let typingTimeout = null;
-let isTypingPlaying = false;
-
-function startTypingSound() {
-    // Stop any pending typing stop
-    if (typingTimeout) {
-        clearTimeout(typingTimeout);
-    }
-    
-    // Only start a new typing sound if one isn't already playing
-    if (!isTypingPlaying) {
-        playSound('typing', { volume: 0.3 });
-        isTypingPlaying = true;
-    }
-    
-    // Schedule typing sound to stop after a period of no input
-    typingTimeout = setTimeout(() => {
-        isTypingPlaying = false;
-    }, 150);
+// Call this for normal printable typing keys.
+function handleTypingKey() {
+    startTypingLoop();
+    scheduleTypingLoopStop();
 }
 
-window.playSound = playSound;
-window.startTypingSound = startTypingSound;
+// Call this for space / enter / backspace.
+function handleSpecialKey() {
+    playSpecialKeySound();
+    stopTypingLoop();
+}
+
+window.startTypingLoop = startTypingLoop;
+window.scheduleTypingLoopStop = scheduleTypingLoopStop;
+window.stopTypingLoop = stopTypingLoop;
+window.playSpecialKeySound = playSpecialKeySound;
+window.handleTypingKey = handleTypingKey;
+window.handleSpecialKey = handleSpecialKey;

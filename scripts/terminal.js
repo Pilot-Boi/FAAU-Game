@@ -1664,16 +1664,39 @@ terminalPrompt.addEventListener('click', () => {
 // Keep input as plain one-line command entry.
 promptInput.setAttribute('contenteditable', 'true');
 promptInput.addEventListener('keydown', (event) => {
-    // Play typing sound for regular key presses
-    if (event.key !== 'Enter' && event.key !== 'Backspace' && typeof startTypingSound === 'function') {
-        startTypingSound();
+    const isRepeated = event.repeat;
+    const key = event.key;
+
+    const isSpecialKey =
+        key === ' ' ||
+        key === 'Enter' ||
+        key === 'Backspace';
+
+    // Space / Enter / Backspace:
+    // play once on initial press only, not while held.
+    if (isSpecialKey) {
+        if (!isRepeated && typeof handleSpecialKey === 'function') {
+            handleSpecialKey();
+        }
+    } else {
+        // Ignore modifier/navigation keys.
+        const isPrintableKey =
+            key.length === 1 &&
+            !event.ctrlKey &&
+            !event.metaKey &&
+            !event.altKey;
+
+        if (isPrintableKey && typeof handleTypingKey === 'function') {
+            handleTypingKey();
+        }
     }
-    
-    if (event.key === 'Enter') {
+
+    if (key === 'Enter') {
         event.preventDefault();
         const commandText = promptInput.textContent.replace(/\n/g, '');
         void runCommand(commandText);
         promptInput.textContent = '';
+        return;
     }
 });
 
