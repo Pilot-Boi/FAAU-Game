@@ -188,7 +188,7 @@ const EVENT_RULES = [
         id: 'cams_unlocked',
         when: () => {
             const containmentFilesRead = Array.from(GAME_STATE.filesRead)
-                .filter(path => path.startsWith('/secure/containment/'));
+                .filter(path => path.startsWith('/secure/avians/containment/'));
             return hasFlag('chapter_01_complete') && containmentFilesRead.length >= 2;
         },
         do: () => {

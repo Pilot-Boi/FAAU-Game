@@ -171,6 +171,8 @@
 
         cameraContent.textContent = '';
 
+        let latestHeader = null;
+
         for (const block of sceneBlocks) {
             if (!block || !block.type) {
                 continue;
@@ -185,6 +187,7 @@
                 }
                 header.textContent = segments.join('  |  ');
                 cameraContent.appendChild(header);
+                latestHeader = header;
                 continue;
             }
 
@@ -233,7 +236,18 @@
             }
         }
 
-        cameraContent.scrollTop = cameraContent.scrollHeight;
+        requestAnimationFrame(() => {
+            if (!latestHeader || !cameraContent) {
+                cameraContent.scrollTop = 0;
+                return;
+            }
+
+            const contentRect = cameraContent.getBoundingClientRect();
+            const headerRect = latestHeader.getBoundingClientRect();
+            const targetTop = cameraContent.scrollTop + (headerRect.top - contentRect.top);
+
+            cameraContent.scrollTop = targetTop;
+        });
     }
 
     function setCameraBackAction(handler, label = 'DIRECTORY') {

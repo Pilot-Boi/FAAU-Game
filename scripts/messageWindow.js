@@ -158,6 +158,8 @@
         conversationRenderToken += 1;
         messageContent.textContent = '';
 
+        let latestHeader = null;
+
         for (const block of sceneBlocks) {
             if (!block || !block.type) {
                 continue;
@@ -168,6 +170,7 @@
                 header.className = 'message-scene-message-header';
                 header.textContent = block.sender || 'UNKNOWN SOURCE';
                 messageContent.appendChild(header);
+                latestHeader = header;
                 continue;
             }
 
@@ -235,7 +238,18 @@
             }
         }
 
-        messageContent.scrollTop = messageContent.scrollHeight;
+        requestAnimationFrame(() => {
+            if (!latestHeader || !messageContent) {
+                messageContent.scrollTop = 0;
+                return;
+            }
+
+            const contentRect = messageContent.getBoundingClientRect();
+            const headerRect = latestHeader.getBoundingClientRect();
+            const targetTop = messageContent.scrollTop + (headerRect.top - contentRect.top);
+
+            messageContent.scrollTop = targetTop;
+        });
     }
 
     function setMessageBackAction(handler, label = 'CONTACTS') {
