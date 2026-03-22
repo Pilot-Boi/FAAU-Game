@@ -1,0 +1,26 @@
+SUBJECT DOSSIER // TEST SUBJECT 003 OF 008
+
+PRIMARY HANDLER: Director ███████████
+PRIMARY RESEARCHER: Dr. Watts
+PROJECT DESIGNATION: Project Iron Giant
+SERAPH NAME: Ariel
+
+STATUS: ACTIVE
+SECURITY CLASSIFICATION: Level 4
+CURRENT LOCATION: Sublevel 3 - RESTRICTED CONTAINMENT
+CONTAINMENT STATUS: Standard protocols active
+
+ABILITIES: STRENGTH, TELEPATHY
+
+STRENGTH:
+Allows Subject 003 to exert force significantly above baseline human levels, including the ability to breach reinforced materials. Increased strength is not accompanied by increased durability, and excessive force may result in self-injury.
+
+TELEPATHY:
+Allows Subject 003 to perceive the thoughts of a hybrid or fellow avian and transmit their own thoughts into the target's mind. Clarity and effectiveness vary based on proximity and the subject’s level of focus.
+
+--------
+Linked Documentation: 
+Secure Ability File – Strength 
+    (See: /secure/avians/abilities/strength.txt)
+Secure Ability File – Telepathy 
+    (See: /secure/avians/abilities/telepathy.txt)

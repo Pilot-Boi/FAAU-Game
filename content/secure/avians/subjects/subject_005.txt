@@ -1,0 +1,25 @@
+SUBJECT DOSSIER // TEST SUBJECT 005 OF 008
+
+PRIMARY HANDLER: Director ███████████
+PRIMARY RESEARCHER: Dr. Watts
+PROJECT DESIGNATION: Project Venom Strike
+SERAPH NAME: Azreal
+
+STATUS: ACTIVE
+SECURITY CLASSIFICATION: Level 4
+CURRENT LOCATION: Sublevel 3 - RESTRICTED CONTAINMENT
+CONTAINMENT STATUS: Standard protocols active
+ 
+ABILITIES: SHIFTING, WITHER
+
+SHIFTING:
+Allows Subject 005 to completely alter their physical form to replicate another individual or organism with high accuracy. Frequent repeated use induces significant strain, and subjects exhibit reduced structural resilience.
+
+WITHER:
+
+--------
+Linked Documentation: 
+Secure Ability File – Shifting 
+    (See: /secure/avians/abilities/shifting.txt)
+Secure Ability File – Wither 
+    (See: /secure/avians/abilities/wither.txt)

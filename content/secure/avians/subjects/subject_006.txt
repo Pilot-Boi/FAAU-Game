@@ -1,0 +1,26 @@
+SUBJECT DOSSIER // TEST SUBJECT 006 OF 008
+
+PRIMARY HANDLER: Director ███████████
+PRIMARY RESEARCHER: Dr. Watts
+PROJECT DESIGNATION: Project Quicksilver
+SERAPH NAME: Gabriel
+
+STATUS: ACTIVE
+SECURITY CLASSIFICATION: Level 4
+CURRENT LOCATION: Sublevel 3 - RESTRICTED CONTAINMENT
+CONTAINMENT STATUS: Standard protocols active
+
+ABILITIES: SPEED, STRENGTH
+
+SPEED:
+Allows Subject 006 to achieve extreme movement velocity across aerial and terrestrial environments, including high-speed flight and accelerated physical strikes. Subjects exhibit concurrent physiological adaptation during manifestation.
+
+STRENGTH:
+Allows Subject 003 to exert force significantly above baseline human levels, including the ability to breach reinforced materials. Increased strength is not accompanied by increased durability, and excessive force may result in self-injury.
+
+--------
+Linked Documentation: 
+Secure Ability File – Speed 
+    (See: /secure/avians/abilities/speed.txt)
+Secure Ability File – Strength 
+    (See: /secure/avians/abilities/strength.txt)

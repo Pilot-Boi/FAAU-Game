@@ -1,0 +1,26 @@
+SUBJECT DOSSIER // TEST SUBJECT 004 OF 008
+
+PRIMARY HANDLER: Director ███████████
+PRIMARY RESEARCHER: Dr. Watts
+PROJECT DESIGNATION: Project Mistborn
+SERAPH NAME: Phanuel
+
+STATUS: ACTIVE
+SECURITY CLASSIFICATION: Level 4
+CURRENT LOCATION: Sublevel 3 - RESTRICTED CONTAINMENT
+CONTAINMENT STATUS: Standard protocols active
+
+ABILITIES: EMPATHY, SHIFTING
+
+EMPATHY:
+Allows Subject 004 to feel the emotions, physical stimuli, and pain of hybrid or fellow avian they are bonded to when emotionally connected or in contact with exposed skin.
+
+SHIFTING:
+Allows Subject 004 to completely alter their physical form to replicate another individual or organism with high accuracy. Frequent repeated use induces significant strain, and subjects exhibit reduced structural resilience.
+
+--------
+Linked Documentation: 
+Secure Ability File – Empathy 
+    (See: /secure/avians/abilities/empathy.txt)
+Secure Ability File – Shifting 
+    (See: /secure/avians/abilities/shifting.txt)

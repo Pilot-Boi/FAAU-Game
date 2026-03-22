@@ -1,0 +1,26 @@
+SUBJECT DOSSIER // TEST SUBJECT 008 OF 008
+
+PRIMARY HANDLER: Director ███████████
+PRIMARY RESEARCHER: Dr. Watts
+PROJECT DESIGNATION: Project Dovetail
+SERAPH NAME: Raphael
+
+STATUS: ACTIVE
+SECURITY CLASSIFICATION: Level 4
+CURRENT LOCATION: Sublevel 3 - RESTRICTED CONTAINMENT
+CONTAINMENT STATUS: Standard protocols active
+
+ABILITIES: EMPATHY, HEALING
+
+EMPATHY:
+Allows Subject 008 to feel the emotions, physical stimuli, and pain of hybrid or fellow avian they are bonded to when emotionally connected or in contact with exposed skin.
+
+HEALING:
+Allows Subject 008 to accelerate the natural healing process of a hybrid or fellow avian through direct contact, marked by a visible glow emitted from the subject’s hands. The effect significantly increases recovery speed and stabilizes physical injury.
+
+--------
+Linked Documentation: 
+Secure Ability File – Empathy 
+    (See: /secure/avians/abilities/empathy.txt)
+Secure Ability File – Healing 
+    (See: /secure/avians/abilities/healing.txt)

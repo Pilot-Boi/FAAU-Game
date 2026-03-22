@@ -1,0 +1,26 @@
+SUBJECT DOSSIER // TEST SUBJECT 001 OF 008
+
+PRIMARY HANDLER: Director ███████████
+PRIMARY RESEARCHER: Dr. Watts
+PROJECT DESIGNATION: Project Obscurus
+SERAPH NAME: Uriel
+
+STATUS: ACTIVE
+SECURITY CLASSIFICATION: Level 4
+CURRENT LOCATION: Sublevel 3 - RESTRICTED CONTAINMENT
+CONTAINMENT STATUS: Standard protocols active
+
+ABILITIES: WIPE, TELEPATHY
+
+TELEPATHY:
+Allows Subject 001 to perceive the thoughts of a hybrid or fellow avian and transmit their own thoughts into the target's mind. Clarity and effectiveness vary based on proximity and the subject’s level of focus.
+
+WIPE:
+Allows Subject 001 to remove memories from a hybrid or fellow avian through direct cognitive interference. Activation is marked by rapid rotation of the subject’s halo structures. Imprecise use may result in broader memory loss than intended.
+
+--------
+Linked Documentation: 
+Secure Ability File – Telepathy 
+    (See: /secure/avians/abilities/telepathy.txt)
+Secure Ability File – Wipe 
+    (See: /secure/avians/abilities/wipe.txt)
