@@ -13,6 +13,7 @@ CONTAINMENT STATUS: Standard protocols active
 ABILITIES: ABSORPTION, SILVER TONGUE
 
 ABSORPTION:
+Allows Subject 007 to draw in and store base forms of energy through direct contact, and later convert and release that energy in a different form. Storage capacity is limited, and excessive intake may result in instability.
 
 SILVER TONGUE:
 Allows Subject 002 to induce compelled in a hybrid or fellow avian through used of verbal commands. Affected individuals remain aware but are unable to control their actions, often exhibiting disorientation after the effect ends.

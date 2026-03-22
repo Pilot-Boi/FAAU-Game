@@ -1,0 +1,41 @@
+ABILITY OVERVIEW // SILVER TONGUE
+
+Classification:
+Cognitive Influence / Vocal Compulsion
+
+Primary: Subject 002, Subject 007
+
+Summary:
+The ability designated "Silver Tongue" allows the Primary subject to induce compelled compliance in a target through direct verbal instruction.
+
+Upon activation, the subject’s speech overrides resistance responses, forcing the target to execute issued commands regardless of prior intent.
+
+Targets remain aware during the effect, but report a loss of control over their own actions.
+
+Mechanism:
+Activation requires the target to hear and cognitively process the subject’s voice. The subject must maintain focus on the intended target during instruction.
+
+Observed data suggests the ability suppresses voluntary motor control while preserving conscious awareness, resulting in enforced directive execution.
+
+The exact mechanism remains unknown.
+
+Observed Effects:
+- Immediate compliance with spoken commands
+- Preservation of target awareness during execution
+- Reported sensation of displaced or suppressed control
+- Temporary inability to resist or interrupt actions
+- Post-effect cognitive disorientation and delayed response
+
+Limitations:
+- Requires clear auditory reception of the command
+- Most effective when applied to a single target
+- Application to multiple targets significantly reduces stability and induces strain on the subject
+- Compulsion effect does not persist beyond completion of the command
+
+Security Notes:
+This ability presents a significant risk to personnel and containment protocols.
+
+Direct verbal interaction with the subject should be restricted. Use of audio dampening or communication filters is recommended during handling procedures.
+
+Note:
+Affected individuals consistently report the experience as observing their own actions without the ability to intervene.

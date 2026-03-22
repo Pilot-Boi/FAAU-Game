@@ -1,0 +1,43 @@
+ABILITY OVERVIEW // ABSORPTION
+
+Classification:
+Energy Intake / Conversion / Release
+
+Primary: Subject 007
+
+Summary:
+The ability designated "Absorption" allows the Primary subject to draw in and store base forms of energy through direct contact.
+
+Absorbed energy may be retained and later expelled in a different base form, enabling conversion between energy types.
+
+The process requires physical contact for intake and active control for release.
+
+Mechanism:
+Activation appears to involve the capture and temporary containment of external energy sources, followed by conversion into a usable output form.
+
+Observed data suggests the subject is capable of
+reconfiguring absorbed energy prior to release, allowing
+for selective output types.
+
+The exact mechanism remains unknown.
+
+Observed Effects:
+- Absorption of energy through direct contact
+- Temporary storage of absorbed energy
+- Conversion between base energy forms
+- Controlled release of stored energy
+
+Limitations:
+- Requires direct contact to absorb energy
+- Only base energy forms can be absorbed and converted
+- Storage capacity appears finite
+- Excess intake may result in instability or uncontrolled discharge
+- Release requires active intent and control
+
+Security Notes:
+Subjects possessing this ability may draw energy from environmental sources or other systems.
+
+Containment protocols should limit access to potential energy sources, including electrical systems and open flame.
+
+Note:
+Subject demonstrates a tendency to favor specific output forms during release, specifically flame.

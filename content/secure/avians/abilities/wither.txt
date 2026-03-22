@@ -1,0 +1,43 @@
+ABILITY OVERVIEW // WITHER
+
+Classification:
+Material Degradation / Contact-Based Decay
+
+Primary: Subject 005
+
+Summary:
+The ability designated "Wither" allows the Primary subject to induce rapid structural degradation in both organic and inorganic matter through direct contact.
+
+Affected material undergoes accelerated breakdown, resulting in loss of cohesion and eventual disintegration while the effect is maintained.
+
+The process is dependent on sustained contact and active focus from the subject.
+
+Mechanism:
+Activation appears to destabilize molecular cohesion at the point of contact, causing progressive breakdown of the affected material.
+
+Observed data indicates that the effect persists only while the subject maintains both physical contact and intentional activation. Removal of contact or loss of focus immediately halts further degradation.
+
+Organic material degrades at a significantly faster rate than inorganic material.
+
+The exact mechanism remains unknown.
+
+Observed Effects:
+- Rapid degradation of material under direct contact
+- Accelerated breakdown of organic tissue
+- Slower but consistent degradation of inorganic structures
+- Immediate cessation of the effect upon loss of contact or focus
+
+Limitations:
+- Requires continuous physical contact to maintain the effect
+- Requires active focus from the subject
+- Degradation halts instantly if contact is broken
+- Inorganic materials degrade at reduced rates
+- Effect is localized to the object of contact
+
+Security Notes:
+Direct contact with the subject must be avoided under all circumstances.
+
+Containment procedures should prioritize separation barriers and distance-based handling to prevent activation.
+
+Note:
+Despite its destructive capability, the ability does not persist independently once disengaged.

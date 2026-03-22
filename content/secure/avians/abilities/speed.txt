@@ -1,0 +1,44 @@
+ABILITY OVERVIEW // SPEED
+
+Classification:
+Kinetic Enhancement / Accelerated Locomotion
+
+Primary: Subject 002, Subject 006
+
+Summary:
+The ability designated "Speed" allows the Primary subject to achieve extreme acceleration and movement velocity across both aerial and terrestrial environments.
+
+The subject is capable of sustained high-speed flight, rapid directional changes, and enhanced striking speed, including physical attacks delivered at accelerated
+rates.
+
+Mechanism:
+Activation appears to involve full-body kinetic enhancement, increasing muscular output, reaction speed, and neurological processing.
+
+Observed data suggests the subject’s physiology is adapted to withstand the stresses associated with high-velocity movement.
+
+The exact mechanism remains unknown.
+
+Observed Effects:
+- High-speed aerial and ground movement
+- Rapid acceleration and deceleration
+- Enhanced reaction time and coordination
+- Increased force delivery in physical strikes
+
+Limitations:
+- Extended use induces physical fatigue
+- Precision decreases at higher velocities
+- Environmental obstacles increase risk during movement
+- Requires spatial awareness to maintain control
+
+Security Notes:
+Subjects possessing this ability are capable of rapid repositioning and evasion.
+
+Containment procedures should account for high-speed movement and limited reaction windows.
+
+Note:
+Subjects with this ability undergo a concurrent physiological adaptation during manifestation, occurring alongside wing development.
+
+--------
+Linked Documentation: 
+SECURE ABILITY FILE: OVERVIEW -
+    (See: /secure/avians/abilities/ability_manifestation.txt)

@@ -1,0 +1,44 @@
+ABILITY OVERVIEW // STRENGTH
+
+Classification:
+Physical Enhancement / Muscular Augmentation
+
+Primary: Subject 003, Subject 006
+
+Summary:
+The ability designated "Strength" allows the Primary subject to exert force significantly above baseline human levels.
+
+Subjects are capable of breaching reinforced materials, including standard concrete barriers, and delivering high-impact physical strikes.
+
+Mechanism:
+Activation appears to involve localized muscular amplification, increasing force output without a corresponding increase in overall body mass.
+
+Observed data suggests enhanced force generation is achieved through unknown biological augmentation.
+
+The exact mechanism remains unknown.
+
+Observed Effects:
+- Significant increase in lifting and striking force
+- Ability to damage or breach reinforced structures
+- Enhanced effectiveness in close-range physical engagement
+
+Limitations:
+- Increased strength is not accompanied by increased durability
+- Subjects remain vulnerable to injury from their own exertion
+- High-force output may result in structural damage to the subject’s own body
+- Repeated exertion induces fatigue and strain
+
+Security Notes:
+Containment requires reinforced structural materials. Standard holding cells are insufficient for subjects possessing this ability.
+
+Personnel should avoid close-range engagement.
+
+Note:
+Subjects with this ability undergo a concurrent physiological adaptation during manifestation, occurring alongside wing development.
+
+--------
+Linked Documentation: 
+SECURE CONTAINMENT FILE: REINFORCED CONTAINMENT -
+    (See: /secure/containment/reinforced_containment_protocol.txt)
+SECURE ABILITY FILE: OVERVIEW -
+    (See: /secure/avians/abilities/ability_manifestation.txt)

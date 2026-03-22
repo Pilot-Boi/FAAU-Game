@@ -16,6 +16,7 @@ SHIFTING:
 Allows Subject 005 to completely alter their physical form to replicate another individual or organism with high accuracy. Frequent repeated use induces significant strain, and subjects exhibit reduced structural resilience.
 
 WITHER:
+Allows Subject 005 to induce structural degradation in organic and inorganic matter through direct contact. The effect requires sustained contact and focus, and ceases immediately once either is broken.
 
 --------
 Linked Documentation: 

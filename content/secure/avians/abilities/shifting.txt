@@ -1,0 +1,45 @@
+ABILITY OVERVIEW // SHIFTING
+
+Classification:
+Morphological Reconfiguration / Full-Body Mimicry
+
+Primary: Subject 004, Subject 005
+
+Summary:
+The ability designated "Shifting" allows the Primary subject to completely alter their physical form to replicate another individual or organism.
+
+Transformations are structurally complete, including external appearance, voice, and fine physical detail. The subject is capable of assuming forms that differ significantly in size, structure, and biological classification, including both humanoid and non-humanoid organisms.
+
+Vocal and behavoiral mimicry is indistinguishable from the original under standard observation, with no visible residual traits of the subject’s original form.
+
+Mechanism:
+Activation appears to involve rapid full-body restructuring at the cellular and skeletal level.
+
+Observed data suggests the subject temporarily reduces structural density during transformation, allowing extensive morphological reconfiguration before re-stabilizing in the new form.
+
+The exact mechanism remains unknown.
+
+Observed Effects:
+- Complete visual and physical mimicry of target forms
+- Accurate replication of voice and mannerisms
+- Rapid transformation between distinct forms
+- No observable residual features from original form during stable states
+
+Limitations:
+- Repeated transformations induce significant physical strain and fatigue
+- Structural integrity appears reduced compared to baseline subjects
+- Skeletal and tissue density measurements indicate decreased load tolerance
+- Extended or frequent use may result in instability during transformation
+
+Security Notes:
+Standard visual identification protocols are unreliable for subjects possessing this ability.
+
+Containment relies on sealed environments rather than physical barriers, as subjects may assume forms capable of bypassing conventional restraints.
+
+Note:
+Subjects with this ability exhibit consistently lower structural resilience, suggesting a trade-off between adaptability and durability.
+
+--------
+Linked Documentation: 
+SECURE CONTAINMENT FILE: REINFORCED CONTAINMENT -
+    (See: /secure/containment/reinforced_containment_protocol.txt)
