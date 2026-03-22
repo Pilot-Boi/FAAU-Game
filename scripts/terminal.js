@@ -562,7 +562,7 @@ function printResult(result) {
     if (result.meta) {
         handleResultMeta(result.meta);
 
-        const eventLines = evaluateEvents(result.meta);
+        const eventLines = evaluateEventsAndAutoSave(result.meta);
         if (eventLines.length > 0) {
             printLines(eventLines);
         }
@@ -599,7 +599,7 @@ function displayMessageWindowResult(result, statusText = 'CHANNEL ACTIVE') {
     if (result.meta) {
         handleResultMeta(result.meta);
 
-        const eventLines = evaluateEvents(result.meta);
+        const eventLines = evaluateEventsAndAutoSave(result.meta);
         if (eventLines.length > 0) {
             printLines(eventLines);
         }
@@ -745,7 +745,7 @@ function openMessageContact(contactId) {
     if (result.meta) {
         handleResultMeta(result.meta);
 
-        const eventLines = evaluateEvents(result.meta);
+        const eventLines = evaluateEventsAndAutoSave(result.meta);
         if (eventLines.length > 0) {
             printLines(eventLines);
         }
@@ -955,7 +955,7 @@ function openCameraFeed(feedId) {
         }
 
         handleResultMeta(chapterSceneResult.meta);
-        const eventLines = evaluateEvents(chapterSceneResult.meta);
+        const eventLines = evaluateEventsAndAutoSave(chapterSceneResult.meta);
         if (eventLines.length > 0) {
             printLines(eventLines);
         }
@@ -1031,6 +1031,8 @@ function handleResultMeta(meta) {
                 announcedTerms.add(normalizeTermKey(term));
                 appendOutputLine(`[SYSTEM] New keyword archived: ${formatTermForOutput(term)}`);
             }
+
+            autoSave(false);
         }
     }
 
@@ -1049,7 +1051,48 @@ function handleResultMeta(meta) {
         for (const term of meta.unlockedTerms) {
             appendOutputLine(`[SYSTEM] New keyword archived: ${formatTermForOutput(term)}`);
         }
+
+        autoSave(false);
     }
+}
+
+// ── Auto-save ────────────────────────────────────────────────────────────────
+
+function autoSave(showMessage = false) {
+    if (typeof saveGameState !== 'function') {
+        return;
+    }
+
+    saveGameState();
+
+    if (showMessage) {
+        appendOutputLine('[SYSTEM] Progress auto-saved.', ['terminal-line-alert']);
+    }
+}
+
+function evaluateEventsAndAutoSave(context) {
+    const hadMsgUnlocked = isCommandUnlocked('msg');
+    const hadCamsUnlocked = isCommandUnlocked('cams');
+    const hadSecureUnlocked = hasFlag('secure_access_granted');
+    const hadChapter01Complete = hasFlag('chapter_01_complete');
+    const hadChapter02Complete = hasFlag('chapter_02_complete');
+    const hadChapter03Complete = hasFlag('chapter_03_complete');
+
+    const lines = evaluateEvents(context);
+
+    if (lines.length > 0) {
+        const milestoneTriggered =
+            (!hadMsgUnlocked && isCommandUnlocked('msg')) ||
+            (!hadCamsUnlocked && isCommandUnlocked('cams')) ||
+            (!hadSecureUnlocked && hasFlag('secure_access_granted')) ||
+            (!hadChapter01Complete && hasFlag('chapter_01_complete')) ||
+            (!hadChapter02Complete && hasFlag('chapter_02_complete')) ||
+            (!hadChapter03Complete && hasFlag('chapter_03_complete'));
+
+        autoSave(milestoneTriggered);
+    }
+
+    return lines;
 }
 
 // Command registry: add new commands here to make them available and auto-listed in help.
