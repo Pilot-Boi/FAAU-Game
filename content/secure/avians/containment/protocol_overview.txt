@@ -9,6 +9,9 @@ Directive Summary:
 
 
 Linked Documentation:
-Secure Containment File – Reinforced Containment (See: /secure/containment/reinforced_containment_protocol.txt)
-Secure Containment File - Vocal Restraint (See: /secure/containment/vocal_restraint_protocol.txt)
-Secure Containment File - Observation Barrier (See: /secure/containment/observation_barrier_protocol.txt)
+Secure Containment File - Reinforced Containment 
+    (See: /secure/containment/reinforced_containment_protocol.txt)
+Secure Containment File - Vocal Restraint 
+    (See: /secure/containment/vocal_restraint_protocol.txt)
+Secure Containment File - Observation Barrier 
+    (See: /secure/containment/observation_barrier_protocol.txt)

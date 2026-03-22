@@ -40,6 +40,9 @@ The ACHILLES platform has been approved for continued development and broader cl
 
 The system is expected to serve as a foundation for future advancements in assistive biomechanical technology.
 
+--------
 Linked Documentation: 
-External Civilian File – P. Nikos (See: /external/civilian/p_nikos.txt)
-External Civilian File - P. Polendina (See: /external/civilian/p_polendina.txt)
+External Civilian File – P. Nikos 
+    (See: /external/civilian/p_nikos.txt)
+External Civilian File - P. Polendina 
+    (See: /external/civilian/p_polendina.txt)

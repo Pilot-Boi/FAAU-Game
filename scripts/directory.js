@@ -306,7 +306,7 @@ const FILE_SYSTEM = {
                                         title: 'SUBJECT 001 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_001 asset when available.'
                                     },
-                                    contentFile: 'content/secure/subjects/subject_001.txt'
+                                    contentFile: 'content/secure/avians/subjects/subject_001.txt'
                                 },
                                 'subject_002.txt': {
                                     type: 'file',
@@ -317,7 +317,7 @@ const FILE_SYSTEM = {
                                         title: 'SUBJECT 002 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_002 asset when available.'
                                     },
-                                    contentFile: 'content/secure/subjects/subject_002.txt'
+                                    contentFile: 'content/secure/avians/subjects/subject_002.txt'
                                 },
                                 'subject_003.txt': {
                                     type: 'file',
@@ -328,7 +328,7 @@ const FILE_SYSTEM = {
                                         title: 'SUBJECT 003 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_003 asset when available.'
                                     },
-                                    contentFile: 'content/secure/subjects/subject_003.txt'
+                                    contentFile: 'content/secure/avians/subjects/subject_003.txt'
                                 },
                                 'subject_004.txt': {
                                     type: 'file',
@@ -341,7 +341,7 @@ const FILE_SYSTEM = {
                                         title: 'SUBJECT 004 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_004 asset when available.'
                                     },
-                                    contentFile: 'content/secure/subjects/subject_004.txt'
+                                    contentFile: 'content/secure/avians/subjects/subject_004.txt'
                                 },
                                 'subject_005.txt': {
                                     type: 'file',
@@ -354,7 +354,7 @@ const FILE_SYSTEM = {
                                         title: 'SUBJECT 005 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_005 asset when available.'
                                     },
-                                    contentFile: 'content/secure/subjects/subject_005.txt'
+                                    contentFile: 'content/secure/avians/subjects/subject_005.txt'
                                 },
                                 'subject_006.txt': {
                                     type: 'file',
@@ -367,7 +367,7 @@ const FILE_SYSTEM = {
                                         title: 'SUBJECT 006 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_006 asset when available.'
                                     },
-                                    contentFile: 'content/secure/subjects/subject_006.txt'
+                                    contentFile: 'content/secure/avians/subjects/subject_006.txt'
                                 },
                                 'subject_007.txt': {
                                     type: 'file',
@@ -380,7 +380,7 @@ const FILE_SYSTEM = {
                                         title: 'SUBJECT 007 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_007 asset when available.'
                                     },
-                                    contentFile: 'content/secure/subjects/subject_007.txt'
+                                    contentFile: 'content/secure/avians/subjects/subject_007.txt'
                                 },
                                 'subject_008.txt': {
                                     type: 'file',
@@ -393,7 +393,7 @@ const FILE_SYSTEM = {
                                         title: 'SUBJECT 008 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_008 asset when available.'
                                     },
-                                    contentFile: 'content/secure/subjects/subject_008.txt'
+                                    contentFile: 'content/secure/avians/subjects/subject_008.txt'
                                 }
                             }
                         },
@@ -404,13 +404,13 @@ const FILE_SYSTEM = {
                                     type: 'file',
                                     terms: ['containment', 'sublevel', 'security'],
                                     onOpenFlag: 'read_containment_overview',
-                                    contentFile: 'content/secure/containment/containment_overview.txt'
+                                    contentFile: 'content/secure/avians/containment/containment_overview.txt'
                                 },
                                 'protocol_overview.txt': {
                                     type: 'file',
                                     terms: ['containment', 'security'],
                                     onOpenFlag: 'read_protocol_overview',
-                                    contentFile: 'content/secure/containment/protocol_overview.txt'
+                                    contentFile: 'content/secure/avians/containment/protocol_overview.txt'
                                 },
                                 'vocal_restraint_protocol.txt': {
                                     type: 'file',
@@ -418,7 +418,7 @@ const FILE_SYSTEM = {
                                     hiddenUntilFlag: 'vocal_restraint_unlocked',
                                     terms: ['containment', 'security', 'subject_002', 'subject_007'],
                                     onOpenFlag: 'read_vocal_restraint_protocol',
-                                    contentFile: 'content/secure/containment/vocal_restraint_protocol.txt'
+                                    contentFile: 'content/secure/avians/containment/vocal_restraint_protocol.txt'
                                 },
                                 'reinforced_containment_protocol.txt': {
                                     type: 'file',
@@ -426,7 +426,7 @@ const FILE_SYSTEM = {
                                     hiddenUntilFlag: 'reinforced_containment_unlocked',
                                     terms: ['containment', 'security', 'subject_003', 'subject_006'],
                                     onOpenFlag: 'read_reinforced_containment_protocol',
-                                    contentFile: 'content/secure/containment/reinforced_containment_protocol.txt'
+                                    contentFile: 'content/secure/avians/containment/reinforced_containment_protocol.txt'
                                 },
                                 'observation_barrier_protocol.txt': {
                                     type: 'file',
@@ -434,7 +434,7 @@ const FILE_SYSTEM = {
                                     hiddenUntilFlag: 'observation_barrier_unlocked',
                                     terms: ['containment', 'security', 'subject_004', 'subject_005'],
                                     onOpenFlag: 'read_observation_barrier_protocol',
-                                    contentFile: 'content/secure/containment/observation_barrier_protocol.txt'
+                                    contentFile: 'content/secure/avians/containment/observation_barrier_protocol.txt'
                                 }
                             }
                         },
@@ -447,73 +447,73 @@ const FILE_SYSTEM = {
                                     type: 'file',
                                     terms: ['abilities'],
                                     onOpenFlag: 'read_ability_overview',
-                                    contentFile: 'content/secure/abilities/ability_overview.txt'
+                                    contentFile: 'content/secure/avians/abilities/ability_overview.txt'
                                 },
                                 'ability_manifestation.txt': {
                                     type: 'file',
                                     terms: ['abilities', 'manifestation'],
                                     onOpenFlag: 'read_ability_manifestation',
-                                    contentFile: 'content/secure/abilities/ability_manifestation.txt'
+                                    contentFile: 'content/secure/avians/abilities/ability_manifestation.txt'
                                 },
                                 'wipe.txt': {
                                     type: 'file',
                                     terms: ['wipe', 'abilities'],
                                     onOpenFlag: 'read_ability_wipe',
-                                    contentFile: 'content/secure/abilities/wipe.txt'
-                                },
-                                'empathy.txt': {
-                                    type: 'file',
-                                    terms: ['empathy', 'abilities'],
-                                    onOpenFlag: 'read_ability_empathy',
-                                    contentFile: 'content/secure/abilities/empathy.txt'
-                                },
-                                'healing.txt': {
-                                    type: 'file',
-                                    terms: ['healing', 'abilities'],
-                                    onOpenFlag: 'read_ability_healing',
-                                    contentFile: 'content/secure/abilities/healing.txt'
-                                },
-                                'strength.txt': {
-                                    type: 'file',
-                                    terms: ['strength', 'abilities'],
-                                    onOpenFlag: 'read_ability_strength',
-                                    contentFile: 'content/secure/abilities/strength.txt'
-                                },
-                                'speed.txt': {
-                                    type: 'file',
-                                    terms: ['speed', 'abilities'],
-                                    onOpenFlag: 'read_ability_speed',
-                                    contentFile: 'content/secure/abilities/speed.txt'
-                                },
-                                'telepathy.txt': {
-                                    type: 'file',
-                                    terms: ['telepathy', 'abilities'],
-                                    onOpenFlag: 'read_ability_telepathy',
-                                    contentFile: 'content/secure/abilities/telepathy.txt'
-                                },
-                                'silver_tongue.txt': {
-                                    type: 'file',
-                                    terms: ['silver_tongue', 'abilities'],
-                                    onOpenFlag: 'read_ability_silver_tongue',
-                                    contentFile: 'content/secure/abilities/silver_tongue.txt'
+                                    contentFile: 'content/secure/avians/abilities/wipe.txt'
                                 },
                                 'absorption.txt': {
                                     type: 'file',
                                     terms: ['absorption', 'abilities'],
                                     onOpenFlag: 'read_ability_absorption',
-                                    contentFile: 'content/secure/abilities/absorption.txt'
+                                    contentFile: 'content/secure/avians/abilities/absorption.txt'
+                                },
+                                'empathy.txt': {
+                                    type: 'file',
+                                    terms: ['empathy', 'abilities'],
+                                    onOpenFlag: 'read_ability_empathy',
+                                    contentFile: 'content/secure/avians/abilities/empathy.txt'
+                                },
+                                'healing.txt': {
+                                    type: 'file',
+                                    terms: ['healing', 'abilities'],
+                                    onOpenFlag: 'read_ability_healing',
+                                    contentFile: 'content/secure/avians/abilities/healing.txt'
                                 },
                                 'shifting.txt': {
                                     type: 'file',
                                     terms: ['shifting', 'abilities'],
                                     onOpenFlag: 'read_ability_shifting',
-                                    contentFile: 'content/secure/abilities/shifting.txt'
+                                    contentFile: 'content/secure/avians/abilities/shifting.txt'
+                                },
+                                'silver_tongue.txt': {
+                                    type: 'file',
+                                    terms: ['silver_tongue', 'abilities'],
+                                    onOpenFlag: 'read_ability_silver_tongue',
+                                    contentFile: 'content/secure/avians/abilities/silver_tongue.txt'
+                                },
+                                'speed.txt': {
+                                    type: 'file',
+                                    terms: ['speed', 'abilities'],
+                                    onOpenFlag: 'read_ability_speed',
+                                    contentFile: 'content/secure/avians/abilities/speed.txt'
+                                },
+                                'strength.txt': {
+                                    type: 'file',
+                                    terms: ['strength', 'abilities'],
+                                    onOpenFlag: 'read_ability_strength',
+                                    contentFile: 'content/secure/avians/abilities/strength.txt'
+                                },
+                                'telepathy.txt': {
+                                    type: 'file',
+                                    terms: ['telepathy', 'abilities'],
+                                    onOpenFlag: 'read_ability_telepathy',
+                                    contentFile: 'content/secure/avians/abilities/telepathy.txt'
                                 },
                                 'wither.txt': {
                                     type: 'file',
                                     terms: ['wither', 'abilities'],
                                     onOpenFlag: 'read_ability_wither',
-                                    contentFile: 'content/secure/abilities/wither.txt'
+                                    contentFile: 'content/secure/avians/abilities/wither.txt'
                                 }
                             }
                         }
