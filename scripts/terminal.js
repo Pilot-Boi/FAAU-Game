@@ -1785,10 +1785,6 @@ async function runContinueSequence() {
         changeDirectory(result.savedPath);
     }
 
-    if (typeof playSound === 'function') {
-        playSound('boot');
-    }
-
     terminalOutput.textContent = '';
 
     const reconnectLines = [

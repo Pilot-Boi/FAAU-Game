@@ -19,25 +19,35 @@ const SOUND_VOLUMES = {
 	open_view: 0.4
 };
 
-const soundLibrary = Object.fromEntries(
+// Pre-warm a rotating pool of Audio instances per sound so playback is
+// immediate — cloneNode() does not carry buffered data and causes a
+// fetch/decode stall on first play.
+const POOL_SIZE = 3;
+
+const soundPools = Object.fromEntries(
 	Object.entries(SOUND_PATHS).map(([name, path]) => {
-		const audio = new Audio(path);
-		audio.preload = 'auto';
-		audio.volume = SOUND_VOLUMES[name] ?? 0.4;
-		return [name, audio];
+		const volume = SOUND_VOLUMES[name] ?? 0.4;
+		const pool = Array.from({ length: POOL_SIZE }, () => {
+			const audio = new Audio(path);
+			audio.preload = 'auto';
+			audio.volume = volume;
+			return audio;
+		});
+		return [name, { pool, index: 0 }];
 	})
 );
 
 function playSound(name) {
-	const source = soundLibrary[name];
+	const entry = soundPools[name];
 
-	if (!source) {
+	if (!entry) {
 		return;
 	}
 
-	const sound = source.cloneNode();
-	sound.volume = source.volume;
-	sound.play().catch(() => {});
+	const audio = entry.pool[entry.index];
+	entry.index = (entry.index + 1) % POOL_SIZE;
+	audio.currentTime = 0;
+	audio.play().catch(() => {});
 }
 
 window.playSound = playSound;
