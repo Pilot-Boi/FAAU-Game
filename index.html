@@ -79,6 +79,20 @@
         </div>
     </div>
 
+    <!-- Main menu overlay shown before game begins -->
+    <div id="main-menu" class="main-menu" role="dialog" aria-modal="true" aria-label="Main Menu">
+        <div class="main-menu-inner">
+            <pre class="main-menu-logo" id="main-menu-logo" aria-hidden="true"></pre>
+            <div class="main-menu-subtitle">FACILITY TERMINAL v0.1</div>
+            <nav class="main-menu-options" aria-label="Game menu">
+                <button class="main-menu-btn" id="menu-new-game" type="button">[ NEW GAME ]</button>
+                <button class="main-menu-btn" id="menu-continue" type="button" disabled>[ CONTINUE ]</button>
+            </nav>
+            <div class="main-menu-status" id="main-menu-status"></div>
+            <div class="main-menu-hint">PRESS 1 &mdash; NEW GAME &nbsp;&nbsp; PRESS 2 &mdash; CONTINUE</div>
+        </div>
+    </div>
+
     <!-- Scripts for terminal functionality -->
     <script src="scripts/soundManager.js"></script>
     <script src="scripts/gameState.js"></script>

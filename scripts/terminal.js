@@ -176,7 +176,7 @@ function getTerminalLineClass(text) {
         return 'terminal-line-system';
     }
 
-    if (/(access denied|not found|command unavailable|command not recognized|no archived reference found|unknown error|invalid path|directory error|usage:)/i.test(normalized)) {
+    if (/(access denied|not found|command unavailable|command not recognized|no archived reference found|unknown error|invalid path|directory error)/i.test(normalized)) {
         return 'terminal-line-error';
     }
 
@@ -552,7 +552,7 @@ function printResult(result) {
     }
 
     if (result.error) {
-        appendOutputLine(result.error);
+        appendOutputLine(result.error, ['terminal-line-error']);
     }
 
     if (result.entries) {
@@ -1209,6 +1209,19 @@ const COMMANDS = {
         execute: () => {
             terminalOutput.textContent = '';
         }
+    },
+    save: {
+        name: 'save',
+        usage: 'save',
+        description: 'Saves your current progress to browser storage.',
+        execute: () => {
+            const success = typeof saveGameState === 'function' ? saveGameState() : false;
+            if (success) {
+                appendOutputLine('[SYSTEM] Progress saved.');
+            } else {
+                appendOutputLine('[SYSTEM] Save failed. Browser storage may be unavailable.');
+            }
+        }
     }
 };
 
@@ -1675,7 +1688,146 @@ promptInput.addEventListener('keydown', (event) => {
     }
 });
 
-// Begin the boot simulation when the page finishes loading.
+// ── Main Menu ────────────────────────────────────────────────────────────────
+
+const mainMenuEl = document.getElementById('main-menu');
+const menuNewGameBtn = document.getElementById('menu-new-game');
+const menuContinueBtn = document.getElementById('menu-continue');
+const menuLogoEl = document.getElementById('main-menu-logo');
+const menuStatusEl = document.getElementById('main-menu-status');
+
+function initMainMenu() {
+    menuLogoEl.textContent = facilityLogoLines.join('\n');
+
+    const hasSave = typeof hasSavedGame === 'function' && hasSavedGame();
+    if (hasSave) {
+        menuContinueBtn.disabled = false;
+        menuStatusEl.textContent = 'SAVE DATA FOUND';
+    } else {
+        menuStatusEl.textContent = 'NO SAVE DATA';
+    }
+
+    menuNewGameBtn.addEventListener('click', startNewGame);
+    menuContinueBtn.addEventListener('click', startContinue);
+    document.addEventListener('keydown', handleMenuKeydown);
+    menuNewGameBtn.focus();
+}
+
+function handleMenuKeydown(event) {
+    if (!mainMenuEl || mainMenuEl.classList.contains('is-hidden')) {
+        return;
+    }
+
+    if (event.key === '1') {
+        startNewGame();
+    } else if (event.key === '2' && !menuContinueBtn.disabled) {
+        startContinue();
+    }
+}
+
+function dismissMainMenu(callback) {
+    let done = false;
+    const finish = () => {
+        if (done) {
+            return;
+        }
+        done = true;
+        if (mainMenuEl.parentNode) {
+            mainMenuEl.remove();
+        }
+        if (typeof callback === 'function') {
+            callback();
+        }
+    };
+
+    document.removeEventListener('keydown', handleMenuKeydown);
+    mainMenuEl.classList.add('is-hidden');
+    mainMenuEl.addEventListener('transitionend', finish, { once: true });
+    setTimeout(finish, 600);
+}
+
+function startNewGame() {
+    if (typeof playSound === 'function') {
+        playSound('click');
+    }
+    dismissMainMenu(() => {
+        runBootSequence();
+    });
+}
+
+function startContinue() {
+    if (menuContinueBtn.disabled) {
+        return;
+    }
+    if (typeof playSound === 'function') {
+        playSound('click');
+    }
+    dismissMainMenu(() => {
+        runContinueSequence();
+    });
+}
+
+async function runContinueSequence() {
+    const result = typeof loadSavedGame === 'function' ? loadSavedGame() : false;
+
+    if (!result) {
+        runBootSequence();
+        return;
+    }
+
+    // Pre-populate announcedTerms so restored keywords aren't re-announced.
+    for (const term of getDiscoveredTerms()) {
+        announcedTerms.add(normalizeTermKey(term));
+    }
+
+    // Restore saved directory path.
+    if (result.savedPath && result.savedPath !== '/') {
+        changeDirectory(result.savedPath);
+    }
+
+    if (typeof playSound === 'function') {
+        playSound('boot');
+    }
+
+    terminalOutput.textContent = '';
+
+    const reconnectLines = [
+        'RESTORING SESSION...',
+        'VERIFYING SAVE INTEGRITY...',
+        'LOADING STATE...',
+        'SESSION RESTORED'
+    ];
+
+    for (const line of reconnectLines) {
+        await typeLine(line);
+        await wait(lineDelayMs);
+    }
+
+    await wait(finalPauseMs);
+
+    for (const line of facilityLogoLines) {
+        appendOutputLine(line);
+        await wait(logoLineDelayMs);
+    }
+
+    await wait(lineDelayMs);
+
+    for (const line of postBootLines) {
+        appendOutputLine(line);
+        await wait(postBootLineDelayMs);
+    }
+
+    appendOutputLine('');
+    appendOutputLine('[SYSTEM] Previous session loaded. Type "save" at any time to save progress.');
+    await wait(finalPauseMs);
+
+    terminalPrompt.classList.remove('terminal-prompt-hidden');
+    promptInput.textContent = '';
+    updatePromptDisplay();
+    promptInput.focus();
+}
+
+// Show the main menu when the page finishes loading.
 window.addEventListener('load', () => {
-    runBootSequence();
+    initMainMenu();
 });

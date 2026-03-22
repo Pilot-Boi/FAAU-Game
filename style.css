@@ -922,3 +922,99 @@ body {
         padding-right: 0.95rem;
     }
 }
+
+/* ── Main Menu ──────────────────────────────────────────────────────────────── */
+
+.main-menu {
+    position: fixed;
+    inset: 0;
+    background: #101010;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.main-menu.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.main-menu-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+    padding: 2rem 1rem;
+    max-width: 96vw;
+}
+
+.main-menu-logo {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: clamp(0.3em, 1.1vw, 0.85em);
+    color: var(--terminal-text);
+    text-shadow: 0 0 10px #00ff6677;
+    margin: 0;
+    line-height: 1.35;
+    white-space: pre;
+    overflow: hidden;
+}
+
+.main-menu-subtitle {
+    color: var(--terminal-command);
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 1.05em;
+    letter-spacing: 0.22em;
+    text-shadow: 0 0 6px #57d8ff66;
+}
+
+.main-menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    align-items: center;
+}
+
+.main-menu-btn {
+    background: transparent;
+    border: 1px solid var(--terminal-text);
+    color: var(--terminal-text);
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 1.05em;
+    padding: 0.55em 2.5em;
+    min-width: 220px;
+    text-align: center;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.main-menu-btn:not(:disabled):hover,
+.main-menu-btn:not(:disabled):focus {
+    background: var(--terminal-text);
+    color: #101010;
+    outline: none;
+}
+
+.main-menu-btn:disabled {
+    color: #3a4d3a;
+    border-color: #2a3a2a;
+    cursor: default;
+}
+
+.main-menu-status {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.78em;
+    color: var(--terminal-system);
+    letter-spacing: 0.1em;
+    min-height: 1.2em;
+}
+
+.main-menu-hint {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.72em;
+    color: #3a5a3a;
+    letter-spacing: 0.1em;
+}

@@ -24,6 +24,7 @@ const GAME_STATE = {
         'search',
         'terms',
         'flags',
+        'save',
         'clear',
         'dev'
     ]),
@@ -231,6 +232,7 @@ function resetGameState() {
         'search',
         'terms',
         'flags',
+        'save',
         'clear',
         'dev'
     ]);
@@ -243,4 +245,82 @@ function resetGameState() {
     GAME_STATE.storyState.contactMessageHistory = {};
     GAME_STATE.storyState.contactMessageSceneHistory = {};
     GAME_STATE.storyState.cameraFeedSceneHistory = {};
+}
+
+// ── Persistence ───────────────────────────────────────────────────────────────
+
+const SAVE_KEY = 'faau_save';
+
+function serializeGameState() {
+    const path = typeof formatCurrentPath === 'function' ? formatCurrentPath() : '/';
+    return JSON.stringify({
+        filesRead: Array.from(GAME_STATE.filesRead),
+        discoveredTerms: Array.from(GAME_STATE.discoveredTerms),
+        searchedTerms: Array.from(GAME_STATE.searchedTerms),
+        flags: { ...GAME_STATE.flags },
+        unlockedCommands: Array.from(GAME_STATE.unlockedCommands),
+        triggeredEvents: Array.from(GAME_STATE.triggeredEvents),
+        storyState: {
+            currentChapter: GAME_STATE.storyState.currentChapter,
+            chapterPlayed: Array.from(GAME_STATE.storyState.chapterPlayed),
+            readEntryKeys: Array.from(GAME_STATE.storyState.readEntryKeys),
+            contactMessageHistory: { ...GAME_STATE.storyState.contactMessageHistory },
+            contactMessageSceneHistory: { ...GAME_STATE.storyState.contactMessageSceneHistory },
+            cameraFeedSceneHistory: { ...GAME_STATE.storyState.cameraFeedSceneHistory }
+        },
+        currentPath: path
+    });
+}
+
+function saveGameState() {
+    try {
+        localStorage.setItem(SAVE_KEY, serializeGameState());
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+function hasSavedGame() {
+    return localStorage.getItem(SAVE_KEY) !== null;
+}
+
+function loadSavedGame() {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) {
+        return false;
+    }
+
+    try {
+        const data = JSON.parse(raw);
+
+        GAME_STATE.filesRead = new Set(Array.isArray(data.filesRead) ? data.filesRead : []);
+        GAME_STATE.discoveredTerms = new Set(Array.isArray(data.discoveredTerms) ? data.discoveredTerms : []);
+        GAME_STATE.searchedTerms = new Set(Array.isArray(data.searchedTerms) ? data.searchedTerms : []);
+        GAME_STATE.flags = (data.flags && typeof data.flags === 'object') ? { ...data.flags } : {};
+        GAME_STATE.unlockedCommands = new Set(
+            Array.isArray(data.unlockedCommands)
+                ? data.unlockedCommands
+                : ['help', 'list', 'move', 'open', 'search', 'terms', 'flags', 'save', 'clear', 'dev']
+        );
+        GAME_STATE.triggeredEvents = new Set(Array.isArray(data.triggeredEvents) ? data.triggeredEvents : []);
+
+        const ss = data.storyState;
+        if (ss && typeof ss === 'object') {
+            GAME_STATE.storyState.currentChapter = typeof ss.currentChapter === 'number' ? ss.currentChapter : 0;
+            GAME_STATE.storyState.chapterPlayed = new Set(Array.isArray(ss.chapterPlayed) ? ss.chapterPlayed : []);
+            GAME_STATE.storyState.readEntryKeys = new Set(Array.isArray(ss.readEntryKeys) ? ss.readEntryKeys : []);
+            GAME_STATE.storyState.contactMessageHistory = (ss.contactMessageHistory && typeof ss.contactMessageHistory === 'object') ? { ...ss.contactMessageHistory } : {};
+            GAME_STATE.storyState.contactMessageSceneHistory = (ss.contactMessageSceneHistory && typeof ss.contactMessageSceneHistory === 'object') ? { ...ss.contactMessageSceneHistory } : {};
+            GAME_STATE.storyState.cameraFeedSceneHistory = (ss.cameraFeedSceneHistory && typeof ss.cameraFeedSceneHistory === 'object') ? { ...ss.cameraFeedSceneHistory } : {};
+        }
+
+        return { savedPath: typeof data.currentPath === 'string' ? data.currentPath : '/' };
+    } catch {
+        return false;
+    }
+}
+
+function deleteSavedGame() {
+    localStorage.removeItem(SAVE_KEY);
 }
