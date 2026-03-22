@@ -1,0 +1,140 @@
+DOCUMENT STATUS: ACTIVE
+ACCESS LEVEL: SECURE // INTERNAL
+
+OVERVIEW
+This document catalogs observed physical manifestations
+associated with avian ability acquisition. Each ability
+correlates with distinct morphological adaptations and
+visual identifiers, typically emerging during the same
+developmental phase as wing formation.
+
+These traits appear consistent across subjects
+possessing the same ability, suggesting a standardized
+biological response rather than individual mutation.
+
+---
+
+ABSORPTION
+Color Association: RED
+
+Observed Manifestations:
+- Distal digits darken and harden, forming clawed
+  structures
+- Ocular formations present on each palm
+
+Notes:
+Palm-based ocular structures are fully functional and
+provide additional visual input from non-standard
+angles. These organs appear to operate independently
+of primary vision and are often oriented toward points
+of contact during ability use.
+
+---
+
+EMPATHY
+Color Association: WHITE
+
+Observed Manifestations:
+- Development of a feathered avian tail
+- Wing-like structures positioned along the sides of the head (aural region)
+- Feather distribution across facial structure, primarily along the cheeks
+
+Notes:
+Aural region wing structures are capable of independent movement. 
+
+---
+
+HEALING
+Color Association: YELLOW
+
+Observed Manifestations:
+- Ocular formations present on the back of each hand
+
+Notes:
+Dorsal hand ocular structures are capable of active visual tracking. During healing output, subject subconsciously orients these eyes toward the affected target area, suggesting a role in directing or modulating the process.
+
+---
+
+SHIFTING
+Color Association: PINK
+
+Observed Manifestations:
+- Small wing structures emerging along the upper back, resembling dorsal fins
+
+Notes:
+These structures may assist in stabilizing form during transformation processes.
+
+---
+
+SILVER TONGUE
+Color Association: ORANGE
+
+Observed Manifestations:
+- No consistent external morphological adaptations observed
+
+Notes:
+Lack of visible indicators complicates identification of active use.
+
+---
+
+SPEED
+Color Association: BLUE
+
+Observed Manifestations:
+- Loss of original lower limbs during manifestation phase
+- Regrowth of digitigrade, clawed limbs resembling large avian anatomy
+
+Notes:
+Structural adaptation is hypothesized to support rapid acceleration and controlled deceleration under extreme velocity conditions.
+
+---
+
+STRENGTH
+Color Association: GRAY
+
+Observed Manifestations:
+- Development of a secondary pair of upper limbs, anatomically identical to the primary set
+
+Notes:
+Additional limbs exhibit equivalent strength output and coordination capability.
+
+---
+
+TELEPATHY
+Color Association: GREEN
+
+Observed Manifestations:
+- Ocular formation centered on the forehead
+
+Notes:
+The central ocular structure is fully functional and provides an expanded forward field of vision. Subjects demonstrate the ability to process input from this organ concurrently with standard visual channels.
+
+---
+
+WIPE
+Color Association: BLACK
+
+Observed Manifestations:
+- Dual ring structures containing ocular formations suspended above the subject
+- Additional ocular formations present along the cheeks
+
+Notes:
+All manifested eyes are functional. The ring structures exhibit rotational motion during ability use, allowing continuous visual coverage of the surrounding environment. Eye coloration matches that of the subject.
+
+---
+
+WITHER
+Color Association: PURPLE
+
+Observed Manifestations:
+- Progressive discoloration of upper limb skin, transitioning from purple to black at the hands
+- Clawed digit formation
+- Luminescent vascular patterns visible beneath the skin
+
+Notes:
+Given that the subject that developed the Wither ability was the first successful manifestation, it is unclear at this time if the above stated vascular patterns are a result of Wither manifestation or the subject's mutations from early stage gene therapy.
+
+---
+
+DIRECTORATE NOTE
+Manifestation traits provide reliable visual identification of subject capabilities and should be used for rapid classification during observation and containment procedures.

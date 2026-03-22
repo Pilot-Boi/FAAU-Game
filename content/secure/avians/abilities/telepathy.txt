@@ -1,0 +1,44 @@
+ABILITY OVERVIEW // TELEPATHY
+
+Classification:
+Cognitive / Communication
+
+Primary: Subject 001, Subject 003
+
+Summary:
+The ability designated "Telepathy" allows the subject to establish direct mental communication with a target without the use of verbal or physical signals.
+
+This process transmits thoughts, intent, and conceptual information with a high degree of clarity, functioning as true cognitive exchange rather than influence or control.
+
+Mechanism:
+Telepathic communication appears to operate through direct cognitive linkage between subject and target, bypassing conventional sensory pathways.
+
+Clarity and stability of transmission are significantly improved when the subject is familiar with the target, suggesting that recognition or prior interaction facilitates more efficient connection.
+
+Transmission strength decreases with distance, requiring increased concentration to maintain coherent communication over extended ranges.
+
+Observed Effects:
+- Silent exchange of thoughts and intent between subject and target
+- Increased clarity when communicating with known individuals
+- Gradual degradation of signal quality over distance
+- No evidence of cognitive override or behavioral influence during transmission
+- Communication perceived by targets as internal thought not originating from themselves
+
+Limitations:
+- Requires active concentration to initiate and maintain connection
+- Effectiveness reduced when targeting unfamiliar individuals
+- Signal clarity decreases as distance increases
+- Sustained or repeated use without regular conditioning results in mild cognitive strain
+- Does not inherently grant control over the target’s thoughts or actions
+
+Security Notes:
+Telepathic capability presents a significant risk for covert information transfer between subjects.
+
+Monitoring of subjects' interactions is recommended to prevent unauthorized communication across containment boundaries.
+
+Use of physical and spatial separation protocols is advised where feasible.
+
+Notes:
+Despite its lack of direct control mechanisms, Telepathy enables coordination and information sharing without observable indicators, making detection difficult under standard surveillance conditions.
+
+Testing confirms that the ability does not allow the subject to perceive sensory input through the target. Subjects are unable to see, hear, or otherwise experience the environment of the individual they are communicating with.

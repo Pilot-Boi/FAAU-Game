@@ -1,0 +1,63 @@
+AVIAN ABILITY OVERVIEW
+
+The following document provides a general overview of observed avian abilities. Each entry includes a brief description and reference to associated documentation.
+
+Detailed analysis, testing data, and behavioral impact are maintained in linked files.
+
+--- ABSORPTION ---
+Allows the subject to draw in and store base forms of energy through direct contact, and later convert and release that energy.
+
+See: /secure/avians/abilities/absorption.txt
+
+--- EMPATHY ---
+Allows the subject to perceive the emotions, physical stimuli, and pain of bonded individuals through emotional connection or direct contact.
+
+See: /secure/avians/abilities/empathy.txt
+
+
+--- HEALING ---
+Allows the subject to accelerate the natural healing process of others through direct contact, marked by a visible energy emission.
+
+See: /secure/avians/abilities/healing.txt
+
+
+--- SHIFTING ---
+Allows the subject to completely alter their physical form to replicate another individual or organism.
+
+See: /secure/avians/abilities/shifting.txt
+
+
+--- SILVER TONGUE ---
+Allows the subject to induce compelled compliance in targets through verbal instruction.
+
+See: /secure/avians/abilities/silver_tongue.txt
+
+
+--- SPEED ---
+Allows the subject to achieve extreme movement velocity across aerial and terrestrial environments.
+
+See: /secure/avians/abilities/speed.txt
+
+
+--- STRENGTH ---
+Allows the subject to exert force significantly above baseline human levels.
+
+See: /secure/avians/abilities/strength.txt
+
+
+--- TELEPATHY ---
+Allows the subject to perceive and influence the thoughts of nearby individuals.
+
+See: /secure/avians/abilities/telepathy.txt
+
+
+--- WIPE ---
+Allows the subject to remove memories from a target through direct cognitive interference.
+
+See: /secure/avians/abilities/wipe.txt
+
+
+--- WITHER ---
+Allows the subject to induce structural degradation in organic and inorganic matter through direct contact.
+
+See: /secure/avians/abilities/wither.txt
