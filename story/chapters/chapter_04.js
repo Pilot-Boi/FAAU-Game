@@ -607,7 +607,23 @@ const CHAPTER_04 = {
             setFlags: ['chapter_04_entry_05'],
             blocks: [
                 {
-                    type: 'narration',
+                    type: 'camera_header',
+                    camera: 'Testing Chamber',
+                    timestamp: 'UNKNOWN'
+                },
+                {
+                    type: 'camera_narration',
+                    sender: 'Brachy',
+                    lines: [
+                        '006/michael/mercury my beloved. makes sense that an assassin would be the enforcer. how’s he doing?'
+                    ]
+                },
+                {
+                    type: 'camera_divider',
+                    text: 'VISUAL FEED'
+                },
+                {
+                    type: 'camera_action',
                     lines: [
                         'It’s dark.',
                         'It’s dark and he can’t see.',
@@ -631,22 +647,19 @@ const CHAPTER_04 = {
                     ]
                 },
                 {
-                    type: 'dialogue',
+                    type: 'camera_divider',
+                    text: 'AUDIO RECORDING'
+                },
+                {
+                    type: 'camera_action',
                     lines: [
-                        'Exercise 153 completed.'
+                        '"Exercise 153 completed," says a cold smooth voice that echoes from above him.',
+                        '"Stand down, soldier. Return to your room."'
                     ]
                 },
                 {
-                    type: 'narration',
-                    lines: [
-                        'Says a cold smooth voice that echoes from above him.'
-                    ]
-                },
-                {
-                    type: 'dialogue',
-                    lines: [
-                        'Stand down, soldier. Return to your room.'
-                    ]
+                    type: 'camera_divider',
+                    text: 'VISUAL FEED'
                 },
                 {
                     type: 'narration',

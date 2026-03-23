@@ -461,7 +461,7 @@ const CHAPTER_03 = {
                 },
                 {
                     type: 'camera_divider',
-                    text: 'SEGMENT BREAK'
+                    text: 'VISUAL FEED'
                 },
                 {
                     type: 'camera_action',

@@ -111,7 +111,7 @@ const CHAPTER_02 = {
                 },
                 {
                     type: 'camera_divider',
-                    text: 'SEGMENT BREAK'
+                    text: 'VISUAL FEED'
                 },
                 {
                     type: 'camera_action',
@@ -145,7 +145,7 @@ const CHAPTER_02 = {
                 },
                 {
                     type: 'camera_divider',
-                    text: 'SEGMENT BREAK'
+                    text: 'VISUAL FEED'
                 },
                 {
                     type: 'camera_action',
@@ -158,6 +158,15 @@ const CHAPTER_02 = {
                         'Did one of the Scientists leave this here? They’ve seen some of the Scientists with these things. And the training went well, so they have permission to eat today. And it was addressed to them so maybe…',
                         '008 sips from the thermos. The sweet flavor and the heat of the liquid brought a warmth to their bones that they’d never felt before. Their eyes widen.',
                         'They didn’t know water could taste like this.',
+                    ]
+                },
+                {
+                    type: 'camera_divider',
+                    text: 'AUDIO RECORDING'
+                },
+                {
+                    type: 'camera_action',
+                    lines: [
                         '“Thank you…” they whisper.'
                     ]
                 }
