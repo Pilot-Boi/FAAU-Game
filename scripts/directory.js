@@ -526,13 +526,82 @@ const FILE_SYSTEM = {
                     requiredFlag: 'security_dossiers_unlocked',
                     hiddenUntilFlag: 'security_dossiers_unlocked',
                     children: {
+                        'director_salem.txt': {
+                            type: 'file',
+                            terms: ['salem', 'director'],
+                            hiddenUntilFlag: 'chapter_06_complete',
+                            onOpenFlag: 'read_dossier_salem',
+                            imageAttachment: {
+                                src: 'assets/images/salem.png',
+                                title: 'DIRECTOR SALEM IMAGE ARCHIVE',
+                                description: 'Image of Director Salem standing in testing chamber.'
+                            },
+                            contentFile: 'content/secure/dossiers/director_salem.txt'
+                        },
                         civilian: {
                             type: 'dir',
                             children: {
+                                'b_belladonna.txt': {
+                                    type: 'file',
+                                    terms: ['belladonna'],
+                                    requiredFlag: 'chapter_11_complete',
+                                    hiddenUntilFlag: 'chapter_07_complete',
+                                    onOpenFlag: 'read_dossier_belladonna',
+                                    imageAttachment: {
+                                        src: 'assets/images/blake_and_weiss.png',
+                                        title: 'B. BELLADONNA and W. SCHNEE IMAGE ARCHIVE',
+                                        description: 'Image of B. Belladonna and W. Schnee from surveillance footage.'
+                                    },
+                                    contentFile: 'content/secure/dossiers/civilian/b_belladonna.txt'
+                                },
+                                'l_ren.txt': {
+                                    type: 'file',
+                                    terms: ['ren', 'arc', 'nora'],
+                                    requiredFlag: 'chapter_10_complete',
+                                    hiddenUntilFlag: 'chapter_07_complete',
+                                    onOpenFlag: 'read_dossier_ren',
+                                    imageAttachment: {
+                                        src: 'assets/images/ren.png',
+                                        title: 'L. REN IMAGE ARCHIVE',
+                                        description: 'Image of L. Ren from surveillance footage.'
+                                    },
+                                    contentFile: 'content/secure/dossiers/civilian/l_ren.txt'
+                                },
+                                'n_valkyrie.txt': {
+                                    type: 'file',
+                                    terms: ['nora', 'ren'],
+                                    requiredFlag: 'chapter_12_complete',
+                                    hiddenUntilFlag: 'chapter_07_complete',
+                                    onOpenFlag: 'read_dossier_valkyrie',
+                                    imageAttachment: {
+                                        src: 'assets/images/nora.png',
+                                        title: 'N. VALKYRIE IMAGE ARCHIVE',
+                                        description: 'Image of N. Valkyrie from surveillance footage.'
+                                    },
+                                    contentFile: 'content/secure/dossiers/civilian/n_valkyrie.txt'
+                                },
+                                'o_ozpin_pine.txt': {
+                                    type: 'file',
+                                    terms: ['ozpin', 'oscar'],
+                                    requiredFlag: 'chapter_11_complete',
+                                    hiddenUntilFlag: 'chapter_07_complete',
+                                    onOpenFlag: 'read_dossier_ozpin_pine',
+                                    imageAttachment: {
+                                        src: 'assets/images/oscar_and_ozpin.png',
+                                        title: 'E. OZPIN and O. OZPIN PINE IMAGE ARCHIVE',
+                                        description: 'Image of E. Ozpin and O. Ozpin Pine from surveillance footage.'
+                                    },
+                                    contentFile: 'content/secure/dossiers/civilian/o_ozpin_pine.txt'
+                                },
                                 'p_nikos.txt': {
                                     type: 'file',
-                                    terms: ['pyrrha', 'achilles'],
+                                    terms: ['pyrrha', 'achilles', 'subject_008'],
                                     onOpenFlag: 'read_dossier_nikos',
+                                    imageAttachment: {
+                                        src: 'assets/images/pyrrha.png',
+                                        title: 'P. NIKOS IMAGE ARCHIVE',
+                                        description: 'Image of P. Nikos fighting in testing chamber.'
+                                    },
                                     contentFile: 'content/secure/dossiers/civilian/p_nikos.txt'
                                 },
                                 'p_polendina_penny.txt': {
@@ -540,9 +609,124 @@ const FILE_SYSTEM = {
                                     terms: ['polendina', 'penny', 'achilles'],
                                     onOpenFlag: 'read_dossier_polendina',
                                     contentFile: 'content/secure/dossiers/civilian/p_polendina_penny.txt'
+                                },
+                                'r_rose.txt': {
+                                    type: 'file',
+                                    terms: ['summer', 'ruby', 'yang', 'taiyang', 'qrow'],
+                                    requiredFlag: 'chapter_09_complete',
+                                    hiddenUntilFlag: 'chapter_07_complete',
+                                    onOpenFlag: 'read_dossier_ruby',
+                                    imageAttachment: {
+                                        src: 'assets/images/ruby_and_yang.png',
+                                        title: 'R. ROSE and Y. XIAO LONG IMAGE ARCHIVE',
+                                        description: 'Image of R. Rose and Y. Xiao Long from surveillance footage.'
+                                    },
+                                    contentFile: 'content/secure/dossiers/civilian/r_rose.txt'
+                                },
+                                'w_schnee_weiss.txt': {
+                                    type: 'file',
+                                    terms: ['schnee', 'weiss'],
+                                    requiredFlag: 'chapter_11_complete',
+                                    hiddenUntilFlag: 'chapter_07_complete',
+                                    onOpenFlag: 'read_dossier_schnee_weiss',
+                                    imageAttachment: {
+                                        src: 'assets/images/blake_and_weiss.png',
+                                        title: 'B. BELLADONNA and W. SCHNEE IMAGE ARCHIVE',
+                                        description: 'Image of B. Belladonna and W. Schnee from surveillance footage.'
+                                    },
+                                    contentFile: 'content/secure/dossiers/civilian/w_schnee_weiss.txt'
+                                },
+                                'y_xiao_long.txt': {
+                                    type: 'file',
+                                    terms: ['yang', 'ruby', 'summer', 'raven', 'qrow', 'taiyang'],
+                                    requiredFlag: 'chapter_09_complete',
+                                    hiddenUntilFlag: 'chapter_07_complete',
+                                    onOpenFlag: 'read_dossier_yang',
+                                    imageAttachment: {
+                                        src: 'assets/images/ruby_and_yang.png',
+                                        title: 'R. ROSE and Y. XIAO LONG IMAGE ARCHIVE',
+                                        description: 'Image of R. Rose and Y. Xiao Long from surveillance footage.'
+                                    },
+                                    contentFile: 'content/secure/dossiers/civilian/y_xiao_long.txt'
                                 }
                             }
-                        }
+                        },
+                        external: {
+                            type: 'dir',
+                            requiredFlag: 'chapter_07_complete',
+                            children: {
+                                'e_ozpin.txt': {
+                                    type: 'file',
+                                    terms: ['ozpin', 'oscar'],
+                                    onOpenFlag: 'read_dossier_ozpin',
+                                    imageAttachment: {
+                                        src: 'assets/images/oscar_and_ozpin.png',
+                                        title: 'E. OZPIN and O. OZPIN PINE IMAGE ARCHIVE',
+                                        description: 'Image of E. Ozpin and O. Ozpin Pine from surveillance footage.'
+                                    },
+                                    contentFile: 'content/secure/dossiers/external/e_ozpin.txt'
+                                },
+                                'q_branwen.txt': {
+                                    type: 'file',
+                                    terms: ['qrow', 'raven', 'taiyang', 'nora', 'ebi'],
+                                    onOpenFlag: 'read_dossier_branwen',
+                                    contentFile: 'content/secure/dossiers/external/q_branwen.txt'
+                                },
+                                'r_branwen.txt': {
+                                    type: 'file',
+                                    terms: ['raven', 'qrow', 'taiyang', 'summer', 'yang'],
+                                    onOpenFlag: 'read_dossier_branwen',
+                                    contentFile: 'content/secure/dossiers/external/r_branwen.txt'
+                                },
+                                's_rose.txt': {
+                                    type: 'file',
+                                    terms: ['summer', 'ruby', 'yang', 'taiyang'],
+                                    onOpenFlag: 'read_dossier_summer',
+                                    contentFile: 'content/secure/dossiers/external/s_rose.txt'
+                                },
+                                't_xiao_long.txt': {
+                                    type: 'file',
+                                    terms: ['yang', 'taiyang', 'summer', 'ruby', 'raven', 'qrow'],
+                                    onOpenFlag: 'read_dossier_xiao_long',
+                                    contentFile: 'content/secure/dossiers/external/t_xiao_long.txt'
+                                }
+                            }
+                        },
+                        staff: {
+                            type: 'dir',
+                            children: {
+                                'a_watts.txt': {
+                                    type: 'file',
+                                    terms: ['watts', 'genetics'],
+                                    onOpenFlag: 'read_dossier_watts',
+                                    contentFile: 'content/secure/dossiers/staff/a_watts.txt'
+                                },
+                                'c_ebi.txt': {
+                                    type: 'file',
+                                    terms: ['ebi', 'security', 'qrow', 'nora'],
+                                    onOpenFlag: 'read_dossier_ebi',
+                                    contentFile: 'content/secure/dossiers/staff/c_ebi.txt'
+                                },
+                                'j_ironwood.txt': {
+                                    type: 'file',
+                                    terms: ['ironwood', 'security'],
+                                    onOpenFlag: 'read_dossier_ironwood',
+                                    contentFile: 'content/secure/dossiers/staff/j_ironwood.txt'
+                                },
+                                'p_polendina_pietro.txt': {
+                                    type: 'file',
+                                    terms: ['polendina', 'penny', 'bioengineering'],
+                                    onOpenFlag: 'read_dossier_polendina',
+                                    contentFile: 'content/secure/dossiers/staff/p_polendina_pietro.txt'
+                                },
+                                'w_schnee_winter.txt': {
+                                    type: 'file',
+                                    terms: ['schnee', 'weiss', 'security'],
+                                    onOpenFlag: 'read_dossier_schnee',
+                                    contentFile: 'content/secure/dossiers/staff/w_schnee_winter.txt'
+                                }
+                            }
+                        },
                     }
                 },
             }
