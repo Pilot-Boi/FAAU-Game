@@ -50,6 +50,23 @@ const promptSymbol = document.getElementById('prompt-symbol');
 
 // Tracks keywords already announced to avoid repeating the same unlock message.
 const announcedTerms = new Set();
+const devPreviewModes = {
+    msg: false,
+    cams: false,
+    scene: false
+};
+
+function setDevPreviewMode(mode, enabled) {
+    if (!Object.prototype.hasOwnProperty.call(devPreviewModes, mode)) {
+        return;
+    }
+
+    devPreviewModes[mode] = Boolean(enabled);
+}
+
+function isDevPreviewMode(mode) {
+    return Boolean(devPreviewModes[mode]);
+}
 
 function normalizeImageAttachment(attachment) {
     if (!attachment) {
@@ -350,7 +367,7 @@ function contactHasUnreadDialogue(contactId) {
         return false;
     }
 
-    return Boolean(findUnreadReplyEntryForContact(chapter, contactId));
+    return Boolean(findUnreadReplyEntryForContact(chapter, contactId, isDevPreviewMode('msg')));
 }
 
 function getMessageUnredactionRules() {
@@ -470,6 +487,7 @@ function contactHasUnlockedDialogueInChapter(chapter, contactId) {
 
 // Build the visible message-contact list from discovered person terms.
 function getDiscoveredMessageContacts() {
+    const includeAll = isDevPreviewMode('msg');
     const discoveredTerms = new Set((getDiscoveredTerms() || []).map(normalizeTermKey));
     const termMetadata = typeof TERM_METADATA !== 'undefined' ? TERM_METADATA : {};
     const contactMetadata = typeof CONTACT_METADATA !== 'undefined' ? CONTACT_METADATA : {};
@@ -477,7 +495,7 @@ function getDiscoveredMessageContacts() {
 
     const unlockedContacts = new Set();
     for (const [contactId, definition] of Object.entries(contactMetadata)) {
-        if (definition.dialogueUnlockEvent && !hasTriggeredEvent(definition.dialogueUnlockEvent)) {
+        if (!includeAll && definition.dialogueUnlockEvent && !hasTriggeredEvent(definition.dialogueUnlockEvent)) {
             continue;
         }
 
@@ -488,7 +506,7 @@ function getDiscoveredMessageContacts() {
     const currentChapter = getChapterByIndex(currentChapterIndex);
     if (currentChapter && typeof findUnreadReplyEntryForContact === 'function') {
         for (const contactId of unlockedContacts) {
-            if (findUnreadReplyEntryForContact(currentChapter, contactId)) {
+            if (findUnreadReplyEntryForContact(currentChapter, contactId, includeAll)) {
                 unreadContacts.add(contactId);
             }
         }
@@ -496,6 +514,10 @@ function getDiscoveredMessageContacts() {
 
     return Object.entries(contactMetadata)
         .filter(([, definition]) => {
+            if (includeAll) {
+                return true;
+            }
+
             const termKey = normalizeTermKey(definition.termKey || '');
             if (termKey && discoveredTerms.has(termKey)) {
                 return true;
@@ -509,15 +531,20 @@ function getDiscoveredMessageContacts() {
             const meta = termMetadata[termKey] || {};
             const fallbackLabel = formatTermForOutput(termKey).replace(/_/g, ' ');
             const defaultLabel = definition.label || meta.label || fallbackLabel;
-            const displayLabel = getContactDisplayLabel(contactId, definition, discoveredTerms, termMetadata, defaultLabel);
-            const contactIsUnlockedByDirectoryRules = unlockedContacts.has(contactId);
+            const displayLabel = includeAll
+                ? defaultLabel
+                : getContactDisplayLabel(contactId, definition, discoveredTerms, termMetadata, defaultLabel);
+            const contactIsUnlockedByDirectoryRules = includeAll || unlockedContacts.has(contactId);
             const hasPastSceneHistory = typeof getContactMessageSceneHistory === 'function'
                 && getContactMessageSceneHistory(contactId).length > 0;
+            const replyEntries = currentChapter ? getReplyEntriesForContact(currentChapter, contactId) : [];
             const hasUnlockedDialogue = Boolean(
                 contactIsUnlockedByDirectoryRules &&
                 (
                     hasPastSceneHistory ||
-                    (currentChapter && contactHasUnlockedDialogueInChapter(currentChapter, contactId))
+                    (includeAll
+                        ? replyEntries.length > 0
+                        : (currentChapter && contactHasUnlockedDialogueInChapter(currentChapter, contactId)))
                 )
             );
             const hasUnreadDialogue = unreadContacts.has(contactId);
@@ -721,7 +748,7 @@ function openMessageContact(contactId) {
         return;
     }
 
-    const result = openMessageInterface(contactId);
+    const result = openMessageInterface(contactId, isDevPreviewMode('msg'));
 
     if (!result) {
         if (typeof renderMessageLines === 'function') {
@@ -771,6 +798,7 @@ function openMessageContact(contactId) {
 }
 
 function getAvailableCameraFeeds() {
+    const includeAll = isDevPreviewMode('cams');
     const feedMetadata = typeof CAMERA_METADATA !== 'undefined' ? CAMERA_METADATA : {};
     const currentChapterIndex = getCurrentChapterIndex();
     const currentChapter = typeof getChapterByIndex === 'function'
@@ -781,7 +809,7 @@ function getAvailableCameraFeeds() {
         const hasUnreadChapterScene = Boolean(
             currentChapter &&
             typeof findNextCameraSceneEntryForFeed === 'function' &&
-            findNextCameraSceneEntryForFeed(currentChapter, feedId)
+            findNextCameraSceneEntryForFeed(currentChapter, feedId, includeAll)
         );
 
         const hasUnlockedChapterScene = Boolean(
@@ -792,7 +820,7 @@ function getAvailableCameraFeeds() {
                 entry.interface === 'cams' &&
                 entry.type === 'scene' &&
                 entry.feedId === feedId &&
-                (!entry.requireEvent || hasTriggeredEvent(entry.requireEvent))
+                (includeAll || !entry.requireEvent || hasTriggeredEvent(entry.requireEvent))
             )
         );
 
@@ -939,7 +967,7 @@ function openCameraFeed(feedId) {
     }
 
     const chapterSceneResult = typeof openCameraSceneInterface === 'function'
-        ? openCameraSceneInterface(feed.id)
+        ? openCameraSceneInterface(feed.id, isDevPreviewMode('cams'))
         : null;
 
     if (chapterSceneResult && chapterSceneResult.meta && Array.isArray(chapterSceneResult.meta.sceneBlocks)) {
@@ -1014,6 +1042,244 @@ function openCameraInterface() {
     }
 
     showCameraFeedDirectory();
+}
+
+function getAvailableSceneRecords() {
+    const includeAll = isDevPreviewMode('scene');
+    const currentChapterIndex = getCurrentChapterIndex();
+    const currentChapter = typeof getChapterByIndex === 'function'
+        ? getChapterByIndex(currentChapterIndex)
+        : null;
+    const sceneRecords = new Map();
+
+    if (currentChapter && Array.isArray(currentChapter.entries)) {
+        currentChapter.entries.forEach((entry, index) => {
+            if (!entry || entry.interface !== 'scene') {
+                return;
+            }
+
+            if (!includeAll && entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
+                return;
+            }
+
+            const sceneId = typeof getSceneEntryId === 'function'
+                ? getSceneEntryId(entry, currentChapter.id, index)
+                : `scene:${currentChapter.id}:${index}`;
+
+            if (!sceneRecords.has(sceneId)) {
+                sceneRecords.set(sceneId, {
+                    id: sceneId,
+                    title: entry.title || 'RECONSTRUCTED INTERACTION LOG',
+                    summary: entry.summary || 'Recovered multi-party interaction record.'
+                });
+            }
+        });
+    }
+
+    const state = typeof getGameState === 'function' ? getGameState() : null;
+    const sceneHistory = state && state.storyState && state.storyState.sceneLogHistory
+        ? state.storyState.sceneLogHistory
+        : {};
+
+    for (const [sceneId, sceneBlocks] of Object.entries(sceneHistory)) {
+        if (!Array.isArray(sceneBlocks) || sceneBlocks.length === 0 || sceneRecords.has(sceneId)) {
+            continue;
+        }
+
+        sceneRecords.set(sceneId, {
+            id: sceneId,
+            title: String(sceneId).replace(/[_:]+/g, ' ').toUpperCase(),
+            summary: 'Recovered multi-party interaction record.'
+        });
+    }
+
+    return Array.from(sceneRecords.values()).map((record) => {
+        const hasUnreadScene = Boolean(
+            currentChapter &&
+            typeof findNextSceneEntry === 'function' &&
+            findNextSceneEntry(currentChapter, record.id, includeAll)
+        );
+
+        const hasUnlockedScene = Boolean(
+            currentChapter &&
+            Array.isArray(currentChapter.entries) &&
+            currentChapter.entries.some((entry, index) => {
+                if (!entry || entry.interface !== 'scene') {
+                    return false;
+                }
+
+                if (!includeAll && entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
+                    return false;
+                }
+
+                const sceneId = typeof getSceneEntryId === 'function'
+                    ? getSceneEntryId(entry, currentChapter.id, index)
+                    : `scene:${currentChapter.id}:${index}`;
+
+                return sceneId === record.id;
+            })
+        );
+
+        const sceneHistoryBlocks = typeof getSceneLogHistory === 'function'
+            ? getSceneLogHistory(record.id)
+            : [];
+        const isSelectable = hasUnlockedScene || sceneHistoryBlocks.length > 0;
+
+        let availabilityLabel = 'OFFLINE';
+        let statusClass = 'is-offline';
+
+        if (hasUnreadScene) {
+            availabilityLabel = 'NEW';
+            statusClass = 'is-fresh';
+        } else if (isSelectable) {
+            availabilityLabel = 'ARCHIVED';
+            statusClass = 'is-archived';
+        }
+
+        return {
+            ...record,
+            isSelectable,
+            availabilityLabel,
+            statusClass
+        };
+    });
+}
+
+function showSceneDirectory() {
+    const sceneRecords = getAvailableSceneRecords();
+
+    if (typeof openSceneWindow !== 'function') {
+        appendOutputLine('[SYSTEM] Scene archive interface unavailable.');
+        return;
+    }
+
+    openSceneWindow({
+        title: 'RECONSTRUCTED INTERACTION LOG',
+        status: 'SCENE INDEX'
+    });
+
+    if (typeof setSceneBackAction === 'function') {
+        setSceneBackAction(null);
+    }
+
+    if (sceneRecords.length === 0) {
+        if (typeof renderSceneLines === 'function') {
+            renderSceneLines([
+                'No reconstructed interaction logs indexed.',
+                'Continue investigating the archive to recover multi-party scenes.'
+            ]);
+        }
+
+        return;
+    }
+
+    if (typeof renderSceneDirectory === 'function') {
+        renderSceneDirectory(sceneRecords, openSceneRecord);
+        return;
+    }
+
+    if (typeof renderSceneLines === 'function') {
+        const fallbackLines = ['SCENE INDEX', ''];
+
+        for (const record of sceneRecords) {
+            fallbackLines.push(`${record.title} [${record.availabilityLabel}]`);
+        }
+
+        renderSceneLines(fallbackLines);
+    }
+}
+
+function openSceneRecord(sceneId) {
+    const record = getAvailableSceneRecords().find((entry) => entry.id === sceneId);
+
+    if (!record) {
+        if (typeof setSceneStatus === 'function') {
+            setSceneStatus('SCENE INDEX');
+        }
+
+        if (typeof renderSceneLines === 'function') {
+            renderSceneLines(['Selected interaction log could not be resolved.']);
+        }
+
+        return;
+    }
+
+    if (!record.isSelectable) {
+        if (typeof setSceneStatus === 'function') {
+            setSceneStatus('LOG UNAVAILABLE');
+        }
+
+        if (typeof renderSceneLines === 'function') {
+            renderSceneLines([
+                'This reconstructed interaction log is not yet available.',
+                'Continue recovering archive fragments.'
+            ]);
+        }
+
+        return;
+    }
+
+    if (typeof openSceneWindow === 'function') {
+        openSceneWindow({
+            title: record.title,
+            status: `RECONSTRUCTED LOG ACTIVE: ${record.title}`
+        });
+    }
+
+    if (typeof setSceneBackAction === 'function') {
+        setSceneBackAction(showSceneDirectory, 'INDEX');
+    }
+
+    const sceneHistory = typeof getSceneLogHistory === 'function'
+        ? getSceneLogHistory(sceneId)
+        : [];
+    const result = typeof openSceneInterface === 'function'
+        ? openSceneInterface(sceneId, isDevPreviewMode('scene'))
+        : null;
+
+    if (!result) {
+        if (sceneHistory.length > 0 && typeof renderSceneLog === 'function') {
+            renderSceneLog(sceneHistory);
+            return;
+        }
+
+        if (typeof renderSceneLines === 'function') {
+            renderSceneLines(['No reconstructed log data available.']);
+        }
+        return;
+    }
+
+    if (result.meta && Array.isArray(result.meta.sceneBlocks) && typeof renderSceneLog === 'function') {
+        if (typeof setSceneWindowTitle === 'function' && result.meta.title) {
+            setSceneWindowTitle(result.meta.title);
+        }
+
+        if (typeof appendSceneLogHistory === 'function' && !result.meta.isReplay) {
+            appendSceneLogHistory(sceneId, result.meta.sceneBlocks);
+        }
+
+        const updatedSceneHistory = typeof getSceneLogHistory === 'function'
+            ? getSceneLogHistory(sceneId)
+            : result.meta.sceneBlocks;
+
+        renderSceneLog(updatedSceneHistory);
+    } else if (typeof renderSceneLines === 'function' && result.entries) {
+        renderSceneLines(result.entries);
+    }
+
+    if (result.error) {
+        appendOutputLine(result.error);
+        return;
+    }
+
+    if (result.meta) {
+        handleResultMeta(result.meta);
+
+        const eventLines = evaluateEventsAndAutoSave(result.meta);
+        if (eventLines.length > 0) {
+            printLines(eventLines);
+        }
+    }
 }
 
 
@@ -1183,7 +1449,17 @@ const COMMANDS = {
         usage: 'msg',
         description: 'Opens the inter-Facility communication interface.',
         execute: () => {
+            setDevPreviewMode('msg', false);
             showMessageContactDirectory();
+        }
+    },
+    scene: {
+        name: 'scene',
+        usage: 'scene',
+        description: 'Access reconstructed multi-party interaction logs.',
+        execute: () => {
+            setDevPreviewMode('scene', false);
+            showSceneDirectory();
         }
     },
     cams: {
@@ -1191,6 +1467,7 @@ const COMMANDS = {
         usage: 'cams',
         description: 'Access facility surveillance feeds.',
         execute: () => {
+            setDevPreviewMode('cams', false);
             openCameraInterface();
         }
     },
@@ -1284,7 +1561,7 @@ function updatePromptDisplay() {
 async function handleDevCommand(args) {
     if (!args || args.length === 0) {
         appendOutputLine(
-            '[DEV] Usage: dev unlock term|flag|command ..., dev msg, dev cams, dev set chapter N, dev read file /path, dev search term, dev state, dev reset, dev secure',
+            '[DEV] Usage: dev unlock term|flag|command ..., dev msg, dev cams, dev scene, dev set chapter N, dev read file /path, dev search term, dev state, dev reset, dev secure',
             'terminal-system'
         );
         return;
@@ -1294,13 +1571,22 @@ async function handleDevCommand(args) {
 
     if (subcommand === 'msg') {
         appendOutputLine('[DEV] Opening messaging interface.', 'terminal-system');
+        setDevPreviewMode('msg', true);
         showMessageContactDirectory();
         return;
     }
 
     if (subcommand === 'cams') {
         appendOutputLine('[DEV] Opening surveillance interface.', 'terminal-system');
+        setDevPreviewMode('cams', true);
         openCameraInterface();
+        return;
+    }
+
+    if (subcommand === 'scene') {
+        appendOutputLine('[DEV] Opening reconstructed scene interface.', 'terminal-system');
+        setDevPreviewMode('scene', true);
+        showSceneDirectory();
         return;
     }
 
@@ -1604,6 +1890,7 @@ async function handleDevCommand(args) {
         appendOutputLine('dev unlock command [command]', 'terminal-muted');
         appendOutputLine('dev msg', 'terminal-muted');
         appendOutputLine('dev cams', 'terminal-muted');
+        appendOutputLine('dev scene', 'terminal-muted');
         appendOutputLine('dev lock term [term]', 'terminal-muted');
         appendOutputLine('dev lock flag [flag]', 'terminal-muted');
         appendOutputLine('dev lock command [command]', 'terminal-muted');
