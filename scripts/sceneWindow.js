@@ -180,6 +180,7 @@
         sceneContent.textContent = '';
 
         let latestSpeaker = null;
+        let latestMessageHeader = null;
 
         for (const block of sceneBlocks) {
             if (!block || !block.type) {
@@ -199,6 +200,7 @@
                 header.className = 'scene-log-query-header';
                 header.textContent = block.sender || 'UNKNOWN SOURCE';
                 sceneContent.appendChild(header);
+                latestMessageHeader = header;
                 continue;
             }
 
@@ -244,14 +246,16 @@
         }
 
         requestAnimationFrame(() => {
-            if (!latestSpeaker || !sceneContent) {
+            const anchorElement = latestMessageHeader || latestSpeaker;
+
+            if (!anchorElement || !sceneContent) {
                 sceneContent.scrollTop = 0;
                 return;
             }
 
             const contentRect = sceneContent.getBoundingClientRect();
-            const speakerRect = latestSpeaker.getBoundingClientRect();
-            const targetTop = sceneContent.scrollTop + (speakerRect.top - contentRect.top);
+            const anchorRect = anchorElement.getBoundingClientRect();
+            const targetTop = sceneContent.scrollTop + (anchorRect.top - contentRect.top);
 
             sceneContent.scrollTop = targetTop;
         });
