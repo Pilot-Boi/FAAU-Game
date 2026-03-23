@@ -1369,6 +1369,17 @@ function evaluateEventsAndAutoSave(context) {
     return lines;
 }
 
+function handleEventDelayElapsed() {
+    const delayedEventLines = evaluateEventsAndAutoSave({ action: 'event_delay_elapsed' });
+    if (delayedEventLines.length > 0) {
+        printLines(delayedEventLines);
+    }
+}
+
+if (typeof setEventDelayElapsedHandler === 'function') {
+    setEventDelayElapsedHandler(handleEventDelayElapsed);
+}
+
 // Command registry: add new commands here to make them available and auto-listed in help.
 const COMMANDS = {
     help: {

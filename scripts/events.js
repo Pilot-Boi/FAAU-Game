@@ -3,6 +3,43 @@ function isDevTermUnlock(context = {}, term = '') {
         String(context.term || '').trim().toLowerCase() === String(term || '').trim().toLowerCase();
 }
 
+// Event evaluation delay tracking
+let eventEvaluationPausedUntil = 0;
+let eventEvaluationDelayTimer = null;
+let eventDelayElapsedHandler = null;
+
+function setEventDelayElapsedHandler(handler) {
+    eventDelayElapsedHandler = typeof handler === 'function' ? handler : null;
+}
+
+function delayNextEventEvaluation(delayMs = 2000) {
+    const normalizedDelay = Math.max(0, Number(delayMs) || 0);
+    eventEvaluationPausedUntil = Date.now() + normalizedDelay;
+
+    if (eventEvaluationDelayTimer !== null) {
+        clearTimeout(eventEvaluationDelayTimer);
+        eventEvaluationDelayTimer = null;
+    }
+
+    eventEvaluationDelayTimer = setTimeout(() => {
+        eventEvaluationPausedUntil = 0;
+        eventEvaluationDelayTimer = null;
+
+        if (typeof eventDelayElapsedHandler === 'function') {
+            eventDelayElapsedHandler();
+        }
+    }, normalizedDelay);
+}
+
+function areEventsCurrentlyPaused() {
+    return Date.now() < eventEvaluationPausedUntil;
+}
+
+function withEventEvaluationDelay(lines = [], delayMs = 2000) {
+    delayNextEventEvaluation(delayMs);
+    return Array.isArray(lines) ? lines : [];
+}
+
 const EVENT_RULES = [
     /* CHAPTER 01 EVENTS */
     {
@@ -50,9 +87,9 @@ const EVENT_RULES = [
             if (typeof playSound === 'function') {
                 playSound('chapter_complete');
             }
-            return [
+            return withEventEvaluationDelay([
                 '=== CHAPTER 1 COMPLETE: INITIAL CONTACT ==='
-            ];
+            ]);
         }
     },
 
@@ -238,9 +275,9 @@ const EVENT_RULES = [
             if (typeof playSound === 'function') {
                 playSound('chapter_complete');
             }
-            return [
+            return withEventEvaluationDelay([
                 '=== CHAPTER 2 COMPLETE: THROUGH THE GLASS ==='
-            ];
+            ]);
         }
     },
 
@@ -346,9 +383,9 @@ const EVENT_RULES = [
             if (typeof playSound === 'function') {
                 playSound('chapter_complete');
             }
-            return [
+            return withEventEvaluationDelay([
                 '=== CHAPTER 3 COMPLETE: EMPATHY AND THREATS ==='
-            ];
+            ]);
         }
     },
 
@@ -457,16 +494,20 @@ const EVENT_RULES = [
             if (typeof playSound === 'function') {
                 playSound('chapter_complete');
             }
-            return [
+            return withEventEvaluationDelay([
                 '=== CHAPTER 4 COMPLETE: INTERNAL FUNCTIONS ==='
-            ];
-
+            ]);
         }
     }
 ];
 
 
 function evaluateEvents(context = {}) {
+    // Don't evaluate new events if delay is active
+    if (areEventsCurrentlyPaused()) {
+        return [];
+    }
+
     const triggeredLines = [];
 
     for (const rule of EVENT_RULES) {
@@ -482,6 +523,11 @@ function evaluateEvents(context = {}) {
 
         const lines = rule.do(context) || [];
         triggeredLines.push(...lines);
+
+        // If this event requested a delay, stop evaluating additional events now.
+        if (areEventsCurrentlyPaused()) {
+            break;
+        }
     }
 
     return triggeredLines;
@@ -683,12 +729,8 @@ function advanceChapterIfComplete(chapter, chapterIndex) {
 
     markChapterPlayed(chapter.id);
     applyChapterEffects(chapter);
-    
-    // Add delay before advancing to next chapter to allow UI to display chapter complete message
-    const CHAPTER_ADVANCE_DELAY = 2000; // 2 seconds
-    setTimeout(() => {
-        setCurrentChapterIndex(chapterIndex + 1);
-    }, CHAPTER_ADVANCE_DELAY);
+
+    setCurrentChapterIndex(chapterIndex + 1);
 }
 
 function findNextCameraSceneEntryForFeed(chapter, feedId, includeLocked = false) {
