@@ -218,7 +218,7 @@ function appendOutputLine(text, extraClasses = []) {
     }
 
     line.textContent = resolvedText;
-    
+
     // Play sound effects based on line type
     if (lineClass === 'terminal-line-error') {
         if (typeof playSound === 'function') {
@@ -229,7 +229,7 @@ function appendOutputLine(text, extraClasses = []) {
             playSound('notification');
         }
     }
-    
+
     return line;
 }
 
@@ -557,6 +557,14 @@ function printResult(result) {
 
     if (result.entries) {
         printLines(result.entries);
+    }
+
+    if (result.triggerGlitch && Array.isArray(result.glitchLines)) {
+        appendOutputLine('');
+
+        for (const line of result.glitchLines) {
+            appendOutputLine(line, ['terminal-line-error']);
+        }
     }
 
     if (result.meta) {
@@ -1680,7 +1688,7 @@ async function runBootSequence() {
     if (typeof playSound === 'function') {
         playSound('boot');
     }
-    
+
     terminalOutput.textContent = '';
 
     for (const line of bootLines) {

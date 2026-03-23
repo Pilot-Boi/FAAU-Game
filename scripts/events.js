@@ -266,7 +266,7 @@ const EVENT_RULES = [
         when: (context = {}) =>
             (hasFlag('chapter_02_complete')) &&
             (context.action === 'search' &&
-                (context.term === 'wipe' || context.term === 'empathy' || context.term === 'healing')),
+                (context.term === 'wipe' || context.term === 'empathy' || context.term === 'speed' || context.term === 'silver_tongue' || context.term === 'telepathy' || context.term === 'strength' || context.term === 'shifting' || context.term === 'wither')),
         do: () => {
             setFlag('abilities_dir_unlocked');
             return [
@@ -344,6 +344,35 @@ const EVENT_RULES = [
             }
             return [
                 '=== CHAPTER 3 COMPLETE: EMPATHY AND THREATS ==='
+            ];
+        }
+    },
+
+    /* CHAPTER 04 EVENTS */
+
+    {
+        id: 'msg_alert_chapter_04_start',
+        when: () =>
+            hasFlag('chapter_03_complete') && isCommandUnlocked('msg'),
+        do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
+            return [
+                '[SYSTEM] Relay status update: new communication available in msg.'
+            ];
+        }
+    },
+    {
+        id: 'subject_008_file_unlocked',
+        when: () =>
+            hasFlag('chapter_03_complete'),
+        do: () => {
+            setFlag('subject_008_file_unlocked');
+            return [
+                '[SYSTEM] Containment archive permissions updated.',
+                '[SYSTEM] New file unlocked: /secure/subjects/subject_008.txt',
             ];
         }
     },

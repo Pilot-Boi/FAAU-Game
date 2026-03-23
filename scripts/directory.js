@@ -299,7 +299,7 @@ const FILE_SYSTEM = {
                             children: {
                                 'subject_001.txt': {
                                     type: 'file',
-                                    terms: ['subject_001', 'test_subjects'],
+                                    terms: ['subject_001', 'test_subjects', 'wipe', 'telepathy'],
                                     onOpenFlag: 'read_subject_001',
                                     imageAttachment: {
                                         src: 'assets/images/subject_001.png',
@@ -310,7 +310,7 @@ const FILE_SYSTEM = {
                                 },
                                 'subject_002.txt': {
                                     type: 'file',
-                                    terms: ['subject_002', 'test_subjects'],
+                                    terms: ['subject_002', 'test_subjects', 'silver_tongue', 'speed'],
                                     onOpenFlag: 'read_subject_002',
                                     imageAttachment: {
                                         src: 'assets/images/subject_002.png',
@@ -321,7 +321,7 @@ const FILE_SYSTEM = {
                                 },
                                 'subject_003.txt': {
                                     type: 'file',
-                                    terms: ['subject_003', 'test_subjects'],
+                                    terms: ['subject_003', 'test_subjects', 'telepathy', 'strength'],
                                     onOpenFlag: 'read_subject_003',
                                     imageAttachment: {
                                         src: 'assets/images/subject_003.png',
@@ -334,7 +334,7 @@ const FILE_SYSTEM = {
                                     type: 'file',
                                     requiredFlag: 'subject_004_file_unlocked',
                                     hiddenUntilFlag: 'subject_004_file_unlocked',
-                                    terms: ['subject_004', 'test_subjects'],
+                                    terms: ['subject_004', 'test_subjects', 'empathy', 'shifting'],
                                     onOpenFlag: 'read_subject_004',
                                     imageAttachment: {
                                         src: 'assets/images/subject_004.png',
@@ -347,7 +347,7 @@ const FILE_SYSTEM = {
                                     type: 'file',
                                     requiredFlag: 'subject_005_file_unlocked',
                                     hiddenUntilFlag: 'subject_005_file_unlocked',
-                                    terms: ['subject_005', 'test_subjects'],
+                                    terms: ['subject_005', 'test_subjects', 'wither', 'shifting'],
                                     onOpenFlag: 'read_subject_005',
                                     imageAttachment: {
                                         src: 'assets/images/subject_005.png',
@@ -360,7 +360,7 @@ const FILE_SYSTEM = {
                                     type: 'file',
                                     requiredFlag: 'subject_006_file_unlocked',
                                     hiddenUntilFlag: 'subject_006_file_unlocked',
-                                    terms: ['subject_006', 'test_subjects'],
+                                    terms: ['subject_006', 'test_subjects', 'speed', 'strength'],
                                     onOpenFlag: 'read_subject_006',
                                     imageAttachment: {
                                         src: 'assets/images/subject_006.png',
@@ -373,7 +373,7 @@ const FILE_SYSTEM = {
                                     type: 'file',
                                     requiredFlag: 'subject_007_file_unlocked',
                                     hiddenUntilFlag: 'subject_007_file_unlocked',
-                                    terms: ['subject_007', 'test_subjects'],
+                                    terms: ['subject_007', 'test_subjects', 'absorption', 'silver_tongue'],
                                     onOpenFlag: 'read_subject_007',
                                     imageAttachment: {
                                         src: 'assets/images/subject_007.png',
@@ -386,14 +386,29 @@ const FILE_SYSTEM = {
                                     type: 'file',
                                     requiredFlag: 'subject_008_file_unlocked',
                                     hiddenUntilFlag: 'subject_008_file_unlocked',
-                                    terms: ['subject_008', 'test_subjects'],
+                                    terms: ['subject_008', 'test_subjects', 'healing', 'empathy'],
                                     onOpenFlag: 'read_subject_008',
                                     imageAttachment: {
                                         src: 'assets/images/subject_008.png',
                                         title: 'SUBJECT 008 IMAGE ARCHIVE',
                                         description: 'Placeholder image. Replace with subject_008 asset when available.'
                                     },
-                                    contentFile: 'content/secure/avians/subjects/subject_008.txt'
+                                    contentFile: 'content/secure/avians/subjects/subject_008.txt',
+                                    glitchLines: [
+                                        'Familial Relationships: CLASSIFIED, RESTRICTED ACCESS',
+                                        '',
+                                        'Additional authorization required.',
+                                        'Credential mismatch detected.',
+                                        'ACCESS DENIED',
+                                        '',
+                                        'ERROR',
+                                        'ERROR',
+                                        '',
+                                        'E RR OR',
+                                        '',
+                                        'ERR'
+                                    ],
+                                    triggerGlitch: true
                                 }
                             }
                         },
@@ -463,6 +478,8 @@ const FILE_SYSTEM = {
                                 },
                                 'absorption.txt': {
                                     type: 'file',
+                                    requiredFlag: 'chapter_06_complete',
+                                    hiddenUntilFlag: 'chapter_06_complete',
                                     terms: ['absorption', 'abilities'],
                                     onOpenFlag: 'read_ability_absorption',
                                     contentFile: 'content/secure/avians/abilities/absorption.txt'
@@ -475,6 +492,7 @@ const FILE_SYSTEM = {
                                 },
                                 'healing.txt': {
                                     type: 'file',
+                                    requiredFlag: 'subject_008_file_unlocked',
                                     terms: ['healing', 'abilities'],
                                     onOpenFlag: 'read_ability_healing',
                                     contentFile: 'content/secure/avians/abilities/healing.txt'
