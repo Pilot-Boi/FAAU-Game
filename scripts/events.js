@@ -412,7 +412,7 @@ const EVENT_RULES = [
 
     {
         id: 'security_dossiers_unlocked',
-        when: () =>
+        when: (context = {}) =>
             hasFlag('chapter_03_complete') &&
             (context.action === 'search' && (context.term === 'pyrrha' || context.term === 'penny')),
         do: () => {

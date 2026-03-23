@@ -304,7 +304,7 @@ const FILE_SYSTEM = {
                                     imageAttachment: {
                                         src: 'assets/images/subject_001.png',
                                         title: 'SUBJECT 001 IMAGE ARCHIVE',
-                                        description: 'Placeholder image. Replace with subject_001 asset when available.'
+                                        description: 'Image of Subject 001 sitting in containment cell.'
                                     },
                                     contentFile: 'content/secure/avians/subjects/subject_001.txt'
                                 },
@@ -315,7 +315,7 @@ const FILE_SYSTEM = {
                                     imageAttachment: {
                                         src: 'assets/images/subject_002.png',
                                         title: 'SUBJECT 002 IMAGE ARCHIVE',
-                                        description: 'Placeholder image. Replace with subject_002 asset when available.'
+                                        description: 'Image of Subject 002 sitting in containment cell.'
                                     },
                                     contentFile: 'content/secure/avians/subjects/subject_002.txt'
                                 },
@@ -326,7 +326,7 @@ const FILE_SYSTEM = {
                                     imageAttachment: {
                                         src: 'assets/images/subject_003.png',
                                         title: 'SUBJECT 003 IMAGE ARCHIVE',
-                                        description: 'Placeholder image. Replace with subject_003 asset when available.'
+                                        description: 'Image of Subject 003 flying in testing chamber.'
                                     },
                                     contentFile: 'content/secure/avians/subjects/subject_003.txt'
                                 },
@@ -339,7 +339,7 @@ const FILE_SYSTEM = {
                                     imageAttachment: {
                                         src: 'assets/images/subject_004.png',
                                         title: 'SUBJECT 004 IMAGE ARCHIVE',
-                                        description: 'Placeholder image. Replace with subject_004 asset when available.'
+                                        description: 'Image of Subject 004 flying in testing chamber.'
                                     },
                                     contentFile: 'content/secure/avians/subjects/subject_004.txt'
                                 },
@@ -352,7 +352,7 @@ const FILE_SYSTEM = {
                                     imageAttachment: {
                                         src: 'assets/images/subject_005.png',
                                         title: 'SUBJECT 005 IMAGE ARCHIVE',
-                                        description: 'Placeholder image. Replace with subject_005 asset when available.'
+                                        description: 'Image of Subject 005 flying in testing chamber.'
                                     },
                                     contentFile: 'content/secure/avians/subjects/subject_005.txt'
                                 },
@@ -365,7 +365,7 @@ const FILE_SYSTEM = {
                                     imageAttachment: {
                                         src: 'assets/images/subject_006.png',
                                         title: 'SUBJECT 006 IMAGE ARCHIVE',
-                                        description: 'Placeholder image. Replace with subject_006 asset when available.'
+                                        description: 'Image of Subject 006 fighting in testing chamber.'
                                     },
                                     contentFile: 'content/secure/avians/subjects/subject_006.txt'
                                 },
@@ -378,7 +378,7 @@ const FILE_SYSTEM = {
                                     imageAttachment: {
                                         src: 'assets/images/subject_007.png',
                                         title: 'SUBJECT 007 IMAGE ARCHIVE',
-                                        description: 'Placeholder image. Replace with subject_007 asset when available.'
+                                        description: 'Image of Subject 007 from archival footage of deployment.'
                                     },
                                     contentFile: 'content/secure/avians/subjects/subject_007.txt'
                                 },
@@ -391,7 +391,7 @@ const FILE_SYSTEM = {
                                     imageAttachment: {
                                         src: 'assets/images/subject_008.png',
                                         title: 'SUBJECT 008 IMAGE ARCHIVE',
-                                        description: 'Placeholder image. Replace with subject_008 asset when available.'
+                                        description: 'Image of Subject 008 fighting in testing chamber.'
                                     },
                                     contentFile: 'content/secure/avians/subjects/subject_008.txt',
                                     glitchLines: [
