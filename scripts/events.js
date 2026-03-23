@@ -469,16 +469,14 @@ const EVENT_RULES = [
         when: () => {
             const dossierFilesRead = Array.from(GAME_STATE.filesRead)
                 .filter(path => path.startsWith('/secure/dossier/'));
-            return [
-                hasFlag('chapter_03_complete') &&
+            return hasFlag('chapter_03_complete') &&
                 hasFlag('chapter_04_entry_01') &&
                 hasFlag('chapter_04_entry_02') &&
                 hasFlag('chapter_04_entry_03') &&
                 hasFlag('chapter_04_entry_04') &&
                 hasFlag('chapter_04_entry_05') &&
                 isCommandUnlocked('scene') &&
-                dossierFilesRead.length >= 2
-            ];
+                dossierFilesRead.length >= 2;
         },
         do: () => {
             // Play notification sound
