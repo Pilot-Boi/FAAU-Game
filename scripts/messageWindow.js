@@ -13,6 +13,7 @@
     let conversationRenderToken = 0;
     let backAction = null;
     let nextAction = null;
+    let wasMessageWindowHidden = true;
 
     function getFocusableElements() {
         if (!messageWindow) {
@@ -313,10 +314,12 @@
             return;
         }
 
-        // Play open_view sound
-        if (typeof playSound === 'function') {
+        // Only play open_view sound when transitioning from hidden to visible
+        const isCurrentlyHidden = messageWindow.classList.contains('message-window-hidden');
+        if (isCurrentlyHidden && typeof playSound === 'function') {
             playSound('open_view');
         }
+        wasMessageWindowHidden = false;
 
         previousFocusedElement = document.activeElement;
         clearMessageWindow();

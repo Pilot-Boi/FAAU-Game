@@ -10,6 +10,7 @@
 
     let previousFocusedElement = null;
     let backAction = null;
+    let wasCameraWindowHidden = true;
 
     function getFocusableElements() {
         if (!cameraWindow) {
@@ -276,10 +277,12 @@
             return;
         }
 
-        // Play open_view sound
-        if (typeof playSound === 'function') {
+        // Only play open_view sound when transitioning from hidden to visible
+        const isCurrentlyHidden = cameraWindow.classList.contains('camera-window-hidden');
+        if (isCurrentlyHidden && typeof playSound === 'function') {
             playSound('open_view');
         }
+        wasCameraWindowHidden = false;
 
         previousFocusedElement = document.activeElement;
         clearCameraWindow();
