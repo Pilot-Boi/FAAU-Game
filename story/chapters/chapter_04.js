@@ -655,6 +655,118 @@ const CHAPTER_04 = {
                     ]
                 }
             ]
+        },
+        {
+            interface: 'scene',
+            type: 'scene',
+            sceneId: 'subject_008_profile_scene',
+            title: 'CHAPTER 04 // SUBJECT 008 ACCESS DENIED',
+            requireEvent: 'subject_008_profile_scene',
+            setFlags: ['subject_008_profile_scene'],
+            blocks: [
+                {
+                    type: 'message_header',
+                    sender: 'Anon'
+                },
+                {
+                    type: 'message_body',
+                    lines: [
+                        'Can we know a little more about Raphael?'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Terminal access request detected.',
+                        'User credentials: Dr. Polendina.'
+                    ]
+                },
+                {
+                    type: 'speaker',
+                    speaker: 'System'
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'WELCOME DOCTOR POLENDINA',
+                        'FILE ACCESS REQUEST: SUBJECT 008',
+                        'ACCESSING...'
+                    ]
+                },
+                {
+                    type: 'divider',
+                    text: '.'
+                },
+                {
+                    type: 'divider',
+                    text: '.'
+                },
+                {
+                    type: 'divider',
+                    text: '.'
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'File Accessed',
+                        'Security Breach'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Project Name: Dovetail',
+                        'Title: Raphael',
+                        'Designation: 008-0424',
+                        'Powers: Empathy, Healing',
+                        'Healing: When Raphael places their hands on a hybrid or fellow avian, a YELLOW glow emits from their hands and the healing process is incredibly accelerated',
+                        'Empathy: When Raphael becomes emotionally bonded or touches exposed skin of a hybrid or fellow avian, they can feel the emotions, physical stimuli, and pain of the individual they are bonded to.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Familial Relationships: CLASSIFIED, RESTRICTED ACCESS.'
+                    ]
+                },
+                {
+                    type: 'speaker',
+                    speaker: 'System'
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Enter passcode.'
+                    ]
+                },
+                {
+                    type: 'speaker',
+                    speaker: 'Dr. Polendina'
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        '********'
+                    ]
+                },
+                {
+                    type: 'speaker',
+                    speaker: 'System'
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'ACCESS DENIED',
+                        'ERROR',
+                        'ERROR',
+                        '',
+                        'E RR OR',
+                        '',
+                        '',
+                        'ERR'
+                    ]
+                }
+            ]
         }
     ]
 }

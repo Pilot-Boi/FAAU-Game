@@ -586,14 +586,6 @@ function printResult(result) {
         printLines(result.entries);
     }
 
-    if (result.triggerGlitch && Array.isArray(result.glitchLines)) {
-        appendOutputLine('');
-
-        for (const line of result.glitchLines) {
-            appendOutputLine(line, ['terminal-line-error']);
-        }
-    }
-
     if (result.meta) {
         handleResultMeta(result.meta);
 

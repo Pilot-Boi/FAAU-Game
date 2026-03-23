@@ -440,21 +440,7 @@ const EVENT_RULES = [
                 '[SYSTEM] Multiple speaker sources detected.',
                 '[SYSTEM] Unable to route through standard relay.',
                 '[SYSTEM] Switching to reconstruction mode...',
-                '',
                 '[SYSTEM] New command unlocked: scene'
-            ];
-        }
-    },
-
-    {
-        id: 'subject_008_file_unlocked',
-        when: () =>
-            hasFlag('chapter_03_complete'),
-        do: () => {
-            setFlag('subject_008_file_unlocked');
-            return [
-                '[SYSTEM] Subject archive permissions updated.',
-                '[SYSTEM] New file unlocked: /secure/avians/subjects/subject_008.txt',
             ];
         }
     },
@@ -479,6 +465,36 @@ const EVENT_RULES = [
     },
 
     {
+        id: 'subject_008_profile_scene',
+        when: () => {
+            const dossierFilesRead = Array.from(GAME_STATE.filesRead)
+                .filter(path => path.startsWith('/secure/dossier/'));
+            return [
+                hasFlag('chapter_03_complete') &&
+                hasFlag('chapter_04_entry_01') &&
+                hasFlag('chapter_04_entry_02') &&
+                hasFlag('chapter_04_entry_03') &&
+                hasFlag('chapter_04_entry_04') &&
+                hasFlag('chapter_04_entry_05') &&
+                isCommandUnlocked('scene') &&
+                dossierFilesRead.length >= 2
+            ];
+        },
+        do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
+            return [
+                '[SYSTEM] Cross-reference anomaly detected.',
+                '[SYSTEM] Attempting to resolve linked record...',
+                '[SYSTEM] Relay status update: critical archived log available in scene.'
+
+            ];
+        }
+    },
+
+    {
         id: 'chapter_04_progress_complete',
         when: () =>
             hasFlag('chapter_03_complete') &&
@@ -487,7 +503,7 @@ const EVENT_RULES = [
             hasFlag('chapter_04_entry_03') &&
             hasFlag('chapter_04_entry_04') &&
             hasFlag('chapter_04_entry_05') &&
-            hasFlag('read_subject_008'),
+            hasFlag('subject_008_profile_scene'),
         do: () => {
             setFlag('chapter_04_complete');
             // Play chapter complete sound

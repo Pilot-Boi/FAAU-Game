@@ -393,22 +393,7 @@ const FILE_SYSTEM = {
                                         title: 'SUBJECT 008 IMAGE ARCHIVE',
                                         description: 'Image of Subject 008 fighting in testing chamber.'
                                     },
-                                    contentFile: 'content/secure/avians/subjects/subject_008.txt',
-                                    glitchLines: [
-                                        'Familial Relationships: CLASSIFIED, RESTRICTED ACCESS',
-                                        '',
-                                        'Additional authorization required.',
-                                        'Credential mismatch detected.',
-                                        'ACCESS DENIED',
-                                        '',
-                                        'ERROR',
-                                        'ERROR',
-                                        '',
-                                        'E RR OR',
-                                        '',
-                                        'ERR'
-                                    ],
-                                    triggerGlitch: true
+                                    contentFile: 'content/secure/avians/subjects/subject_008.txt'
                                 }
                             }
                         },
