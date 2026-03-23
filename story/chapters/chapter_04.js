@@ -139,7 +139,7 @@ SCENE entry example (reconstructed interaction log):
 
 const CHAPTER_04 = {
     id: 'chapter_04',
-    title: 'Chapter 4: Subject 008',
+    title: 'Internal Functions',
     entries: [
         {
             interface: 'msg',

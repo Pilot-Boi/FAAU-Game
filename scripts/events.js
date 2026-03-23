@@ -250,6 +250,9 @@ const EVENT_RULES = [
         when: () =>
             hasFlag('chapter_02_complete'),
         do: () => {
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
             setFlag('subject_004_file_unlocked');
             setFlag('subject_005_file_unlocked');
             return [
@@ -361,8 +364,10 @@ const EVENT_RULES = [
             if (typeof playSound === 'function') {
                 playSound('notification');
             }
-
+            setFlag('subject_006_file_unlocked');
             return [
+                '[SYSTEM] UNKNOWN_SOURCE permissions updated.',
+                '[SYSTEM] New file unlocked: /secure/subjects/subject_006.txt',
                 '[SYSTEM] Relay status update: new communication available in msg.'
             ];
         }
@@ -433,6 +438,29 @@ const EVENT_RULES = [
                 '[SYSTEM] Relay status update: new communication available in msg.',
                 '[SYSTEM] Relay status update: new live feed available in cams.'
             ];
+        }
+    },
+
+    {
+        id: 'chapter_04_progress_complete',
+        when: () =>
+            hasFlag('chapter_03_complete') &&
+            hasFlag('chapter_04_entry_01') &&
+            hasFlag('chapter_04_entry_02') &&
+            hasFlag('chapter_04_entry_03') &&
+            hasFlag('chapter_04_entry_04') &&
+            hasFlag('chapter_04_entry_05') &&
+            hasFlag('read_subject_008'),
+        do: () => {
+            setFlag('chapter_04_complete');
+            // Play chapter complete sound
+            if (typeof playSound === 'function') {
+                playSound('chapter_complete');
+            }
+            return [
+                '=== CHAPTER 4 COMPLETE: INTERNAL FUNCTIONS ==='
+            ];
+
         }
     }
 ];
@@ -655,7 +683,12 @@ function advanceChapterIfComplete(chapter, chapterIndex) {
 
     markChapterPlayed(chapter.id);
     applyChapterEffects(chapter);
-    setCurrentChapterIndex(chapterIndex + 1);
+    
+    // Add delay before advancing to next chapter to allow UI to display chapter complete message
+    const CHAPTER_ADVANCE_DELAY = 2000; // 2 seconds
+    setTimeout(() => {
+        setCurrentChapterIndex(chapterIndex + 1);
+    }, CHAPTER_ADVANCE_DELAY);
 }
 
 function findNextCameraSceneEntryForFeed(chapter, feedId, includeLocked = false) {
