@@ -479,7 +479,6 @@ const FILE_SYSTEM = {
                                 'absorption.txt': {
                                     type: 'file',
                                     requiredFlag: 'chapter_06_complete',
-                                    hiddenUntilFlag: 'chapter_06_complete',
                                     terms: ['absorption', 'abilities'],
                                     onOpenFlag: 'read_ability_absorption',
                                     contentFile: 'content/secure/avians/abilities/absorption.txt'

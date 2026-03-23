@@ -164,7 +164,7 @@ const EVENT_RULES = [
             return [
                 '[SYSTEM] Security authorization override detected.',
                 '[SYSTEM] UNKNOWN_SOURCE permissions updated.',
-                '[SYSTEM] New directory unlocked: secure'
+                '[SYSTEM] New directory unlocked: /secure/avians'
             ];
         }
     },
@@ -294,8 +294,8 @@ const EVENT_RULES = [
             setFlag('subject_005_file_unlocked');
             return [
                 '[SYSTEM] UNKNOWN_SOURCE permissions updated.',
-                '[SYSTEM] New file unlocked: /secure/subjects/subject_004.txt',
-                '[SYSTEM] New file unlocked: /secure/subjects/subject_005.txt',
+                '[SYSTEM] New file unlocked: /secure/avians/subjects/subject_004.txt',
+                '[SYSTEM] New file unlocked: /secure/avians/subjects/subject_005.txt',
                 '[SYSTEM] Relay status update: new communications available in msg.'
             ];
         }
@@ -312,7 +312,7 @@ const EVENT_RULES = [
             return [
                 '[SYSTEM] UNKNOWN_SOURCE permissions updated.',
                 '[SYSTEM] Behavioral profile archive link detected.',
-                '[SYSTEM] New directory unlocked: /secure/abilities'
+                '[SYSTEM] New directory unlocked: /secure/avians/abilities'
             ];
         }
     },
@@ -404,7 +404,7 @@ const EVENT_RULES = [
             setFlag('subject_006_file_unlocked');
             return [
                 '[SYSTEM] UNKNOWN_SOURCE permissions updated.',
-                '[SYSTEM] New file unlocked: /secure/subjects/subject_006.txt',
+                '[SYSTEM] New file unlocked: /secure/avians/subjects/subject_006.txt',
                 '[SYSTEM] Relay status update: new communication available in msg.'
             ];
         }
@@ -454,7 +454,7 @@ const EVENT_RULES = [
             setFlag('subject_008_file_unlocked');
             return [
                 '[SYSTEM] Subject archive permissions updated.',
-                '[SYSTEM] New file unlocked: /secure/subjects/subject_008.txt',
+                '[SYSTEM] New file unlocked: /secure/avians/subjects/subject_008.txt',
             ];
         }
     },
