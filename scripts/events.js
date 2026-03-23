@@ -468,7 +468,7 @@ const EVENT_RULES = [
         id: 'subject_008_profile_scene',
         when: () => {
             const dossierFilesRead = Array.from(GAME_STATE.filesRead)
-                .filter(path => path.startsWith('/secure/dossier/'));
+                .filter(path => path.startsWith('/secure/dossiers/'));
             return hasFlag('chapter_03_complete') &&
                 hasFlag('chapter_04_entry_01') &&
                 hasFlag('chapter_04_entry_02') &&

@@ -518,14 +518,14 @@ const CHAPTER_04 = {
                     ]
                 },
                 {
-                    type: 'speaker',
-                    speaker: 'Pyrrha Nikos'
-                },
-                {
                     type: 'narration',
                     lines: [
                         'Pyrrha ducks her head.'
                     ]
+                },
+                {
+                    type: 'speaker',
+                    speaker: 'Pyrrha Nikos'
                 },
                 {
                     type: 'dialogue',
@@ -662,7 +662,7 @@ const CHAPTER_04 = {
                     text: 'VISUAL FEED'
                 },
                 {
-                    type: 'narration',
+                    type: 'camera_action',
                     lines: [
                         'He’s too exhausted to protest.'
                     ]
