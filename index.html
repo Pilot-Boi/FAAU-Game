@@ -62,6 +62,21 @@
             </div>
         </div>
 
+        <!-- Hidden reconstructed scene panel used by the scene command flow -->
+        <div class="scene-window-hidden" id="scene-window" role="dialog" aria-modal="false" aria-labelledby="scene-window-title" aria-hidden="true">
+            <div class="scene-window-panel" tabindex="-1">
+                <div class="scene-window-header">
+                    <button class="scene-window-back scene-window-back-hidden" id="scene-window-back" type="button" aria-label="Back to scene index">INDEX</button>
+                    <div class="scene-window-title" id="scene-window-title">RECONSTRUCTED INTERACTION LOG</div>
+                    <div class="scene-window-controls">
+                        <button class="scene-window-close" id="scene-window-close" type="button" aria-label="Close scene window">X</button>
+                    </div>
+                </div>
+                <div class="scene-content" id="scene-content" tabindex="0"></div>
+                <div class="scene-status" id="scene-status" tabindex="0">STANDBY</div>
+            </div>
+        </div>
+
         <!-- Hidden image viewer panel used by file attachments -->
         <div class="image-window-hidden" id="image-window" role="dialog" aria-modal="false" aria-labelledby="image-window-title" aria-hidden="true">
             <div class="image-window-panel" tabindex="-1">
@@ -100,6 +115,7 @@
     <script src="story/chapters/chapter_01.js"></script>
     <script src="story/chapters/chapter_02.js"></script>
     <script src="story/chapters/chapter_03.js"></script>
+    <script src="story/chapters/chapter_04.js"></script>
     <script src="story/storyIndex.js"></script>
     <script src="scripts/events.js"></script>
     <script src="data/termMetadata.js"></script>
@@ -108,6 +124,7 @@
     <script src="data/messageUnredactionMetadata.js"></script>
     <script src="scripts/messageWindow.js"></script>
     <script src="scripts/cameraWindow.js"></script>
+    <script src="scripts/sceneWindow.js"></script>
     <script src="scripts/imageWindow.js"></script>
     <script src="scripts/terminal.js"></script>
 

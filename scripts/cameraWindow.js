@@ -288,6 +288,10 @@
             closeMessageWindow();
         }
 
+        if (typeof closeSceneWindow === 'function') {
+            closeSceneWindow();
+        }
+
         if (typeof closeImageWindow === 'function') {
             closeImageWindow();
         }

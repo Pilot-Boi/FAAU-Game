@@ -35,7 +35,8 @@ const GAME_STATE = {
         readEntryKeys: new Set(),
         contactMessageHistory: {},
         contactMessageSceneHistory: {},
-        cameraFeedSceneHistory: {}
+        cameraFeedSceneHistory: {},
+        sceneLogHistory: {}
     }
 };
 
@@ -212,6 +213,26 @@ function getCameraFeedSceneHistory(feedId) {
     return [...GAME_STATE.storyState.cameraFeedSceneHistory[feedId]];
 }
 
+function appendSceneLogHistory(sceneId, sceneBlocks = []) {
+    if (!sceneId || !Array.isArray(sceneBlocks) || sceneBlocks.length === 0) {
+        return;
+    }
+
+    if (!GAME_STATE.storyState.sceneLogHistory[sceneId]) {
+        GAME_STATE.storyState.sceneLogHistory[sceneId] = [];
+    }
+
+    GAME_STATE.storyState.sceneLogHistory[sceneId].push(...sceneBlocks);
+}
+
+function getSceneLogHistory(sceneId) {
+    if (!sceneId || !Array.isArray(GAME_STATE.storyState.sceneLogHistory[sceneId])) {
+        return [];
+    }
+
+    return [...GAME_STATE.storyState.sceneLogHistory[sceneId]];
+}
+
 
 function getGameState() {
     return GAME_STATE;
@@ -245,6 +266,7 @@ function resetGameState() {
     GAME_STATE.storyState.contactMessageHistory = {};
     GAME_STATE.storyState.contactMessageSceneHistory = {};
     GAME_STATE.storyState.cameraFeedSceneHistory = {};
+    GAME_STATE.storyState.sceneLogHistory = {};
 }
 
 // ── Persistence ───────────────────────────────────────────────────────────────
@@ -266,7 +288,8 @@ function serializeGameState() {
             readEntryKeys: Array.from(GAME_STATE.storyState.readEntryKeys),
             contactMessageHistory: { ...GAME_STATE.storyState.contactMessageHistory },
             contactMessageSceneHistory: { ...GAME_STATE.storyState.contactMessageSceneHistory },
-            cameraFeedSceneHistory: { ...GAME_STATE.storyState.cameraFeedSceneHistory }
+            cameraFeedSceneHistory: { ...GAME_STATE.storyState.cameraFeedSceneHistory },
+            sceneLogHistory: { ...GAME_STATE.storyState.sceneLogHistory }
         },
         currentPath: path
     });
@@ -313,6 +336,7 @@ function loadSavedGame() {
             GAME_STATE.storyState.contactMessageHistory = (ss.contactMessageHistory && typeof ss.contactMessageHistory === 'object') ? { ...ss.contactMessageHistory } : {};
             GAME_STATE.storyState.contactMessageSceneHistory = (ss.contactMessageSceneHistory && typeof ss.contactMessageSceneHistory === 'object') ? { ...ss.contactMessageSceneHistory } : {};
             GAME_STATE.storyState.cameraFeedSceneHistory = (ss.cameraFeedSceneHistory && typeof ss.cameraFeedSceneHistory === 'object') ? { ...ss.cameraFeedSceneHistory } : {};
+            GAME_STATE.storyState.sceneLogHistory = (ss.sceneLogHistory && typeof ss.sceneLogHistory === 'object') ? { ...ss.sceneLogHistory } : {};
         }
 
         return { savedPath: typeof data.currentPath === 'string' ? data.currentPath : '/' };

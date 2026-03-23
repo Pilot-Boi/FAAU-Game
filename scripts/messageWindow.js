@@ -325,6 +325,10 @@
             closeCameraWindow();
         }
 
+        if (typeof closeSceneWindow === 'function') {
+            closeSceneWindow();
+        }
+
         messageWindow.classList.remove('message-window-hidden');
         messageWindow.setAttribute('aria-hidden', 'false');
         document.body.classList.add('message-window-open');
