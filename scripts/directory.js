@@ -536,7 +536,31 @@ const FILE_SYSTEM = {
                             }
                         }
                     }
-                }
+                },
+                dossiers: {
+                    type: 'dir',
+                    requiredFlag: 'security_dossiers_unlocked',
+                    hiddenUntilFlag: 'security_dossiers_unlocked',
+                    children: {
+                        civilian: {
+                            type: 'dir',
+                            children: {
+                                'p_nikos.txt': {
+                                    type: 'file',
+                                    terms: ['pyrrha', 'achilles'],
+                                    onOpenFlag: 'read_dossier_nikos',
+                                    contentFile: 'content/secure/dossiers/civilian/p_nikos.txt'
+                                },
+                                'p_polendina_penny.txt': {
+                                    type: 'file',
+                                    terms: ['polendina', 'penny', 'achilles'],
+                                    onOpenFlag: 'read_dossier_polendina',
+                                    contentFile: 'content/secure/dossiers/civilian/p_polendina_penny.txt'
+                                }
+                            }
+                        }
+                    }
+                },
             }
         }
     }

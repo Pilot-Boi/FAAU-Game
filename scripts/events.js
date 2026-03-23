@@ -126,7 +126,7 @@ const EVENT_RULES = [
             setFlag('secure_access_granted');
             return [
                 '[SYSTEM] Security authorization override detected.',
-                '[SYSTEM] Access credentials updated.',
+                '[SYSTEM] UNKNOWN_SOURCE permissions updated.',
                 '[SYSTEM] New directory unlocked: secure'
             ];
         }
@@ -253,7 +253,7 @@ const EVENT_RULES = [
             setFlag('subject_004_file_unlocked');
             setFlag('subject_005_file_unlocked');
             return [
-                '[SYSTEM] Containment archive permissions updated.',
+                '[SYSTEM] UNKNOWN_SOURCE permissions updated.',
                 '[SYSTEM] New file unlocked: /secure/subjects/subject_004.txt',
                 '[SYSTEM] New file unlocked: /secure/subjects/subject_005.txt',
                 '[SYSTEM] Relay status update: new communications available in msg.'
@@ -270,6 +270,7 @@ const EVENT_RULES = [
         do: () => {
             setFlag('abilities_dir_unlocked');
             return [
+                '[SYSTEM] UNKNOWN_SOURCE permissions updated.',
                 '[SYSTEM] Behavioral profile archive link detected.',
                 '[SYSTEM] New directory unlocked: /secure/abilities'
             ];
@@ -351,19 +352,58 @@ const EVENT_RULES = [
     /* CHAPTER 04 EVENTS */
 
     {
-        id: 'msg_alert_chapter_04_start',
+        id: 'chapter_04_start',
         when: () =>
-            hasFlag('chapter_03_complete') && isCommandUnlocked('msg'),
-        do: () => {
+            hasFlag('chapter_03_complete') &&
+            isCommandUnlocked('msg')
+        , do: () => {
             // Play notification sound
             if (typeof playSound === 'function') {
                 playSound('notification');
             }
+
             return [
                 '[SYSTEM] Relay status update: new communication available in msg.'
             ];
         }
     },
+
+    {
+        id: 'security_dossiers_unlocked',
+        when: () =>
+            hasFlag('chapter_03_complete') &&
+            (context.action === 'search' && (context.term === 'pyrrha' || context.term === 'penny')),
+        do: () => {
+            setFlag('security_dossiers_unlocked');
+            return [
+                '[SYSTEM] UNKNOWN_SOURCE permissions updated.',
+                '[SYSTEM] Security dossier files located.',
+                '[SYSTEM] New directory unlocked: /secure/dossiers'
+            ];
+        }
+    },
+
+    {
+        id: 'scene_command_unlocked',
+        when: () =>
+            hasFlag('chapter_03_complete') &&
+            (hasFlag('read_dossier_nikos') || hasFlag('read_dossier_penny')),
+        do: () => {
+            unlockCommand('scene');
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
+            return [
+                '[SYSTEM] Multiple speaker sources detected.',
+                '[SYSTEM] Unable to route through standard relay.',
+                '[SYSTEM] Switching to reconstruction mode...',
+                '',
+                '[SYSTEM] New command unlocked: scene'
+            ];
+        }
+    },
+
     {
         id: 'subject_008_file_unlocked',
         when: () =>
@@ -371,11 +411,30 @@ const EVENT_RULES = [
         do: () => {
             setFlag('subject_008_file_unlocked');
             return [
-                '[SYSTEM] Containment archive permissions updated.',
+                '[SYSTEM] Subject archive permissions updated.',
                 '[SYSTEM] New file unlocked: /secure/subjects/subject_008.txt',
             ];
         }
     },
+
+    {
+        id: 'msg_cams_alert_mercury',
+        when: () =>
+            hasFlag('chapter_03_complete') &&
+            isCommandUnlocked('msg') &&
+            hasFlag('read_subject_006') &&
+            isCommandUnlocked('cams'),
+        do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
+            return [
+                '[SYSTEM] Relay status update: new communication available in msg.',
+                '[SYSTEM] Relay status update: new live feed available in cams.'
+            ];
+        }
+    }
 ];
 
 
@@ -469,7 +528,7 @@ function getEntrySpeaker(entry) {
     return speakerBlock ? speakerBlock.speaker : '';
 }
 
-function findUnreadReplyEntryForContact(chapter, contactId) {
+function findUnreadReplyEntryForContact(chapter, contactId, includeLocked = false) {
     const speakerAliases = new Set(getContactSpeakerAliases(contactId));
 
     if (speakerAliases.size === 0) {
@@ -480,7 +539,7 @@ function findUnreadReplyEntryForContact(chapter, contactId) {
         const entry = chapter.entries[index];
         const entrySpeaker = getEntrySpeaker(entry);
 
-        if (!entry || entry.type !== 'reply' || !speakerAliases.has(entrySpeaker)) {
+        if (!entry || entry.interface !== 'msg' || entry.type !== 'reply' || !speakerAliases.has(entrySpeaker)) {
             continue;
         }
 
@@ -489,7 +548,7 @@ function findUnreadReplyEntryForContact(chapter, contactId) {
             continue;
         }
 
-        if (entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
+        if (!includeLocked && entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
             continue;
         }
 
@@ -510,7 +569,39 @@ function hasUnreadReplyEntries(chapter) {
 
     for (let index = 0; index < chapter.entries.length; index += 1) {
         const entry = chapter.entries[index];
-        if (!entry || entry.type !== 'reply') {
+        if (!entry || entry.interface !== 'msg' || entry.type !== 'reply') {
+            continue;
+        }
+
+        const entryKey = buildStoryEntryKey(chapter.id, index);
+        if (!hasStoryEntryRead(entryKey)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function getSceneEntryId(entry, chapterId = '', entryIndex = 0) {
+    if (entry && typeof entry.sceneId === 'string' && entry.sceneId.trim()) {
+        return entry.sceneId.trim();
+    }
+
+    return `scene:${chapterId}:${entryIndex}`;
+}
+
+function isSceneLogEntry(entry) {
+    return Boolean(entry) && entry.interface === 'scene';
+}
+
+function hasUnreadSceneEntries(chapter) {
+    if (!chapter || !Array.isArray(chapter.entries)) {
+        return false;
+    }
+
+    for (let index = 0; index < chapter.entries.length; index += 1) {
+        const entry = chapter.entries[index];
+        if (!isSceneLogEntry(entry)) {
             continue;
         }
 
@@ -552,7 +643,9 @@ function shouldAdvanceChapter(chapter, chapterIndex) {
         return false;
     }
 
-    return !hasUnreadReplyEntries(chapter) && !hasUnreadCameraSceneEntries(chapter);
+    return !hasUnreadReplyEntries(chapter)
+        && !hasUnreadCameraSceneEntries(chapter)
+        && !hasUnreadSceneEntries(chapter);
 }
 
 function advanceChapterIfComplete(chapter, chapterIndex) {
@@ -565,7 +658,7 @@ function advanceChapterIfComplete(chapter, chapterIndex) {
     setCurrentChapterIndex(chapterIndex + 1);
 }
 
-function findNextCameraSceneEntryForFeed(chapter, feedId) {
+function findNextCameraSceneEntryForFeed(chapter, feedId, includeLocked = false) {
     if (!chapter || !Array.isArray(chapter.entries) || !feedId) {
         return null;
     }
@@ -582,7 +675,7 @@ function findNextCameraSceneEntryForFeed(chapter, feedId) {
             continue;
         }
 
-        if (entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
+        if (!includeLocked && entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
             continue;
         }
 
@@ -611,6 +704,70 @@ function findLatestCameraSceneEntryForFeed(chapter, feedId) {
             entry,
             entryIndex: index,
             entryKey: buildStoryEntryKey(chapter.id, index)
+        };
+    }
+
+    return null;
+}
+
+function findNextSceneEntry(chapter, sceneId, includeLocked = false) {
+    if (!chapter || !Array.isArray(chapter.entries)) {
+        return null;
+    }
+
+    for (let index = 0; index < chapter.entries.length; index += 1) {
+        const entry = chapter.entries[index];
+
+        if (!isSceneLogEntry(entry)) {
+            continue;
+        }
+
+        const resolvedSceneId = getSceneEntryId(entry, chapter.id, index);
+        if (sceneId && resolvedSceneId !== sceneId) {
+            continue;
+        }
+
+        const entryKey = buildStoryEntryKey(chapter.id, index);
+        if (hasStoryEntryRead(entryKey)) {
+            continue;
+        }
+
+        if (!includeLocked && entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
+            continue;
+        }
+
+        return {
+            entry,
+            entryIndex: index,
+            entryKey,
+            sceneId: resolvedSceneId
+        };
+    }
+
+    return null;
+}
+
+function findLatestSceneEntry(chapter, sceneId) {
+    if (!chapter || !Array.isArray(chapter.entries)) {
+        return null;
+    }
+
+    for (let index = chapter.entries.length - 1; index >= 0; index -= 1) {
+        const entry = chapter.entries[index];
+        if (!isSceneLogEntry(entry)) {
+            continue;
+        }
+
+        const resolvedSceneId = getSceneEntryId(entry, chapter.id, index);
+        if (sceneId && resolvedSceneId !== sceneId) {
+            continue;
+        }
+
+        return {
+            entry,
+            entryIndex: index,
+            entryKey: buildStoryEntryKey(chapter.id, index),
+            sceneId: resolvedSceneId
         };
     }
 
@@ -660,7 +817,7 @@ function findContextMessageForReply(chapter, replyIndex) {
 
     for (let index = replyIndex - 1; index >= 0; index -= 1) {
         const entry = chapter.entries[index];
-        if (entry && entry.type === 'message') {
+        if (entry && entry.interface === 'msg' && entry.type === 'message') {
             return entry;
         }
     }
@@ -738,6 +895,42 @@ function formatSingleMessageEntry(chapter, entry, contactId, entryIndex, newlyUn
             entryIndex,
             unlockedTerms: newlyUnlockedTerms,
             sceneBlocks
+        }
+    };
+}
+
+function formatSingleSceneEntry(chapter, entry, sceneId, entryIndex, newlyUnlockedTerms) {
+    const sceneBlocks = [];
+
+    for (const block of Array.isArray(entry.blocks) ? entry.blocks : []) {
+        if (!block || !block.type) {
+            continue;
+        }
+
+        sceneBlocks.push({
+            ...block,
+            lines: Array.isArray(block.lines) ? [...block.lines] : block.lines
+        });
+    }
+
+    return {
+        entries: [
+            'Reconstructing interaction log...',
+            'Aligning fragmented witness record...',
+            '',
+            'Log reconstruction complete.',
+            'Archive Status: STABLE'
+        ],
+        meta: {
+            action: 'scene_story',
+            chapterId: chapter.id,
+            sceneId,
+            entryIndex,
+            entryKey: buildStoryEntryKey(chapter.id, entryIndex),
+            unlockedTerms: newlyUnlockedTerms,
+            sceneBlocks,
+            isReplay: false,
+            title: entry.title || 'RECONSTRUCTED INTERACTION LOG'
         }
     };
 }
@@ -826,8 +1019,8 @@ function applyChapterEffects(chapter) {
 }
 
 
-function openMessageInterface(contactId) {
-    if (!hasTriggeredEvent('first_contact_available')) {
+function openMessageInterface(contactId, includeLocked = false) {
+    if (!includeLocked && !hasTriggeredEvent('first_contact_available')) {
         return {
             error: 'No communication channels available.'
         };
@@ -854,7 +1047,7 @@ function openMessageInterface(contactId) {
         };
     }
 
-    const unreadReply = findUnreadReplyEntryForContact(chapter, contactId);
+    const unreadReply = findUnreadReplyEntryForContact(chapter, contactId, includeLocked);
 
     if (!unreadReply) {
         return {
@@ -886,7 +1079,7 @@ function openMessageInterface(contactId) {
 
 }
 
-function openCameraSceneInterface(feedId) {
+function openCameraSceneInterface(feedId, includeLocked = false) {
     if (!feedId) {
         return null;
     }
@@ -898,7 +1091,7 @@ function openCameraSceneInterface(feedId) {
         return null;
     }
 
-    const nextEntry = findNextCameraSceneEntryForFeed(chapter, feedId);
+    const nextEntry = findNextCameraSceneEntryForFeed(chapter, feedId, includeLocked);
 
     if (nextEntry) {
         const newlyUnlockedTerms = [];
@@ -927,6 +1120,55 @@ function openCameraSceneInterface(feedId) {
         chapter,
         latestEntry.entry,
         feedId,
+        latestEntry.entryIndex,
+        []
+    );
+
+    result.meta.isReplay = true;
+    return result;
+}
+
+function openSceneInterface(sceneId, includeLocked = false) {
+    if (!sceneId) {
+        return null;
+    }
+
+    const chapterIndex = getCurrentChapterIndex();
+    const chapter = getChapterByIndex(chapterIndex);
+
+    if (!chapter) {
+        return null;
+    }
+
+    const nextEntry = findNextSceneEntry(chapter, sceneId, includeLocked);
+
+    if (nextEntry) {
+        const newlyUnlockedTerms = [];
+        applyEntryEffects(nextEntry.entry, newlyUnlockedTerms);
+        markStoryEntryRead(nextEntry.entryKey);
+        advanceChapterIfComplete(chapter, chapterIndex);
+
+        const result = formatSingleSceneEntry(
+            chapter,
+            nextEntry.entry,
+            nextEntry.sceneId,
+            nextEntry.entryIndex,
+            newlyUnlockedTerms
+        );
+
+        result.meta.isReplay = false;
+        return result;
+    }
+
+    const latestEntry = findLatestSceneEntry(chapter, sceneId);
+    if (!latestEntry) {
+        return null;
+    }
+
+    const result = formatSingleSceneEntry(
+        chapter,
+        latestEntry.entry,
+        latestEntry.sceneId,
         latestEntry.entryIndex,
         []
     );
