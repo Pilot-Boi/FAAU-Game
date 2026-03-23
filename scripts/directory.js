@@ -81,7 +81,7 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/research/project_index.txt' },
         { type: 'file', path: '/research/projects/BIO_01.txt' },
         { type: 'file', path: '/secure/dossiers/civilian/p_nikos.txt' },
-        { type: 'file', path: '/secure/dossiers/civilian/p_polendina_penny.txt' }
+        { type: 'file', path: '/secure/dossiers/civilian/p_polendina_penny.txt' },
     ],
     prosthetics: [
         { type: 'file', path: '/research/projects/BIO_01.txt' }

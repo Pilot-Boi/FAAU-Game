@@ -32,35 +32,59 @@ Source: scripts/directory.js
 |       |-- ebi_profile.txt [requires flag: profile_ebi_unlocked]
 |       `-- schnee_profile.txt [requires flag: profile_schnee_unlocked]
 `-- secure/ [requires flag: secure_access_granted]
-    `-- avians/
-        |-- subjects/
-        |   |-- subject_001.txt
-        |   |-- subject_002.txt
-        |   |-- subject_003.txt
-        |   |-- subject_004.txt [requires flag: subject_004_file_unlocked]
-        |   |-- subject_005.txt [requires flag: subject_005_file_unlocked]
-        |   |-- subject_006.txt [requires flag: subject_006_file_unlocked]
-        |   |-- subject_007.txt [requires flag: subject_007_file_unlocked]
-        |   `-- subject_008.txt [requires flag: subject_008_file_unlocked]
-        |-- containment/
-        |   |-- containment_overview.txt
-        |   |-- protocol_overview.txt
-        |   |-- vocal_restraint_protocol.txt [requires flag: vocal_restraint_unlocked]
-        |   |-- reinforced_containment_protocol.txt [requires flag: reinforced_containment_unlocked]
-        |   `-- observation_barrier_protocol.txt [requires flag: observation_barrier_unlocked]
-        `-- abilities/ [requires flag: abilities_dir_unlocked]
-            |-- ability_overview.txt
-            |-- ability_manifestation.txt
-            |-- wipe.txt
-            |-- empathy.txt
-            |-- healing.txt
-            |-- strength.txt
-            |-- speed.txt
-            |-- telepathy.txt
-            |-- silver_tongue.txt
-            |-- absorption.txt
-            |-- shifting.txt
-            `-- wither.txt
+    |-- avians/
+    |   |-- subjects/
+    |   |   |-- subject_001.txt
+    |   |   |-- subject_002.txt
+    |   |   |-- subject_003.txt
+    |   |   |-- subject_004.txt [requires flag: subject_004_file_unlocked]
+    |   |   |-- subject_005.txt [requires flag: subject_005_file_unlocked]
+    |   |   |-- subject_006.txt [requires flag: subject_006_file_unlocked]
+    |   |   |-- subject_007.txt [requires flag: subject_007_file_unlocked]
+    |   |   `-- subject_008.txt [requires flag: subject_008_file_unlocked]
+    |   |-- containment/
+    |   |   |-- containment_overview.txt
+    |   |   |-- protocol_overview.txt
+    |   |   |-- vocal_restraint_protocol.txt [requires flag: vocal_restraint_unlocked]
+    |   |   |-- reinforced_containment_protocol.txt [requires flag: reinforced_containment_unlocked]
+    |   |   `-- observation_barrier_protocol.txt [requires flag: observation_barrier_unlocked]
+    |   `-- abilities/ [requires flag: abilities_dir_unlocked]
+    |       |-- ability_overview.txt
+    |       |-- ability_manifestation.txt
+    |       |-- absorption.txt [requires flag: chapter_06_complete]
+    |       |-- empathy.txt
+    |       |-- healing.txt [requires flag: subject_008_file_unlocked]
+    |       |-- shifting.txt
+    |       |-- silver_tongue.txt
+    |       |-- speed.txt
+    |       |-- strength.txt
+    |       |-- telepathy.txt
+    |       |-- wipe.txt
+    |       `-- wither.txt
+    `-- dossiers/ [requires flag: security_dossiers_unlocked]
+        |-- director_salem.txt [hidden until flag: chapter_06_complete]
+        |-- civilian/
+        |   |-- b_belladonna.txt [requires flag: chapter_11_complete]
+        |   |-- l_ren.txt [requires flag: chapter_10_complete]
+        |   |-- n_valkyrie.txt [requires flag: chapter_12_complete]
+        |   |-- o_ozpin_pine.txt [requires flag: chapter_11_complete]
+        |   |-- p_nikos.txt
+        |   |-- p_polendina_penny.txt
+        |   |-- r_rose.txt [requires flag: chapter_09_complete]
+        |   |-- w_schnee_weiss.txt [requires flag: chapter_11_complete]
+        |   `-- y_xiao_long.txt [requires flag: chapter_09_complete]
+        |-- external/ [requires flag: chapter_07_complete]
+        |   |-- e_ozpin.txt
+        |   |-- q_branwen.txt
+        |   |-- r_branwen.txt
+        |   |-- s_rose.txt
+        |   `-- t_xiao_long.txt
+        `-- staff/
+            |-- a_watts.txt
+            |-- c_ebi.txt
+            |-- j_ironwood.txt
+            |-- p_polendina_pietro.txt
+            `-- w_schnee_winter.txt
 
 Notes:
 - Entries marked [requires flag: ...] are present but locked until the flag is set.
