@@ -12,15 +12,6 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/logs/sublevel_monitor.txt' },
         { type: 'file', path: '/staff/notice_01.txt' }
     ],
-    subject_008: [
-        { type: 'file', path: '/logs/network_status.txt' },
-        { type: 'file', path: '/logs/security_log.txt' },
-        { type: 'file', path: '/logs/anomaly_report.txt' },
-        { type: 'file', path: '/logs/anomaly_correlation.txt' },
-        { type: 'file', path: '/logs/sublevel_monitor.txt' },
-        { type: 'file', path: '/secure/avians/subjects/subject_008.txt' },
-        { type: 'file', path: '/secure/dossiers/civilian/p_nikos.txt' }
-    ],
     intercom: [
         { type: 'file', path: '/logs/network_status.txt' },
         { type: 'file', path: '/logs/anomaly_correlation.txt' },
@@ -109,29 +100,8 @@ const SEARCH_INDEX = {
     neural_interface: [
         { type: 'file', path: '/research/projects/GEN_02.txt' }
     ],
-    watts: [
-        { type: 'file', path: '/staff/directory.txt' },
-        { type: 'file', path: '/secure/dossiers/staff/a_watts.txt' }
-    ],
-    ebi: [
-        { type: 'file', path: '/staff/directory.txt' },
-        { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
-        { type: 'file', path: '/secure/dossiers/staff/c_ebi.txt' }
-    ],
-    ironwood: [
-        { type: 'file', path: '/staff/directory.txt' },
-        { type: 'file', path: '/secure/dossiers/staff/j_ironwood.txt' }
-    ],
-    schnee: [
-        { type: 'file', path: '/staff/directory.txt' },
-        { type: 'file', path: '/secure/dossiers/civilian/w_schnee_weiss.txt' },
-        { type: 'file', path: '/secure/dossiers/staff/w_schnee_winter.txt' }
-    ],
     avian: [
         { type: 'file', path: '/staff/archive_notice.txt' }
-    ],
-    subject_001: [
-        { type: 'file', path: '/secure/avians/subjects/subject_001.txt' }
     ],
     test_subjects: [
         { type: 'dir', path: '/secure/avians/subjects' },
@@ -144,18 +114,23 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/secure/avians/subjects/subject_007.txt' },
         { type: 'file', path: '/secure/avians/subjects/subject_008.txt' }
     ],
-    wipe: [
-        { type: 'file', path: '/secure/avians/subjects/subject_001.txt' },
-        { type: 'file', path: '/secure/avians/abilities/wipe.txt' }
+    absorption: [
+        { type: 'file', path: '/secure/avians/subjects/subject_007.txt' },
+        { type: 'file', path: '/secure/avians/abilities/absorption.txt' }
     ],
-    telepathy: [
-        { type: 'file', path: '/secure/avians/subjects/subject_001.txt' },
-        { type: 'file', path: '/secure/avians/subjects/subject_003.txt' },
-        { type: 'file', path: '/secure/avians/abilities/telepathy.txt' }
+    empathy: [
+        { type: 'file', path: '/secure/avians/subjects/subject_004.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_008.txt' },
+        { type: 'file', path: '/secure/avians/abilities/empathy.txt' }
     ],
-    subject_002: [
-        { type: 'file', path: '/secure/avians/subjects/subject_002.txt' },
-        { type: 'file', path: '/secure/avians/containment/vocal_restraint_protocol.txt' }
+    healing: [
+        { type: 'file', path: '/secure/avians/subjects/subject_008.txt' },
+        { type: 'file', path: '/secure/avians/abilities/healing.txt' }
+    ],
+    shifting: [
+        { type: 'file', path: '/secure/avians/subjects/subject_004.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_005.txt' },
+        { type: 'file', path: '/secure/avians/abilities/shifting.txt' }
     ],
     silver_tongue: [
         { type: 'file', path: '/secure/avians/subjects/subject_002.txt' },
@@ -167,52 +142,23 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/secure/avians/subjects/subject_006.txt' },
         { type: 'file', path: '/secure/avians/abilities/speed.txt' }
     ],
-    subject_003: [
-        { type: 'file', path: '/secure/avians/subjects/subject_003.txt' },
-        { type: 'file', path: '/secure/avians/containment/reinforced_containment_protocol.txt' }
-    ],
     strength: [
         { type: 'file', path: '/secure/avians/subjects/subject_003.txt' },
         { type: 'file', path: '/secure/avians/subjects/subject_006.txt' },
         { type: 'file', path: '/secure/avians/abilities/strength.txt' }
     ],
-    subject_004: [
-        { type: 'file', path: '/secure/avians/subjects/subject_004.txt' },
-        { type: 'file', path: '/secure/avians/containment/observation_barrier_protocol.txt' }
+    telepathy: [
+        { type: 'file', path: '/secure/avians/subjects/subject_001.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_003.txt' },
+        { type: 'file', path: '/secure/avians/abilities/telepathy.txt' }
     ],
-    empathy: [
-        { type: 'file', path: '/secure/avians/subjects/subject_004.txt' },
-        { type: 'file', path: '/secure/avians/subjects/subject_008.txt' },
-        { type: 'file', path: '/secure/avians/abilities/empathy.txt' }
-    ],
-    shifting: [
-        { type: 'file', path: '/secure/avians/subjects/subject_004.txt' },
-        { type: 'file', path: '/secure/avians/subjects/subject_005.txt' },
-        { type: 'file', path: '/secure/avians/abilities/shifting.txt' }
-    ],
-    subject_005: [
-        { type: 'file', path: '/secure/avians/subjects/subject_005.txt' },
-        { type: 'file', path: '/secure/avians/containment/observation_barrier_protocol.txt' }
+    wipe: [
+        { type: 'file', path: '/secure/avians/subjects/subject_001.txt' },
+        { type: 'file', path: '/secure/avians/abilities/wipe.txt' }
     ],
     wither: [
         { type: 'file', path: '/secure/avians/subjects/subject_005.txt' },
         { type: 'file', path: '/secure/avians/abilities/wither.txt' }
-    ],
-    subject_006: [
-        { type: 'file', path: '/secure/avians/subjects/subject_006.txt' },
-        { type: 'file', path: '/secure/avians/containment/reinforced_containment_protocol.txt' }
-    ],
-    subject_007: [
-        { type: 'file', path: '/secure/avians/subjects/subject_007.txt' },
-        { type: 'file', path: '/secure/avians/containment/vocal_restraint_protocol.txt' }
-    ],
-    absorption: [
-        { type: 'file', path: '/secure/avians/subjects/subject_007.txt' },
-        { type: 'file', path: '/secure/avians/abilities/absorption.txt' }
-    ],
-    healing: [
-        { type: 'file', path: '/secure/avians/subjects/subject_008.txt' },
-        { type: 'file', path: '/secure/avians/abilities/healing.txt' }
     ],
     abilities: [
         { type: 'dir', path: '/secure/avians/abilities' },
@@ -229,13 +175,61 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/secure/avians/abilities/telepathy.txt' },
         { type: 'file', path: '/secure/avians/abilities/wither.txt' }
     ],
-    manifestation: [
-        { type: 'file', path: '/secure/avians/abilities/ability_manifestation.txt' }
-    ],
     salem: [
         { type: 'file', path: '/secure/dossiers/director_salem.txt' }
     ],
-    belladonna: [
+    subject_001: [
+        { type: 'file', path: '/secure/avians/subjects/subject_001.txt' },
+        { type: 'file', path: '/secure/avians/abilities/telepathy.txt' },
+        { type: 'file', path: '/secure/avians/abilities/wipe.txt' }
+    ],
+    subject_002: [
+        { type: 'file', path: '/secure/avians/subjects/subject_002.txt' },
+        { type: 'file', path: '/secure/avians/abilities/silver_tongue.txt' },
+        { type: 'file', path: '/secure/avians/abilities/speed.txt' },
+        { type: 'file', path: '/secure/avians/containment/vocal_restraint_protocol.txt' }
+    ],
+    subject_003: [
+        { type: 'file', path: '/secure/avians/subjects/subject_003.txt' },
+        { type: 'file', path: '/secure/avians/abilities/telepathy.txt' },
+        { type: 'file', path: '/secure/avians/containment/reinforced_containment_protocol.txt' }
+    ],
+    subject_004: [
+        { type: 'file', path: '/secure/avians/subjects/subject_004.txt' },
+        { type: 'file', path: '/secure/avians/abilities/empathy.txt' },
+        { type: 'file', path: '/secure/avians/abilities/shifting.txt' },
+        { type: 'file', path: '/secure/avians/containment/observation_barrier_protocol.txt' }
+    ],
+    subject_005: [
+        { type: 'file', path: '/secure/avians/subjects/subject_005.txt' },
+        { type: 'file', path: '/secure/avians/abilities/shifting.txt' },
+        { type: 'file', path: '/secure/avians/abilities/wither.txt' },
+        { type: 'file', path: '/secure/avians/containment/observation_barrier_protocol.txt' }
+    ],
+    subject_006: [
+        { type: 'file', path: '/secure/avians/subjects/subject_006.txt' },
+        { type: 'file', path: '/secure/avians/abilities/speed.txt' },
+        { type: 'file', path: '/secure/avians/abilities/strength.txt' },
+        { type: 'file', path: '/secure/avians/containment/reinforced_containment_protocol.txt' }
+    ],
+    subject_007: [
+        { type: 'file', path: '/secure/avians/subjects/subject_007.txt' },
+        { type: 'file', path: '/secure/avians/abilities/absorption.txt' },
+        { type: 'file', path: '/secure/avians/abilities/silver_tongue.txt' },
+        { type: 'file', path: '/secure/avians/containment/vocal_restraint_protocol.txt' }
+    ],
+    subject_008: [
+        { type: 'file', path: '/logs/network_status.txt' },
+        { type: 'file', path: '/logs/security_log.txt' },
+        { type: 'file', path: '/logs/anomaly_report.txt' },
+        { type: 'file', path: '/logs/anomaly_correlation.txt' },
+        { type: 'file', path: '/logs/sublevel_monitor.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_008.txt' },
+        { type: 'file', path: '/secure/avians/abilities/empathy.txt' },
+        { type: 'file', path: '/secure/avians/abilities/healing.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/p_nikos.txt' }
+    ],
+    blake: [
         { type: 'file', path: '/secure/dossiers/civilian/b_belladonna.txt' }
     ],
     ren: [
@@ -260,15 +254,20 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/secure/dossiers/external/e_ozpin.txt' }
     ],
     pyrrha: [
-        { type: 'file', path: '/secure/dossiers/civilian/p_nikos.txt' }
+        { type: 'file', path: '/secure/avians/subjects/subject_008.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/p_nikos.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/p_polendina_penny.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/p_polendina_pietro.txt' }
     ],
     penny: [
+        { type: 'file', path: '/secure/dossiers/civilian/p_nikos.txt' },
         { type: 'file', path: '/secure/dossiers/civilian/p_polendina_penny.txt' },
         { type: 'file', path: '/secure/dossiers/staff/p_polendina_pietro.txt' }
     ],
     summer: [
         { type: 'file', path: '/secure/dossiers/civilian/r_rose.txt' },
         { type: 'file', path: '/secure/dossiers/civilian/y_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
         { type: 'file', path: '/secure/dossiers/external/r_branwen.txt' },
         { type: 'file', path: '/secure/dossiers/external/s_rose.txt' },
         { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' }
@@ -276,12 +275,14 @@ const SEARCH_INDEX = {
     ruby: [
         { type: 'file', path: '/secure/dossiers/civilian/r_rose.txt' },
         { type: 'file', path: '/secure/dossiers/civilian/y_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
         { type: 'file', path: '/secure/dossiers/external/s_rose.txt' },
         { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' }
     ],
     yang: [
         { type: 'file', path: '/secure/dossiers/civilian/r_rose.txt' },
         { type: 'file', path: '/secure/dossiers/civilian/y_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
         { type: 'file', path: '/secure/dossiers/external/r_branwen.txt' },
         { type: 'file', path: '/secure/dossiers/external/s_rose.txt' },
         { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' }
@@ -297,6 +298,8 @@ const SEARCH_INDEX = {
     qrow: [
         { type: 'file', path: '/secure/dossiers/civilian/r_rose.txt' },
         { type: 'file', path: '/secure/dossiers/civilian/y_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/n_valkyrie.txt' },
+        { type: 'file', path: '/secure/dossiers/external/s_rose.txt' },
         { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
         { type: 'file', path: '/secure/dossiers/external/r_branwen.txt' },
         { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' },
@@ -310,8 +313,28 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/secure/dossiers/civilian/y_xiao_long.txt' },
         { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
         { type: 'file', path: '/secure/dossiers/external/r_branwen.txt' },
-        { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' }
-    ]
+        { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/s_rose.txt' }
+    ],
+    watts: [
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/a_watts.txt' }
+    ],
+    ebi: [
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/n_valkyrie.txt' },
+        { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/c_ebi.txt' }
+    ],
+    ironwood: [
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/j_ironwood.txt' }
+    ],
+    schnee: [
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/w_schnee_weiss.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/w_schnee_winter.txt' }
+    ],
 };
 
 // In-memory filesystem for the narrative terminal.
@@ -662,33 +685,27 @@ const FILE_SYSTEM = {
                                 },
                                 'ability_manifestation.txt': {
                                     type: 'file',
-                                    terms: ['abilities', 'manifestation'],
+                                    terms: ['abilities'],
                                     onOpenFlag: 'read_ability_manifestation',
                                     contentFile: 'content/secure/avians/abilities/ability_manifestation.txt'
-                                },
-                                'wipe.txt': {
-                                    type: 'file',
-                                    terms: ['wipe', 'abilities'],
-                                    onOpenFlag: 'read_ability_wipe',
-                                    contentFile: 'content/secure/avians/abilities/wipe.txt'
                                 },
                                 'absorption.txt': {
                                     type: 'file',
                                     requiredFlag: 'chapter_06_complete',
-                                    terms: ['absorption', 'abilities'],
+                                    terms: ['absorption', 'abilities', 'subject_007'],
                                     onOpenFlag: 'read_ability_absorption',
                                     contentFile: 'content/secure/avians/abilities/absorption.txt'
                                 },
                                 'empathy.txt': {
                                     type: 'file',
-                                    terms: ['empathy', 'abilities'],
+                                    terms: ['empathy', 'abilities', 'subject_008', 'subject_004'],
                                     onOpenFlag: 'read_ability_empathy',
                                     contentFile: 'content/secure/avians/abilities/empathy.txt'
                                 },
                                 'healing.txt': {
                                     type: 'file',
                                     requiredFlag: 'subject_008_file_unlocked',
-                                    terms: ['healing', 'abilities'],
+                                    terms: ['healing', 'abilities', 'subject_008'],
                                     onOpenFlag: 'read_ability_healing',
                                     contentFile: 'content/secure/avians/abilities/healing.txt'
                                 },
@@ -722,6 +739,12 @@ const FILE_SYSTEM = {
                                     onOpenFlag: 'read_ability_telepathy',
                                     contentFile: 'content/secure/avians/abilities/telepathy.txt'
                                 },
+                                'wipe.txt': {
+                                    type: 'file',
+                                    terms: ['wipe', 'subject_001', 'abilities'],
+                                    onOpenFlag: 'read_ability_wipe',
+                                    contentFile: 'content/secure/avians/abilities/wipe.txt'
+                                },
                                 'wither.txt': {
                                     type: 'file',
                                     terms: ['wither', 'abilities'],
@@ -754,7 +777,7 @@ const FILE_SYSTEM = {
                             children: {
                                 'b_belladonna.txt': {
                                     type: 'file',
-                                    terms: ['belladonna'],
+                                    terms: ['blake'],
                                     requiredFlag: 'chapter_11_complete',
                                     hiddenUntilFlag: 'chapter_07_complete',
                                     onOpenFlag: 'read_dossier_belladonna',
@@ -780,7 +803,7 @@ const FILE_SYSTEM = {
                                 },
                                 'n_valkyrie.txt': {
                                     type: 'file',
-                                    terms: ['nora', 'ren'],
+                                    terms: ['nora', 'ren', 'qrow', 'ebi'],
                                     requiredFlag: 'chapter_12_complete',
                                     hiddenUntilFlag: 'chapter_07_complete',
                                     onOpenFlag: 'read_dossier_valkyrie',
@@ -806,7 +829,7 @@ const FILE_SYSTEM = {
                                 },
                                 'p_nikos.txt': {
                                     type: 'file',
-                                    terms: ['pyrrha', 'achilles', 'subject_008'],
+                                    terms: ['pyrrha', 'polendina', 'penny','achilles', 'subject_008'],
                                     onOpenFlag: 'read_dossier_nikos',
                                     imageAttachment: {
                                         src: 'assets/images/pyrrha.png',
@@ -817,7 +840,7 @@ const FILE_SYSTEM = {
                                 },
                                 'p_polendina_penny.txt': {
                                     type: 'file',
-                                    terms: ['polendina', 'penny', 'achilles'],
+                                    terms: ['polendina', 'penny', 'pyrrha', 'achilles', 'prosthetics'],
                                     onOpenFlag: 'read_dossier_polendina',
                                     contentFile: 'content/secure/dossiers/civilian/p_polendina_penny.txt'
                                 },
@@ -879,7 +902,7 @@ const FILE_SYSTEM = {
                                 },
                                 'q_branwen.txt': {
                                     type: 'file',
-                                    terms: ['qrow', 'raven', 'taiyang', 'nora', 'ebi'],
+                                    terms: ['qrow', 'raven', 'taiyang', 'nora', 'ebi', 'summer', 'yang', 'ruby'],
                                     onOpenFlag: 'read_dossier_branwen',
                                     contentFile: 'content/secure/dossiers/external/q_branwen.txt'
                                 },
@@ -891,13 +914,13 @@ const FILE_SYSTEM = {
                                 },
                                 's_rose.txt': {
                                     type: 'file',
-                                    terms: ['summer', 'ruby', 'yang', 'taiyang'],
+                                    terms: ['summer', 'ruby', 'yang', 'taiyang', 'qrow', 'raven'],
                                     onOpenFlag: 'read_dossier_summer',
                                     contentFile: 'content/secure/dossiers/external/s_rose.txt'
                                 },
                                 't_xiao_long.txt': {
                                     type: 'file',
-                                    terms: ['yang', 'taiyang', 'summer', 'ruby', 'raven', 'qrow'],
+                                    terms: ['taiyang', 'summer', 'ruby', 'yang', 'raven', 'qrow'],
                                     onOpenFlag: 'read_dossier_xiao_long',
                                     contentFile: 'content/secure/dossiers/external/t_xiao_long.txt'
                                 }
@@ -926,7 +949,7 @@ const FILE_SYSTEM = {
                                 },
                                 'p_polendina_pietro.txt': {
                                     type: 'file',
-                                    terms: ['polendina', 'penny', 'bioengineering'],
+                                    terms: ['polendina', 'penny', 'pyrrha', 'bioengineering'],
                                     onOpenFlag: 'read_dossier_polendina',
                                     contentFile: 'content/secure/dossiers/staff/p_polendina_pietro.txt'
                                 },
