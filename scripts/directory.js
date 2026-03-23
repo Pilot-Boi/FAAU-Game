@@ -3,13 +3,6 @@
  */
 // Search index mapping terms to file paths for the 'search' command.
 const SEARCH_INDEX = {
-    subject_008: [
-        { type: 'file', path: '/logs/network_status.txt' },
-        { type: 'file', path: '/logs/security_log.txt' },
-        { type: 'file', path: '/logs/anomaly_report.txt' },
-        { type: 'file', path: '/logs/anomaly_correlation.txt' },
-        { type: 'file', path: '/logs/sublevel_monitor.txt' }
-    ],
     unknown_source: [
         { type: 'file', path: '/logs/system_boot.txt' },
         { type: 'file', path: '/logs/network_status.txt' },
@@ -18,6 +11,15 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/logs/anomaly_correlation.txt' },
         { type: 'file', path: '/logs/sublevel_monitor.txt' },
         { type: 'file', path: '/staff/notice_01.txt' }
+    ],
+    subject_008: [
+        { type: 'file', path: '/logs/network_status.txt' },
+        { type: 'file', path: '/logs/security_log.txt' },
+        { type: 'file', path: '/logs/anomaly_report.txt' },
+        { type: 'file', path: '/logs/anomaly_correlation.txt' },
+        { type: 'file', path: '/logs/sublevel_monitor.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_008.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/p_nikos.txt' }
     ],
     intercom: [
         { type: 'file', path: '/logs/network_status.txt' },
@@ -28,78 +30,287 @@ const SEARCH_INDEX = {
         { type: 'file', path: '/logs/security_log.txt' },
         { type: 'file', path: '/logs/sublevel_monitor.txt' },
         { type: 'file', path: '/logs/sublevel_security.txt' },
-        { type: 'file', path: '/staff/notice_02.txt' }
-    ],
-    watts: [
-        { type: 'file', path: '/staff/directory.txt' },
-        { type: 'file', path: '/research/projects/GEN_02.txt' }
-    ],
-    polendina: [
-        { type: 'file', path: '/staff/directory.txt' },
-        { type: 'file', path: '/research/projects/BIO_01.txt' },
-        { type: 'file', path: '/research/projects/BIO_02.txt' },
-        { type: 'file', path: '/research/projects/BIO_03.txt' }
-    ],
-    ebi: [
-        { type: 'file', path: '/staff/directory.txt' }
-    ],
-    schnee: [
-        { type: 'file', path: '/staff/directory.txt' }
-    ],
-    ironwood: [
-        { type: 'file', path: '/staff/directory.txt' }
-    ],
-    director: [
-        { type: 'file', path: '/staff/directory.txt' },
         { type: 'file', path: '/staff/notice_02.txt' },
-        { type: 'file', path: '/research/overview.txt' }
-    ],
-    achilles: [
-        { type: 'file', path: '/research/project_index.txt' },
-        { type: 'file', path: '/research/projects/BIO_01.txt' }
-    ],
-    prosthetics: [
-        { type: 'file', path: '/research/projects/BIO_01.txt' }
-    ],
-    neural_interface: [
-        { type: 'file', path: '/research/projects/GEN_02.txt' }
-    ],
-    hybrid: [
-        { type: 'file', path: '/research/projects/BIO_01.txt' }
-    ],
-    containment: [
-        { type: 'file', path: '/logs/sublevel_security.txt' }
-    ],
-    restricted_archive: [
-        { type: 'file', path: '/logs/anomaly_correlation.txt' },
-        { type: 'file', path: '/staff/archive_notice.txt' }
-    ],
-    avian: [
-        { type: 'file', path: '/staff/archive_notice.txt' },
-        { type: 'file', path: '/secure/avian_project.txt' }
-    ],
-    bioengineering: [
-        { type: 'file', path: '/staff/directory.txt' },
-        { type: 'file', path: '/research/overview.txt' },
-        { type: 'file', path: '/research/project_index.txt' },
-        { type: 'file', path: '/research/projects/BIO_01.txt' },
-        { type: 'file', path: '/research/projects/BIO_02.txt' },
-        { type: 'file', path: '/research/projects/BIO_03.txt' }
-    ],
-    genetics: [
-        { type: 'file', path: '/staff/directory.txt' },
-        { type: 'file', path: '/research/overview.txt' },
-        { type: 'file', path: '/research/project_index.txt' }
+        { type: 'file', path: '/secure/avians/containment/containment_overview.txt' }
     ],
     security: [
         { type: 'file', path: '/logs/security_log.txt' },
+        { type: 'file', path: '/logs/sublevel_monitor.txt' },
         { type: 'file', path: '/logs/sublevel_security.txt' },
         { type: 'file', path: '/staff/directory.txt' },
         { type: 'file', path: '/staff/notice_01.txt' },
         { type: 'file', path: '/staff/notice_02.txt' },
         { type: 'file', path: '/staff/archive_notice.txt' },
+        { type: 'file', path: '/staff/security_clearance.txt' },
         { type: 'file', path: '/staff/security_protocols.txt' },
-        { type: 'file', path: '/staff/security_clearance.txt' }
+        { type: 'file', path: '/secure/avians/containment/containment_overview.txt' },
+        { type: 'file', path: '/secure/avians/containment/protocol_overview.txt' },
+        { type: 'file', path: '/secure/avians/containment/vocal_restraint_protocol.txt' },
+        { type: 'file', path: '/secure/avians/containment/reinforced_containment_protocol.txt' },
+        { type: 'file', path: '/secure/avians/containment/observation_barrier_protocol.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/c_ebi.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/j_ironwood.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/w_schnee_winter.txt' }
+    ],
+    restricted_archive: [
+        { type: 'file', path: '/logs/anomaly_correlation.txt' },
+        { type: 'file', path: '/staff/archive_notice.txt' }
+    ],
+    containment: [
+        { type: 'dir', path: '/secure/avians/containment' },
+        { type: 'file', path: '/logs/sublevel_security.txt' },
+        { type: 'file', path: '/secure/avians/containment/containment_overview.txt' },
+        { type: 'file', path: '/secure/avians/containment/protocol_overview.txt' },
+        { type: 'file', path: '/secure/avians/containment/vocal_restraint_protocol.txt' },
+        { type: 'file', path: '/secure/avians/containment/reinforced_containment_protocol.txt' },
+        { type: 'file', path: '/secure/avians/containment/observation_barrier_protocol.txt' }
+    ],
+    genetics: [
+        { type: 'file', path: '/research/overview.txt' },
+        { type: 'file', path: '/research/project_index.txt' },
+        { type: 'file', path: '/research/projects/GEN_02.txt' },
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/a_watts.txt' }
+    ],
+    bioengineering: [
+        { type: 'file', path: '/research/overview.txt' },
+        { type: 'file', path: '/research/project_index.txt' },
+        { type: 'file', path: '/research/projects/BIO_01.txt' },
+        { type: 'file', path: '/research/projects/BIO_02.txt' },
+        { type: 'file', path: '/research/projects/BIO_03.txt' },
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/p_polendina_pietro.txt' }
+    ],
+    director: [
+        { type: 'file', path: '/research/overview.txt' },
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/director_salem.txt' }
+    ],
+    achilles: [
+        { type: 'file', path: '/research/project_index.txt' },
+        { type: 'file', path: '/research/projects/BIO_01.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/p_nikos.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/p_polendina_penny.txt' }
+    ],
+    prosthetics: [
+        { type: 'file', path: '/research/projects/BIO_01.txt' }
+    ],
+    polendina: [
+        { type: 'file', path: '/research/projects/BIO_01.txt' },
+        { type: 'file', path: '/research/projects/BIO_02.txt' },
+        { type: 'file', path: '/research/projects/BIO_03.txt' },
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/p_polendina_penny.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/p_polendina_pietro.txt' }
+    ],
+    hybrid: [
+        { type: 'file', path: '/research/projects/BIO_01.txt' }
+    ],
+    neural_interface: [
+        { type: 'file', path: '/research/projects/GEN_02.txt' }
+    ],
+    watts: [
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/a_watts.txt' }
+    ],
+    ebi: [
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/c_ebi.txt' }
+    ],
+    ironwood: [
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/j_ironwood.txt' }
+    ],
+    schnee: [
+        { type: 'file', path: '/staff/directory.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/w_schnee_weiss.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/w_schnee_winter.txt' }
+    ],
+    avian: [
+        { type: 'file', path: '/staff/archive_notice.txt' }
+    ],
+    subject_001: [
+        { type: 'file', path: '/secure/avians/subjects/subject_001.txt' }
+    ],
+    test_subjects: [
+        { type: 'dir', path: '/secure/avians/subjects' },
+        { type: 'file', path: '/secure/avians/subjects/subject_001.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_002.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_003.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_004.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_005.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_006.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_007.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_008.txt' }
+    ],
+    wipe: [
+        { type: 'file', path: '/secure/avians/subjects/subject_001.txt' },
+        { type: 'file', path: '/secure/avians/abilities/wipe.txt' }
+    ],
+    telepathy: [
+        { type: 'file', path: '/secure/avians/subjects/subject_001.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_003.txt' },
+        { type: 'file', path: '/secure/avians/abilities/telepathy.txt' }
+    ],
+    subject_002: [
+        { type: 'file', path: '/secure/avians/subjects/subject_002.txt' },
+        { type: 'file', path: '/secure/avians/containment/vocal_restraint_protocol.txt' }
+    ],
+    silver_tongue: [
+        { type: 'file', path: '/secure/avians/subjects/subject_002.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_007.txt' },
+        { type: 'file', path: '/secure/avians/abilities/silver_tongue.txt' }
+    ],
+    speed: [
+        { type: 'file', path: '/secure/avians/subjects/subject_002.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_006.txt' },
+        { type: 'file', path: '/secure/avians/abilities/speed.txt' }
+    ],
+    subject_003: [
+        { type: 'file', path: '/secure/avians/subjects/subject_003.txt' },
+        { type: 'file', path: '/secure/avians/containment/reinforced_containment_protocol.txt' }
+    ],
+    strength: [
+        { type: 'file', path: '/secure/avians/subjects/subject_003.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_006.txt' },
+        { type: 'file', path: '/secure/avians/abilities/strength.txt' }
+    ],
+    subject_004: [
+        { type: 'file', path: '/secure/avians/subjects/subject_004.txt' },
+        { type: 'file', path: '/secure/avians/containment/observation_barrier_protocol.txt' }
+    ],
+    empathy: [
+        { type: 'file', path: '/secure/avians/subjects/subject_004.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_008.txt' },
+        { type: 'file', path: '/secure/avians/abilities/empathy.txt' }
+    ],
+    shifting: [
+        { type: 'file', path: '/secure/avians/subjects/subject_004.txt' },
+        { type: 'file', path: '/secure/avians/subjects/subject_005.txt' },
+        { type: 'file', path: '/secure/avians/abilities/shifting.txt' }
+    ],
+    subject_005: [
+        { type: 'file', path: '/secure/avians/subjects/subject_005.txt' },
+        { type: 'file', path: '/secure/avians/containment/observation_barrier_protocol.txt' }
+    ],
+    wither: [
+        { type: 'file', path: '/secure/avians/subjects/subject_005.txt' },
+        { type: 'file', path: '/secure/avians/abilities/wither.txt' }
+    ],
+    subject_006: [
+        { type: 'file', path: '/secure/avians/subjects/subject_006.txt' },
+        { type: 'file', path: '/secure/avians/containment/reinforced_containment_protocol.txt' }
+    ],
+    subject_007: [
+        { type: 'file', path: '/secure/avians/subjects/subject_007.txt' },
+        { type: 'file', path: '/secure/avians/containment/vocal_restraint_protocol.txt' }
+    ],
+    absorption: [
+        { type: 'file', path: '/secure/avians/subjects/subject_007.txt' },
+        { type: 'file', path: '/secure/avians/abilities/absorption.txt' }
+    ],
+    healing: [
+        { type: 'file', path: '/secure/avians/subjects/subject_008.txt' },
+        { type: 'file', path: '/secure/avians/abilities/healing.txt' }
+    ],
+    abilities: [
+        { type: 'dir', path: '/secure/avians/abilities' },
+        { type: 'file', path: '/secure/avians/abilities/ability_overview.txt' },
+        { type: 'file', path: '/secure/avians/abilities/ability_manifestation.txt' },
+        { type: 'file', path: '/secure/avians/abilities/wipe.txt' },
+        { type: 'file', path: '/secure/avians/abilities/absorption.txt' },
+        { type: 'file', path: '/secure/avians/abilities/empathy.txt' },
+        { type: 'file', path: '/secure/avians/abilities/healing.txt' },
+        { type: 'file', path: '/secure/avians/abilities/shifting.txt' },
+        { type: 'file', path: '/secure/avians/abilities/silver_tongue.txt' },
+        { type: 'file', path: '/secure/avians/abilities/speed.txt' },
+        { type: 'file', path: '/secure/avians/abilities/strength.txt' },
+        { type: 'file', path: '/secure/avians/abilities/telepathy.txt' },
+        { type: 'file', path: '/secure/avians/abilities/wither.txt' }
+    ],
+    manifestation: [
+        { type: 'file', path: '/secure/avians/abilities/ability_manifestation.txt' }
+    ],
+    salem: [
+        { type: 'file', path: '/secure/dossiers/director_salem.txt' }
+    ],
+    belladonna: [
+        { type: 'file', path: '/secure/dossiers/civilian/b_belladonna.txt' }
+    ],
+    ren: [
+        { type: 'file', path: '/secure/dossiers/civilian/l_ren.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/n_valkyrie.txt' }
+    ],
+    arc: [
+        { type: 'file', path: '/secure/dossiers/civilian/l_ren.txt' }
+    ],
+    nora: [
+        { type: 'file', path: '/secure/dossiers/civilian/l_ren.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/n_valkyrie.txt' },
+        { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/c_ebi.txt' }
+    ],
+    ozpin: [
+        { type: 'file', path: '/secure/dossiers/civilian/o_ozpin_pine.txt' },
+        { type: 'file', path: '/secure/dossiers/external/e_ozpin.txt' }
+    ],
+    oscar: [
+        { type: 'file', path: '/secure/dossiers/civilian/o_ozpin_pine.txt' },
+        { type: 'file', path: '/secure/dossiers/external/e_ozpin.txt' }
+    ],
+    pyrrha: [
+        { type: 'file', path: '/secure/dossiers/civilian/p_nikos.txt' }
+    ],
+    penny: [
+        { type: 'file', path: '/secure/dossiers/civilian/p_polendina_penny.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/p_polendina_pietro.txt' }
+    ],
+    summer: [
+        { type: 'file', path: '/secure/dossiers/civilian/r_rose.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/y_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/external/r_branwen.txt' },
+        { type: 'file', path: '/secure/dossiers/external/s_rose.txt' },
+        { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' }
+    ],
+    ruby: [
+        { type: 'file', path: '/secure/dossiers/civilian/r_rose.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/y_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/external/s_rose.txt' },
+        { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' }
+    ],
+    yang: [
+        { type: 'file', path: '/secure/dossiers/civilian/r_rose.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/y_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/external/r_branwen.txt' },
+        { type: 'file', path: '/secure/dossiers/external/s_rose.txt' },
+        { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' }
+    ],
+    taiyang: [
+        { type: 'file', path: '/secure/dossiers/civilian/r_rose.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/y_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
+        { type: 'file', path: '/secure/dossiers/external/r_branwen.txt' },
+        { type: 'file', path: '/secure/dossiers/external/s_rose.txt' },
+        { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' }
+    ],
+    qrow: [
+        { type: 'file', path: '/secure/dossiers/civilian/r_rose.txt' },
+        { type: 'file', path: '/secure/dossiers/civilian/y_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
+        { type: 'file', path: '/secure/dossiers/external/r_branwen.txt' },
+        { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/c_ebi.txt' }
+    ],
+    weiss: [
+        { type: 'file', path: '/secure/dossiers/civilian/w_schnee_weiss.txt' },
+        { type: 'file', path: '/secure/dossiers/staff/w_schnee_winter.txt' }
+    ],
+    raven: [
+        { type: 'file', path: '/secure/dossiers/civilian/y_xiao_long.txt' },
+        { type: 'file', path: '/secure/dossiers/external/q_branwen.txt' },
+        { type: 'file', path: '/secure/dossiers/external/r_branwen.txt' },
+        { type: 'file', path: '/secure/dossiers/external/t_xiao_long.txt' }
     ]
 };
 
@@ -1206,6 +1417,29 @@ function unlockSearchTermFiles(term) {
     return unlockedPaths;
 }
 
+// Gate search-index entries behind progression flags for secure archive sections.
+function isSearchMatchVisible(match) {
+    if (!match || typeof match.path !== 'string') {
+        return false;
+    }
+
+    const path = match.path;
+
+    if (path.startsWith('/secure/avians/abilities') && !hasFlag('abilities_dir_unlocked')) {
+        return false;
+    }
+
+    if (path.startsWith('/secure/avians') && !hasFlag('secure_access_granted')) {
+        return false;
+    }
+
+    if (path.startsWith('/secure/dossiers') && !hasFlag('security_dossiers_unlocked')) {
+        return false;
+    }
+
+    return true;
+}
+
 
 // Search for a term in the discovered index and return results for the terminal.
 function searchTerm(rawTerm) {
@@ -1231,7 +1465,7 @@ function searchTerm(rawTerm) {
         };
     }
 
-    const matches = SEARCH_INDEX[term] || [];
+    const matches = (SEARCH_INDEX[term] || []).filter(isSearchMatchVisible);
 
     const lines = [
         `SEARCH RESULTS FOR: ${term}`,
@@ -1273,6 +1507,7 @@ function searchTerm(rawTerm) {
         }
     };
 }
+
 
 
 
