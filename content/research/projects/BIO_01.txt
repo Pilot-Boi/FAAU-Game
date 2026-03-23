@@ -42,7 +42,7 @@ The system is expected to serve as a foundation for future advancements in assis
 
 --------
 Linked Documentation: 
-External Civilian File – P. Nikos 
-    (See: /external/civilian/p_nikos.txt)
-External Civilian File - P. Polendina 
-    (See: /external/civilian/p_polendina.txt)
+Secure Civilian File – P. Nikos 
+    (See: /secure/dossiers/civilian/p_nikos.txt)
+Secure Civilian File - P. Polendina 
+    (See: /secure/dossiers/civilian/p_polendina.txt)
