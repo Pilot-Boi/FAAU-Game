@@ -531,8 +531,11 @@ function getDiscoveredMessageContacts() {
             const meta = termMetadata[termKey] || {};
             const fallbackLabel = formatTermForOutput(termKey).replace(/_/g, ' ');
             const defaultLabel = definition.label || meta.label || fallbackLabel;
+            const firstReveal = Array.isArray(definition.revealedNames)
+                ? definition.revealedNames[0]
+                : null;
             const displayLabel = includeAll
-                ? defaultLabel
+                ? ((firstReveal && firstReveal.label) || defaultLabel)
                 : getContactDisplayLabel(contactId, definition, discoveredTerms, termMetadata, defaultLabel);
             const contactIsUnlockedByDirectoryRules = includeAll || unlockedContacts.has(contactId);
             const hasPastSceneHistory = typeof getContactMessageSceneHistory === 'function'
@@ -877,6 +880,48 @@ function getAvailableCameraFeeds() {
 
     if (feedEntries.length === 0) {
         return [];
+    }
+
+    if (includeAll && currentChapter && Array.isArray(currentChapter.entries)) {
+        const knownFeedIds = new Set(feedEntries.map((entry) => entry.id));
+
+        for (const entry of currentChapter.entries) {
+            if (!entry || entry.interface !== 'cams' || entry.type !== 'scene' || !entry.feedId) {
+                continue;
+            }
+
+            const feedId = entry.feedId;
+            if (knownFeedIds.has(feedId)) {
+                continue;
+            }
+
+            const fallbackLabel = String(feedId).replace(/_/g, ' ').toUpperCase();
+
+            feedEntries.push({
+                id: feedId,
+                label: fallbackLabel,
+                title: entry.title || 'SURVEILLANCE FEED',
+                camera: fallbackLabel,
+                status: '● LIVE',
+                recording: 'ENABLED',
+                sceneBlocks: [
+                    {
+                        type: 'camera_header',
+                        camera: fallbackLabel,
+                        timestamp: '● LIVE'
+                    },
+                    {
+                        type: 'camera_narration',
+                        lines: ['Preview metadata unavailable; loading chapter scene entries.']
+                    }
+                ],
+                isSelectable: true,
+                availabilityLabel: '● LIVE',
+                statusClass: 'is-live'
+            });
+
+            knownFeedIds.add(feedId);
+        }
     }
 
     return feedEntries;
@@ -1573,6 +1618,7 @@ async function handleDevCommand(args) {
     const subcommand = (args[0] || '').toLowerCase();
 
     if (subcommand === 'msg') {
+        unlockCommand('msg');
         appendOutputLine('[DEV] Opening messaging interface.', 'terminal-system');
         setDevPreviewMode('msg', true);
         showMessageContactDirectory();
@@ -1580,6 +1626,7 @@ async function handleDevCommand(args) {
     }
 
     if (subcommand === 'cams') {
+        unlockCommand('cams');
         appendOutputLine('[DEV] Opening surveillance interface.', 'terminal-system');
         setDevPreviewMode('cams', true);
         openCameraInterface();
@@ -1587,6 +1634,7 @@ async function handleDevCommand(args) {
     }
 
     if (subcommand === 'scene') {
+        unlockCommand('scene');
         appendOutputLine('[DEV] Opening reconstructed scene interface.', 'terminal-system');
         setDevPreviewMode('scene', true);
         showSceneDirectory();
