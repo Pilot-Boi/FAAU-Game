@@ -141,6 +141,16 @@
     interface: 'terminal',
     type: 'terminal',
     requireEvent: 'example_terminal_event', // optional
+    awaitResponse: true, // optional, defaults to true
+    promptText: '[SYSTEM] Respond YES or NO to continue.', // optional (accepts YES/NO or Y/N)
+    yesResponseText: [ // optional: string or array of lines
+        '[SYSTEM] Handshake accepted.',
+        '[SYSTEM] Continuing relay...'
+    ],
+    noResponseText: [ // optional: string or array of lines
+        '[SYSTEM] Acknowledged.',
+        '[SYSTEM] Continuing relay...'
+    ],
     setFlags: ['example_terminal_flag'],
     blocks: [
         {
@@ -919,6 +929,358 @@ const chapter_05 = {
                         '“I don’t know!” Emerald calls back. She meets Mercury’s eyes from across the hallway, but he just shakes his head, looking as confused as her.',
                         'The screams are just barely distinguishable as words. Even though none of them can tell what is going on, there’s no doubt about who is involved. Because they’ve all heard each other’s screams enough to identify each other by them.',
                         'Somewhere, for some reason, Raphael is in incredible pain.'
+                    ]
+                }
+            ]
+        },
+        {
+            interface: 'terminal',
+            type: 'terminal',
+            setFlags: ['chapter_05_entry_07'],
+            yesResponseText: [
+                '[SYSTEM] Processing request...',
+                '[SYSTEM] Authorization acknowledged.',
+                '',
+                '[SYSTEM] ACCESS GRANTED.'
+            ],
+            noResponseText: [
+                '[SYSTEM] Processing request...',
+                '[SYSTEM] Authorization acknowledged.',
+                '',
+                '[SYSTEM] ACCESS DENIED.',
+                '...',
+                '[SYSTEM] WARNING: REPEATED ACCESS REQUEST DETECTED',
+                '[SYSTEM] Override initiated.',
+                '[SYSTEM] ACCESS GRANTED.'
+            ],
+            blocks: [
+                {
+                    type: 'narration',
+                    lines: [
+                        'WARNING: UNAUTHORIZED ACCESS REQUESTED',
+                        'REQUEST TO VIEW CAMERA FOOTAGE AND REPORT OF 007’S LATEST MISSION.',
+                        '',
+                        'USER ID: UNKNOWN',
+                        '',
+                        'REASON FOR REQUEST: ',
+                        'Dr. Polendina, something is wrong.',
+                        '-A friend',
+                        '',
+                        'ALLOW ACCESS?',
+                        '[ YES ]    [ NO ]',
+                    ]
+                }
+            ]
+        },
+        {
+            interface: 'msg',
+            type: 'reply',
+            setFlags: ['chapter_05_entry_08'],
+            blocks: [
+                {
+                    type: 'narration',
+                    lines: [
+                        'Pietro sighs and pushes up his glasses, rubbing at his tired eyes. It’s been a long time since he worked this late in the day.',
+                        'Without any warning, the screens of his computer go black.',
+                        'He drops his glasses onto his desk, staring stunned at the console.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'No.'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'He snatches his glasses back up and pushes them onto his face.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'No, no, no-'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'He trypes frantically at the keyboard, but the computer remains unresponsive.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Oh dang it all!'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'He sighs, dejected, leaning back in his chair.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Access Granted.'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Types it’s way across his screen, and he squints at it.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Dr. Polendina, something is wrong.'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'He blinks at this, adjusting his glasses and leaning forward. If someone managed to hack into the Facility’s mainframe then-'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'A friend.'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'And then his screens are replaced with a grainy video feed, and his concern about possible security breaches goes out of his mind.',
+                        'Pietro recognizes his daughter, of course. And he recognizes the girl sitting next to her, Miss Pyrrha Nikos. Both of them are sitting in the cafeteria, chatting amicably.',
+                        'And neither of them notice when an avian with soot-black hair and ember-bright wings stalks into the room.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'No, wait-!'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Pietro starts, clutching the arms of his assisted walking chair, but he’s too late. Several hours too late.',
+                        'For the next few minutes, he watches in slack-jawed horror. He watches the other occupants of the cafeteria run screaming from the cackling girl. He watches the avian bat his daughter aside like she’s a paper doll. He watches his daughter scream, slam into a distant wall, and not get back up when she slides to the floor.',
+                        'He watches as Pyrrha grabs a dinner tray and a broom to defend everyone else as they retreat.',
+                        'He watches as a swipe of the girl’s claws catch Pyrrha at the ankle, and she falls to the ground with a scream. He watches as the avian’s eyes glow red like flames when she sticks her clawed fingers into Pyrrha’s chest.',
+                        'And he watches as Pyrrha’s very life force is drawn out of her body and she crumples to the ground.',
+                        'Pietro lets out a shuddering breath, not realizing that he’s been holding his breath the whole time. He feels sick to his stomach. He barely notices his monitors return to their normal views of spreadsheets and data.',
+                        'He only looks up in time to see a memo arrive from someone.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Dr. Polendina, your presence is required. Report to Med Bay 3 at once. -Director Salem.'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Suddenly he has no doubt whose fault this tragedy lies with.'
+                    ]
+                }
+            ]
+        },
+        {
+            interface: 'scene',
+            type: 'scene',
+            sceneId: 'jaune_memory_deletion',
+            title: 'Jaune Memory Deletion',
+            setFlags: ['chapter_05_entry_09'],
+            blocks: [
+                {
+                    type: 'narration',
+                    lines: [
+                        'I feel so bad. Poor Emerald, being forced to Wipe Jaune’s memory again, especially since the first time she did it was clearly traumatizing for her.',
+                        'At least she can control her powers better now, yeah???',
+                        'Anon'
+                    ]
+                },
+                {
+                    type: 'speaker',
+                    speaker: 'Emerald Sustrai'
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Emerald is lead into the room, and as soon as Jaune sees her, his head cocks to one side.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Hey, Raphael…'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'She rasps, guilty beyond belief. He’s confused for a second, but then he shakes his head, eyes widening with rising panic.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'This-'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'She swallows thickly, and tries for a smile.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'This won’t hurt a bit.'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'She closes her eyes, and the rings over her head glow bright enough to be blinding. They spin, faster, faster , until all he can see is a red X.',
+                        'As soon as they start spinning, he feels something powerful go through his mind, a wave. It’s like a rolling ocean of acid steaming into the folds of his brain, burning away everything it touches. Everything it touches, that is, that has to do with Pyrrha.'
+                    ]
+                },
+                {
+                    type: 'speaker',
+                    speaker: 'Jaune Arc'
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'No!'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'He screams. Jaune’s eyes shoot open, and for a moment he struggles, and then he stills. He latches onto different memories, turning them over in his mind, trying to hold them above water. But each one is wrenched from his grasp and dissolved in mere moments.',
+                        'Slowly but surely, he is forgetting.',
+                        'His yell is desperate, tears welling up in his eyes. He focuses on them training together. Gone. He focuses on her introducing herself. Gone. He tries more recent memories, like when Pyrrha surprised him by telling him he’s a person. Gone. What day is Pyrrha’s birthday? Gone. What is her favourite color? Gone. He has to change tactics.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Pyrrha.'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'He whispers, voice shaky with tears,'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Pyrrha, Pyrrha, Pyrrha…'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'He repeats her name over and over as he continues focusing on different memories. It becomes a little easier, the memories lasting a little longer as her name rings out through his mind. He begins to feel hope, as long as he has her name…',
+                        'Salem chuckles softly when she realizes what it is doing. No matter. It has never succeeded in fighting off Uriel’s abilities.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Pyrrha, Pyrrha, Pyrrha…'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Her favourite catchphrases. Gone. The way her eyes glint before she laughs. Gone.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Pyrrha, Pyrrha, Pyrrha…'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Her name doesn’t even sound like a real word anymore. But Jaune keeps repeating it, over and over, if he can just hold onto her name…',
+                        'The shape of her face. Gone. The color of her hair. Gone. The sound of her voice. Gone. Jaune begins to sob.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Pyrrha, Pyrrha, please…'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Salem raises an eyebrow at the begging. That is a new development, she’s going to have to keep an eye on that.',
+                        'Jaune forgets Pyrrha’s bright eyes, eyes that didn’t miss a thing. He forgets her soft, twinkling laugh, and all the times he managed to make it happen, even on his darkest days. Pyrrha becomes a fuzzy concept in his mind, no longer a person but an idea, a half-held thought of something he used to know.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Pyrrha, Pyrrha, Pyrh, no, please!'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Jaune wails, voice thick with despair.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'I can’t forget, I don’t want to forget, I don’t want to lose her!'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'He can take the pain. The pain of losing her in life is preferable to losing her in memory.',
+                        'All he has is a name. Pyrrha. Who is Pyrrha? Someone important. A friend? A Superior? Someone… someone… someone Jaune can’t remember. What did it mean? What did it mean?',
+                        'And just like that, the name vanishes from his mind.',
+                        'What had he just been thinking about? He stops crying, now confused. Why is he sad?'
+                    ]
+                },
+                {
+                    type: 'speaker',
+                    speaker: 'Director Salem'
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'Guards, you may remove the restraints.'
+                    ]
+                },
+                {
+                    type: 'narration',
+                    lines: [
+                        'Miss Salem is talking. Emerald is crying. Why is she crying? They both sound like they’re a million miles away. A red X is burned into his mind.'
+                    ]
+                },
+                {
+                    type: 'dialogue',
+                    lines: [
+                        'It won’t be fighting anymore.'
                     ]
                 }
             ]

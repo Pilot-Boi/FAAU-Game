@@ -55,6 +55,7 @@ const devPreviewModes = {
     cams: false,
     scene: false
 };
+let pendingTerminalResponse = null;
 
 function setDevPreviewMode(mode, enabled) {
     if (!Object.prototype.hasOwnProperty.call(devPreviewModes, mode)) {
@@ -1979,6 +1980,12 @@ async function runCommand(inputText) {
 
     appendOutputLine(`FACILITY:${formatCurrentPath()}> ${trimmedInput}`);
 
+    if (handlePendingTerminalResponseInput(trimmedInput)) {
+        updatePromptDisplay();
+        scrollTerminalToBottom();
+        return;
+    }
+
     if (!Object.prototype.hasOwnProperty.call(COMMANDS, command)) {
         appendOutputLine("Command not recognized. Type 'help' for a list of commands.");
         scrollTerminalToBottom();
@@ -2020,6 +2027,84 @@ function wait(ms) {
     });
 }
 
+function normalizeTerminalResponseLines(value, fallbackLine) {
+    if (Array.isArray(value)) {
+        const lines = value
+            .map((line) => String(line == null ? '' : line).trim())
+            .filter((line) => line.length > 0);
+
+        return lines.length > 0 ? lines : [fallbackLine];
+    }
+
+    if (typeof value === 'string') {
+        const line = value.trim();
+        return line ? [line] : [fallbackLine];
+    }
+
+    return [fallbackLine];
+}
+
+function beginPendingTerminalResponse(meta = {}) {
+    pendingTerminalResponse = {
+        chapterId: meta.chapterId || null,
+        unlockedTerms: Array.isArray(meta.unlockedTerms) ? [...meta.unlockedTerms] : [],
+        promptText: typeof meta.promptText === 'string' && meta.promptText.trim()
+            ? meta.promptText.trim()
+            : '[SYSTEM] Respond YES or NO to continue.',
+        yesResponseLines: normalizeTerminalResponseLines(
+            meta.yesResponseText,
+            '[SYSTEM] Response logged: YES.'
+        ),
+        noResponseLines: normalizeTerminalResponseLines(
+            meta.noResponseText,
+            '[SYSTEM] Response logged: NO.'
+        )
+    };
+
+    appendOutputLine('');
+    appendOutputLine(pendingTerminalResponse.promptText, ['terminal-line-alert']);
+}
+
+function handlePendingTerminalResponseInput(inputText) {
+    if (!pendingTerminalResponse) {
+        return false;
+    }
+
+    const normalizedInput = String(inputText || '').trim().toLowerCase();
+    const normalized = normalizedInput === 'y'
+        ? 'yes'
+        : (normalizedInput === 'n' ? 'no' : normalizedInput);
+
+    if (normalized !== 'yes' && normalized !== 'no') {
+        appendOutputLine('[SYSTEM] Awaiting valid response: YES/NO (or Y/N).', ['terminal-line-system']);
+        return true;
+    }
+
+    const responseMeta = {
+        action: 'terminal_prompt_response',
+        response: normalized,
+        chapterId: pendingTerminalResponse.chapterId,
+        unlockedTerms: pendingTerminalResponse.unlockedTerms
+    };
+
+    const responseLines = normalized === 'yes'
+        ? pendingTerminalResponse.yesResponseLines
+        : pendingTerminalResponse.noResponseLines;
+
+    for (const line of responseLines) {
+        appendOutputLine(line, ['terminal-line-system']);
+    }
+
+    pendingTerminalResponse = null;
+
+    const eventLines = evaluateEventsAndAutoSave(responseMeta);
+    if (eventLines.length > 0) {
+        printLines(eventLines);
+    }
+
+    return true;
+}
+
 // Print lines to the terminal one at a time with typing animation, locking
 // input during playback. Used for interface: 'terminal' story entries.
 async function playTerminalEntryAnimated(lines) {
@@ -2059,9 +2144,13 @@ function scheduleTerminalPlayback(delayMs = 800) {
 
         if (result.meta) {
             handleResultMeta(result.meta);
-            const eventLines = evaluateEventsAndAutoSave(result.meta);
-            if (eventLines.length > 0) {
-                printLines(eventLines);
+            if (result.meta.awaitResponse !== false) {
+                beginPendingTerminalResponse(result.meta);
+            } else {
+                const eventLines = evaluateEventsAndAutoSave(result.meta);
+                if (eventLines.length > 0) {
+                    printLines(eventLines);
+                }
             }
         }
 

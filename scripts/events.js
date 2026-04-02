@@ -963,7 +963,17 @@ function openTerminalInterface(includeLocked = false) {
         meta: {
             action: 'story',
             chapterId: chapter.id,
-            unlockedTerms: newlyUnlockedTerms
+            unlockedTerms: newlyUnlockedTerms,
+            awaitResponse: nextEntry.entry.awaitResponse !== false,
+            promptText: typeof nextEntry.entry.promptText === 'string'
+                ? nextEntry.entry.promptText
+                : undefined,
+            yesResponseText: (typeof nextEntry.entry.yesResponseText === 'string' || Array.isArray(nextEntry.entry.yesResponseText))
+                ? nextEntry.entry.yesResponseText
+                : undefined,
+            noResponseText: (typeof nextEntry.entry.noResponseText === 'string' || Array.isArray(nextEntry.entry.noResponseText))
+                ? nextEntry.entry.noResponseText
+                : undefined
         }
     };
 }
