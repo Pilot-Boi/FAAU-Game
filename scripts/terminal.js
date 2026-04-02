@@ -2020,6 +2020,55 @@ function wait(ms) {
     });
 }
 
+// Print lines to the terminal one at a time with typing animation, locking
+// input during playback. Used for interface: 'terminal' story entries.
+async function playTerminalEntryAnimated(lines) {
+    promptInput.setAttribute('contenteditable', 'false');
+    terminalPrompt.classList.add('terminal-prompt-hidden');
+
+    for (const lineText of lines) {
+        if (!lineText) {
+            appendOutputLine('');
+            await wait(lineDelayMs);
+            continue;
+        }
+        await typeLine(lineText);
+        await wait(lineDelayMs);
+    }
+
+    await wait(finalPauseMs);
+    promptInput.setAttribute('contenteditable', 'true');
+    terminalPrompt.classList.remove('terminal-prompt-hidden');
+    promptInput.focus();
+    scrollTerminalToBottom();
+}
+
+// Trigger a pending terminal interface entry. Should be called from event
+// rules that need to display a story entry directly on the terminal.
+function scheduleTerminalPlayback(delayMs = 800) {
+    window.setTimeout(async () => {
+        const result = typeof openTerminalInterface === 'function'
+            ? openTerminalInterface(false)
+            : null;
+
+        if (!result || !Array.isArray(result.lines) || result.lines.length === 0) {
+            return;
+        }
+
+        await playTerminalEntryAnimated(result.lines);
+
+        if (result.meta) {
+            handleResultMeta(result.meta);
+            const eventLines = evaluateEventsAndAutoSave(result.meta);
+            if (eventLines.length > 0) {
+                printLines(eventLines);
+            }
+        }
+
+        scrollTerminalToBottom();
+    }, delayMs);
+}
+
 // Run startup sequence, then reveal interactive prompt.
 async function runBootSequence() {
     // Play boot sound

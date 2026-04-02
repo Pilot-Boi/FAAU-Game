@@ -83,8 +83,7 @@
 }
 */
 
-/*
-SCENE entry example (reconstructed interaction log):
+/*SCENE entry example (reconstructed interaction log):
 {
     interface: 'scene',
     type: 'scene',

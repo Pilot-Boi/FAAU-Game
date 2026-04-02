@@ -726,6 +726,57 @@ function hasUnreadCameraSceneEntries(chapter) {
     return false;
 }
 
+function isTerminalEntry(entry) {
+    return Boolean(entry) && entry.interface === 'terminal';
+}
+
+function hasUnreadTerminalEntries(chapter) {
+    if (!chapter || !Array.isArray(chapter.entries)) {
+        return false;
+    }
+
+    for (let index = 0; index < chapter.entries.length; index += 1) {
+        const entry = chapter.entries[index];
+        if (!isTerminalEntry(entry)) {
+            continue;
+        }
+
+        const entryKey = buildStoryEntryKey(chapter.id, index);
+        if (!hasStoryEntryRead(entryKey)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function findNextTerminalEntry(chapter, includeLocked = false) {
+    if (!chapter || !Array.isArray(chapter.entries)) {
+        return null;
+    }
+
+    for (let index = 0; index < chapter.entries.length; index += 1) {
+        const entry = chapter.entries[index];
+
+        if (!isTerminalEntry(entry)) {
+            continue;
+        }
+
+        const entryKey = buildStoryEntryKey(chapter.id, index);
+        if (hasStoryEntryRead(entryKey)) {
+            continue;
+        }
+
+        if (!includeLocked && entry.requireEvent && !hasTriggeredEvent(entry.requireEvent)) {
+            continue;
+        }
+
+        return { entry, entryIndex: index, entryKey };
+    }
+
+    return null;
+}
+
 function shouldAdvanceChapter(chapter, chapterIndex) {
     if (!chapter || hasPlayedChapter(chapter.id)) {
         return false;
@@ -733,7 +784,8 @@ function shouldAdvanceChapter(chapter, chapterIndex) {
 
     return !hasUnreadReplyEntries(chapter)
         && !hasUnreadCameraSceneEntries(chapter)
-        && !hasUnreadSceneEntries(chapter);
+        && !hasUnreadSceneEntries(chapter)
+        && !hasUnreadTerminalEntries(chapter);
 }
 
 function advanceChapterIfComplete(chapter, chapterIndex) {
@@ -861,6 +913,59 @@ function findLatestSceneEntry(chapter, sceneId) {
     }
 
     return null;
+}
+
+function openTerminalInterface(includeLocked = false) {
+    const chapterIndex = getCurrentChapterIndex();
+    const chapter = getChapterByIndex(chapterIndex);
+
+    if (!chapter) {
+        return null;
+    }
+
+    const nextEntry = findNextTerminalEntry(chapter, includeLocked);
+
+    if (!nextEntry) {
+        return null;
+    }
+
+    const newlyUnlockedTerms = [];
+    applyEntryEffects(nextEntry.entry, newlyUnlockedTerms);
+    markStoryEntryRead(nextEntry.entryKey);
+    advanceChapterIfComplete(chapter, chapterIndex);
+
+    const lines = [];
+    for (const block of Array.isArray(nextEntry.entry.blocks) ? nextEntry.entry.blocks : []) {
+        if (!block || !block.type) {
+            continue;
+        }
+
+        if (block.type === 'speaker' && typeof block.speaker === 'string' && block.speaker.trim()) {
+            lines.push(`${block.speaker.trim()}:`);
+            continue;
+        }
+
+        if (block.type === 'divider') {
+            lines.push('');
+            continue;
+        }
+
+        if ((block.type === 'narration' || block.type === 'dialogue') && Array.isArray(block.lines)) {
+            for (const line of block.lines) {
+                lines.push(typeof line === 'string' ? line : String(line));
+            }
+            continue;
+        }
+    }
+
+    return {
+        lines,
+        meta: {
+            action: 'story',
+            chapterId: chapter.id,
+            unlockedTerms: newlyUnlockedTerms
+        }
+    };
 }
 
 function formatSingleCameraEntry(chapter, entry, feedId, entryIndex, newlyUnlockedTerms) {

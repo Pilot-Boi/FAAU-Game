@@ -1,0 +1,207 @@
+FAAU Game CSS Color Scheme Inventory
+Generated: 2026-03-24
+
+Scanned CSS files:
+- style.css
+
+Notes:
+- This list includes all currently used CSS color literals across the scanned stylesheet(s).
+- Values are de-duplicated and sorted.
+
+Root variable palette (:root in style.css):
+- --terminal-text: #78f089
+- --terminal-command: #57d8ff
+- --terminal-system: #efd76b
+- --terminal-alert: #ff8fd1
+- --terminal-error: #ff6b6b
+- --terminal-file-header: #bf8cff
+- --terminal-transmission: #8ed9ff
+- --terminal-speaker: #ffaf63
+- --terminal-entry: #bdf5c5
+- --terminal-divider: #8f77ae
+- --terminal-indent-guide: rgba(142, 217, 255, 0.28)
+- --terminal-indent-fill: rgba(22, 34, 30, 0.56)
+
+All unique color values used:
+- #000a
+- #00ff66
+- #00ff6655
+- #00ff6677
+- #070b0d
+- #0b1012
+- #0b1013
+- #0b1114
+- #0d0b09
+- #0f1417
+- #101010
+- #101619
+- #11181b
+- #11181c
+- #13191d
+- #141d21
+- #15110d
+- #151310
+- #162126
+- #17120e
+- #181818
+- #182126
+- #1b1612
+- #222
+- #294242
+- #2a3a2a
+- #2d393d
+- #2e4d4c
+- #2f5250
+- #31484a
+- #324247
+- #333
+- #394748
+- #3a4d3a
+- #3a5a3a
+- #45575b
+- #456c6a
+- #4b4034
+- #4f4337
+- #53463a
+- #57d8ff
+- #57d8ff66
+- #5a4b3d
+- #5f7876
+- #6a5847
+- #6b8686
+- #6d7a79
+- #6f8080
+- #74817f
+- #78f089
+- #7c7064
+- #7c8584
+- #7ed7cc
+- #7fa5a0
+- #84715f
+- #8d7660
+- #8df5c4
+- #8ed9ff
+- #8f77ae
+- #8fc7c1
+- #93a9a4
+- #96a6a3
+- #9aa7b0
+- #9cb6b1
+- #9ec8c2
+- #a1bab7
+- #b2ffb2
+- #b5c1be
+- #b6e7e3
+- #b8c7c5
+- #bda182
+- #bdf5c5
+- #bf8cff
+- #c2b39f
+- #c5d0cd
+- #c6a67b
+- #c6b4a0
+- #c7d2d0
+- #c8efe9
+- #ceb08a
+- #d1dad8
+- #d4dddd
+- #d6e0dd
+- #d8c4a8
+- #d8f6f2
+- #d9f4f1
+- #dec6a6
+- #e0ae8b
+- #e3d0b8
+- #e8dcc8
+- #efd76b
+- #efdcc3
+- #f1e5d2
+- #f2b97a
+- #f2fbfa
+- #f8efe2
+- #ff6b6b
+- #ff8fd1
+- #ffaf63
+- rgba(0, 0, 0, 0.52)
+- rgba(0, 0, 0, 0.58)
+- rgba(0, 0, 0, 0.6)
+- rgba(6, 10, 12, 0.98)
+- rgba(6, 12, 14, 0.72)
+- rgba(8, 13, 15, 0.96)
+- rgba(9, 17, 19, 0.85)
+- rgba(12, 18, 21, 0.82)
+- rgba(16, 12, 9, 0.98)
+- rgba(18, 28, 31, 0.72)
+- rgba(20, 35, 39, 0.62)
+- rgba(22, 34, 30, 0)
+- rgba(22, 34, 30, 0.56)
+- rgba(26, 21, 16, 0.82)
+- rgba(31, 24, 18, 0.94)
+- rgba(36, 29, 22, 0.72)
+- rgba(87, 216, 255, 0.24)
+- rgba(87, 216, 255, 0.26)
+- rgba(112, 145, 147, 0.04)
+- rgba(112, 145, 147, 0.05)
+- rgba(128, 150, 149, 0.35)
+- rgba(142, 217, 255, 0.24)
+- rgba(142, 217, 255, 0.28)
+- rgba(154, 167, 176, 0.18)
+- rgba(164, 186, 182, 0.035)
+- rgba(191, 140, 255, 0.24)
+- rgba(199, 165, 116, 0.035)
+- rgba(199, 165, 116, 0.05)
+- rgba(199, 165, 116, 0.08)
+- rgba(212, 151, 92, 0.32)
+- rgba(239, 215, 107, 0.28)
+- rgba(255, 107, 107, 0.22)
+- rgba(255, 143, 209, 0.3)
+- rgba(255, 175, 99, 0.22)
+
+Grouped color map by usage area:
+
+1) Core terminal shell
+- Background/base: #101010, #181818, #222, #333, #000a
+- Text/accent: #78f089, #57d8ff, #efd76b, #ff8fd1, #ff6b6b, #bf8cff, #8ed9ff, #ffaf63, #bdf5c5, #8f77ae
+- Glow/alpha accents: #00ff66, #00ff6655, rgba(87, 216, 255, 0.26), rgba(239, 215, 107, 0.28), rgba(255, 143, 209, 0.3), rgba(255, 107, 107, 0.22), rgba(255, 175, 99, 0.22)
+- Indent guides: rgba(142, 217, 255, 0.28), rgba(22, 34, 30, 0.56), rgba(22, 34, 30, 0)
+
+2) Message window (communications)
+- Panel/frame: #13191d, #0f1417, #182126, #2e4d4c
+- Content area: rgba(6, 12, 14, 0.72), #d9f4f1
+- Controls/borders: #456c6a, #11181c, #c8efe9, #d8f6f2, #2f5250
+- Status and helper text: #8fc7c1, #9ec8c2, #7fa5a0, #6b8686
+- Contact states: #8df5c4, #e0ae8b, #6f8080
+- Scene message formatting: rgba(20, 35, 39, 0.62), #a1bab7, #f2fbfa, #5f7876
+
+3) Camera window (surveillance)
+- Panel/frame: #0b1013, #070b0d, #11181b, #324247
+- Grid overlays: rgba(112, 145, 147, 0.05), rgba(112, 145, 147, 0.04)
+- Content area: rgba(8, 13, 15, 0.96), rgba(6, 10, 12, 0.98), rgba(164, 186, 182, 0.035)
+- Controls/text: #45575b, #0b1012, #c7d2d0, #d1dad8, #93a9a4, #96a6a3
+- Feed cards/states: #2d393d, rgba(12, 18, 21, 0.82), #d4dddd, #74817f, #7c8584, #ff6b6b
+- Narrative accents: #b5c1be, #9cb6b1, rgba(128, 150, 149, 0.35), #6d7a79
+
+4) Scene window (archive/log records)
+- Panel/frame: #151310, #0d0b09, #1b1612, #53463a
+- Grid/ambient overlays: rgba(199, 165, 116, 0.05), rgba(199, 165, 116, 0.035), rgba(199, 165, 116, 0.08)
+- Content area: rgba(31, 24, 18, 0.94), rgba(16, 12, 9, 0.98)
+- Controls/titles: #6a5847, #15110d, #e3d0b8, #efdcc3, #dec6a6, #ceb08a
+- Record cards/states: #4b4034, rgba(26, 21, 16, 0.82), #f2b97a, #c2b39f, #7c7064
+- Log formatting: #bda182, #f1e5d2, #d8c4a8, #c6b4a0, rgba(36, 29, 22, 0.72), rgba(212, 151, 92, 0.32), #8d7660, #f8efe2, #e8dcc8
+
+5) Image window
+- Panel/frame: #13191d, #0f1417, #182126, #2e4d4c
+- Display area: #0b1114
+- Status text: #8fc7c1
+
+6) Main menu
+- Overlay/base: #101010
+- Logo/title glow: #78f089, #00ff6677
+- Subtitle/accent: #57d8ff, #57d8ff66
+- Buttons and disabled states: #78f089, #3a4d3a, #2a3a2a
+- Status/hint text: #efd76b, #3a5a3a
+
+7) Shared UI utility colors
+- Focus outlines: #7ed7cc, #93a9a4, #c6a67b
+- Scrollbars: #162126, #31484a, #101619, #394748, #17120e, #5a4b3d
+- Search/readability subtone: #9aa7b0
