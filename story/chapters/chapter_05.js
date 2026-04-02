@@ -188,6 +188,7 @@ const chapter_05 = {
         {
             interface: 'msg',
             type: 'reply',
+            requireEvent: 'chapter_05_start',
             setFlags: ['chapter_05_entry_01'],
             blocks: [
                 {
@@ -335,149 +336,6 @@ const chapter_05 = {
             blocks: [
                 {
                     type: 'message_header',
-                    sender: 'Caterpillar'
-                },
-                {
-                    type: 'message_body',
-                    lines: [
-                        'Hey 001, has anyone ever reacted severely/been badly injured by one of the *ahem*, “treatments?” Considering how far things seems to go it seems like it could happen…'
-                    ]
-                },
-                {
-                    type: 'speaker',
-                    speaker: 'The Director'
-                },
-                {
-                    type: 'narration',
-                    lines: [
-                        'Emerald can’t meet your eyes.'
-                    ]
-                },
-                {
-                    type: 'dialogue',
-                    lines: [
-                        'The first person I Wiped I…'
-                    ]
-                },
-                {
-                    type: 'narration',
-                    lines: [
-                        'Her wings curl protectively around her, shielding her from view.'
-                    ]
-                },
-                {
-                    type: 'dialogue',
-                    lines: [
-                        'I had just gotten my wings.'
-                    ]
-                },
-                {
-                    type: 'narration',
-                    lines: [
-                        'She murmurs, wringing her hands.'
-                    ]
-                },
-                {
-                    type: 'dialogue',
-                    lines: [
-                        'I didn’t have full control over my powers yet, but the Director didn’t care. She-'
-                    ]
-                },
-                {
-                    type: 'narration',
-                    lines: [
-                        'Emerald swallows thickly.'
-                    ]
-                },
-                {
-                    type: 'dialogue',
-                    lines: [
-                        'She’d just acquired a new candidate for the treatments, but they were a threat to security so…'
-                    ]
-                },
-                {
-                    type: 'narration',
-                    lines: [
-                        'Emerald shrugs helplessly, still not meeting your eyes.'
-                    ]
-                },
-                {
-                    type: 'dialogue',
-                    lines: [
-                        'So she had me Wipe them.'
-                    ]
-                },
-                {
-                    type: 'narration',
-                    lines: [
-                        'The rings over her head continue their spinning, the red in them pulsing sickly.'
-                    ]
-                },
-                {
-                    type: 'dialogue',
-                    lines: [
-                        'I wasn’t fully in control of my powers.'
-                    ]
-                },
-                {
-                    type: 'narration',
-                    lines: [
-                        'She repeats, her voice breaking.'
-                    ]
-                },
-                {
-                    type: 'dialogue',
-                    lines: [
-                        'I was scared. I was hurt, and I was scared . And so I overdid things.',
-                        'The Director asked me to only Wipe memories of herself from the candidate’s mind.'
-                    ]
-                },
-                {
-                    type: 'narration',
-                    lines: [
-                        'She shudders, gazing blankly at the wall a foot and half left of your head.'
-                    ]
-                },
-                {
-                    type: 'dialogue',
-                    lines: [
-                        'But instead, I Wiped everything.',
-                        'All I can remember is them sitting there. Tears streaming from their eyes, but no emotions left. An empty shell.'
-                    ]
-                },
-                {
-                    type: 'narration',
-                    lines: [
-                        'She shakes her head, tears welling up in her eyes.'
-                    ]
-                },
-                {
-                    type: 'dialogue',
-                    lines: [
-                        'And the Director said ‘Excellent work!’'
-                    ]
-                },
-                {
-                    type: 'narration',
-                    lines: [
-                        'Emerald lets out a choked sounding sob, burying her face in her hands.'
-                    ]
-                },
-                {
-                    type: 'dialogue',
-                    lines: [
-                        'We were just little kids! I didn’t mean to! I’m sorry, 008 please, I’m sorry, I didn’t mean to, I’m sorry-!'
-                    ]
-                }
-            ]
-        },
-        {
-            interface: 'msg',
-            type: 'reply',
-            setFlags: ['chapter_05_entry_03'],
-            blocks: [
-                {
-                    type: 'message_header',
                     sender: 'Anon'
                 },
                 {
@@ -520,7 +378,7 @@ const chapter_05 = {
         {
             interface: 'msg',
             type: 'reply',
-            setFlags: ['chapter_05_entry_04'],
+            setFlags: ['chapter_05_entry_03'],
             blocks: [
                 {
                     type: 'message_header',
@@ -627,7 +485,7 @@ const chapter_05 = {
             type: 'scene',
             sceneId: 'jaune_empathy_feedback',
             title: 'Jaune Empathy Feedback',
-            setFlags: ['chapter_05_entry_05'],
+            setFlags: ['chapter_05_entry_04'],
             blocks: [
                 {
                     type: 'message_header',
@@ -907,7 +765,7 @@ const chapter_05 = {
             type: 'scene',
             feedId: 'avian_cellblock',
             title: 'Avian Cellblock',
-            setFlags: ['chapter_05_entry_06'],
+            setFlags: ['chapter_05_entry_05'],
             blocks: [
                 {
                     type: 'camera_header',
@@ -936,7 +794,8 @@ const chapter_05 = {
         {
             interface: 'terminal',
             type: 'terminal',
-            setFlags: ['chapter_05_entry_07'],
+            requireEvent: 'pietro_terminal_request',
+            setFlags: ['chapter_05_entry_06'],
             yesResponseText: [
                 '[SYSTEM] Processing request...',
                 '[SYSTEM] Authorization acknowledged.',
@@ -975,7 +834,8 @@ const chapter_05 = {
         {
             interface: 'msg',
             type: 'reply',
-            setFlags: ['chapter_05_entry_08'],
+            requireEvent: 'msg_alert_pietro',
+            setFlags: ['chapter_05_entry_07'],
             blocks: [
                 {
                     type: 'narration',
@@ -1096,7 +956,7 @@ const chapter_05 = {
             type: 'scene',
             sceneId: 'jaune_memory_deletion',
             title: 'Jaune Memory Deletion',
-            setFlags: ['chapter_05_entry_09'],
+            setFlags: ['chapter_05_entry_08'],
             blocks: [
                 {
                     type: 'narration',

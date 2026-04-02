@@ -512,6 +512,62 @@ const EVENT_RULES = [
                 '=== CHAPTER 4 COMPLETE: INTERNAL FUNCTIONS ==='
             ]);
         }
+    },
+
+    /* CHAPTER 05 EVENTS */
+    {
+        id: 'chapter_05_start',
+        when: () =>
+            hasFlag('chapter_04_complete') &&
+            isCommandUnlocked('msg'),
+        do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
+            return [
+                '[SYSTEM] Relay status update: new communication available in msg.',
+            ];
+        }
+    },
+    {
+        id: 'pietro_terminal_request',
+        when: () =>
+            hasFlag('chapter_04_complete') &&
+            hasFlag('read_dossier_pietro'),
+        do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
+
+            if (typeof scheduleTerminalPlayback === 'function') {
+                scheduleTerminalPlayback(900);
+            }
+
+            return [
+                '[SYSTEM] High-priority authorization request detected.',
+                '[SYSTEM] Routing request to terminal review queue...'
+            ];
+        }
+    },
+    {
+        id: 'msg_alert_pietro',
+        when: (context = {}) =>
+            hasFlag('chapter_04_complete') &&
+            hasFlag('chapter_05_entry_07') &&
+            context.action === 'terminal_prompt_response' &&
+            isCommandUnlocked('msg'),
+        do: () => {
+            // Play notification sound
+            if (typeof playSound === 'function') {
+                playSound('notification');
+            }
+            return [
+                '[SYSTEM] Relay status update: new communication available in msg.',
+                '[SYSTEM] High-priority message from Dr. Polendina pending.'
+            ];
+        }
     }
 ];
 
