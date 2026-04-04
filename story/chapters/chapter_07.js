@@ -189,6 +189,7 @@ const chapter_07 = {
             interface: 'scene',
             type: 'scene',
             sceneId: 'chapter_07_scene_01',
+            title: 'CHAPTER 07 // SCENE 01 // TRAINING DETAILS',
             setFlags: ['chapter_07_entry_01'],
             blocks: [
                 {
@@ -840,6 +841,7 @@ const chapter_07 = {
             interface: 'scene',
             type: 'scene',
             sceneId: 'chapter_07_scene_02',
+            title: 'CHAPTER 07 // SCENE 02 // AVIAN AGES',
             setFlags: ['chapter_07_entry_08'],
             blocks: [
                 {
@@ -1310,6 +1312,7 @@ const chapter_07 = {
             interface: 'scene',
             type: 'scene',
             sceneId: 'chapter_07_scene_03',
+            title: 'CHAPTER 07 // SCENE 03 // THE ENEMY',
             setFlags: ['chapter_07_entry_13'],
             blocks: [
                 {
