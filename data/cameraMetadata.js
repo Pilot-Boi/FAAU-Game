@@ -1,6 +1,7 @@
 // Camera metadata for the surveillance interface.
 const CAMERA_METADATA = Object.freeze({
 
+    // INSIDE THE FACILITY
     avian_cellblock: {
         feedKey: 'avian_cellblock',
         label: 'Avian Cellblock',
@@ -11,9 +12,19 @@ const CAMERA_METADATA = Object.freeze({
         label: 'Containment Hallway A',
     },
 
+    containment_hallway_b: {
+        feedKey: 'containment_hallway_b',
+        label: 'Containment Hallway B',
+    },
+
     research_lab_a: {
         feedKey: 'research_lab_a',
         label: 'Research Lab A',
+    },
+
+    containment_chamber: {
+        feedKey: 'containment_chamber',
+        label: 'Containment Chamber',
     },
 
     testing_chamber: {
@@ -24,7 +35,13 @@ const CAMERA_METADATA = Object.freeze({
     cafeteria: {
         feedKey: 'cafeteria',
         label: 'Cafeteria',
-    }
+    },
+
+    // OUTSIDE THE FACILITY
+    ozpin_pine_house: {
+        feedKey: 'ozpin_pine_house',
+        label: 'Ozpin-Pine House',
+    },
 
 });
 

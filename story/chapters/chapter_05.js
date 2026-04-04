@@ -817,16 +817,18 @@ const chapter_05 = {
                     type: 'narration',
                     lines: [
                         'WARNING: UNAUTHORIZED ACCESS REQUESTED',
-                        'REQUEST TO VIEW CAMERA FOOTAGE AND REPORT OF 007’S LATEST MISSION.',
                         '',
                         'USER ID: UNKNOWN',
+                        'NETWORK ID: ERROR',
+                        '',
+                        'REQUEST TO VIEW CAMERA FOOTAGE AND REPORT OF [SUBJECT 007]’S LATEST MISSION.',
                         '',
                         'REASON FOR REQUEST: ',
                         'Dr. Polendina, something is wrong.',
                         '-A friend',
                         '',
                         'ALLOW ACCESS?',
-                        '[ YES ]    [ NO ]',
+                        '[ YES ]    [ NO ]'
                     ]
                 }
             ]
