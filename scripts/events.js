@@ -568,6 +568,35 @@ const EVENT_RULES = [
                 '[SYSTEM] High-priority message from Dr. Polendina pending.'
             ];
         }
+    },
+
+    /* CHAPTER 06 EVENTS */
+
+    {
+        id: 'chapter_06_start',
+        when: () =>
+            hasFlag('chapter_05_complete'),
+        do: () => {
+            return [
+                '[SYSTEM] UNKNOWN_SOURCE permissions updated.',
+                '[SYSTEM] New file unlocked: /secure/avians/subjects/subject_007.txt'
+            ];
+        }
+    },
+
+    /* CHAPTER 07 EVENTS */
+
+    {
+        id: 'chapter_07_start',
+        when: () =>
+            hasFlag('chapter_06_complete'),
+        do: () => {
+            return [
+                '[SYSTEM] UNKNOWN_SOURCE permissions updated.',
+                '[SYSTEM] New file unlocked: /secure/avians/subjects/subject_008.txt',
+                '[SYSTEM] New file unlocked: /secure/dossiers/director_salem.txt',
+            ]
+        }
     }
 ];
 

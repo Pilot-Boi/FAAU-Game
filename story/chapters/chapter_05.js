@@ -483,8 +483,8 @@ const chapter_05 = {
         {
             interface: 'scene',
             type: 'scene',
-            sceneId: 'jaune_empathy_feedback',
-            title: 'Jaune Empathy Feedback',
+            sceneId: 'chapter_05_scene_01',
+            title: 'CHAPTER 05 // SCENE 01 // JAUNE’S BREAKDOWN',
             setFlags: ['chapter_05_entry_04'],
             blocks: [
                 {
@@ -497,10 +497,6 @@ const chapter_05 = {
                         'WHO INJECTED WHAT INTO HIM I WILL LITERALLY FIGHT YO',
                         'You as in whoever did what to Jaune. On a side note, I hope he isn’t punished. Don’t punish him for the actions of other people, Salem.'
                     ]
-                },
-                {
-                    type: 'divider',
-                    text: '---'
                 },
                 {
                     type: 'narration',
@@ -521,26 +517,8 @@ const chapter_05 = {
                 {
                     type: 'narration',
                     lines: [
-                        'Watts orders as soon as he recovers. Black-visored guards rush past him and grab the avian’s flailing limbs. With no little effort, his arms and legs are forced into the plastic cuffs on the exam table. One of Roman’s muzzles is forced over his mouth, silencing his screams.'
-                    ]
-                },
-                {
-                    type: 'divider',
-                    text: '---'
-                },
-                {
-                    type: 'narration',
-                    lines: [
-                        'Tears stream sideways down his face. No amount of restraint can stop him from shaking.'
-                    ]
-                },
-                {
-                    type: 'divider',
-                    text: '---'
-                },
-                {
-                    type: 'narration',
-                    lines: [
+                        'Watts orders as soon as he recovers. Black-visored guards rush past him and grab the avian’s flailing limbs. With no little effort, his arms and legs are forced into the plastic cuffs on the exam table. One of Roman’s muzzles is forced over his mouth, silencing his screams.',
+                        'Tears stream sideways down his face. No amount of restraint can stop him from shaking.',
                         'Salem chooses that moment to sweep in.'
                     ]
                 },
@@ -565,10 +543,6 @@ const chapter_05 = {
                     lines: [
                         'As was Polendina’s brat.'
                     ]
-                },
-                {
-                    type: 'divider',
-                    text: '---'
                 },
                 {
                     type: 'narration',
@@ -956,8 +930,8 @@ const chapter_05 = {
         {
             interface: 'scene',
             type: 'scene',
-            sceneId: 'jaune_memory_deletion',
-            title: 'Jaune Memory Deletion',
+            sceneId: 'chapter_05_scene_02',
+            title: 'CHAPTER 05 // SCENE 02 // JAUNE’S MEMORY WIPE',
             setFlags: ['chapter_05_entry_08'],
             blocks: [
                 {

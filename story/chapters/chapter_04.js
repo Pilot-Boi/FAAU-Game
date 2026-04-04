@@ -457,8 +457,8 @@ const CHAPTER_04 = {
         {
             interface: 'scene',
             type: 'scene',
-            sceneId: 'pyrrha_role_scene',
-            title: 'CHAPTER 04 // PYRRHA ROLE',
+            sceneId: 'chapter_04_scene_01',
+            title: 'CHAPTER 04 // SCENE 01 // PYRRHA AND PENNY',
             requireEvent: 'scene_command_unlocked',
             setFlags: ['chapter_04_entry_04'],
             blocks: [
@@ -671,8 +671,8 @@ const CHAPTER_04 = {
         {
             interface: 'scene',
             type: 'scene',
-            sceneId: 'subject_008_profile_scene',
-            title: 'CHAPTER 04 // SUBJECT 008 ACCESS DENIED',
+            sceneId: 'chapter_04_scene_02',
+            title: 'CHAPTER 04 // SCENE 02 // RAPHAEL FILE ACCESS',
             requireEvent: 'subject_008_profile_scene',
             setFlags: ['subject_008_profile_scene'],
             blocks: [

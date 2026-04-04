@@ -329,7 +329,7 @@ def parse_message_meta(text: str) -> tuple[str, Optional[MessageMeta]]:
 
 def build_entry(config: Config, prose: str) -> Dict:
     remaining_text, message_meta = parse_message_meta(prose)
-    speaker = detect_speaker(remaining_text, config.speaker)
+    speaker = config.speaker or detect_speaker(remaining_text, None)
     sender = config.sender or (message_meta.sender if message_meta else None)
     body_lines = message_meta.body_lines if message_meta else []
 

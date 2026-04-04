@@ -21,6 +21,11 @@ const CAMERA_METADATA = Object.freeze({
         feedKey: 'research_lab_a',
         label: 'Research Lab A',
     },
+    
+    research_lab_b: {
+        feedKey: 'research_lab_b',
+        label: 'Research Lab B',
+    },
 
     containment_chamber: {
         feedKey: 'containment_chamber',

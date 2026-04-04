@@ -373,7 +373,7 @@ const chapter_06 = {
                 },
                 {
                     type: 'speaker',
-                    speaker: 'Watts'
+                    speaker: 'Dr. Watts'
                 },
                 {
                     type: 'dialogue',
@@ -730,8 +730,8 @@ const chapter_06 = {
         {
             interface: 'scene',
             type: 'scene',
-            sceneId: 'avian_origins',
-            title: 'Avian Origins',
+            sceneId: 'chapter_06_scene_01',
+            title: 'CHAPTER 06 // SCENE 01 // AVIAN ORIGINS',
             setFlags: ['chapter_06_entry_07'],
             blocks: [
                 {
@@ -1297,8 +1297,8 @@ const chapter_06 = {
         {
             interface: 'scene',
             type: 'scene',
-            sceneId: 'jaune_check_up',
-            title: 'Jaune Check-Up',
+            sceneId: 'chapter_06_scene_02',
+            title: 'CHAPTER 06 // SCENE 02 // JAUNE CHECK-UP',
             setFlags: ['chapter_06_entry_11'],
             blocks: [
                 {
